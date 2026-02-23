@@ -1,17 +1,18 @@
 import React from "react";
 import './About.css';
+import bannerVideo1 from "../../../assets/videos/banner-video-3.mp4";
+import { Col, Container, Row } from "react-bootstrap";
 
 const About = () => {
     return (
         <section className="about-area about-modern" id="about">
-            <div className="container">
-                <div className="about-modern__wrap row gap-5 align-items-center">
-
+            <Container>
+                <Row className="about-modern__wrap align-items-center">
                     {/* Video Section */}
-                    <div className="col-lg-6 about-modern__media wow zoomIn">
+                    <Col lg={6} className="about-modern__media wow zoomIn">
                         <div className="video-mask-wrapper">
                             <video
-                                src="/assets/videos/banner-video-3.mp4"
+                                src={bannerVideo1}
                                 autoPlay
                                 muted
                                 loop
@@ -19,10 +20,10 @@ const About = () => {
                                 aria-label="About us banner video"
                             />
                         </div>
-                    </div>
+                    </Col>
 
                     {/* Content Section */}
-                    <div className="col about-modern__content">
+                    <Col lg={6} className="about-modern__content">
                         <h2 className="about-modern__title bs-font-Smothing">
                             Every Corner Crafted with Care
                         </h2>
@@ -59,10 +60,9 @@ const About = () => {
                                 Explore More Projects
                             </a>
                         </div>
-                    </div>
-
-                </div>
-            </div>
+                    </Col>
+                </Row>
+            </Container>
         </section>
     );
 };

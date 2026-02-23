@@ -3,7 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Icon } from '@iconify/react';
+import review2 from "../../../assets/images/background/review2.png";
 import './Testimonials.css';
+import { Container, Row, Col } from "react-bootstrap";
 
 const Testimonials = () => {
     const settings = {
@@ -40,14 +42,14 @@ const Testimonials = () => {
         <section
             className="reviews2-area py-128 black-110-bg testimonials-modern container-fluid"
             style={{
-                backgroundImage: "url(/assets/images/background/review2.png)",
+                backgroundImage: `url(${review2})`,
             }}
         >
-            <div className="container">
-                <div className="row gap-2 align-items-center">
+            <Container>
+                <Row className="gap-2 align-items-center">
 
                     {/* Section Title */}
-                    <div className="col">
+                    <Col>
                         <div className="section-title mb-32">
                             <div className="sub-title-wrapper">
                                 <span className="sub-title common-subtitle">
@@ -65,10 +67,10 @@ const Testimonials = () => {
                                 transparent processes, and lasting real estate value.
                             </p>
                         </div>
-                    </div>
+                    </Col>
 
                     {/* Testimonials Slider */}
-                    <div className="col-lg-9">
+                    <Col lg={9}>
                         <Slider {...settings} className="testimonials-modern__slider wow fadeInUp delay-0-4s">
 
                             {/* Testimonial 1 */}
@@ -236,10 +238,10 @@ const Testimonials = () => {
                             </div>
 
                         </Slider>
-                    </div>
+                    </Col>
 
-                </div>
-            </div>
+                </Row>
+            </Container>
         </section>
     );
 };
