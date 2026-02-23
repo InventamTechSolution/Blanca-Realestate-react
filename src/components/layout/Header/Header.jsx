@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Icon } from '@iconify/react';
 import './Header.css';
 import logo from "../../../assets/images/logos/blanca-logo.png";
 
 const Header = () => {
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleSubmenu = (menu) => {
+    setActiveSubmenu(activeSubmenu === menu ? null : menu);
+  };
+
+  const closeMenus = () => {
+    setActiveSubmenu(null);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <>
       {/* Header Top */}
@@ -31,34 +44,40 @@ const Header = () => {
               <div className="header-desktop-nav header-nav-left">
                 <ul className="header-links">
 
-                  <li className="header-link has-submenu">
-                    <a href="/about">About Us</a>
+                  <li className={`header-link has-submenu ${activeSubmenu === 'about' ? 'is-open' : ''}`}
+                    onMouseEnter={() => setActiveSubmenu('about')}
+                    onMouseLeave={() => setActiveSubmenu(null)}>
+                    <Link to="/about">About Us</Link>
                     <ul className="header-submenu">
-                      <li><a href="/about">Legacy</a></li>
-                      <li><a href="/about#about-page-blueprint">Our Value</a></li>
-                      <li><a href="/about#about-vision-section-four">Our Vision</a></li>
-                      <li><a href="/about#about-mission-section-four">Our Mission</a></li>
-                      <li><a href="/about">Why Choose Us</a></li>
-                      <li><a href="/about">Journey of Innovations</a></li>
-                      <li><a href="/about">Leadership</a></li>
+                      <li><Link to="/about" onClick={closeMenus}>Legacy</Link></li>
+                      <li><a href="/about#about-page-blueprint" onClick={closeMenus}>Our Value</a></li>
+                      <li><a href="/about#about-vision-section-four" onClick={closeMenus}>Our Vision</a></li>
+                      <li><a href="/about#about-mission-section-four" onClick={closeMenus}>Our Mission</a></li>
+                      <li><Link to="/about" onClick={closeMenus}>Why Choose Us</Link></li>
+                      <li><Link to="/about" onClick={closeMenus}>Journey of Innovations</Link></li>
+                      <li><Link to="/about" onClick={closeMenus}>Leadership</Link></li>
                     </ul>
                   </li>
 
-                  <li className="header-link has-submenu">
-                    <a href="#our-story">Communities</a>
+                  <li className={`header-link has-submenu ${activeSubmenu === 'communities' ? 'is-open' : ''}`}
+                    onMouseEnter={() => setActiveSubmenu('communities')}
+                    onMouseLeave={() => setActiveSubmenu(null)}>
+                    <a href="#our-story" onClick={(e) => { e.preventDefault(); toggleSubmenu('communities'); }}>Communities</a>
                     <ul className="header-submenu">
-                      <li><a href="/projects">New Launches</a></li>
-                      <li><a href="/projects">Coming Soon</a></li>
-                      <li><a href="/projects">Ongoing Projects</a></li>
-                      <li><a href="/projects">Completed</a></li>
+                      <li><Link to="/projects" onClick={closeMenus}>New Launches</Link></li>
+                      <li><Link to="/projects" onClick={closeMenus}>Coming Soon</Link></li>
+                      <li><Link to="/projects" onClick={closeMenus}>Ongoing Projects</Link></li>
+                      <li><Link to="/projects" onClick={closeMenus}>Completed</Link></li>
                     </ul>
                   </li>
 
-                  <li className="header-link has-submenu">
-                    <a href="/projects">Properties</a>
+                  <li className={`header-link has-submenu ${activeSubmenu === 'properties' ? 'is-open' : ''}`}
+                    onMouseEnter={() => setActiveSubmenu('properties')}
+                    onMouseLeave={() => setActiveSubmenu(null)}>
+                    <Link to="/projects">Properties</Link>
                     <ul className="header-submenu">
-                      <li><a href="/projects?filter=commercial">Commercial</a></li>
-                      <li><a href="/projects?filter=residential">Residential</a></li>
+                      <li><Link to="/projects?filter=commercial" onClick={closeMenus}>Commercial</Link></li>
+                      <li><Link to="/projects?filter=residential" onClick={closeMenus}>Residential</Link></li>
                     </ul>
                   </li>
 
@@ -68,14 +87,14 @@ const Header = () => {
               {/* Logo */}
               <div className="logo-outer header-logo-center">
                 <div className="logo">
-                  <a href="/">
+                  <Link to="/" onClick={closeMenus}>
                     <img
                       className="header-logo-image"
                       src={logo}
                       alt="Logo"
                       title="Logo"
                     />
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -83,7 +102,7 @@ const Header = () => {
               <div className="header-desktop-nav header-nav-right">
                 <ul className="header-links">
                   <li className="header-link">
-                    <a href="/contact">Contact Us</a>
+                    <Link to="/contact" onClick={closeMenus}>Contact Us</Link>
                   </li>
                   <li className="header-link">
                     <a href="mailto:reachus.blanca@gmail.com?subject=Career">
@@ -91,9 +110,9 @@ const Header = () => {
                     </a>
                   </li>
                   <li className="header-link">
-                    <a href="#" className="channel-partner-btn">
+                    <Link to="/contact" className="channel-partner-btn" onClick={closeMenus}>
                       Channel Partner
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -103,20 +122,19 @@ const Header = () => {
                 <nav className="main-menu navbar-expand-lg">
                   <div className="navbar-header py-10">
                     <div className="mobile-logo">
-                      <a href="/">
+                      <Link to="/" onClick={closeMenus}>
                         <img
-                          src="/assets/images/logos/blanca-logo.png"
+                          src={logo}
                           alt="Logo"
                           title="Logo"
                         />
-                      </a>
+                      </Link>
                     </div>
 
                     <button
                       type="button"
                       className="navbar-toggle"
-                      data-bs-toggle="collapse"
-                      data-bs-target=".navbar-collapse"
+                      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                       <span className="icon-bar"></span>
                       <span className="icon-bar"></span>
@@ -124,38 +142,40 @@ const Header = () => {
                     </button>
                   </div>
 
-                  <div className="navbar-collapse collapse clearfix">
+                  <div className={`navbar-collapse collapse clearfix ${mobileMenuOpen ? 'show' : ''}`}>
                     <ul className="navigation clearfix">
-                      <li><a href="/about">About Us</a></li>
+                      <li><Link to="/about" onClick={closeMenus}>About Us</Link></li>
 
-                      <li className="dropdown">
-                        <a href="#our-story">Communities</a>
-                        <ul>
-                          <li><a href="/projects">New Launches</a></li>
-                          <li><a href="/projects">Coming Soon</a></li>
-                          <li><a href="/projects">Ongoing Projects</a></li>
-                          <li><a href="/projects">Completed</a></li>
+                      <li className={`dropdown ${activeSubmenu === 'mobile-communities' ? 'open' : ''}`}>
+                        <a href="#our-story" onClick={(e) => { e.preventDefault(); toggleSubmenu('mobile-communities'); }}>Communities</a>
+                        <ul style={{ display: activeSubmenu === 'mobile-communities' ? 'block' : 'none' }}>
+                          <li><Link to="/projects" onClick={closeMenus}>New Launches</Link></li>
+                          <li><Link to="/projects" onClick={closeMenus}>Coming Soon</Link></li>
+                          <li><Link to="/projects" onClick={closeMenus}>Ongoing Projects</Link></li>
+                          <li><Link to="/projects" onClick={closeMenus}>Completed</Link></li>
                         </ul>
+                        <div className="dropdown-btn" onClick={() => toggleSubmenu('mobile-communities')}><Icon icon="lucide:chevron-down" /></div>
                       </li>
 
-                      <li className="dropdown">
-                        <a href="/projects">Properties</a>
-                        <ul>
-                          <li><a href="/projects?filter=commercial">Commercial</a></li>
-                          <li><a href="/projects?filter=residential">Residential</a></li>
+                      <li className={`dropdown ${activeSubmenu === 'mobile-properties' ? 'open' : ''}`}>
+                        <Link to="/projects" onClick={(e) => { toggleSubmenu('mobile-properties'); }}>Properties</Link>
+                        <ul style={{ display: activeSubmenu === 'mobile-properties' ? 'block' : 'none' }}>
+                          <li><Link to="/projects?filter=commercial" onClick={closeMenus}>Commercial</Link></li>
+                          <li><Link to="/projects?filter=residential" onClick={closeMenus}>Residential</Link></li>
                         </ul>
+                        <div className="dropdown-btn" onClick={() => toggleSubmenu('mobile-properties')}><Icon icon="lucide:chevron-down" /></div>
                       </li>
 
-                      <li><a href="/contact">Contact Us</a></li>
+                      <li><Link to="/contact" onClick={closeMenus}>Contact Us</Link></li>
                       <li>
                         <a href="mailto:reachus.blanca@gmail.com?subject=Career">
                           Career
                         </a>
                       </li>
                       <li>
-                        <a href="#" className="channel-partner-btn">
+                        <Link to="/contact" className="channel-partner-btn" onClick={closeMenus}>
                           Channel Partner
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>

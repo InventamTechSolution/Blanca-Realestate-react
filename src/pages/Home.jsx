@@ -3,8 +3,9 @@ import Header from '../components/layout/Header/Header';
 import Footer from '../components/layout/Footer/Footer';
 import Hero from '../components/home/Hero/Hero';
 import About from '../components/home/About/About';
-import FeaturedProperties from '../components/home/FeaturedProperties/FeaturedProperties';
-import Services from '../components/home/Services/Services';
+import Properties from '../components/home/Properties/Properties';
+import Testimonials from '../components/home/Testimonials/Testimonials';
+// import Services from '../components/home/Services/Services';
 
 const Home = () => {
     return (
@@ -13,8 +14,9 @@ const Home = () => {
             <main>
                 <Hero />
                 <About />
-                <FeaturedProperties />
-                <Services />
+                <Properties />
+                <Testimonials />
+                {/* <Services /> */}
             </main>
             <Footer />
         </div>
