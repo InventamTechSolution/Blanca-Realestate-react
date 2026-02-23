@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'Colgent Regular';
+    src: url('../fonts/Colgent Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Smothing';
+    src: url('../fonts/Smothing.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Marjorie-regular';
+    src: url('../fonts/Marjorie-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Marjorie-italic';
+    src: url('../fonts/Marjorie-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*******************************************************/
+/******************* ## Bootstrap Variables ******************/
+/*******************************************************/
+:root {
+    --bs-font-colgent-regular: "Colgent Regular", serif;
+    --bs-font-playfair-display: "Playfair Display", serif;
+    --bs-font-montserrat: "Montserrat", sans-serif;
+    --bs-font-inter: "Inter", sans-serif;
+    --bs-font-Smothing: "Smothing", serif;
+    --bs-font-Beauty-Story: "Beauty Story", serif;
+    --bs-font-Marjorie-regular: "Marjorie-regular", serif;
+    --bs-font-Marjorie-italic: "Marjorie-italic", serif;
+}
