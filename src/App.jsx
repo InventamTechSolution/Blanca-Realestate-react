@@ -1,10 +1,19 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import WOW from 'wowjs';
 import Home from './pages/Home';
 import './assets/styles/App.css';
 import './assets/styles/theme.css';
 import './assets/styles/fonts.css';
 
 function App() {
+  useEffect(() => {
+    const wow = new WOW.WOW({
+      live: false
+    });
+    wow.init();
+  }, []);
+
   return (
     <Router>
       <Routes>

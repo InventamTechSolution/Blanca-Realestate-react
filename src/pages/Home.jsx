@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from '../components/layout/Header/Header';
 import Footer from '../components/layout/Footer/Footer';
-import Hero from '../components/home/Hero/Hero';
-import About from '../components/home/About/About';
-import Properties from '../components/home/Properties/Properties';
-import Testimonials from '../components/home/Testimonials/Testimonials';
-// import Services from '../components/home/Services/Services';
+import Hero from '../components/home/Hero';
+import About from '../components/home/About';
+import Properties from '../components/home/Properties';
+import Testimonials from '../components/home/Testimonials';
+import WhyChooseUs from '../components/home/WhyChooseUs';
 
 const Home = () => {
     return (
@@ -15,8 +15,8 @@ const Home = () => {
                 <Hero />
                 <About />
                 <Properties />
+                <WhyChooseUs />
                 <Testimonials />
-                {/* <Services /> */}
             </main>
             <Footer />
         </div>
