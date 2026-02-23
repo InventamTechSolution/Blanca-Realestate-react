@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Hero.css";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // Import videos
 import bannerVideo1 from "../../../assets/videos/banner-video-1.mp4";
@@ -8,6 +13,60 @@ import videoProject2 from "../../../assets/videos/Video-Project-2.mp4";
 import employeeVideo from "../../../assets/videos/employee-video.mp4";
 
 const Hero = () => {
+    useEffect(() => {
+        // ## Counter Logic using GSAP ScrollTrigger
+        const counters = document.querySelectorAll(".badge-year, .stat-number");
+
+        counters.forEach((counter) => {
+            const countTo = parseInt(counter.getAttribute("data-count"), 10);
+
+            gsap.fromTo(counter,
+                { textContent: 0 },
+                {
+                    textContent: countTo,
+                    duration: 2,
+                    ease: "power1.out",
+                    snap: { textContent: 1 },
+                    scrollTrigger: {
+                        trigger: counter,
+                        start: "top 90%",
+                        once: true,
+                        onUpdate: (self) => {
+                            // Ensuring integer display during animation
+                            counter.textContent = Math.floor(counter.textContent);
+                        }
+                    },
+                    onComplete: () => {
+                        counter.textContent = countTo;
+                    }
+                }
+            );
+        });
+
+        // ## Before and After Slider Logic
+        const handleSliderInput = (e, imgContainer) => {
+            imgContainer.style.setProperty("--position", `${e.target.value}%`);
+        };
+
+        const pro02Images = document.querySelectorAll("[class*='pro-02-images-']");
+        pro02Images.forEach((imgContainer) => {
+            // Extract the index from the class name (e.g., pro-02-images-1)
+            const match = imgContainer.className.match(/pro-02-images-(\d+)/);
+            if (match) {
+                const index = match[1];
+                const slider = document.querySelector(`.buttonslider${index}`);
+                if (slider) {
+                    slider.addEventListener("input", (e) => handleSliderInput(e, imgContainer));
+                }
+            }
+        });
+
+        // Cleanup
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
+
     return (
         <>
             {/* Section 1 */}
@@ -55,19 +114,13 @@ const Hero = () => {
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center justify-content-center">
                             <div className="col-md-10 text-center">
-                                <div className="hero-content d-flex align-items-center justify-content-center flex-column">
+                                <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
                                     <h5 className="text-white">New Launch</h5>
-                                    <h1 className="text-white bs-font-colgent-regular">
-                                        Blanca : Ekaiva
-                                    </h1>
-                                    <h5 className="text-white">
-                                        Commercial - Turbhe Navi Mumbai
-                                    </h5>
+                                    <h1 className="text-white bs-font-colgent-regular">Blanca : Ekaiva</h1>
+                                    <h5 className="text-white">Commercial - Turbhe Navi Mumbai</h5>
                                 </div>
                                 <div className="buttons mt-96">
-                                    <a className="theme-btn bs-font-montserrat" href="/projects">
-                                        View More
-                                    </a>
+                                    <a className="theme-btn bs-font-montserrat" href="/projects">View More</a>
                                 </div>
                             </div>
                         </div>
@@ -102,17 +155,13 @@ const Hero = () => {
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center justify-content-center">
                             <div className="col-md-10 text-center">
-                                <div className="hero-content d-flex align-items-center justify-content-center flex-column">
+                                <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
                                     <h5 className="text-white">New Launch</h5>
-                                    <h1 className="text-white bs-font-colgent-regular">
-                                        Blanca Tower
-                                    </h1>
+                                    <h1 className="text-white bs-font-colgent-regular">Blanca Tower</h1>
                                     <h5 className="text-white">Commercial - Borivali</h5>
                                 </div>
                                 <div className="buttons mt-96">
-                                    <a className="theme-btn bs-font-montserrat" href="/projects">
-                                        View More
-                                    </a>
+                                    <a className="theme-btn bs-font-montserrat" href="/projects">View More</a>
                                 </div>
                             </div>
                         </div>
@@ -160,19 +209,13 @@ const Hero = () => {
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center justify-content-center">
                             <div className="col-md-10 text-center">
-                                <div className="hero-content d-flex align-items-center justify-content-center flex-column">
+                                <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
                                     <h5 className="text-white">Sold Out</h5>
-                                    <h1 className="text-white bs-font-colgent-regular">
-                                        ND Pearl
-                                    </h1>
-                                    <h5 className="text-white">
-                                        Residential – Kamothe, Navi Mumbai
-                                    </h5>
+                                    <h1 className="text-white bs-font-colgent-regular">ND Pearl</h1>
+                                    <h5 className="text-white">Residential – Kamothe, Navi Mumbai</h5>
                                 </div>
                                 <div className="buttons mt-96">
-                                    <a className="theme-btn bs-font-montserrat" href="/projects">
-                                        View More
-                                    </a>
+                                    <a className="theme-btn bs-font-montserrat" href="/projects">View More</a>
                                 </div>
                             </div>
                         </div>
@@ -217,18 +260,51 @@ const Hero = () => {
                         }}
                     ></div>
 
+                    <div className="hero-expert-badge">
+                        <div className="badge-content">
+                            <span className="badge-year" data-count="45">0</span>
+                            <svg className="badge-text-ring" viewBox="0 0 100 100" width="100" height="100">
+                                <defs>
+                                    <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+                                </defs>
+                                <text fill="#FFF" font-family="'Montserrat', sans-serif" font-size="10" font-weight="500" letter-spacing="1">
+                                    <textPath href="#circlePath">
+                                        &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE
+                                    </textPath>
+                                </text>
+                            </svg>
+                        </div>
+                    </div>
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center">
-                            <div className="col-md-10 text-center">
-                                <div className="hero-content d-flex align-items-center justify-content-center flex-column">
-                                    <h1 className="text-white bs-font-colgent-regular">
-                                        Where Vision Takes Shape
-                                    </h1>
+                            <div className="col-lg-3 col-md-12 hero-left-stats">
+                                <div className="hero-stat-box">
+                                    <div className="stat-number" data-count="489">0</div>
+                                    <div className="stat-text">Upcoming Commercial Units</div>
+                                </div>
+                                <div className="hero-stat-box">
+                                    <div className="stat-number" data-count="174">0</div>
+                                    <div className="stat-text">Upcoming Residential Units</div>
+                                </div>
+                                <div className="hero-stat-box">
+                                    <div className="stat-number" data-count="76">0</div>
+                                    <div className="stat-text">Residential Units Nearly Possession</div>
+                                </div>
+                                <div className="hero-stat-box">
+                                    <div className="stat-number" data-count="634">0</div>
+                                    <div className="stat-text">Residential Units Delivered</div>
+                                </div>
+                                <div className="hero-stat-box">
+                                    <div className="stat-number" data-count="210">0</div>
+                                    <div className="stat-text">Commercial Units Delivered</div>
+                                </div>
+                            </div>
+                            <div className="col-md-10 text-center right-side-content">
+                                <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
+                                    <h1 className="text-white bs-font-colgent-regular vision-title">Where Vision Takes Shape</h1>
                                 </div>
                                 <div className="buttons mt-96">
-                                    <a className="theme-btn bs-font-montserrat" href="/projects">
-                                        View More
-                                    </a>
+                                    <a className="theme-btn bs-font-montserrat" href="projects.html">View More</a>
                                 </div>
                             </div>
                         </div>

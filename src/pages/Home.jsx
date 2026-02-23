@@ -6,10 +6,13 @@ import About from '../components/home/About';
 import Properties from '../components/home/Properties';
 import Testimonials from '../components/home/Testimonials';
 import WhyChooseUs from '../components/home/WhyChooseUs';
+import Preloader from '../components/common/Preloader';
+import ScrollToTop from '../components/common/ScrollToTop';
 
 const Home = () => {
     return (
         <div className="home-page">
+            <Preloader />
             <Header />
             <main>
                 <Hero />
@@ -19,6 +22,7 @@ const Home = () => {
                 <Testimonials />
             </main>
             <Footer />
+            <ScrollToTop />
         </div>
     );
 };

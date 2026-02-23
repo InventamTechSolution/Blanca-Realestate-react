@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from '@iconify/react';
 import './Header.css';
 import logo from "../../../assets/images/logos/blanca-logo.png";
@@ -7,6 +7,12 @@ import logo from "../../../assets/images/logos/blanca-logo.png";
 const Header = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const [activeHash, setActiveHash] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const clickTimeout = useRef(null);
 
   const toggleSubmenu = (menu) => {
     setActiveSubmenu(activeSubmenu === menu ? null : menu);
@@ -15,6 +21,94 @@ const Header = () => {
   const closeMenus = () => {
     setActiveSubmenu(null);
     setMobileMenuOpen(false);
+  };
+
+  const handleNavClick = (e, path, menuKey) => {
+    e.preventDefault();
+
+    if (clickTimeout.current) {
+      // Double click logic
+      clearTimeout(clickTimeout.current);
+      clickTimeout.current = null;
+      navigate(path);
+      closeMenus();
+    } else {
+      // Single click logic
+      clickTimeout.current = setTimeout(() => {
+        toggleSubmenu(menuKey);
+        clickTimeout.current = null;
+      }, 300); // 300ms threshold for double click
+    }
+  };
+
+  useEffect(() => {
+    let lastScrollTop = 0;
+    const headerThreshold = 250;
+    const headerHideOffset = 80;
+
+    const handleScroll = () => {
+      const windowpos = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Sticky Header
+      if (windowpos >= headerThreshold) {
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+
+      // Hide Header on Scroll Down
+      const scrollingDown = windowpos > lastScrollTop + 5;
+      const scrollingUp = windowpos < lastScrollTop - 5;
+
+      if (windowpos <= headerThreshold) {
+        setIsHidden(false);
+      } else if (scrollingDown && windowpos > headerThreshold + headerHideOffset) {
+        setIsHidden(true);
+      } else if (scrollingUp) {
+        setIsHidden(false);
+      }
+
+      lastScrollTop = windowpos;
+
+      // Active Nav (Scroll Spy)
+      if (location.pathname === '/' || location.pathname === '/home') {
+        const navLinks = document.querySelectorAll('.main-header .navigation a[href^="#"], .header-desktop-nav a[href^="#"]');
+        const scrollPos = windowpos + 140;
+        let currentHash = "";
+
+        navLinks.forEach((link) => {
+          const targetHash = link.getAttribute('href');
+          if (targetHash && targetHash.startsWith('#')) {
+            const section = document.querySelector(targetHash);
+            if (section) {
+              const sectionTop = section.offsetTop;
+              const sectionBottom = sectionTop + section.offsetHeight;
+              if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
+                currentHash = targetHash;
+              }
+            }
+          }
+        });
+
+        if (currentHash) {
+          setActiveHash(currentHash);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [location.pathname]);
+
+  const isCurrent = (path, hash = "") => {
+    if (hash) {
+      return activeHash === hash ? "current current-menu-item" : "";
+    }
+    return location.pathname === path ? "current current-menu-item" : "";
   };
 
   return (
@@ -35,7 +129,7 @@ const Header = () => {
       </div>
 
       {/* Main Header */}
-      <header className="main-header glass-header">
+      <header className={`main-header glass-header ${isFixed ? 'fixed-header' : ''} ${isHidden ? 'is-hidden' : ''}`}>
         <div className="header-upper">
           <div className="header-container clearfix">
             <div className="header-inner rel d-flex align-items-center gap-5 justify-content-between">
@@ -44,10 +138,8 @@ const Header = () => {
               <div className="header-desktop-nav header-nav-left">
                 <ul className="header-links">
 
-                  <li className={`header-link has-submenu ${activeSubmenu === 'about' ? 'is-open' : ''}`}
-                    onMouseEnter={() => setActiveSubmenu('about')}
-                    onMouseLeave={() => setActiveSubmenu(null)}>
-                    <Link to="/about">About Us</Link>
+                  <li className={`header-link has-submenu ${isCurrent('/about')} ${activeSubmenu === 'about' ? 'is-open' : ''}`}>
+                    <Link to="/about" onClick={(e) => handleNavClick(e, '/about', 'about')}>About Us</Link>
                     <ul className="header-submenu">
                       <li><Link to="/about" onClick={closeMenus}>Legacy</Link></li>
                       <li><a href="/about#about-page-blueprint" onClick={closeMenus}>Our Value</a></li>
@@ -59,10 +151,8 @@ const Header = () => {
                     </ul>
                   </li>
 
-                  <li className={`header-link has-submenu ${activeSubmenu === 'communities' ? 'is-open' : ''}`}
-                    onMouseEnter={() => setActiveSubmenu('communities')}
-                    onMouseLeave={() => setActiveSubmenu(null)}>
-                    <a href="#our-story" onClick={(e) => { e.preventDefault(); toggleSubmenu('communities'); }}>Communities</a>
+                  <li className={`header-link has-submenu ${isCurrent('/', '#our-story')} ${activeSubmenu === 'communities' ? 'is-open' : ''}`}>
+                    <a href="#our-story" onClick={(e) => handleNavClick(e, '/', 'communities')}>Communities</a>
                     <ul className="header-submenu">
                       <li><Link to="/projects" onClick={closeMenus}>New Launches</Link></li>
                       <li><Link to="/projects" onClick={closeMenus}>Coming Soon</Link></li>
@@ -71,22 +161,19 @@ const Header = () => {
                     </ul>
                   </li>
 
-                  <li className={`header-link has-submenu ${activeSubmenu === 'properties' ? 'is-open' : ''}`}
-                    onMouseEnter={() => setActiveSubmenu('properties')}
-                    onMouseLeave={() => setActiveSubmenu(null)}>
-                    <Link to="/projects">Properties</Link>
+                  <li className={`header-link has-submenu ${isCurrent('/projects')} ${activeSubmenu === 'properties' ? 'is-open' : ''}`}>
+                    <Link to="/projects" onClick={(e) => handleNavClick(e, '/projects', 'properties')}>Properties</Link>
                     <ul className="header-submenu">
                       <li><Link to="/projects?filter=commercial" onClick={closeMenus}>Commercial</Link></li>
                       <li><Link to="/projects?filter=residential" onClick={closeMenus}>Residential</Link></li>
                     </ul>
                   </li>
-
                 </ul>
               </div>
 
               {/* Logo */}
               <div className="logo-outer header-logo-center">
-                <div className="logo">
+                <div className="logo-header">
                   <Link to="/" onClick={closeMenus}>
                     <img
                       className="header-logo-image"
@@ -101,7 +188,7 @@ const Header = () => {
               {/* Right Navigation */}
               <div className="header-desktop-nav header-nav-right">
                 <ul className="header-links">
-                  <li className="header-link">
+                  <li className={`header-link ${isCurrent('/contact')}`}>
                     <Link to="/contact" onClick={closeMenus}>Contact Us</Link>
                   </li>
                   <li className="header-link">
@@ -144,10 +231,10 @@ const Header = () => {
 
                   <div className={`navbar-collapse collapse clearfix ${mobileMenuOpen ? 'show' : ''}`}>
                     <ul className="navigation clearfix">
-                      <li><Link to="/about" onClick={closeMenus}>About Us</Link></li>
+                      <li className={isCurrent('/about')}><Link to="/about" onClick={closeMenus}>About Us</Link></li>
 
-                      <li className={`dropdown ${activeSubmenu === 'mobile-communities' ? 'open' : ''}`}>
-                        <a href="#our-story" onClick={(e) => { e.preventDefault(); toggleSubmenu('mobile-communities'); }}>Communities</a>
+                      <li className={`dropdown ${isCurrent('/', '#our-story')} ${activeSubmenu === 'mobile-communities' ? 'open' : ''}`}>
+                        <a href="#our-story" onClick={(e) => { e.preventDefault(); toggleSubmenu('mobile-communities'); document.querySelector('#our-story')?.scrollIntoView({ behavior: 'smooth' }); }}>Communities</a>
                         <ul style={{ display: activeSubmenu === 'mobile-communities' ? 'block' : 'none' }}>
                           <li><Link to="/projects" onClick={closeMenus}>New Launches</Link></li>
                           <li><Link to="/projects" onClick={closeMenus}>Coming Soon</Link></li>
@@ -157,8 +244,8 @@ const Header = () => {
                         <div className="dropdown-btn" onClick={() => toggleSubmenu('mobile-communities')}><Icon icon="lucide:chevron-down" /></div>
                       </li>
 
-                      <li className={`dropdown ${activeSubmenu === 'mobile-properties' ? 'open' : ''}`}>
-                        <Link to="/projects" onClick={(e) => { toggleSubmenu('mobile-properties'); }}>Properties</Link>
+                      <li className={`dropdown ${isCurrent('/projects')} ${activeSubmenu === 'mobile-properties' ? 'open' : ''}`}>
+                        <Link to="/projects" onClick={(e) => { e.preventDefault(); toggleSubmenu('mobile-properties'); }}>Properties</Link>
                         <ul style={{ display: activeSubmenu === 'mobile-properties' ? 'block' : 'none' }}>
                           <li><Link to="/projects?filter=commercial" onClick={closeMenus}>Commercial</Link></li>
                           <li><Link to="/projects?filter=residential" onClick={closeMenus}>Residential</Link></li>
@@ -166,7 +253,7 @@ const Header = () => {
                         <div className="dropdown-btn" onClick={() => toggleSubmenu('mobile-properties')}><Icon icon="lucide:chevron-down" /></div>
                       </li>
 
-                      <li><Link to="/contact" onClick={closeMenus}>Contact Us</Link></li>
+                      <li className={isCurrent('/contact')}><Link to="/contact" onClick={closeMenus}>Contact Us</Link></li>
                       <li>
                         <a href="mailto:reachus.blanca@gmail.com?subject=Career">
                           Career
