@@ -1,4 +1,3 @@
-import React from "react";
 import './About.css';
 import bannerVideo1 from "../../../assets/videos/banner-video-3.mp4";
 import { Col, Container, Row } from "react-bootstrap";
@@ -7,18 +6,11 @@ const About = () => {
     return (
         <section className="about-area about-modern" id="about">
             <Container>
-                <Row className="about-modern__wrap align-items-center">
+                <Row className="about-modern__wrap align-items-center gx-5">
                     {/* Video Section */}
                     <Col lg={6} className="about-modern__media wow zoomIn">
                         <div className="video-mask-wrapper">
-                            <video
-                                src={bannerVideo1}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                aria-label="About us banner video"
-                            />
+                            <video src={bannerVideo1} autoPlay muted loop playsInline aria-label="About us banner video" />
                         </div>
                     </Col>
 

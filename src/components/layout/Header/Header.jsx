@@ -13,6 +13,8 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const clickTimeout = useRef(null);
+  const headerRef = useRef(null);
+
 
   const toggleSubmenu = (menu) => {
     setActiveSubmenu(activeSubmenu === menu ? null : menu);
@@ -104,6 +106,21 @@ const Header = () => {
     };
   }, [location.pathname]);
 
+  // Click Outside Logic
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        closeMenus();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
   const isCurrent = (path, hash = "") => {
     if (hash) {
       return activeHash === hash ? "current current-menu-item" : "";
@@ -129,7 +146,11 @@ const Header = () => {
       </div>
 
       {/* Main Header */}
-      <header className={`main-header glass-header ${isFixed ? 'fixed-header' : ''} ${isHidden ? 'is-hidden' : ''}`}>
+      <header
+        ref={headerRef}
+        className={`main-header glass-header ${isFixed ? 'fixed-header' : ''} ${isHidden ? 'is-hidden' : ''}`}
+      >
+
         <div className="header-upper">
           <div className="header-container clearfix">
             <div className="header-inner rel d-flex align-items-center gap-5 justify-content-between">

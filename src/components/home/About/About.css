@@ -1,11 +1,12 @@
 @import "../../../assets/styles/theme.css";
 
 .about-area.about-modern {
-    /* background: var(--black-100); */
+    background: var(--black-100);
     min-height: 100vh;
+    height: 100%;
     display: flex;
     align-items: center;
-    padding-top: 80px;
+    padding: 100px 0px;
 }
 
 .about-area.about-modern .container {
@@ -113,6 +114,11 @@
   display: flex;
   justify-content: flex-end;
 } */
+
+.about-modern__media,
+.about-modern__content {
+    margin: 0px;
+}
 
 .about-modern__media img,
 .about-modern__media video {
