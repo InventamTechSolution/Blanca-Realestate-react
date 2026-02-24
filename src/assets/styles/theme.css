@@ -145,7 +145,7 @@ mark {
 /*******************************************************/
 /******************* ## Shared Styles ******************/
 /*******************************************************/
-.theme-btn {
+/* .theme-btn {
     display: inline-block;
     padding: 12px 30px;
     background: var(--primary-color);
@@ -170,7 +170,7 @@ mark {
 .theme-btn.secondary:hover {
     background: var(--primary-color);
     color: white !important;
-}
+} */
 
 .section-title {
     text-align: center;

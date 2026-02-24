@@ -7,7 +7,7 @@ import "./Hero.css";
 gsap.registerPlugin(ScrollTrigger);
 
 // Import videos
-import bannerVideo1 from "../../../assets/videos/banner-video-1.mp4";
+import bannerVideo1 from "../../../assets/videos/blanca-long-video.mp4";
 import blancaTowerVideo from "../../../assets/videos/blanca-tower-video.mp4";
 import videoProject2 from "../../../assets/videos/Video-Project-2.mp4";
 import employeeVideo from "../../../assets/videos/employee-video.mp4";
