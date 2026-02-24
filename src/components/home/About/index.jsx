@@ -1,6 +1,7 @@
 import './About.css';
 import bannerVideo1 from "../../../assets/videos/banner-video-3.mp4";
 import { Col, Container, Row } from "react-bootstrap";
+import ThemeBtn from "../../common/Button/ThemeBtn";
 
 const About = () => {
     return (
@@ -45,12 +46,12 @@ const About = () => {
                         </p>
 
                         <div className="buttons">
-                            <a
-                                className="theme-btn bs-font-montserrat"
-                                href="/projects"
+                            <ThemeBtn
+                                to="/projects"
+                                className="bs-font-montserrat"
                             >
                                 Explore More Projects
-                            </a>
+                            </ThemeBtn>
                         </div>
                     </Col>
                 </Row>

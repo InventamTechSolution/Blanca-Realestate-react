@@ -12,6 +12,8 @@ import blancaTowerVideo from "../../../assets/videos/blanca-tower-video.mp4";
 import videoProject2 from "../../../assets/videos/Video-Project-2.mp4";
 import employeeVideo from "../../../assets/videos/employee-video.mp4";
 
+import ThemeBtn from "../../common/Button/ThemeBtn";
+
 const Hero = () => {
     useEffect(() => {
         // ## Counter Logic using GSAP ScrollTrigger
@@ -120,7 +122,7 @@ const Hero = () => {
                                     <h5 className="text-white">Commercial - Turbhe Navi Mumbai</h5>
                                 </div>
                                 <div className="buttons mt-96">
-                                    <a className="theme-btn bs-font-montserrat" href="/projects">View More</a>
+                                    <ThemeBtn to="/projects" className="bs-font-montserrat">View More</ThemeBtn>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +163,7 @@ const Hero = () => {
                                     <h5 className="text-white">Commercial - Borivali</h5>
                                 </div>
                                 <div className="buttons mt-96">
-                                    <a className="theme-btn bs-font-montserrat" href="/projects">View More</a>
+                                    <ThemeBtn to="/projects" className="bs-font-montserrat">View More</ThemeBtn>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +217,7 @@ const Hero = () => {
                                     <h5 className="text-white">Residential – Kamothe, Navi Mumbai</h5>
                                 </div>
                                 <div className="buttons mt-96">
-                                    <a className="theme-btn bs-font-montserrat" href="/projects">View More</a>
+                                    <ThemeBtn to="/projects" className="bs-font-montserrat">View More</ThemeBtn>
                                 </div>
                             </div>
                         </div>
@@ -304,7 +306,7 @@ const Hero = () => {
                                     <h1 className="text-white bs-font-colgent-regular vision-title">Where Vision Takes Shape</h1>
                                 </div>
                                 <div className="buttons mt-96">
-                                    <a className="theme-btn bs-font-montserrat" href="projects.html">View More</a>
+                                    <ThemeBtn to="/projects" className="bs-font-montserrat">View More</ThemeBtn>
                                 </div>
                             </div>
                         </div>

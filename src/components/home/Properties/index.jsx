@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import './Properties.css';
 import { Col, Row } from "react-bootstrap";
 import { projectsData } from '../../../data/projectsData';
+import ThemeBtn from '../../common/Button/ThemeBtn';
 
 const Properties = () => {
     const settings = {
@@ -67,12 +68,12 @@ const Properties = () => {
                     </p>
 
                     <div className="buttons project-buttons-div">
-                        <a className="theme-btn bs-font-montserrat" href="/projects">
+                        <ThemeBtn className="bs-font-montserrat" to="/projects">
                             View All Projects
-                        </a>
-                        <a className="theme-btn bs-font-montserrat" href="/projects">
+                        </ThemeBtn>
+                        <ThemeBtn className="bs-font-montserrat" to="/projects">
                             Schedule a Visit
-                        </a>
+                        </ThemeBtn>
                     </div>
                 </Col>
 
