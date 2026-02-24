@@ -1,9 +1,9 @@
 import EkaivaImg from "../assets/images/projects/lendscpae-images/blancs-business-hub.png";
 import BlancaTowerImg from "../assets/images/projects/lendscpae-images/blanca-tower.png";
 import NDPearlImg from "../assets/images/projects/lendscpae-images/nd-pearl.png";
-import NDGardenTowerImg from "../assets/images/projects/lendscpae-images/blancs-business-hub.png";
-import NDGardenImg from "../assets/images/projects/lendscpae-images/blanca-tower.png";
-import GajanandKrupaImg from "../assets/images/projects/lendscpae-images/nd-pearl.png";
+import NDGardenTowerImg from "../assets/images/projects/lendscpae-images/nd-garden-tower.png";
+import NDGardenImg from "../assets/images/projects/lendscpae-images/nd-garden.png";
+import GajanandKrupaImg from "../assets/images/projects/lendscpae-images/gajanand-krupa.png";
 
 export const projectsData = [
   {
@@ -50,12 +50,12 @@ export const projectsData = [
     title: "ND Garden Tower",
     image: NDGardenTowerImg,
     href: "/project-details",
-    location: "Turbhe, Navi Mumbai",
-    propertyType: "Commercial",
-    configuration: "Office Space",
-    area: "425 – 1400 Sqft",
-    price: "91 Lacs + Taxes",
-    status: "Ongoing",
+    location: "Ulwe, Navi Mumbai",
+    propertyType: "Residential",
+    configuration: "1BHK & 2BHK",
+    area: "420 – 450 Sqft",
+    price: "1.20 Cr + Taxes",
+    status: "Sold Out",
     wowDelay: "0-2s",
   },
   {
@@ -63,12 +63,12 @@ export const projectsData = [
     title: "ND Garden",
     image: NDGardenImg,
     href: "/project-details",
-    location: "Borivali - Mumbai",
-    propertyType: "Commercial",
-    configuration: "Office Space",
-    area: "350 – 550 Sqft",
-    price: "1.40 Cr + Taxes",
-    status: "Ongoing",
+    location: "Ulwe, Navi Mumbai",
+    propertyType: "Residential",
+    configuration: "1BHK",
+    area: "430 – 460 Sqft",
+    price: "60 Lacs + Taxes",
+    status: "Sold Out",
     wowDelay: "0-2s",
   },
   {
@@ -76,11 +76,11 @@ export const projectsData = [
     title: "Gajanand Krupa",
     image: GajanandKrupaImg,
     href: "/project-details",
-    location: "Kamothe, Navi Mumbai",
+    location: "Ulwe, Navi Mumbai",
     propertyType: "Residential",
     configuration: "1 BHK",
-    area: "420 – 450 Sqft",
-    price: "60 Lacs + Taxes",
+    area: "400 Sqft",
+    price: "45 Lacs + Taxes",
     status: "Sold Out",
     wowDelay: "0-2s",
   },
