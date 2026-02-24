@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import LiquidFilters from './components/common/LiquidFilters';
 import './assets/styles/App.css';
 import './assets/styles/index.css';
-import './assets/styles/theme.css';
 import './assets/styles/fonts.css';
 
 function App() {

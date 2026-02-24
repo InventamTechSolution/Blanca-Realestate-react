@@ -1,12 +1,54 @@
 @import "./fonts.css";
-@import "./theme.css";
 
-/* Project specific styles can go here */
-/* #root {
-  width: 100%;
+* {
   margin: 0;
   padding: 0;
-} */
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --primary-color: #4A76C9;
+  --heading-color: #FFFFFF;
+  --secondary-color: #131412;
+  --black-120: #0F100E;
+  --black-110: #111210;
+  --black-100: #131412;
+  --black-90: #2B2C2A;
+  --black-80: #424341;
+  --black-70: #5A5B59;
+  --black-60: #717271;
+  --black-50: #898A89;
+  --black-40: #A1A1A0;
+  --black-30: #B8B9B8;
+  --black-20: #D0D0D0;
+  --black-10: #E7E8E7;
+  --border-color: #D9DFE7;
+  /* Liquid Glass Effect Variables */
+  --lg-text: #FFFFFF;
+  --lg-bg-color: rgba(255, 255, 255, 0.1);
+  --lg-highlight: rgba(255, 255, 255, 0.3);
+}
+
+body {
+  color: var(--black-30);
+  background: #131412;
+  font-weight: 400;
+  line-height: 28px;
+  font-size: 16px;
+  font-family: var(--bs-font-inter);
+}
+
+body:has(.light-mode) {
+  color: var(--black-90);
+  background: white;
+}
 
 a {
   color: var(--black-30);
@@ -85,6 +127,29 @@ mark {
   color: var(--secondary-color);
   background: transparent;
   text-decoration: underline;
+}
+
+.text-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.text-logo span {
+  color: var(--primary-color);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  color: white;
+  letter-spacing: 0px;
 }
 
 .theme-btn {
