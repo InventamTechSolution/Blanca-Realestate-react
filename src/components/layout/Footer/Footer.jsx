@@ -67,27 +67,27 @@ const Footer = () => {
                             <div className="footer-links-column">
                                 <h5 className="footer-title">About Us</h5>
                                 <ul className="footer-links">
-                                    <li><a href="/about#about-page-blueprint">Our Value</a></li>
-                                    <li><a href="/about#about-vision-section-four">Our Vision</a></li>
-                                    <li><a href="/about#about-mission-section-four">Our Mission</a></li>
-                                    <li><a href="/about">Journey of Innovation</a></li>
+                                    <li><Link to="/about#about-page-blueprint">Our Value</Link></li>
+                                    <li><Link to="/about#about-vision-section-four">Our Vision</Link></li>
+                                    <li><Link to="/about#about-mission-section-four">Our Mission</Link></li>
+                                    <li><Link to="/about">Journey of Innovation</Link></li>
                                 </ul>
                             </div>
 
                             <div className="footer-links-column">
                                 <h5 className="footer-title">Communities</h5>
                                 <ul className="footer-links">
-                                    <li><a href="/projects">New Launches</a></li>
-                                    <li><a href="/projects">Coming Soon</a></li>
-                                    <li><a href="/projects">Ongoing Projects</a></li>
+                                    <li><Link to="/projects">New Launches</Link></li>
+                                    <li><Link to="/projects">Coming Soon</Link></li>
+                                    <li><Link to="/projects">Ongoing Projects</Link></li>
                                 </ul>
                             </div>
 
                             <div className="footer-links-column">
                                 <h5 className="footer-title">Properties</h5>
                                 <ul className="footer-links">
-                                    <li><a href="/projects?filter=commercial">Commercial</a></li>
-                                    <li><a href="/projects?filter=residential">Residential</a></li>
+                                    <li><Link to="/projects?filter=commercial">Commercial</Link></li>
+                                    <li><Link to="/projects?filter=residential">Residential</Link></li>
                                 </ul>
                             </div>
 
@@ -120,14 +120,14 @@ const Footer = () => {
 
                     {/* Logo */}
                     <div className="footer-logo">
-                        <a href="/">
+                        <Link to="/">
                             <img
                                 className="footer-logo-image"
                                 src={logo}
                                 alt="Logo"
                                 title="Logo"
                             />
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Contact */}

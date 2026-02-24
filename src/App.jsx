@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'wowjs';
 import Home from './pages/Home';
+import About from './pages/About';
 import LiquidFilters from './components/common/LiquidFilters';
 import FloatingContactButtons from './components/common/FloatingContactButtons/FloatingContactButtons';
 import './assets/styles/App.css';
@@ -24,6 +25,7 @@ function App() {
       <FloatingContactButtons />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

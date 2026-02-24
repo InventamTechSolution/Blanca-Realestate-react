@@ -1,0 +1,12 @@
+import React from 'react';
+
+const StatBadge = ({ count, text, className = "" }) => {
+    return (
+        <div className={`hero-stat-box ${className}`}>
+            <div className="stat-number" data-count={count}>0</div>
+            <div className="stat-text">{text}</div>
+        </div>
+    );
+};
+
+export default StatBadge;

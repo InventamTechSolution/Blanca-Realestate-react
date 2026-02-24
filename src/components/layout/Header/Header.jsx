@@ -163,9 +163,9 @@ const Header = () => {
                     <Link to="/about" onClick={(e) => handleNavClick(e, '/about', 'about')}>About Us</Link>
                     <ul className="header-submenu">
                       <li><Link to="/about" onClick={closeMenus}>Legacy</Link></li>
-                      <li><a href="/about#about-page-blueprint" onClick={closeMenus}>Our Value</a></li>
-                      <li><a href="/about#about-vision-section-four" onClick={closeMenus}>Our Vision</a></li>
-                      <li><a href="/about#about-mission-section-four" onClick={closeMenus}>Our Mission</a></li>
+                      <li><Link to="/about#about-page-blueprint" onClick={closeMenus}>Our Value</Link></li>
+                      <li><Link to="/about#about-vision-section-four" onClick={closeMenus}>Our Vision</Link></li>
+                      <li><Link to="/about#about-mission-section-four" onClick={closeMenus}>Our Mission</Link></li>
                       <li><Link to="/about" onClick={closeMenus}>Why Choose Us</Link></li>
                       <li><Link to="/about" onClick={closeMenus}>Journey of Innovations</Link></li>
                       <li><Link to="/about" onClick={closeMenus}>Leadership</Link></li>

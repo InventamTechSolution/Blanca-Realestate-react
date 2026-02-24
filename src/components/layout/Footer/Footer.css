@@ -484,6 +484,10 @@
     gap: 16px;
 }
 
+.contact-item svg {
+    font-size: 22px;
+}
+
 .contact-item i {
     color: rgba(255, 255, 255, 0.9);
     font-size: 24px;

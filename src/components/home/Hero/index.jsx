@@ -13,6 +13,7 @@ import videoProject2 from "../../../assets/videos/Video-Project-2.mp4";
 import employeeVideo from "../../../assets/videos/employee-video.mp4";
 
 import ThemeBtn from "../../common/Button/ThemeBtn";
+import StatBadge from "../../common/StatBadge/StatBadge";
 
 const Hero = () => {
     useEffect(() => {
@@ -280,26 +281,11 @@ const Hero = () => {
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center">
                             <div className="col-lg-3 col-md-12 hero-left-stats">
-                                <div className="hero-stat-box">
-                                    <div className="stat-number" data-count="489">0</div>
-                                    <div className="stat-text">Upcoming Commercial Units</div>
-                                </div>
-                                <div className="hero-stat-box">
-                                    <div className="stat-number" data-count="174">0</div>
-                                    <div className="stat-text">Upcoming Residential Units</div>
-                                </div>
-                                <div className="hero-stat-box">
-                                    <div className="stat-number" data-count="76">0</div>
-                                    <div className="stat-text">Residential Units Nearly Possession</div>
-                                </div>
-                                <div className="hero-stat-box">
-                                    <div className="stat-number" data-count="634">0</div>
-                                    <div className="stat-text">Residential Units Delivered</div>
-                                </div>
-                                <div className="hero-stat-box">
-                                    <div className="stat-number" data-count="210">0</div>
-                                    <div className="stat-text">Commercial Units Delivered</div>
-                                </div>
+                                <StatBadge count="489" text="Upcoming Commercial Units" />
+                                <StatBadge count="174" text="Upcoming Residential Units" />
+                                <StatBadge count="76" text="Residential Units Nearly Possession" />
+                                <StatBadge count="634" text="Residential Units Delivered" />
+                                <StatBadge count="210" text="Commercial Units Delivered" />
                             </div>
                             <div className="col-md-10 text-center right-side-content">
                                 <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
