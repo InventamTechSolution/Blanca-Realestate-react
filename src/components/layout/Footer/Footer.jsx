@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+// import { Container } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import './Footer.css';
+import logo from '../../../assets/images/logos/blanca-logo.png';
 
 const Footer = () => {
+    useEffect(() => {
+        const $ = window.$;
+        if ($ && $(".modern-footer").length && $.fn.ripples) {
+            try {
+                $(".modern-footer").ripples({
+                    resolution: 512,
+                    dropRadius: 20,
+                    perturbance: 0.04,
+                    interactive: true,
+                    crossOrigin: "",
+                });
+            } catch (e) {
+                console.log("Ripples effect initialization error:", e);
+            }
+        }
+
+        return () => {
+            if ($ && $(".modern-footer").length && $.fn.ripples) {
+                $(".modern-footer").ripples("destroy");
+            }
+        };
+    }, []);
+
     return (
         <footer className="main-footer modern-footer">
             <div className="footer-container">
-
                 {/* Footer Main Content */}
                 <div className="footer-content">
                     <div className="footer-main">
@@ -99,7 +123,7 @@ const Footer = () => {
                         <a href="/">
                             <img
                                 className="footer-logo-image"
-                                src="/assets/images/logos/blanca-logo.png"
+                                src={logo}
                                 alt="Logo"
                                 title="Logo"
                             />
@@ -216,8 +240,8 @@ const Footer = () => {
 
                     </div>
                 </div>
-
             </div>
+
         </footer>
     );
 };
