@@ -27,6 +27,11 @@
   max-width: 420px;
 } */
 
+.homeproject-area .main-title-badge {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 .homeproject-area .projects-intro .sub-title-wrapper {
     display: flex;
     align-items: center;

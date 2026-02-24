@@ -45,8 +45,8 @@ const Properties = () => {
 
                 {/* Left Intro Section */}
                 <Col lg={4} className="projects-intro wow fadeInUp delay-0-2s">
-                    <div className="sub-title-wrapper">
-                        <span className="sub-title common-subtitle">PROJECTS</span>
+                    <div className="main-title-badge">
+                        <span className="sub-title common-subtitle">Projects</span>
                     </div>
 
                     <h2 className="common-title bs-font-playfair-display">

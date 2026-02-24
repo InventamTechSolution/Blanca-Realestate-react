@@ -141,6 +141,16 @@ mark {
   color: var(--primary-color);
 }
 
+.main-title-badge .common-subtitle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  gap: 10px;
+}
+
 .section-title {
   text-align: center;
   margin-bottom: 60px;

@@ -1,5 +1,10 @@
 .reviews2-area {
     position: relative;
+    background-image: url(/src/assets/images/background/review2.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 100px 0px;
 }
 
 .reviews2-area::before {
@@ -16,6 +21,16 @@
 .reviews2-area .container {
     position: relative;
     z-index: 1;
+}
+
+.testimonials-modern__content {
+    margin-bottom: 0px;
+    text-align: start;
+}
+
+.testimonials-modern__content .main-title-badge {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 /* .testimonials-modern .row {
@@ -69,11 +84,6 @@
     z-index: 2;
 }
 
-.testimonials-modern__content .section-title {
-    margin-bottom: 24px;
-    /* margin: 0px 16px 24px 16px; */
-}
-
 .testimonials-modern__controls {
     display: flex;
     justify-content: flex-end;
@@ -114,12 +124,12 @@
 
 .testimonials-modern__slider .slick-track {
     display: flex;
-    gap: 20px;
+    gap: 18px;
     align-items: stretch;
 }
 
 .testimonials-modern__slider .slick-slide {
-    padding: 24px;
+    padding: 0px;
     height: auto;
     display: flex;
 }
@@ -147,12 +157,10 @@
     border-radius: 24px;
     max-width: 500px;
     width: 100%;
-    padding: 32px;
+    padding: 20px;
     /* backdrop-filter: blur(20px) saturate(180%) !important; */
     /* -webkit-backdrop-filter: blur(20px) saturate(180%) !important; */
     /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); */
-
-
     border: 1px solid var(--lg-highlight);
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4px);
@@ -193,11 +201,11 @@
     margin-bottom: 6px;
     color: #f5f5f5;
     opacity: 0.7;
-    /* max-width: 200px; */
-    /* text-overflow: ellipsis; */
     width: 100%;
-    /* white-space: nowrap; */
-    /* overflow: hidden; */
+    max-width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .testimonials-modern__rating {

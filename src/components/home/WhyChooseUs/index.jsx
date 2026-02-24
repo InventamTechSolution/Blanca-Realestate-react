@@ -76,8 +76,8 @@ const WhyChooseUs = () => {
             <section className="meet-team-area-title-sec py-0 overflow-hidden position-relative">
                 <div className="section-title mb-60 text-center">
                     <div className="story-section-top-content">
-                        <div className="sub-title-wrapper">
-                            <span className="sub-title common-subtitle">why Choose us</span>
+                        <div className="main-title-badge">
+                            <span className="sub-title common-subtitle">Why Choose us</span>
                         </div>
 
                         <h2 className="wow fadeInUp delay-0-2s common-title bs-font-playfair-display">
