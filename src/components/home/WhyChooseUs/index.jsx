@@ -42,7 +42,7 @@ const WhyChooseUs = () => {
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
-    const renderSegments = (image) => {
+    const renderSegments = (image, isActive) => {
         const segments = [];
         for (let i = 0; i < segmentsPerSlide; i++) {
             segments.push(
@@ -54,7 +54,7 @@ const WhyChooseUs = () => {
                         left: `${i * (100 / segmentsPerSlide)}%`,
                         transition: isAnimating ? "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)" : "none",
                         transitionDelay: isAnimating ? `${i * 0.08}s` : "0s",
-                        transform: isAnimating ? "translateY(100%)" : "translateY(0)"
+                        transform: (isAnimating && isActive) ? "translateY(100%)" : "translateY(0)"
                     }}
                 >
                     <div
@@ -118,7 +118,7 @@ const WhyChooseUs = () => {
                                                     zIndex: isActive ? 2 : (isAnimating ? 1 : 0)
                                                 }}
                                             >
-                                                {renderSegments(slide.image)}
+                                                {renderSegments(slide.image, isActive)}
                                                 <div className="skewed-slide-content">
                                                     <h3 className="meet-team-name">{slide.title}</h3>
                                                     <p className="meet-team-role">{slide.role}</p>
