@@ -4,6 +4,7 @@ import { whyChooseUsData } from '../../../data/whyChooseUsData';
 
 const WhyChooseUs = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [nextIndex, setNextIndex] = useState(null);
     const [isAnimating, setIsAnimating] = useState(false);
     const sliderRef = useRef(null);
     const segmentsPerSlide = 5;
@@ -13,19 +14,21 @@ const WhyChooseUs = () => {
     const goToSlide = (index) => {
         if (isAnimating) return;
 
-        let nextIndex = index;
-        if (nextIndex >= slides.length) nextIndex = 0;
-        if (nextIndex < 0) nextIndex = slides.length - 1;
+        let targetIndex = index;
+        if (targetIndex >= slides.length) targetIndex = 0;
+        if (targetIndex < 0) targetIndex = slides.length - 1;
 
-        if (nextIndex === currentIndex) return;
+        if (targetIndex === currentIndex) return;
 
+        setNextIndex(targetIndex);
         setIsAnimating(true);
 
-        // Staggered animation duration
-        const totalTime = segmentsPerSlide * 80 + 800; // matching jQuery logic
+        // Staggered animation duration: segmentsPerSlide * 0.08 * 1000 + 800
+        const totalTime = segmentsPerSlide * 80 + 800;
 
         setTimeout(() => {
-            setCurrentIndex(nextIndex);
+            setCurrentIndex(targetIndex);
+            setNextIndex(null);
             setIsAnimating(false);
         }, totalTime);
     };
@@ -42,9 +45,14 @@ const WhyChooseUs = () => {
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
-    const renderSegments = (image, isActive) => {
+    const renderSegments = (image, isCurrent, isNextSlide) => {
         const segments = [];
         for (let i = 0; i < segmentsPerSlide; i++) {
+            // If it's the current slide and we are animating, it moves out
+            const transform = (isAnimating && isCurrent) ? "translateY(100%)" : "translateY(0)";
+            const transition = isAnimating ? "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)" : "none";
+            const transitionDelay = (isAnimating && isCurrent) ? `${i * 0.08}s` : "0s";
+
             segments.push(
                 <div
                     key={i}
@@ -52,9 +60,9 @@ const WhyChooseUs = () => {
                     style={{
                         width: `${100 / segmentsPerSlide}%`,
                         left: `${i * (100 / segmentsPerSlide)}%`,
-                        transition: isAnimating ? "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)" : "none",
-                        transitionDelay: isAnimating ? `${i * 0.08}s` : "0s",
-                        transform: (isAnimating && isActive) ? "translateY(100%)" : "translateY(0)"
+                        transition,
+                        transitionDelay,
+                        transform
                     }}
                 >
                     <div
@@ -102,23 +110,20 @@ const WhyChooseUs = () => {
                             <div className="skewed-slider-wrapper" ref={sliderRef}>
                                 <div className="slider-container">
                                     {slides.map((slide, index) => {
-                                        const isActive = index === currentIndex;
-                                        const isNext = isAnimating && index === (currentIndex + 1) % slides.length;
-                                        const isPrev = isAnimating && index === (currentIndex - 1 + slides.length) % slides.length;
-
-                                        // We only show the active slide and the next slide during animation
-                                        const shouldDisplay = isActive || (isAnimating && (isNext || isPrev));
+                                        const isCurrent = index === currentIndex;
+                                        const isNext = index === nextIndex;
+                                        const shouldShow = isCurrent || isNext;
 
                                         return (
                                             <div
-                                                key={slide.id}
-                                                className={`skewed-slide ${isActive ? 'active' : ''}`}
+                                                key={slide.id || index}
+                                                className={`skewed-slide ${isCurrent ? 'active' : ''}`}
                                                 style={{
-                                                    display: shouldDisplay ? "block" : "none",
-                                                    zIndex: isActive ? 2 : (isAnimating ? 1 : 0)
+                                                    display: shouldShow ? "block" : "none",
+                                                    zIndex: isCurrent ? 2 : (isNext ? 1 : 0)
                                                 }}
                                             >
-                                                {renderSegments(slide.image, isActive)}
+                                                {renderSegments(slide.image, isCurrent, isNext)}
                                                 <div className="skewed-slide-content">
                                                     <h3 className="meet-team-name">{slide.title}</h3>
                                                     <p className="meet-team-role">{slide.role}</p>

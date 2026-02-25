@@ -8,6 +8,7 @@ import AboutBlueprintSection from '../components/about/AboutBlueprintSection';
 import VisionSection from '../components/about/VisionSection';
 import MissionSection from '../components/about/MissionSection';
 import JourneySection from '../components/about/JourneySection';
+import TeamSlider from '../components/about/TeamSlider';
 
 const About = () => {
     return (
@@ -21,6 +22,7 @@ const About = () => {
                 <VisionSection />
                 <MissionSection />
                 <JourneySection />
+                <TeamSlider />
             </main>
             <Footer />
             <ScrollToTop />

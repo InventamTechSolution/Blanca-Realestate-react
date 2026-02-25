@@ -1,7 +1,6 @@
 import blancatower from "../assets/images/projects/lendscpae-images/blanca-tower.png";
 import blancsbusinesshub from "../assets/images/projects/lendscpae-images/blancs-business-hub.png";
 import ndgardentower from "../assets/images/projects/lendscpae-images/nd-garden-tower.png";
-// import blancahub from "../assets/images/projects/lendscpae-images/blanca-business-hub.png";
 import ndpearl from "../assets/images/projects/lendscpae-images/nd-pearl.png";
 import ndgarden from "../assets/images/projects/lendscpae-images/nd-garden.png";
 import gajanandkrupa from "../assets/images/projects/lendscpae-images/gajanand-krupa.png";
