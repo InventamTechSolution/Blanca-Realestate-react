@@ -4,6 +4,7 @@ import Preloader from '../components/common/Preloader';
 import ScrollToTop from '../components/common/ScrollToTop';
 import AboutHero from '../components/about/AboutHero';
 import AboutSection from '../components/about/AboutMainSection';
+import AboutBlueprintSection from '../components/about/AboutBlueprintSection';
 
 const About = () => {
     return (
@@ -13,6 +14,7 @@ const About = () => {
             <main>
                 <AboutHero />
                 <AboutSection />
+                <AboutBlueprintSection />
             </main>
             <Footer />
             <ScrollToTop />
