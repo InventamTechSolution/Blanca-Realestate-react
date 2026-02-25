@@ -7,6 +7,7 @@ import AboutSection from '../components/about/AboutMainSection';
 import AboutBlueprintSection from '../components/about/AboutBlueprintSection';
 import VisionSection from '../components/about/VisionSection';
 import MissionSection from '../components/about/MissionSection';
+import JourneySection from '../components/about/JourneySection';
 
 const About = () => {
     return (
@@ -19,6 +20,7 @@ const About = () => {
                 <AboutBlueprintSection />
                 <VisionSection />
                 <MissionSection />
+                <JourneySection />
             </main>
             <Footer />
             <ScrollToTop />
