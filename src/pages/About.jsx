@@ -5,6 +5,8 @@ import ScrollToTop from '../components/common/ScrollToTop';
 import AboutHero from '../components/about/AboutHero';
 import AboutSection from '../components/about/AboutMainSection';
 import AboutBlueprintSection from '../components/about/AboutBlueprintSection';
+import VisionSection from '../components/about/VisionSection';
+import MissionSection from '../components/about/MissionSection';
 
 const About = () => {
     return (
@@ -15,6 +17,8 @@ const About = () => {
                 <AboutHero />
                 <AboutSection />
                 <AboutBlueprintSection />
+                <VisionSection />
+                <MissionSection />
             </main>
             <Footer />
             <ScrollToTop />
