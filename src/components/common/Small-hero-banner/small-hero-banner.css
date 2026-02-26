@@ -1,0 +1,55 @@
+.contact-hero {
+    position: relative;
+    padding: 100px 0 100px;
+    background-image: url('../images/background/contect-us.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    overflow: hidden;
+    min-height: 60vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+    z-index: 1;
+}
+
+.contact-hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.contact-hero h1 {
+    color: #ffffff !important;
+    font-size: 70px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* .contact-hero p {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+} */
+
+
+@media (max-width: 991px) {
+    .contact-hero h1 {
+        font-size: 40px;
+    }
+}
