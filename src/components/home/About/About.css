@@ -62,7 +62,7 @@
 
 .about-modern__title {
     margin: 18px 0 12px;
-    font-family: var(--bs-font-playfair-display);
+    /* font-family: var(--bs-font-playfair-display); */
     font-size: 72px;
     line-height: 1.2;
     color: var(--heading-color);

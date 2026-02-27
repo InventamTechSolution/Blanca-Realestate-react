@@ -208,6 +208,12 @@ mark {
   z-index: 2;
 }
 
+.theme-btn {
+  color: var(--bs-btn-hover-color);
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
 .light-btn {
   padding: 16px 32px;
   background: transparent;
