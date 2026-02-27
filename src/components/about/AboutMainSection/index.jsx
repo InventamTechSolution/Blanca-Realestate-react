@@ -1,5 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
+import { motion } from "framer-motion";
 import "./aboutdetailmain.css";
 const aboutdetailImg1 = "/images/intro/architect-preparing-image.png";
 const aboutdetailImg2 = "/images/intro/architect-bulding-2.png";
@@ -25,39 +26,56 @@ const AboutSection = () => {
             <div>
                 {/* Top Row: Heading and Intro Text */}
                 <div className="row align-items-start gap-4">
-                    <div className="col wow fadeInUp">
-                        <div className="sub-title-wrapper">
-                            <span className="sub-title common-subtitle">About Us</span>
-                        </div>
-                        <h2 className="about-page-modern-title bs-font-Smothing text-white">
-                            Proven Trust & Excellence
-                        </h2>
-                    </div>
+                    <Col>
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="sub-title-wrapper">
+                                <span className="sub-title common-subtitle">About Us</span>
+                            </div>
+                            <h2 className="about-page-modern-title bs-font-Smothing text-white">
+                                Proven Trust & Excellence
+                            </h2>
+                        </motion.div>
+                    </Col>
 
-                    <div
-                        className="col-lg-7 wow fadeInUp"
-                        data-wow-delay="0.2s"
-                    >
-                        <p className="about-page-modern-text text-white-50">
-                            Starting from humble origins in Ahmedabad, the firm embarked on
-                            its journey in 1981, fuelled by a passion for delivering
-                            exceptional quality real estate developments. Over the last four
-                            decades, it has evolved into a trusted real estate developer,
-                            successfully completing over 1.8 million square feet of premium
-                            but affordable residential, commercial, and industrial projects
-                            across Surat, Ahmedabad, Navi Mumbai, and
-                            Mumbai-demonstrating a steadfast commitment to luxury construction
-                            standards, thoughtful planning, and client satisfaction.
-                        </p>
-                    </div>
+                    <Col lg={7}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            viewport={{ once: true }}
+                        >
+                            <p className="about-page-modern-text text-white-50">
+                                Starting from humble origins in Ahmedabad, the firm embarked on
+                                its journey in 1981, fuelled by a passion for delivering
+                                exceptional quality real estate developments. Over the last four
+                                decades, it has evolved into a trusted real estate developer,
+                                successfully completing over 1.8 million square feet of premium
+                                but affordable residential, commercial, and industrial projects
+                                across Surat, Ahmedabad, Navi Mumbai, and
+                                Mumbai-demonstrating a steadfast commitment to luxury construction
+                                standards, thoughtful planning, and client satisfaction.
+                            </p>
+                        </motion.div>
+                    </Col>
                 </div>
             </div>
 
             {/* Bottom Row: Content Box and Image */}
             <Row className="row about-bottom-grid gx-4 align-items-center">
                 {/* Left Content Box */}
-                <Col lg={5} className="wow fadeInLeft">
-                    <div className="about-section-info-part">
+                <Col lg={5}>
+                    <motion.div
+                        className="about-section-info-part"
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                    >
                         <Slider {...sliderSettings} className="about-details-slider">
                             <div className="about-detail-item">
                                 <h5>A Proven Legacy</h5>
@@ -94,14 +112,19 @@ const AboutSection = () => {
                                 </p>
                             </div>
                         </Slider>
-                    </div>
+                    </motion.div>
                 </Col>
 
                 {/* Right Image */}
                 <Col lg={7}>
                     <Row>
                         <Col lg={8}>
-                            <div className="wow fadeInRight">
+                            <motion.div
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8 }}
+                                viewport={{ once: true }}
+                            >
                                 <div className="about-image-wrapper h-100">
                                     <img
                                         src={aboutdetailImg1}
@@ -110,10 +133,15 @@ const AboutSection = () => {
                                         style={{ objectFit: "cover" }}
                                     />
                                 </div>
-                            </div>
+                            </motion.div>
                         </Col>
                         <Col lg={4}>
-                            <div className="wow fadeInRight">
+                            <motion.div
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                viewport={{ once: true }}
+                            >
                                 <div className="about-image-wrapper h-100">
                                     <img
                                         src={aboutdetailImg2}
@@ -122,7 +150,7 @@ const AboutSection = () => {
                                         style={{ objectFit: "cover" }}
                                     />
                                 </div>
-                            </div>
+                            </motion.div>
                         </Col>
                     </Row>
                 </Col>

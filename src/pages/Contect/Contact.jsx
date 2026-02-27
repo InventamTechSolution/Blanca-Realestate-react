@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
+import { motion } from "framer-motion";
 import Preloader from '../../components/common/Preloader';
 import ScrollToTop from '../../components/common/ScrollToTop';
 import SmallHeroBanner from '../../components/common/Small-hero-banner';
@@ -66,7 +67,13 @@ const Contact = () => {
 
                             {/* Contact Info Column */}
                             <Col lg={5}>
-                                <div className="contact-info-wrapper wow fadeInLeft">
+                                <motion.div
+                                    className="contact-info-wrapper"
+                                    initial={{ opacity: 0, x: -50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8 }}
+                                    viewport={{ once: true }}
+                                >
                                     <div className="title-with-border">
                                         <h2 className="bs-font-playfair-display text-white">
                                             GET IN TOUCH WITH US
@@ -118,12 +125,17 @@ const Contact = () => {
                                         </div>
 
                                     </div>
-                                </div>
+                                </motion.div>
                             </Col>
 
                             {/* Form Column */}
                             <Col lg={7}>
-                                <div className="wow fadeInRight">
+                                <motion.div
+                                    initial={{ opacity: 0, x: 50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8 }}
+                                    viewport={{ once: true }}
+                                >
                                     <Form>
                                         <Row className="gx-4">
                                             <Col md={6}>
@@ -213,7 +225,7 @@ const Contact = () => {
                                             </button>
                                         </div>
                                     </Form>
-                                </div>
+                                </motion.div>
                             </Col>
                         </Row>
                     </Container>

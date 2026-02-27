@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './WhyChooseUs.css';
 import { whyChooseUsData } from '../../../data/whyChooseUsData';
+import { motion } from 'framer-motion';
 
 const WhyChooseUs = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -88,9 +89,15 @@ const WhyChooseUs = () => {
                             <span className="sub-title common-subtitle">Why Choose us</span>
                         </div>
 
-                        <h2 className="wow fadeInUp delay-0-2s common-title bs-font-playfair-display">
+                        <motion.h2
+                            className="common-title bs-font-playfair-display"
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            viewport={{ once: true }}
+                        >
                             Where Trust Meets Growth
-                        </h2>
+                        </motion.h2>
 
                         <p
                             className="testimonials-modern__text mx-auto"

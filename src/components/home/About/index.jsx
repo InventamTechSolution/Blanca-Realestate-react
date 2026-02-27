@@ -2,6 +2,7 @@ import './About.css';
 const bannerVideo1 = "/videos/banner-video-3.mp4";
 import { Col, Container, Row } from "react-bootstrap";
 import ThemeBtn from "../../common/Button/ThemeBtn";
+import { motion } from "framer-motion";
 
 const About = () => {
     return (
@@ -9,10 +10,16 @@ const About = () => {
             <Container>
                 <Row className="about-modern__wrap align-items-center gx-5">
                     {/* Video Section */}
-                    <Col lg={6} className="about-modern__media wow zoomIn">
-                        <div className="video-mask-wrapper">
+                    <Col lg={6} className="about-modern__media">
+                        <motion.div
+                            className="video-mask-wrapper"
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
                             <video src={bannerVideo1} autoPlay muted loop playsInline aria-label="About us banner video" />
-                        </div>
+                        </motion.div>
                     </Col>
 
                     {/* Content Section */}

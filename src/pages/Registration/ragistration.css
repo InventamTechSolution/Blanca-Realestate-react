@@ -8,7 +8,7 @@
     position: relative;
     padding: 100px 0;
     /* Reuse contact hero background or similar */
-    background-image: url('../images/background/ragistration-bg.png');
+    background-image: url('/images/background/registration-bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

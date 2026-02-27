@@ -10,7 +10,7 @@ export const projectsData = [
     area: "425 – 1400 Sqft",
     price: "91 Lacs + Taxes",
     status: "Ongoing",
-    wowDelay: "0-2s",
+    animationDelay: "0.2s",
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const projectsData = [
     area: "350 – 550 Sqft",
     price: "1.40 Cr + Taxes",
     status: "Ongoing",
-    wowDelay: "0-2s",
+    animationDelay: "0.2s",
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ export const projectsData = [
     area: "420 – 450 Sqft",
     price: "60 Lacs + Taxes",
     status: "Sold Out",
-    wowDelay: "0-2s",
+    animationDelay: "0.2s",
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ export const projectsData = [
     area: "420 – 450 Sqft",
     price: "1.20 Cr + Taxes",
     status: "Sold Out",
-    wowDelay: "0-2s",
+    animationDelay: "0.2s",
   },
   {
     id: 5,
@@ -62,7 +62,7 @@ export const projectsData = [
     area: "430 – 460 Sqft",
     price: "60 Lacs + Taxes",
     status: "Sold Out",
-    wowDelay: "0-2s",
+    animationDelay: "0.2s",
   },
   {
     id: 6,
@@ -75,6 +75,6 @@ export const projectsData = [
     area: "400 Sqft",
     price: "45 Lacs + Taxes",
     status: "Sold Out",
-    wowDelay: "0-2s",
+    animationDelay: "0.2s",
   },
 ];

@@ -1,6 +1,5 @@
-import { useEffect, Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import 'wowjs';
 import LiquidFilters from './components/common/LiquidFilters';
 import FloatingContactButtons from './components/common/FloatingContactButtons/FloatingContactButtons';
 import Preloader from './components/common/Preloader';
@@ -14,15 +13,6 @@ const Contact = lazy(() => import('./pages/Contect/Contact'));
 const Registration = lazy(() => import('./pages/Registration/Registration'));
 
 function App() {
-  useEffect(() => {
-    if (window.WOW) {
-      const wow = new window.WOW({
-        live: false
-      });
-      wow.init();
-    }
-  }, []);
-
   return (
     <Router>
       <LiquidFilters />

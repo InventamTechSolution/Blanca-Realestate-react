@@ -128,7 +128,8 @@
 }
 
 /* Form Styles */
-.wow.fadeInRight {
+/* Form Column Animation Container */
+.contact-form-column {
     background: transparent;
 }
 

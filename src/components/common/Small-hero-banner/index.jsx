@@ -2,6 +2,7 @@ import React from "react";
 import './small-hero-banner.css';
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const SmallHeroBanner = ({ title, description, image, showBackButton = false, backLink = "/" }) => {
     return (
@@ -12,15 +13,24 @@ const SmallHeroBanner = ({ title, description, image, showBackButton = false, ba
                 </Link>
             )}
             <Container>
-                <h1 className="bs-font-playfair-display text-white wow fadeInUp small-hero-title">
+                <motion.h1
+                    className="bs-font-playfair-display text-white small-hero-title"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                >
                     {title}
-                </h1>
-                <p
-                    className="text-white-50 wow fadeInUp"
-                    data-wow-delay="0.2s"
+                </motion.h1>
+                <motion.p
+                    className="text-white-50"
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
                 >
                     {description}
-                </p>
+                </motion.p>
             </Container>
         </section>
     );

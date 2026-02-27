@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 import "./abouthero.css";
 
 // Register GSAP plugins
@@ -183,13 +184,15 @@ const HeroSection = () => {
                             </div>
 
                             {/* Scroll Button */}
-                            <a
+                            <motion.a
                                 href="#about"
-                                className="scroll-down-btn wow fadeIn"
-                                data-wow-delay="1s"
+                                className="scroll-down-btn"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.8, delay: 1 }}
                             >
                                 <i className="fas fa-chevron-down"></i>
-                            </a>
+                            </motion.a>
                         </div>
                     </div>
                 </div>

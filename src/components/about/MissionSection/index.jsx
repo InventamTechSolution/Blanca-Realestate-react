@@ -1,5 +1,5 @@
-import React from "react";
-import "./MissionSection.css";
+import { Col } from "react-bootstrap";
+import { motion } from "framer-motion";
 const missionImg1 = "/images/intro/mission-image-1.png";
 const missionImg2 = "/images/intro/mission-image-2.png";
 
@@ -12,8 +12,14 @@ const MissionSection = () => {
             <div className="container">
                 <div className="row align-items-center gap-4">
 
-                    <div className="col wow fadeInLeft">
-                        <div className="vision-image-collage">
+                    <Col>
+                        <motion.div
+                            className="vision-image-collage"
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
 
                             <div className="collage-item mission-collage-item-1">
                                 <img
@@ -29,11 +35,17 @@ const MissionSection = () => {
                                 />
                             </div>
 
-                        </div>
-                    </div>
+                        </motion.div>
+                    </Col>
 
-                    <div className="col-lg-6 wow fadeInRight">
-                        <div className="vision-content-part">
+                    <Col lg={6}>
+                        <motion.div
+                            className="vision-content-part"
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
                             <span className="sub-title mb-15 d-block text-uppercase">
                                 Real Estate, Real Connections
                             </span>
@@ -59,8 +71,8 @@ const MissionSection = () => {
                             </p>
 
                             <h1 className="mission-outline-text">mission</h1>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </Col>
 
                 </div>
             </div>

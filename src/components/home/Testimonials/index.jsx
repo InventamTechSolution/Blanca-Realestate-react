@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import './Testimonials.css';
 import { Container, Row, Col } from "react-bootstrap";
 import { testimonialsData } from "../../../data/testimonialsData";
+import { motion } from "framer-motion";
 
 const Testimonials = () => {
     const settings = {
@@ -49,9 +50,15 @@ const Testimonials = () => {
                                 <span className="sub-title common-subtitle">Testimonials</span>
                             </div>
 
-                            <h2 className="wow fadeInUp delay-0-2s common-title bs-font-playfair-display">
+                            <motion.h2
+                                className="common-title bs-font-playfair-display"
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                viewport={{ once: true }}
+                            >
                                 Hear from those who matter most
-                            </h2>
+                            </motion.h2>
 
                             <p className="testimonials-modern__text">
                                 Real stories from end-users and investors across Mumbai and
@@ -63,45 +70,52 @@ const Testimonials = () => {
 
                     {/* Testimonials Slider */}
                     <Col lg={9}>
-                        <Slider {...settings} className="testimonials-modern__slider wow fadeInUp delay-0-4s">
-                            {testimonialsData.map((testimonial) => (
-                                <div key={testimonial.id}>
-                                    <div className="testimonials-modern__card">
-                                        <div className="testimonials-modern__card-top">
-                                            <div className="testimonials-modern__avatar">
-                                                <img
-                                                    src={testimonial.avatar}
-                                                    alt={testimonial.name}
-                                                />
-                                            </div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                            viewport={{ once: true }}
+                        >
+                            <Slider {...settings} className="testimonials-modern__slider">
+                                {testimonialsData.map((testimonial) => (
+                                    <div key={testimonial.id}>
+                                        <div className="testimonials-modern__card">
+                                            <div className="testimonials-modern__card-top">
+                                                <div className="testimonials-modern__avatar">
+                                                    <img
+                                                        src={testimonial.avatar}
+                                                        alt={testimonial.name}
+                                                    />
+                                                </div>
 
-                                            <div className="testimonials-modern__info">
-                                                <h3 className="testimonials-modern__name">
-                                                    {testimonial.name}
-                                                </h3>
-                                                <p className="testimonials-modern__role">
-                                                    {testimonial.role}
-                                                </p>
+                                                <div className="testimonials-modern__info">
+                                                    <h3 className="testimonials-modern__name">
+                                                        {testimonial.name}
+                                                    </h3>
+                                                    <p className="testimonials-modern__role">
+                                                        {testimonial.role}
+                                                    </p>
 
-                                                <div className="testimonials-modern__rating">
-                                                    {[...Array(testimonial.rating)].map((_, i) => (
-                                                        <Icon key={i} icon="lucide:star" />
-                                                    ))}
+                                                    <div className="testimonials-modern__rating">
+                                                        {[...Array(testimonial.rating)].map((_, i) => (
+                                                            <Icon key={i} icon="lucide:star" />
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+                                                <div className="testimonials-modern__quote">
+                                                    <Icon icon="lucide:quote" />
                                                 </div>
                                             </div>
 
-                                            <div className="testimonials-modern__quote">
-                                                <Icon icon="lucide:quote" />
-                                            </div>
+                                            <p className="testimonials-modern__text">
+                                                {testimonial.quote}
+                                            </p>
                                         </div>
-
-                                        <p className="testimonials-modern__text">
-                                            {testimonial.quote}
-                                        </p>
                                     </div>
-                                </div>
-                            ))}
-                        </Slider>
+                                ))}
+                            </Slider>
+                        </motion.div>
                     </Col>
 
                 </Row>

@@ -7,8 +7,7 @@ import SmallHeroBanner from '../../components/common/Small-hero-banner';
 import InputField from "../../components/common/InputField/InputField";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
 import "./ragistration.css";
-
-const RegistrationBg = "/images/background/ragistration-bg.png";
+const RegistrationBg = "/images/background/registration-bg.png";
 
 const Registration = () => {
     const location = useLocation();

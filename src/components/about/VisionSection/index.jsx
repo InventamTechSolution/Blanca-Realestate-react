@@ -1,5 +1,5 @@
-import React from "react";
-import "./VisionSection.css";
+import { Col } from "react-bootstrap";
+import { motion } from "framer-motion";
 const visionImg1 = "/images/intro/vision-image-1.png";
 const visionImg2 = "/images/intro/vision-image-2.png";
 
@@ -12,8 +12,14 @@ const VisionSection = () => {
             <div className="container">
                 <div className="row align-items-center gap-4">
 
-                    <div className="col-lg-6 wow fadeInLeft">
-                        <div className="vision-content-part">
+                    <Col lg={6}>
+                        <motion.div
+                            className="vision-content-part"
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
                             <span className="sub-title mb-15 d-block text-uppercase">
                                 Shaping the Future with Trust & Innovation
                             </span>
@@ -40,11 +46,17 @@ const VisionSection = () => {
                             </p>
 
                             <h1 className="vision-outline-text">vision</h1>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </Col>
 
-                    <div className="col wow fadeInRight">
-                        <div className="vision-image-collage">
+                    <Col>
+                        <motion.div
+                            className="vision-image-collage"
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
 
                             <div className="collage-item collage-item-1">
                                 <img
@@ -60,9 +72,8 @@ const VisionSection = () => {
                                 />
                             </div>
 
-                        </div>
-                    </div>
-
+                        </motion.div>
+                    </Col>
                 </div>
             </div>
         </section>

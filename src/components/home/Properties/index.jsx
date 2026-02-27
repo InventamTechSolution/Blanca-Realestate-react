@@ -5,6 +5,7 @@ import './Properties.css';
 import { Col, Row } from "react-bootstrap";
 import { projectsData } from '../../../data/projectsData';
 import ThemeBtn from '../../common/Button/ThemeBtn';
+import { motion } from "framer-motion";
 
 const Properties = () => {
     const settings = {
@@ -44,37 +45,44 @@ const Properties = () => {
             <Row className="projects-shell align-items-center gx-4">
 
                 {/* Left Intro Section */}
-                <Col lg={4} className="projects-intro wow fadeInUp delay-0-2s">
-                    <div className="main-title-badge">
-                        <span className="sub-title common-subtitle">Projects</span>
-                    </div>
+                <Col lg={4} className="projects-intro">
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="main-title-badge">
+                            <span className="sub-title common-subtitle">Projects</span>
+                        </div>
 
-                    <h2 className="common-title bs-font-playfair-display">
-                        Your Next Address Awaits – Discover Blanca's Signature Creations
-                    </h2>
+                        <h2 className="common-title bs-font-playfair-display">
+                            Your Next Address Awaits – Discover Blanca's Signature Creations
+                        </h2>
 
-                    <p className="about-modern__text">
-                        Discover premium residential/commercial developments by Blanca in
-                        Mumbai and Navi Mumbai, where contemporary design blends seamlessly
-                        with everyday comfort and accessible luxury.
-                    </p>
+                        <p className="about-modern__text">
+                            Discover premium residential/commercial developments by Blanca in
+                            Mumbai and Navi Mumbai, where contemporary design blends seamlessly
+                            with everyday comfort and accessible luxury.
+                        </p>
 
-                    <p className="about-modern__text">
-                        Each property is thoughtfully planned to support your evolving
-                        lifestyle, long term aspirations, and future growth{" "}
-                        <span className="bs-font-Marjorie-italic">
-                            creating addresses that offer both value and pride of ownership.
-                        </span>
-                    </p>
+                        <p className="about-modern__text">
+                            Each property is thoughtfully planned to support your evolving
+                            lifestyle, long term aspirations, and future growth{" "}
+                            <span className="bs-font-Marjorie-italic">
+                                creating addresses that offer both value and pride of ownership.
+                            </span>
+                        </p>
 
-                    <div className="buttons project-buttons-div">
-                        <ThemeBtn className="bs-font-montserrat" to="/projects">
-                            View All Projects
-                        </ThemeBtn>
-                        <ThemeBtn className="bs-font-montserrat" to="/projects">
-                            Schedule a Visit
-                        </ThemeBtn>
-                    </div>
+                        <div className="buttons project-buttons-div">
+                            <ThemeBtn className="bs-font-montserrat" to="/projects">
+                                View All Projects
+                            </ThemeBtn>
+                            <ThemeBtn className="bs-font-montserrat" to="/projects">
+                                Schedule a Visit
+                            </ThemeBtn>
+                        </div>
+                    </motion.div>
                 </Col>
 
                 {/* Project Cards */}
@@ -82,7 +90,14 @@ const Properties = () => {
                     <Slider {...settings}>
                         {projectsData.map((project) => (
                             <div key={project.id} className="project-card-wrapper">
-                                <a className={`project-card wow fadeInLeft delay-${project.wowDelay}`} href={project.href}>
+                                <motion.a
+                                    className="project-card"
+                                    href={project.href}
+                                    initial={{ opacity: 0, x: -50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8, delay: parseFloat(project.animationDelay) || 0 }}
+                                    viewport={{ once: true }}
+                                >
                                     <img
                                         src={project.image}
                                         alt={project.title}
@@ -104,7 +119,7 @@ const Properties = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </motion.a>
                             </div>
                         ))}
                     </Slider>
