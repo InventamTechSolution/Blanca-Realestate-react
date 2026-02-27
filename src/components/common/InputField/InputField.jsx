@@ -13,11 +13,12 @@ const InputField = ({
     name,
     className = "",
     as,
-    rows
+    rows,
+    extra
 }) => {
     return (
         <Field label={label} className={className}>
-            <div className="glass-input-wrapper">
+            <div className="glass-input-wrapper d-flex">
                 <Form.Control
                     type={type}
                     placeholder={placeholder}
@@ -29,6 +30,7 @@ const InputField = ({
                     as={as}
                     rows={rows}
                 />
+                {extra && extra}
             </div>
         </Field>
     );

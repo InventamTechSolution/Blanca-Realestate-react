@@ -11,9 +11,9 @@ const ChannelPartnerModal = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
-    const handleRegistration = () => {
+    const handleRegistration = (type) => {
         onClose();
-        navigate('/registration');
+        navigate('/registration', { state: { agentType: type } });
     };
 
     return (
@@ -67,7 +67,7 @@ const ChannelPartnerModal = ({ isOpen, onClose }) => {
                                 <ThemeBtn
                                     className="w-100"
                                     style={{ justifyContent: "center" }}
-                                    onClick={handleRegistration}
+                                    onClick={() => handleRegistration("Agency Registration")}
                                 >
                                     AGENCY REGISTRATION
                                     <Icon icon="lucide:external-link" className="ms-2" />
@@ -75,7 +75,7 @@ const ChannelPartnerModal = ({ isOpen, onClose }) => {
                                 <ThemeBtn
                                     className="w-100"
                                     style={{ justifyContent: "center" }}
-                                    onClick={handleRegistration}
+                                    onClick={() => handleRegistration("Individual Registration")}
                                 >
                                     INDIVIDUAL REGISTRATION
                                     <Icon icon="lucide:external-link" className="ms-2" />
