@@ -145,10 +145,10 @@ const WhyChooseUs = () => {
 
                                     <div className="skewed-slide-buttons">
                                         <button className="prev-slide" onClick={() => goToSlide(currentIndex - 1)}>
-                                            <i className="fa fa-long-arrow-left"></i>
+                                            <i className="fa-solid fa-arrow-left-long"></i>
                                         </button>
                                         <button className="next-slide" onClick={() => goToSlide(currentIndex + 1)}>
-                                            <i className="fa fa-long-arrow-right"></i>
+                                            <i className="fa-solid fa-arrow-right-long"></i>
                                         </button>
                                     </div>
                                 </div>

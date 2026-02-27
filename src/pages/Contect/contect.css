@@ -35,15 +35,6 @@
 /* Redesigned Contact Section */
 .contact-form-section {
     padding: 100px 0;
-    /* background-color: #1a1a1a;
-    background-image:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
-        linear-gradient(225deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
-        linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
-        linear-gradient(315deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%);
-    background-position: 40px 0, 40px 0, 0 0, 0 0;
-    background-size: 80px 80px;
-    background-repeat: repeat; */
     position: relative;
 }
 
@@ -136,14 +127,8 @@
     color: #fff;
 }
 
-:root {
-    --lg-text: #fff;
-    --lg-highlight: rgba(255, 255, 255, 0.15);
-    --lg-bg: rgba(255, 255, 255, 0.05);
-}
-
 /* Form Styles */
-.contact-form-wrapper-new {
+.wow.fadeInRight {
     background: transparent;
 }
 
@@ -193,12 +178,5 @@
 
     .contact-hero h1 {
         font-size: 40px;
-    }
-}
-
-@media (max-width: 767px) {
-    .radio-group {
-        flex-direction: column;
-        gap: 15px;
     }
 }

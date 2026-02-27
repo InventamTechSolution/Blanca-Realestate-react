@@ -39,7 +39,7 @@ const JourneySection = () => {
             )}
 
             {item.projects.map((project, pIndex) => (
-                <div key={pIndex} className={`project-card ${project.position}`}>
+                <div key={pIndex} className={`journeyproject-card ${project.position}`}>
                     {project.image && (
                         <img
                             src={project.image}

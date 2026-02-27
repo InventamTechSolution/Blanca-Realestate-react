@@ -123,8 +123,8 @@
 }
 
 /* Project Info Content */
-.project-card {
-    /* position: absolute;
+.journeyproject-card {
+    position: absolute;
     width: 420px;
     white-space: normal;
     background: rgba(17, 17, 17, 0.8);
@@ -133,17 +133,17 @@
     padding: 20px;
     border-radius: 12px;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.journey-item:hover .project-card {
+.journey-item:hover .journeyproject-card {
     border-color: rgba(30, 75, 181, 0.5);
     transform: translateY(-5px);
     background: rgba(22, 22, 22, 0.95);
 }
 
 /* Connectors (Dashed Lines) */
-.project-card::before {
+.journeyproject-card::before {
     content: '';
     position: absolute;
     width: 2px;
@@ -152,28 +152,28 @@
     transition: all 0.3s ease;
 }
 
-.journey-item:hover .project-card::before {
+.journey-item:hover .journeyproject-card::before {
     border-left-color: #1e4bb5;
     height: 70px;
     z-index: 0;
 }
 
 /* Above the line */
-.project-card.above {
+.journeyproject-card.above {
     bottom: 50px;
 }
 
-.project-card.above::before {
+.journeyproject-card.above::before {
     bottom: -70px;
     left: 200px;
 }
 
 /* Below the line */
-.project-card.below {
+.journeyproject-card.below {
     top: 50px;
 }
 
-.project-card.below::before {
+.journeyproject-card.below::before {
     top: -70px;
     left: 200px;
 }
@@ -302,7 +302,7 @@
         padding: 50px 0;
     }
 
-    .project-card {
+    .journeyproject-card {
         width: 260px;
     }
 

@@ -51,7 +51,7 @@ const PhoneInput = ({
         <Field label={label} className={className}>
             <div
                 ref={wrapperRef}
-                className={`phone-input-wrapper glass-input-wrapper ${showDropdown ? "z-index-high" : ""}`}
+                className={`phone-input-wrapper glass-input-wrapper ${showDropdown ? "z-index-high overflow-visible" : ""}`}
             >
                 <div className="country-code" onClick={() => setShowDropdown(!showDropdown)}>
                     <img
@@ -59,7 +59,7 @@ const PhoneInput = ({
                         alt={`${selectedCountry.name} Flag`}
                         className="selected-flag"
                     />
-                    <i className="fas fa-caret-down"></i>
+                    <i className="fa-solid fa-angle-down"></i>
 
                     <ul className={`country-dropdown ${showDropdown ? "show" : ""}`}>
                         {countries.map((country) => (

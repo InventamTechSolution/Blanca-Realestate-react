@@ -15,9 +15,42 @@ import Checkbox from "../../components/common/Checkbox/Checkbox";
 import './contect.css';
 
 const Contact = () => {
+    const [formData, setFormData] = React.useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        country: "",
+        contactMode: "",
+        newsOffers: false,
+        privacyPolicy: false
+    });
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const handleInputChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handlePhoneChange = (e) => {
+        setFormData(prev => ({
+            ...prev,
+            phone: e.target.value
+        }));
+    };
+
+    const handleDropdownChange = (name, value) => {
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
     return (
         <div className="contact-page">
@@ -42,22 +75,20 @@ const Contact = () => {
                                     </div>
 
                                     <p className="text-white-50 contact-desc">
-                                        Thank you for exploring our website! We’re always happy to connect with you.
-                                        Whether you have a question, need assistance, or would like to share
-                                        your feedback, our team is ready to help.
+                                        Thank you for exploring our website! We’re always happy to connect with you. Whether you have a question, need assistance, or would like to share your feedback, our team is ready to help. Reach out to us through the contact details below or simply complete the contact form. We aim to respond to every inquiry as quickly as possible.
                                     </p>
 
                                     <div className="contact-items">
 
                                         <div className="contact-item-new">
                                             <div className="contact-icon">
-                                                <i className="fas fa-comment-dollar"></i>
+                                                <i className="fa-regular fa-comment-dots"></i>
                                             </div>
                                             <div className="contact-text">
                                                 <h5>Reach Us</h5>
                                                 <p>
                                                     <a href="mailto:reachus.blanca@gmail.com">
-                                                        reachus.blanca@gmail.com
+                                                        <i className="fa-regular fa-comment-dots"></i> reachus.blanca@gmail.com
                                                     </a>
                                                 </p>
                                             </div>
@@ -65,7 +96,7 @@ const Contact = () => {
 
                                         <div className="contact-item-new">
                                             <div className="contact-icon">
-                                                <i className="fas fa-file-alt"></i>
+                                                <i className="fa-regular fa-file-lines"></i>
                                             </div>
                                             <div className="contact-text">
                                                 <h5>OTHER INQUIRIES</h5>
@@ -76,7 +107,7 @@ const Contact = () => {
 
                                         <div className="contact-item-new border-0 pb-0 mb-0">
                                             <div className="contact-icon">
-                                                <i className="fas fa-map-marker-alt"></i>
+                                                <i className="fa-regular fa-map"></i>
                                             </div>
                                             <div className="contact-text">
                                                 <h5>ADDRESS:</h5>
@@ -100,6 +131,9 @@ const Contact = () => {
                                                 <InputField
                                                     label="FIRST NAME"
                                                     placeholder="FIRST NAME"
+                                                    name="firstName"
+                                                    value={formData.firstName}
+                                                    onChange={handleInputChange}
                                                     required
                                                 />
                                             </Col>
@@ -107,6 +141,9 @@ const Contact = () => {
                                                 <InputField
                                                     label="LAST NAME"
                                                     placeholder="LAST NAME"
+                                                    name="lastName"
+                                                    value={formData.lastName}
+                                                    onChange={handleInputChange}
                                                     required
                                                 />
                                             </Col>
@@ -115,12 +152,18 @@ const Contact = () => {
                                                     type="email"
                                                     label="EMAIL"
                                                     placeholder="YOUR EMAIL"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleInputChange}
                                                     required
                                                 />
                                             </Col>
                                             <Col md={6}>
                                                 <PhoneInput
                                                     label="PHONE NUMBER"
+                                                    name="phone"
+                                                    value={formData.phone}
+                                                    onChange={handlePhoneChange}
                                                     required
                                                 />
                                             </Col>
@@ -128,27 +171,38 @@ const Contact = () => {
                                                 <Dropdown
                                                     label="COUNTRY"
                                                     placeholder="-- select one --"
+                                                    name="country"
                                                     options={["India", "UAE", "USA", "UK"]}
+                                                    value={formData.country}
+                                                    onChange={(val) => handleDropdownChange("country", val)}
                                                 />
                                             </Col>
                                             <Col md={6}>
                                                 <RadioGroup
                                                     label="PREFERRED MODE OF CONTACT"
-                                                    name="contact-mode"
+                                                    name="contactMode"
                                                     options={[
                                                         { label: "PHONE", value: "phone" },
                                                         { label: "EMAIL", value: "email" }
                                                     ]}
+                                                    selectedValue={formData.contactMode}
+                                                    onChange={handleInputChange}
                                                 />
                                             </Col>
                                             <Col md={6}>
                                                 <Checkbox
                                                     label="I'd like to hear about news and offers."
+                                                    name="newsOffers"
+                                                    checked={formData.newsOffers}
+                                                    onChange={handleInputChange}
                                                 />
                                             </Col>
                                             <Col md={6}>
                                                 <Checkbox
                                                     label={<>I've read and agree to the <a href="/privacy-policy">Privacy Policy</a></>}
+                                                    name="privacyPolicy"
+                                                    checked={formData.privacyPolicy}
+                                                    onChange={handleInputChange}
                                                     required
                                                 />
                                             </Col>

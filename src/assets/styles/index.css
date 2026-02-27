@@ -32,8 +32,10 @@ html {
   --border-color: #D9DFE7;
   /* Liquid Glass Effect Variables */
   --lg-text: #FFFFFF;
-  --lg-bg-color: rgba(255, 255, 255, 0.1);
-  --lg-highlight: rgba(255, 255, 255, 0.3);
+  --lg-bg: rgba(255, 255, 255, 0.03);
+  /* Updated for higher transparency */
+  --lg-highlight: rgba(255, 255, 255, 0.15);
+  /* Updated to match the refined effect */
 }
 
 body {
@@ -180,20 +182,6 @@ mark {
   isolation: isolate;
 }
 
-/* .theme-btn {
-  padding: 16px 32px;
-  background: transparent;
-  color: var(--lg-text);
-  position: relative;
-  display: inline-flex;
-  font-weight: 600;
-  overflow: hidden;
-  cursor: pointer;
-  border-radius: 2rem;
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
-  isolation: isolate;
-} */
 
 .theme-btn::before {
   content: "";
@@ -214,25 +202,6 @@ mark {
   z-index: 1;
 }
 
-/* .theme-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  -webkit-backdrop-filter: blur(4px);
-  filter: url(#lg-dist);
-  border-radius: inherit;
-}
-
-.theme-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-  box-shadow: inset 1px 1px 0 var(--lg-highlight), inset 0 0 5px var(--lg-highlight);
-  pointer-events: none;
-} */
 
 .theme-btn>* {
   position: relative;
@@ -339,7 +308,7 @@ textarea,
   width: 100%;
   height: auto;
   padding: 16px 32px;
-  background-color: var(--black-100);
+  /* background-color: var(--black-100); */
   border: 1px solid var(--black-90);
 }
 
@@ -350,7 +319,7 @@ button:focus,
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-color: var(--black-90);
+  border-color: transparent;
 }
 
 input[type=search]::-ms-clear {
