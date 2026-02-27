@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import './ChannelPartnerModal.css';
 import ThemeBtn from '../Button/ThemeBtn';
@@ -6,7 +7,14 @@ const logo = "/images/logos/blanca-logo.png";
 const leftBg = "/images/background/popup-left-bg.png";
 
 const ChannelPartnerModal = ({ isOpen, onClose }) => {
+    const navigate = useNavigate();
+
     if (!isOpen) return null;
+
+    const handleRegistration = () => {
+        onClose();
+        navigate('/registration');
+    };
 
     return (
         <div className="cp-modal-overlay" onClick={onClose}>
@@ -56,11 +64,19 @@ const ChannelPartnerModal = ({ isOpen, onClose }) => {
                             </div>
 
                             <div className="cp-modal-actions">
-                                <ThemeBtn className="w-100" style={{ justifyContent: "center" }}>
+                                <ThemeBtn
+                                    className="w-100"
+                                    style={{ justifyContent: "center" }}
+                                    onClick={handleRegistration}
+                                >
                                     AGENCY REGISTRATION
                                     <Icon icon="lucide:external-link" className="ms-2" />
                                 </ThemeBtn>
-                                <ThemeBtn className="w-100" style={{ justifyContent: "center" }}>
+                                <ThemeBtn
+                                    className="w-100"
+                                    style={{ justifyContent: "center" }}
+                                    onClick={handleRegistration}
+                                >
                                     INDIVIDUAL REGISTRATION
                                     <Icon icon="lucide:external-link" className="ms-2" />
                                 </ThemeBtn>

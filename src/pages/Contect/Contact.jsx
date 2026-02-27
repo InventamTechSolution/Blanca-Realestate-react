@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
 import Preloader from '../../components/common/Preloader';
 import ScrollToTop from '../../components/common/ScrollToTop';
 import SmallHeroBanner from '../../components/common/Small-hero-banner';
-const contactBg = "/images/background/contect-us.png";
-
-import { Container, Row, Col, Form } from "react-bootstrap";
 import InputField from "../../components/common/InputField/InputField";
 import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
 import RadioGroup from "../../components/common/RadioGroup/RadioGroup";
 import Checkbox from "../../components/common/Checkbox/Checkbox";
+const contactBg = "/images/background/contect-us.png";
 import './contect.css';
 
 const Contact = () => {
@@ -219,9 +218,6 @@ const Contact = () => {
                         </Row>
                     </Container>
                 </div>
-
-
-
             </main>
             <Footer />
             <ScrollToTop />

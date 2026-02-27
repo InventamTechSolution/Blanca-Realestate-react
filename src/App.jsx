@@ -11,6 +11,7 @@ import './assets/styles/fonts.css';
 const Home = lazy(() => import('./pages/Home/Home'));
 const About = lazy(() => import('./pages/About/About'));
 const Contact = lazy(() => import('./pages/Contect/Contact'));
+const Registration = lazy(() => import('./pages/Registration/Registration'));
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/registration" element={<Registration />} />
           {/* Add more routes as needed */}
         </Routes>
       </Suspense>
