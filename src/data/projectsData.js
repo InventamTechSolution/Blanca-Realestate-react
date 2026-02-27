@@ -1,15 +1,8 @@
-import EkaivaImg from "../assets/images/projects/lendscpae-images/blancs-business-hub.png";
-import BlancaTowerImg from "../assets/images/projects/lendscpae-images/blanca-tower.png";
-import NDPearlImg from "../assets/images/projects/lendscpae-images/nd-pearl.png";
-import NDGardenTowerImg from "../assets/images/projects/lendscpae-images/nd-garden-tower.png";
-import NDGardenImg from "../assets/images/projects/lendscpae-images/nd-garden.png";
-import GajanandKrupaImg from "../assets/images/projects/lendscpae-images/gajanand-krupa.png";
-
 export const projectsData = [
   {
     id: 1,
     title: "Blanca : Ekaiva",
-    image: EkaivaImg,
+    image: "/images/projects/lendscpae-images/blancs-business-hub.png",
     href: "/project-details",
     location: "Turbhe, Navi Mumbai",
     propertyType: "Commercial",
@@ -22,7 +15,7 @@ export const projectsData = [
   {
     id: 2,
     title: "Blanca Tower",
-    image: BlancaTowerImg,
+    image: "/images/projects/lendscpae-images/blanca-tower.png",
     href: "/project-details",
     location: "Borivali - Mumbai",
     propertyType: "Commercial",
@@ -35,7 +28,7 @@ export const projectsData = [
   {
     id: 3,
     title: "ND Pearl",
-    image: NDPearlImg,
+    image: "/images/projects/lendscpae-images/nd-pearl.png",
     href: "/project-details",
     location: "Kamothe, Navi Mumbai",
     propertyType: "Residential",
@@ -48,7 +41,7 @@ export const projectsData = [
   {
     id: 4,
     title: "ND Garden Tower",
-    image: NDGardenTowerImg,
+    image: "/images/projects/lendscpae-images/nd-garden-tower.png",
     href: "/project-details",
     location: "Ulwe, Navi Mumbai",
     propertyType: "Residential",
@@ -61,7 +54,7 @@ export const projectsData = [
   {
     id: 5,
     title: "ND Garden",
-    image: NDGardenImg,
+    image: "/images/projects/lendscpae-images/nd-garden.png",
     href: "/project-details",
     location: "Ulwe, Navi Mumbai",
     propertyType: "Residential",
@@ -74,7 +67,7 @@ export const projectsData = [
   {
     id: 6,
     title: "Gajanand Krupa",
-    image: GajanandKrupaImg,
+    image: "/images/projects/lendscpae-images/gajanand-krupa.png",
     href: "/project-details",
     location: "Ulwe, Navi Mumbai",
     propertyType: "Residential",

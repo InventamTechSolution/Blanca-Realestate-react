@@ -1,8 +1,8 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import "./AboutBlueprintSection.css";
-import bluePrintVideo from "../../../assets/videos/working-about-3.mp4";
-import favicon from "../../../assets/images/logos/favicon.png";
+const bluePrintVideo = "/videos/working-about-3.mp4";
+const favicon = "/images/logos/favicon.png";
 
 const AboutBlueprintSection = () => {
     return (

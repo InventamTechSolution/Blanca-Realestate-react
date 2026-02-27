@@ -1,10 +1,3 @@
-import blancatower from "../assets/images/projects/lendscpae-images/blanca-tower.png";
-import blancsbusinesshub from "../assets/images/projects/lendscpae-images/blancs-business-hub.png";
-import ndgardentower from "../assets/images/projects/lendscpae-images/nd-garden-tower.png";
-import ndpearl from "../assets/images/projects/lendscpae-images/nd-pearl.png";
-import ndgarden from "../assets/images/projects/lendscpae-images/nd-garden.png";
-import gajanandkrupa from "../assets/images/projects/lendscpae-images/gajanand-krupa.png";
-
 export const journeyData = [
   {
     year: "1981",
@@ -135,7 +128,7 @@ export const journeyData = [
         description:
           "An apartment type construction spread across 16,900 Sq. Ft. It consisted of 26 residential units.",
         position: "below",
-        image: gajanandkrupa,
+        image: "/images/projects/lendscpae-images/gajanand-krupa.png",
       },
     ],
   },
@@ -149,7 +142,7 @@ export const journeyData = [
         description:
           "An apartment type construction spread across 28,700 Sq. Ft. It consisted of 42 residential units.",
         position: "above",
-        image: ndgarden,
+        image: "/images/projects/lendscpae-images/nd-garden.png",
       },
     ],
   },
@@ -163,7 +156,7 @@ export const journeyData = [
         description:
           "An apartment type construction spread across 31,010 Sq. Ft. Consisted of 42 residential units.",
         position: "above",
-        image: ndpearl,
+        image: "/images/projects/lendscpae-images/nd-pearl.png",
       },
       {
         title: "ND Garden Tower",
@@ -172,7 +165,7 @@ export const journeyData = [
         description:
           "An apartment type construction spread across 34,000 Sq. Ft. Consisted of 34 residential units.",
         position: "below",
-        image: ndgardentower,
+        image: "/images/projects/lendscpae-images/nd-garden-tower.png",
       },
     ],
   },
@@ -186,7 +179,7 @@ export const journeyData = [
         description:
           "Where Innovation Meets Location - Elevate Your Business at Blanca Business Hub, Strategically Positioned for Unmatched Success.",
         position: "below",
-        image: blancsbusinesshub,
+        image: "/images/projects/lendscpae-images/blancs-business-hub.png",
       },
       {
         title: "Blanca Seascape",
@@ -213,7 +206,7 @@ export const journeyData = [
         type: "Residential",
         description: "",
         position: "below",
-        image: blancatower,
+        image: "/images/projects/lendscpae-images/blanca-tower.png",
       },
     ],
   },

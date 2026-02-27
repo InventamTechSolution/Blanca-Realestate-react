@@ -1,5 +1,5 @@
 import './About.css';
-import bannerVideo1 from "../../../assets/videos/banner-video-3.mp4";
+const bannerVideo1 = "/videos/banner-video-3.mp4";
 import { Col, Container, Row } from "react-bootstrap";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 

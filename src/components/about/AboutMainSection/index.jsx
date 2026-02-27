@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 import "./aboutdetailmain.css";
-import aboutdetailImg1 from "../../../assets/images/intro/architect-preparing-image.png";
-import aboutdetailImg2 from "../../../assets/images/intro/architect-bulding-2.png";
+const aboutdetailImg1 = "/images/intro/architect-preparing-image.png";
+const aboutdetailImg2 = "/images/intro/architect-bulding-2.png";
 import { Row, Col } from "react-bootstrap";
 
 const AboutSection = () => {

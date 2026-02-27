@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import { Container } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import './Footer.css';
-import logo from '../../../assets/images/logos/blanca-logo.png';
+const logo = '/images/logos/blanca-logo.png';
 
 const Footer = () => {
     useEffect(() => {

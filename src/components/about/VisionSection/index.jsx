@@ -1,7 +1,7 @@
 import React from "react";
 import "./VisionSection.css";
-import visionImg1 from "../../../assets/images/intro/vision-image-1.png";
-import visionImg2 from "../../../assets/images/intro/vision-image-2.png";
+const visionImg1 = "/images/intro/vision-image-1.png";
+const visionImg2 = "/images/intro/vision-image-2.png";
 
 const VisionSection = () => {
     return (

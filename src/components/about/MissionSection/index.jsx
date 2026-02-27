@@ -1,7 +1,7 @@
 import React from "react";
 import "./MissionSection.css";
-import missionImg1 from "../../../assets/images/intro/mission-image-1.png";
-import missionImg2 from "../../../assets/images/intro/mission-image-2.png";
+const missionImg1 = "/images/intro/mission-image-1.png";
+const missionImg2 = "/images/intro/mission-image-2.png";
 
 const MissionSection = () => {
     return (

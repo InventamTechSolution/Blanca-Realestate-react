@@ -6,11 +6,11 @@ import "./Hero.css";
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-// Import videos
-import bannerVideo1 from "../../../assets/videos/blanca-long-video.mp4";
-import blancaTowerVideo from "../../../assets/videos/blanca-tower-video.mp4";
-import videoProject2 from "../../../assets/videos/Video-Project-2.mp4";
-import employeeVideo from "../../../assets/videos/employee-video.mp4";
+// Video paths
+const bannerVideo1 = "/videos/blanca-long-video.mp4";
+const blancaTowerVideo = "/videos/blanca-tower-video.mp4";
+const videoProject2 = "/videos/Video-Project-2.mp4";
+const employeeVideo = "/videos/employee-video.mp4";
 
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import StatBadge from "../../common/StatBadge/StatBadge";
@@ -95,7 +95,7 @@ const Hero = () => {
                     >
                         <source src={bannerVideo1} type="video/mp4" />
                         <img
-                            src="/src/assets/images/background/hero-1.png"
+                            src="/images/background/hero-1.png"
                             alt="Hero background"
                             style={{ width: "100%", height: "100%", objectFit: "cover" }}
                         />

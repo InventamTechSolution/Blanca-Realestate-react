@@ -6,7 +6,7 @@ import "./abouthero.css";
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-import video from "../../../assets/videos/about-banner-video.mp4";
+const video = "/videos/about-banner-video.mp4";
 // import FallbackImage from "../../../assets/images/background/slider-1.png";
 
 

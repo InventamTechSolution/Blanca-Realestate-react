@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from '@iconify/react';
 import './Header.css';
 import ChannelPartnerModal from '../../common/ChannelPartnerModal/ChannelPartnerModal';
-import logo from "../../../assets/images/logos/blanca-logo.png";
+const logo = "/images/logos/blanca-logo.png";
 
 const Header = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -152,7 +152,6 @@ const Header = () => {
         ref={headerRef}
         className={`main-header glass-header ${isFixed ? 'fixed-header' : ''} ${isHidden ? 'is-hidden' : ''}`}
       >
-
         <div className="header-upper">
           <div className="header-container clearfix">
             <div className="header-inner rel d-flex align-items-center gap-5 justify-content-between">
@@ -298,10 +297,8 @@ const Header = () => {
                       </li>
                     </ul>
                   </div>
-
                 </nav>
               </div>
-
             </div>
           </div>
         </div>

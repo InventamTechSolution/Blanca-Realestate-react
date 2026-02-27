@@ -2,8 +2,8 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import './ChannelPartnerModal.css';
 import ThemeBtn from '../Button/ThemeBtn';
-import logo from '../../../assets/images/logos/blanca-logo.png';
-import leftBg from '../../../assets/images/background/popup-left-bg.png';
+const logo = "/images/logos/blanca-logo.png";
+const leftBg = "/images/background/popup-left-bg.png";
 
 const ChannelPartnerModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
