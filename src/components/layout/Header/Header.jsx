@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from '@iconify/react';
 import './Header.css';
+import ChannelPartnerModal from '../../common/ChannelPartnerModal/ChannelPartnerModal';
 import logo from "../../../assets/images/logos/blanca-logo.png";
 
 const Header = () => {
@@ -10,6 +11,7 @@ const Header = () => {
   const [isFixed, setIsFixed] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [activeHash, setActiveHash] = useState("");
+  const [isPartnerModalOpen, setIsPartnerModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const clickTimeout = useRef(null);
@@ -218,7 +220,10 @@ const Header = () => {
                     </a>
                   </li>
                   <li className="header-link">
-                    <Link to="/contact" className="channel-partner-btn" onClick={closeMenus}>
+                    <Link
+                      className="channel-partner-btn"
+                      onClick={() => setIsPartnerModalOpen(true)}
+                    >
                       Channel Partner
                     </Link>
                   </li>
@@ -281,7 +286,13 @@ const Header = () => {
                         </a>
                       </li>
                       <li>
-                        <Link to="/contact" className="channel-partner-btn" onClick={closeMenus}>
+                        <Link
+                          className="channel-partner-btn"
+                          onClick={() => {
+                            closeMenus();
+                            setIsPartnerModalOpen(true);
+                          }}
+                        >
                           Channel Partner
                         </Link>
                       </li>
@@ -295,6 +306,10 @@ const Header = () => {
           </div>
         </div>
       </header>
+      <ChannelPartnerModal
+        isOpen={isPartnerModalOpen}
+        onClose={() => setIsPartnerModalOpen(false)}
+      />
     </>
   );
 };
