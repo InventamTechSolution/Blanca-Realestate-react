@@ -166,13 +166,22 @@ mark {
 
 .theme-btn {
   padding: 16px 32px;
-  background: transparent;
+  /* background: transparent; */
   position: relative;
   display: inline-flex;
   font-weight: 600;
   cursor: pointer;
   border-radius: 2rem;
-  color: var(--lg-text);
+  color: var(--lg-text) !important;
+  /* border: 1px solid var(--lg-highlight); */
+  /* box-shadow: 0 6px 6px #0003, 0 0 20px #0000001a; */
+  /* backdrop-filter: blur(4px); */
+  -webkit-backdrop-filter: blur(4px);
+  /* transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease, border-color .2s ease, backdrop-filter .4s ease; */
+  /* overflow: hidden; */
+  /* isolation: isolate; */
+  background: rgba(255, 255, 255, 0.08);
+  /* color: var(--lg-text); */
   border: 1px solid var(--lg-highlight);
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4px);
@@ -206,12 +215,6 @@ mark {
 .theme-btn>* {
   position: relative;
   z-index: 2;
-}
-
-.theme-btn {
-  color: var(--bs-btn-hover-color);
-  background-color: transparent !important;
-  border-color: transparent !important;
 }
 
 .light-btn {
