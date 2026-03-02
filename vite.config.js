@@ -7,21 +7,28 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: [
-            "react",
-            "react-dom",
-            "react-router-dom",
-            "bootstrap",
-            "react-bootstrap",
-          ],
-          jquery: [
-            "jquery",
-            "jquery.ripples",
-            "isotope-layout",
-            "magnific-popup",
-          ],
-          utils: ["framer-motion", "gsap", "@iconify/react"],
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("gsap")) {
+              return "animations-gsap";
+            }
+            if (id.includes("framer-motion")) {
+              return "animations-motion";
+            }
+            if (id.includes("bootstrap")) {
+              return "framework-ui";
+            }
+            if (
+              id.includes("jquery") ||
+              id.includes("ripples") ||
+              id.includes("isotope") ||
+              id.includes("magnific-popup")
+            ) {
+              return "jquery-vendor";
+            }
+            // Group the core react and others into a general vendor chunk
+            return "vendor";
+          }
         },
       },
     },

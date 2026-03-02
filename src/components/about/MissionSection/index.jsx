@@ -2,6 +2,7 @@ import { Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 const missionImg1 = "/images/intro/mission-image-1.png";
 const missionImg2 = "/images/intro/mission-image-2.png";
+import "./MissionSection.css";
 
 const MissionSection = () => {
     return (
