@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LiquidFilters from './components/common/LiquidFilters';
 import FloatingContactButtons from './components/common/FloatingContactButtons/FloatingContactButtons';
@@ -12,8 +12,15 @@ const About = lazy(() => import('./pages/About/About'));
 const Contact = lazy(() => import('./pages/Contect/Contact'));
 const Registration = lazy(() => import('./pages/Registration/Registration'));
 const Projects = lazy(() => import('./pages/Projects/Projects'));
+const ProjectDetails = lazy(() => import('./pages/Projects/ProjectDetails'));
 
 function App() {
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
   return (
     <Router>
       <LiquidFilters />
@@ -25,6 +32,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/project-details/:id" element={<ProjectDetails />} />
           {/* Add more routes as needed */}
         </Routes>
       </Suspense>

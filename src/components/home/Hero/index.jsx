@@ -4,15 +4,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Hero.css";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import StatBadge from "../../common/StatBadge/StatBadge";
+import MainHeroBanner from "../../common/MainHeroBanner";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 // Video paths
-const bannerVideo1 = "/videos/blanca-long-video.mp4";
-const blancaTowerVideo = "/videos/blanca-tower-video.mp4";
-const videoProject2 = "/videos/Video-Project-2.mp4";
-const employeeVideo = "/videos/employee-video.mp4";
+export const bannerVideo1 = "/videos/blanca-long-video.mp4";
+export const blancaTowerVideo = "/videos/blanca-tower-video.mp4";
+export const videoProject2 = "/videos/Video-Project-2.mp4";
+export const employeeVideo = "/videos/employee-video.mp4";
 
 const Hero = () => {
     useEffect(() => {
@@ -71,186 +72,6 @@ const Hero = () => {
 
     return (
         <>
-            {/* Section 1 */}
-            <section className="hero-area-2 black-120-bg">
-                <div
-                    className="hero-2-item justify-content-center"
-                    style={{ position: "relative", overflow: "hidden" }}
-                >
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        poster="/images/projects/lendscpae-images/blancs-business-hub.png"
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            zIndex: 0,
-                        }}
-                    >
-                        <source src={bannerVideo1} type="video/mp4" />
-                        <img
-                            src="/images/projects/lendscpae-images/blancs-business-hub.png"
-                            alt="Hero background"
-                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                        />
-                    </video>
-
-                    <div
-                        className="video-overlay"
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "rgba(17, 17, 17, 0.6)",
-                            zIndex: 1,
-                        }}
-                    ></div>
-
-                    <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
-                        <div className="row align-items-center justify-content-center">
-                            <div className="col-md-10 text-center">
-                                <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
-                                    <h5 className="text-white">New Launch</h5>
-                                    <h1 className="text-white bs-font-colgent-regular">Blanca : Ekaiva</h1>
-                                    <h5 className="text-white">Commercial - Turbhe Navi Mumbai</h5>
-                                </div>
-                                <div className="buttons mt-96">
-                                    <ThemeBtn to="/projects" className="bs-font-montserrat">View More</ThemeBtn>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Section 2 */}
-            <section className="hero-area-2 black-120-bg">
-                <div
-                    className="hero-2-item justify-content-center"
-                    style={{ position: "relative", overflow: "hidden" }}
-                >
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            zIndex: 0,
-                        }}
-                    >
-                        <source src={blancaTowerVideo} type="video/mp4" />
-                    </video>
-
-                    <div
-                        className="video-overlay"
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "rgba(17, 17, 17, 0.2)",
-                            zIndex: 1,
-                        }}
-                    ></div>
-
-                    <div
-                        className="video-overlay"
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "rgba(17, 17, 17, 0.6)",
-                            zIndex: 1,
-                        }}
-                    ></div>
-
-                    <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
-                        <div className="row align-items-center justify-content-center">
-                            <div className="col-md-10 text-center">
-                                <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
-                                    <h5 className="text-white">New Launch</h5>
-                                    <h1 className="text-white bs-font-colgent-regular">Blanca Tower</h1>
-                                    <h5 className="text-white">Commercial - Borivali</h5>
-                                </div>
-                                <div className="buttons mt-96">
-                                    <ThemeBtn to="/projects" className="bs-font-montserrat">View More</ThemeBtn>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Section 3 */}
-            <section className="hero-area-2 black-120-bg">
-                <div
-                    className="hero-2-item justify-content-center"
-                    style={{ position: "relative", overflow: "hidden" }}
-                >
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            zIndex: 0,
-                        }}
-                    >
-                        <source src={videoProject2} type="video/mp4" />
-                    </video>
-
-                    <div
-                        className="video-overlay"
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "rgba(17, 17, 17, 0.6)",
-                            zIndex: 1,
-                        }}
-                    ></div>
-
-                    <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
-                        <div className="row align-items-center justify-content-center">
-                            <div className="col-md-10 text-center">
-                                <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
-                                    <h5 className="text-white">Sold Out</h5>
-                                    <h1 className="text-white bs-font-colgent-regular">ND Pearl</h1>
-                                    <h5 className="text-white">Residential – Kamothe, Navi Mumbai</h5>
-                                </div>
-                                <div className="buttons mt-96">
-                                    <ThemeBtn to="/projects" className="bs-font-montserrat">View More</ThemeBtn>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             {/* Section 4 */}
             <section className="hero-area-2 black-120-bg">

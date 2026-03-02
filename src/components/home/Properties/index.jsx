@@ -6,8 +6,10 @@ import { Col, Row } from "react-bootstrap";
 import { projectsData } from '../../../data/projectsData';
 import ThemeBtn from '../../common/Button/ThemeBtn';
 import { motion } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 const Properties = () => {
+    const navigate = useNavigate();
     const settings = {
         infinite: true,
         autoplay: true,
@@ -90,9 +92,10 @@ const Properties = () => {
                     <Slider {...settings}>
                         {projectsData.map((project) => (
                             <div key={project.id} className="project-card-wrapper">
-                                <motion.a
+                                <motion.div
                                     className="project-card"
-                                    href={project.href}
+                                    onClick={() => navigate(`/project-details/${project.id}`)}
+                                    style={{ cursor: 'pointer' }}
                                     initial={{ opacity: 0, x: -50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.8, delay: parseFloat(project.animationDelay) || 0 }}
@@ -119,7 +122,7 @@ const Properties = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </motion.a>
+                                </motion.div>
                             </div>
                         ))}
                     </Slider>

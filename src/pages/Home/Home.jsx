@@ -9,6 +9,8 @@ import WhyChooseUs from '../../components/home/WhyChooseUs';
 import Preloader from '../../components/common/Preloader';
 import ScrollToTop from '../../components/common/ScrollToTop';
 import { AnimatePresence } from 'framer-motion';
+import MainHeroBanner from '../../components/common/MainHeroBanner';
+import { bannerVideo1, blancaTowerVideo, videoProject2 } from '../../components/home/Hero';
 
 const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -36,6 +38,26 @@ const Home = () => {
             </AnimatePresence>
             <Header />
             <main>
+                <MainHeroBanner
+                    videoSrc={bannerVideo1}
+                    poster="/images/projects/lendscpae-images/blancs-business-hub.png"
+                    tagline="New Launch"
+                    title="Blanca : Ekaiva"
+                    description="Commercial - Turbhe Navi Mumbai"
+                />
+                <MainHeroBanner
+                    videoSrc={blancaTowerVideo}
+                    tagline="New Launch"
+                    title="Blanca Tower"
+                    description="Commercial - Borivali"
+                    overlayOpacity={0.6}
+                />
+                <MainHeroBanner
+                    videoSrc={videoProject2}
+                    tagline="Sold Out"
+                    title="ND Pearl"
+                    description="Residential – Kamothe, Navi Mumbai"
+                />
                 <Hero />
                 <About />
                 <Properties />
