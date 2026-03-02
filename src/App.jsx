@@ -12,7 +12,7 @@ const About = lazy(() => import('./pages/About/About'));
 const Contact = lazy(() => import('./pages/Contect/Contact'));
 const Registration = lazy(() => import('./pages/Registration/Registration'));
 const Projects = lazy(() => import('./pages/Projects/Projects'));
-const ProjectDetails = lazy(() => import('./pages/Projects/ProjectDetails'));
+const ProjectDetails = lazy(() => import('./pages/ProjectDetails/ProjectDetails'));
 
 function App() {
   useEffect(() => {

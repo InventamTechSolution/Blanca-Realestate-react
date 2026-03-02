@@ -1,4 +1,5 @@
 import React from 'react';
+import './StatBadge.css';
 
 const StatBadge = ({ count, text, className = "" }) => {
     return (
