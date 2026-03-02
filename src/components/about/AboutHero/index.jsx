@@ -106,7 +106,12 @@ const HeroSection = () => {
                 ></div>
 
                 {/* Expertise Badge */}
-                <div className="about-expert-badge">
+                <motion.div
+                    className="about-expert-badge"
+                    initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+                >
                     <div className="badge-content">
                         <span className="badge-year" data-count="45">
                             0
@@ -137,7 +142,7 @@ const HeroSection = () => {
                             </text>
                         </svg>
                     </div>
-                </div>
+                </motion.div>
 
                 <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                     <div className="row align-items-center">
@@ -151,18 +156,29 @@ const HeroSection = () => {
                                 { count: 634, text: "Residential Units Delivered" },
                                 { count: 210, text: "Commercial Units Delivered" },
                             ].map((item, index) => (
-                                <div className="about-stat-box" key={index}>
+                                <motion.div
+                                    className="about-stat-box"
+                                    key={index}
+                                    initial={{ opacity: 0, x: -30 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                                >
                                     <div className="stat-number" data-count={item.count}>
                                         0
                                     </div>
                                     <div className="stat-text">{item.text}</div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
 
                         {/* Center Content */}
                         <div className="text-center">
-                            <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
+                            <motion.div
+                                className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column"
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1, delay: 0.3 }}
+                            >
                                 <div className="vertical-text-slider">
                                     <div className="slider-wrapper">
                                         {[
@@ -181,7 +197,7 @@ const HeroSection = () => {
                                         ))}
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Scroll Button */}
                             <motion.a

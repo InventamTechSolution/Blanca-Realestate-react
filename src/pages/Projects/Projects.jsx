@@ -8,8 +8,11 @@ import { projectsData } from '../../data/properties-listing';
 import './Projects.css';
 import ThemeBtn from '../../components/common/Button/ThemeBtn';
 import ProjectCard from '../../components/common/ProjectCard/ProjectCard';
+import Preloader from '../../components/common/Preloader';
+import { AnimatePresence } from 'framer-motion';
 
 const Projects = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const projectBg = "/images/background/project-listing-bg.png"; // Fixed path for public asset
     const location = useLocation();
     const dropdownRef = useRef(null);
@@ -18,11 +21,29 @@ const Projects = () => {
     const [view, setView] = useState("grid");
     const [activeDropdown, setActiveDropdown] = useState(null); // 'type' or 'status' or null
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        const handleLoad = () => {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 800);
+        };
+
+        if (document.readyState === 'complete') {
+            handleLoad();
+        } else {
+            window.addEventListener('load', handleLoad);
+        }
+
+        return () => window.removeEventListener('load', handleLoad);
+    }, []);
+
     const typeOptions = [
         { label: "All Projects", value: "all" },
         { label: "Commercial", value: "commercial" },
         { label: "Residential", value: "residential" },
     ];
+    // ... rest of the file
 
     const statusOptions = [
         { label: "All Status", value: "all" },
@@ -65,6 +86,9 @@ const Projects = () => {
 
     return (
         <div className="projects-page">
+            <AnimatePresence>
+                {isLoading && <Preloader key="preloader" isLoading={isLoading} />}
+            </AnimatePresence>
             <Header />
             <main>
                 <SmallHeroBanner

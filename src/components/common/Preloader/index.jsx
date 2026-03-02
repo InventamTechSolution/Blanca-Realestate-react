@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './Preloader.css';
+import { motion } from 'framer-motion';
 
-const Preloader = () => {
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const handleLoad = () => {
-            setTimeout(() => {
-                setLoading(false);
-            }, 600);
-        };
-
-        if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-        }
-
-        return () => window.removeEventListener('load', handleLoad);
-    }, []);
-
-    if (!loading) return null;
+const Preloader = ({ isLoading }) => {
+    if (!isLoading) return null;
 
     return (
-        <div className="preloader">
+        <motion.div
+            className="preloader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+        >
             <div className="preloader-inner">
                 <span className="dot"></span>
                 <div className="dots">
@@ -32,7 +20,7 @@ const Preloader = () => {
                     <span></span>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

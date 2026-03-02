@@ -82,6 +82,7 @@ const Hero = () => {
                         muted
                         loop
                         playsInline
+                        poster="/images/projects/lendscpae-images/blancs-business-hub.png"
                         style={{
                             position: "absolute",
                             top: 0,
@@ -94,7 +95,7 @@ const Hero = () => {
                     >
                         <source src={bannerVideo1} type="video/mp4" />
                         <img
-                            src="/images/background/hero-1.png"
+                            src="/images/projects/lendscpae-images/blancs-business-hub.png"
                             alt="Hero background"
                             style={{ width: "100%", height: "100%", objectFit: "cover" }}
                         />

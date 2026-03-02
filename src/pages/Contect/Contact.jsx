@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Preloader from '../../components/common/Preloader';
 import ScrollToTop from '../../components/common/ScrollToTop';
 import SmallHeroBanner from '../../components/common/Small-hero-banner';
@@ -15,6 +15,7 @@ const contactBg = "/images/background/contect-us.png";
 import './contect.css';
 
 const Contact = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const [formData, setFormData] = React.useState({
         firstName: "",
         lastName: "",
@@ -28,6 +29,19 @@ const Contact = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        const handleLoad = () => {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 800);
+        };
+
+        if (document.readyState === 'complete') {
+            handleLoad();
+        } else {
+            window.addEventListener('load', handleLoad);
+        }
+
+        return () => window.removeEventListener('load', handleLoad);
     }, []);
 
     const handleInputChange = (e) => {
@@ -54,24 +68,26 @@ const Contact = () => {
 
     return (
         <div className="contact-page">
-            <Preloader />
+            <AnimatePresence>
+                {isLoading && <Preloader key="preloader" isLoading={isLoading} />}
+            </AnimatePresence>
             <Header />
             <main>
-                {/* Contact Hero Section */}
-                <SmallHeroBanner title="Contact Us" description="Get in touch with Blanca for your dream property or investment." image={contactBg} />
+                <SmallHeroBanner
+                    title="Contact Us"
+                    description="Get in touch with Blanca for your dream property or investment."
+                    image={contactBg}
+                />
 
-                {/* Contact Info & Form Section */}
                 <div className="contact-form-section">
                     <Container>
                         <Row className="gx-5">
-
-                            {/* Contact Info Column */}
                             <Col lg={5}>
                                 <motion.div
                                     className="contact-info-wrapper"
-                                    initial={{ opacity: 0, x: -50 }}
+                                    initial={{ opacity: 0, x: -30 }}
                                     whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8 }}
+                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                     viewport={{ once: true }}
                                 >
                                     <div className="title-with-border">
@@ -85,7 +101,6 @@ const Contact = () => {
                                     </p>
 
                                     <div className="contact-items">
-
                                         <div className="contact-item-new">
                                             <div className="contact-icon">
                                                 <i className="fa-regular fa-comment-dots"></i>
@@ -123,17 +138,15 @@ const Contact = () => {
                                                 </p>
                                             </div>
                                         </div>
-
                                     </div>
                                 </motion.div>
                             </Col>
 
-                            {/* Form Column */}
                             <Col lg={7}>
                                 <motion.div
-                                    initial={{ opacity: 0, x: 50 }}
+                                    initial={{ opacity: 0, x: 30 }}
                                     whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8 }}
+                                    transition={{ duration: 0.8, ease: "easeOut" }}
                                     viewport={{ once: true }}
                                 >
                                     <Form>
@@ -218,7 +231,6 @@ const Contact = () => {
                                                 />
                                             </Col>
                                         </Row>
-
                                         <div className="submit-btn-contect-page mt-4">
                                             <button type="submit" className="theme-btn bs-font-montserrat">
                                                 Submit
