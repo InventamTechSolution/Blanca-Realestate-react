@@ -4,7 +4,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 100px 0px;
+    padding: 100px 0px 40px 0px;
 }
 
 .about-area.about-modern .container {
@@ -68,7 +68,6 @@
     color: var(--heading-color);
     letter-spacing: 0px;
 }
-
 
 /* .about-modern__lead {
   margin-bottom: 18px;

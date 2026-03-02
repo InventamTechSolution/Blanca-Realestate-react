@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Hero.css";
+import ThemeBtn from "../../common/Button/ThemeBtn";
+import StatBadge from "../../common/StatBadge/StatBadge";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -11,9 +13,6 @@ const bannerVideo1 = "/videos/blanca-long-video.mp4";
 const blancaTowerVideo = "/videos/blanca-tower-video.mp4";
 const videoProject2 = "/videos/Video-Project-2.mp4";
 const employeeVideo = "/videos/employee-video.mp4";
-
-import ThemeBtn from "../../common/Button/ThemeBtn";
-import StatBadge from "../../common/StatBadge/StatBadge";
 
 const Hero = () => {
     useEffect(() => {
@@ -154,6 +153,32 @@ const Hero = () => {
                     >
                         <source src={blancaTowerVideo} type="video/mp4" />
                     </video>
+
+                    <div
+                        className="video-overlay"
+                        style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "rgba(17, 17, 17, 0.2)",
+                            zIndex: 1,
+                        }}
+                    ></div>
+
+                    <div
+                        className="video-overlay"
+                        style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            backgroundColor: "rgba(17, 17, 17, 0.6)",
+                            zIndex: 1,
+                        }}
+                    ></div>
 
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center justify-content-center">
