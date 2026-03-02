@@ -2,35 +2,53 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // import { Container } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
+import $ from 'jquery';
+import 'jquery.ripples';
 import './Footer.css';
 const logo = '/images/logos/blanca-logo.png';
 
 const Footer = () => {
+    const footerRef = React.useRef(null);
+
     useEffect(() => {
-        const $ = window.$;
-        if ($ && $(".modern-footer").length && $.fn.ripples) {
-            try {
-                $(".modern-footer").ripples({
-                    resolution: 512,
-                    dropRadius: 20,
-                    perturbance: 0.04,
-                    interactive: true,
-                    crossOrigin: "",
-                });
-            } catch (e) {
-                console.log("Ripples effect initialization error:", e);
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && footerRef.current && $.fn.ripples) {
+                try {
+                    $(footerRef.current).ripples({
+                        resolution: 512,
+                        dropRadius: 20,
+                        perturbance: 0.04,
+                        interactive: true,
+                        crossOrigin: "",
+                    });
+                    // Unobserve after initializing to prevent multiple initializations
+                    // but we might want to keep it if we want it to dynamic? 
+                    // Usually ripple should stay.
+                    observer.unobserve(footerRef.current);
+                } catch (e) {
+                    console.log("Ripples effect initialization error:", e);
+                }
             }
+        }, { threshold: 0.1 });
+
+        if (footerRef.current) {
+            observer.observe(footerRef.current);
         }
 
         return () => {
-            if ($ && $(".modern-footer").length && $.fn.ripples) {
-                $(".modern-footer").ripples("destroy");
+            if (footerRef.current && $.fn.ripples) {
+                try {
+                    $(footerRef.current).ripples("destroy");
+                } catch (e) {
+                    // Ignore errors during destroy
+                }
             }
+            observer.disconnect();
         };
     }, []);
 
     return (
-        <footer className="main-footer modern-footer">
+        <footer ref={footerRef} className="main-footer modern-footer">
             <div className="footer-container">
                 {/* Footer Main Content */}
                 <div className="footer-content">
