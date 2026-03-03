@@ -1,5 +1,6 @@
 import React from "react";
 import ThemeBtn from "../Button/ThemeBtn";
+import './MainHeroBanner.css'
 
 const MainHeroBanner = ({
     videoSrc,

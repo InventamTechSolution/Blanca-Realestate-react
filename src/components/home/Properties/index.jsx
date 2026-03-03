@@ -94,7 +94,7 @@ const Properties = () => {
                             <div key={project.id} className="project-card-wrapper">
                                 <motion.div
                                     className="project-card"
-                                    onClick={() => navigate(`/project-details/${project.id}`)}
+                                    onClick={() => navigate('/project-details')}
                                     style={{ cursor: 'pointer' }}
                                     initial={{ opacity: 0, x: -50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
