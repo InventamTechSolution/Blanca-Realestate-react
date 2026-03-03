@@ -14,6 +14,24 @@ import commercial3 from '../../../public/images/project-details/commercial-offic
 
 const ProjectDetails = () => {
 
+    const overviewData = [
+        {
+            id: 1,
+            image: commercial1,
+            alt: "Blanca Ekaiva Office 1"
+        },
+        {
+            id: 2,
+            image: commercial2,
+            alt: "Blanca Ekaiva Office 2"
+        },
+        {
+            id: 3,
+            image: commercial3,
+            alt: "Blanca Ekaiva Office 3"
+        }
+    ];
+
     const settings = {
         infinite: true,
         autoplay: true,
@@ -77,27 +95,15 @@ const ProjectDetails = () => {
                             <Col lg={6} className="wow fadeInRight">
                                 <div className="overview-slider">
                                     <Slider {...settings}>
-                                        <div>
-                                            <img
-                                                className="d-block w-100 rounded"
-                                                src={commercial1}
-                                                alt="Blanca Ekaiva Office 1"
-                                            />
-                                        </div>
-                                        <div>
-                                            <img
-                                                className="d-block w-100 rounded"
-                                                src={commercial2}
-                                                alt="Blanca Ekaiva Office 2"
-                                            />
-                                        </div>
-                                        <div>
-                                            <img
-                                                className="d-block w-100 rounded"
-                                                src={commercial3}
-                                                alt="Blanca Ekaiva Office 3"
-                                            />
-                                        </div>
+                                        {overviewData.map((item) => (
+                                            <div key={item.id}>
+                                                <img
+                                                    className="d-block w-100 rounded"
+                                                    src={item.image}
+                                                    alt={item.alt}
+                                                />
+                                            </div>
+                                        ))}
                                     </Slider>
                                 </div>
                             </Col>
