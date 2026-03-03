@@ -7,12 +7,12 @@ import './assets/styles/App.css';
 import './assets/styles/index.css';
 import './assets/styles/fonts.css';
 
-const Home = lazy(() => import('./pages/Home/index'));
-const About = lazy(() => import('./pages/About/index'));
-const Contact = lazy(() => import('./pages/Contect/index'));
-const Registration = lazy(() => import('./pages/Registration/index'));
-const Projects = lazy(() => import('./pages/Projects/index'));
-const Projectdetails = lazy(() => import('./pages/ProjectDetails/index'));
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contect'));
+const Registration = lazy(() => import('./pages/Registration'));
+const Projects = lazy(() => import('./pages/Projects'));
+const ProjectDetails = lazy(() => import('./pages/ProjectDetails'));
 
 function App() {
   useEffect(() => {
@@ -32,7 +32,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/project-details" element={<Projectdetails />} />
+          <Route path="/project-details" element={<ProjectDetails />} />
           {/* Add more routes as needed */}
         </Routes>
       </Suspense>
