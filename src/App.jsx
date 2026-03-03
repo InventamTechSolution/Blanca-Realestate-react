@@ -7,12 +7,12 @@ import './assets/styles/App.css';
 import './assets/styles/index.css';
 import './assets/styles/fonts.css';
 
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
-const Contact = lazy(() => import('./pages/Contect'));
-const Registration = lazy(() => import('./pages/Registration'));
-const Projects = lazy(() => import('./pages/Projects'));
-const Projectdetails = lazy(() => import('./pages/Projectdetails'));
+const Home = lazy(() => import('./pages/Home/index'));
+const About = lazy(() => import('./pages/About/index'));
+const Contact = lazy(() => import('./pages/Contect/index'));
+const Registration = lazy(() => import('./pages/Registration/index'));
+const Projects = lazy(() => import('./pages/Projects/index'));
+const Projectdetails = lazy(() => import('./pages/Projectdetails/index'));
 
 function App() {
   useEffect(() => {
