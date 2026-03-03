@@ -6,6 +6,7 @@ import { Col, Row } from "react-bootstrap";
 import { projectsData } from "../../../data/projectsData";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import { useNavigate } from "react-router-dom";
+import { motion as Motion } from "framer-motion";
 
 const Properties = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const Properties = () => {
       <Row className="projects-shell align-items-center gx-4">
         {/* Left Intro Section */}
         <Col lg={4} className="projects-intro">
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -82,7 +83,7 @@ const Properties = () => {
                 Schedule a Visit
               </ThemeBtn>
             </div>
-          </motion.div>
+          </Motion.div>
         </Col>
 
         {/* Project Cards */}
@@ -90,7 +91,7 @@ const Properties = () => {
           <Slider {...settings}>
             {projectsData.map((project) => (
               <div key={project.id} className="project-card-wrapper">
-                <motion.div
+                <Motion.div
                   className="project-card"
                   onClick={() => navigate(`/project/${project.id}`)}
                   style={{ cursor: "pointer" }}
@@ -138,7 +139,7 @@ const Properties = () => {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </Motion.div>
               </div>
             ))}
           </Slider>
