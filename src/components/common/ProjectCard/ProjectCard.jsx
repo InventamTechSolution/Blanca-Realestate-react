@@ -60,13 +60,13 @@ const ProjectCard = ({ project, layout = "grid" }) => {
 
         <div className="project-card-button-section">
           <ThemeBtn
-            href={`/project-details/${project.id}`}
+            href={`/project/${project.id}`}
             className="view-details-btn"
           >
             View Details
           </ThemeBtn>
           <ThemeBtn
-            href={`/project-details/${project.id}`}
+            href={`/project/${project.id}`}
             className="view-details-btn"
           >
             Enquireies
