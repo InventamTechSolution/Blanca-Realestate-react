@@ -4,12 +4,13 @@ import Header from '../../components/layout/Header/Header'
 import Footer from '../../components/layout/Footer/Footer'
 import MainHeroBanner from '../../components/common/MainHeroBanner'
 import { bannerVideo1 } from '../../components/home/Hero'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Form } from 'react-bootstrap'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import InteriorExterior from '../../components/project/InteriorExterior/InteriorExterior';
 import Amenities from '../../components/project/Amenities';
+import ThemeBtn from '../../components/common/Button/ThemeBtn'
 const commercial1 = "/images/project-details/commercial-office-1.png";
 const commercial2 = "/images/project-details/commercial-office-2.png";
 const commercial3 = "/images/project-details/commercial-office-3.png";
@@ -308,15 +309,11 @@ const ProjectDetails = () => {
 
                                                 <Col md={12}>
                                                     <div className="buttons submit-enquiry-btn">
-                                                        <Button
-                                                            type="submit"
-                                                            className="theme-btn bs-font-montserrat"
-                                                        >
+                                                        <ThemeBtn to="/projects" className="bs-font-montserrat">
                                                             Submit Inquiry
-                                                        </Button>
+                                                        </ThemeBtn>
                                                     </div>
                                                 </Col>
-
                                             </Row>
                                         </Form>
 
