@@ -113,6 +113,225 @@ const ProjectDetails = () => {
                 </section>
                 <InteriorExterior />
                 <Amenities />
+
+                <section className="project-location">
+                    {/* Heading */}
+                    <div className="location-heading text-center mb-60 wow fadeInUp delay-0-3s">
+                        <div className="sub-title-wrapper mb-20 d-inline-block">
+                            <span className="sub-title common-subtitle">LOCATION</span>
+                        </div>
+
+                        <h2 className="common-title bs-font-playfair-display text-white mb-20">
+                            living at a prime address
+                        </h2>
+
+                        <p className="text-white opacity-50">
+                            Strategically connected to everything that matters
+                        </p>
+                    </div>
+
+                    <Container>
+                        <Row className="align-items-center">
+                            <Col className="wow fadeInRight">
+                                <div className="location-map-wrap">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15086.12642289666!2d73.00355415!3d19.0401887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3df944f31c7%3A0xc3f8f121df4c6e9d!2sTurbhe%2C%20Navi%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                                        width="100%"
+                                        height="100%"
+                                        style={{ border: 0 }}
+                                        allowFullScreen
+                                        loading="lazy"
+                                        title="Project Location Map"
+                                    ></iframe>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                </section>
+
+                <section className="enquiry-premium-section py-150">
+                    <Container fluid>
+                        <Row className="align-items-center gap-4">
+
+                            {/* LEFT CONTENT */}
+                            <Col className="wow fadeInLeft">
+                                <div className="enquiry-content-box">
+
+                                    <div className="sub-title-wrapper mb-20 d-inline-block">
+                                        <span className="sub-title common-subtitle">
+                                            ENQUIRE NOW
+                                        </span>
+                                    </div>
+
+                                    <h2 className="common-title bs-font-playfair-display text-white">
+                                        Interested in Blanca : Ekaiva?
+                                    </h2>
+
+                                    <p className="text-white opacity-50">
+                                        Our experts are happy to help you with all project details
+                                        and site visits.
+                                    </p>
+
+                                    <div className="consultation-features">
+
+                                        <div className="c-feature-item">
+                                            <div className="icon-circle">
+                                                <i className="fas fa-user-tie"></i>
+                                            </div>
+                                            <div className="text">
+                                                <h5>Private Viewing</h5>
+                                                <p>Personalized site visits arranged at your convenience.</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="c-feature-item">
+                                            <div className="icon-circle">
+                                                <i className="fas fa-chart-line"></i>
+                                            </div>
+                                            <div className="text">
+                                                <h5>Investment Analysis</h5>
+                                                <p>Detailed performance reports and projected ROI data.</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="c-feature-item">
+                                            <div className="icon-circle">
+                                                <i className="fas fa-chess-knight"></i>
+                                            </div>
+                                            <div className="text">
+                                                <h5>Expert Strategy</h5>
+                                                <p>
+                                                    Tailored business entry and expansion strategies
+                                                    for the Navi Mumbai market.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="c-feature-item">
+                                            <div className="icon-circle">
+                                                <i className="fas fa-headset"></i>
+                                            </div>
+                                            <div className="text">
+                                                <h5>End-to-End Support</h5>
+                                                <p>
+                                                    Dedicated relationship managers to guide you
+                                                    from inquiry to possession.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </Col>
+
+                            {/* RIGHT FORM */}
+                            <Col lg={6} className="wow fadeInRight">
+                                <div className="lux-enquiry-card-wrapper">
+                                    <div className="lux-enquiry-card glass-morphism">
+
+                                        <div className="enquiry-card-header text-center mb-40">
+                                            <h2 className="common-title bs-font-playfair-display text-white">
+                                                Enquire for Blanca : Ekaiva
+                                            </h2>
+                                            <p>
+                                                Fill in your details and our team will be in touch
+                                                within 24 hours.
+                                            </p>
+                                        </div>
+
+                                        <Form className="modern-contact-form">
+                                            <Row className="gx-4 gy-4">
+
+                                                <Col md={12}>
+                                                    <div className="input-modern-group">
+                                                        <Form.Control
+                                                            type="text"
+                                                            name="name"
+                                                            className="modern-input"
+                                                            placeholder=" "
+                                                            required
+                                                        />
+                                                        <label className="modern-label">
+                                                            Full Name
+                                                        </label>
+                                                        <span className="focus-border"></span>
+                                                    </div>
+                                                </Col>
+
+                                                <Col md={12}>
+                                                    <div className="input-modern-group">
+                                                        <Form.Control
+                                                            type="email"
+                                                            name="email"
+                                                            className="modern-input"
+                                                            placeholder=" "
+                                                            required
+                                                        />
+                                                        <label className="modern-label">
+                                                            Email Address
+                                                        </label>
+                                                        <span className="focus-border"></span>
+                                                    </div>
+                                                </Col>
+
+                                                <Col md={12}>
+                                                    <div className="input-modern-group">
+                                                        <Form.Control
+                                                            type="text"
+                                                            name="phone"
+                                                            className="modern-input"
+                                                            placeholder=" "
+                                                            required
+                                                        />
+                                                        <label className="modern-label">
+                                                            Phone Number
+                                                        </label>
+                                                        <span className="focus-border"></span>
+                                                    </div>
+                                                </Col>
+
+                                                <Col md={12}>
+                                                    <div className="input-modern-group">
+                                                        <Form.Control
+                                                            as="textarea"
+                                                            name="message"
+                                                            rows={3}
+                                                            className="modern-input"
+                                                            placeholder=" "
+                                                        />
+                                                        <label className="modern-label">
+                                                            Message (Optional)
+                                                        </label>
+                                                        <span className="focus-border"></span>
+                                                    </div>
+                                                </Col>
+
+                                                <Col md={12}>
+                                                    <div className="buttons submit-enquiry-btn">
+                                                        <Button
+                                                            type="submit"
+                                                            className="theme-btn bs-font-montserrat"
+                                                        >
+                                                            Submit Inquiry
+                                                        </Button>
+                                                    </div>
+                                                </Col>
+
+                                            </Row>
+                                        </Form>
+
+                                        <div className="enquiry-security-note mt-30 text-center">
+                                            <p>
+                                                <i className="fas fa-shield-alt me-2"></i>
+                                                Your data is protected by industry-standard encryption.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                </section>
             </main>
             <Footer />
         </>
