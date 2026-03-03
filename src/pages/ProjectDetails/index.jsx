@@ -1,5 +1,5 @@
 import React from 'react'
-import './projectdetails.css'
+import './projectDetails.css'
 import Header from '../../components/layout/Header/Header'
 import Footer from '../../components/layout/Footer/Footer'
 import MainHeroBanner from '../../components/common/MainHeroBanner'
