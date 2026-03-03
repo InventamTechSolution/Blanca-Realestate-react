@@ -1,37 +1,36 @@
-import React from "react";
-import "./ProjectDetails.css";
-import Header from "../../components/layout/Header/Header";
-import Footer from "../../components/layout/Footer/Footer";
-import MainHeroBanner from "../../components/common/MainHeroBanner";
-import { bannerVideo1 } from "../../components/home/Hero";
-import { Container, Row, Col } from "react-bootstrap";
+import React from 'react'
+import './ProjectDetails.css'
+import Header from '../../components/layout/Header/Header'
+import Footer from '../../components/layout/Footer/Footer'
+import MainHeroBanner from '../../components/common/MainHeroBanner'
+import { bannerVideo1 } from '../../components/home/Hero'
+import { Container, Row, Col } from 'react-bootstrap'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import InteriorExterior from '../../components/project/InteriorExterior/InteriorExterior'
-
-// Import images
-import commercial1 from '../../../public/images/project-details/commercial-office-1.png'
-import commercial2 from '../../../public/images/project-details/commercial-office-2.png'
-import commercial3 from '../../../public/images/project-details/commercial-office-3.png'
+import InteriorExterior from '../../components/project/InteriorExterior/InteriorExterior';
+import Amenities from '../../components/project/Amenities';
+const commercial1 = "/images/project-details/commercial-office-1.png";
+const commercial2 = "/images/project-details/commercial-office-2.png";
+const commercial3 = "/images/project-details/commercial-office-3.png";
 
 const ProjectDetails = () => {
     const overviewData = [
         {
             id: 1,
             image: commercial1,
-            alt: "Blanca Ekaiva Office 1",
+            alt: "Blanca Ekaiva Office 1"
         },
         {
             id: 2,
             image: commercial2,
-            alt: "Blanca Ekaiva Office 2",
+            alt: "Blanca Ekaiva Office 2"
         },
         {
             id: 3,
             image: commercial3,
-            alt: "Blanca Ekaiva Office 3",
-        },
+            alt: "Blanca Ekaiva Office 3"
+        }
     ];
 
     const settings = {
@@ -48,17 +47,6 @@ const ProjectDetails = () => {
         pauseOnHover: true,
     };
 
-    // const interiorImages = [
-    //     { src: commercial1, title: 'Modern Workspace' },
-    //     { src: commercial2, title: 'Collaborative Area' },
-    //     { src: commercial3, title: 'Executive Cabin' }
-    // ];
-
-    // const exteriorImages = [
-    //     { src: "/images/projects/lendscpae-images/blancs-business-hub.png", title: 'Architectural Excellence' },
-    //     { src: "/images/projects/lendscpae-images/blanca-tower.png", title: 'Prime Facade' }
-    // ];
-
     return (
         <>
             <Header />
@@ -74,6 +62,7 @@ const ProjectDetails = () => {
                 <section className="project-about-section">
                     <Container>
                         <Row className="gap-3 align-items-center">
+
                             {/* Left Content */}
                             <Col className="wow fadeInLeft">
                                 <div className="sub-title-wrapper mb-20">
@@ -89,9 +78,8 @@ const ProjectDetails = () => {
                                         Blanca : Ekaiva is more than just a business hub; it's a
                                         strategically planned environment designed for growth and
                                         productivity. Located in the heart of Turbhe, Navi Mumbai,
-                                        this commercial landmark offers modern office spaces
-                                        tailored for boutiques, startups, and established
-                                        enterprises alike.
+                                        this commercial landmark offers modern office spaces tailored
+                                        for boutiques, startups, and established enterprises alike.
                                     </p>
 
                                     <p>
@@ -123,11 +111,12 @@ const ProjectDetails = () => {
                         </Row>
                     </Container>
                 </section>
+                <InteriorExterior />
+                <Amenities />
             </main>
             <Footer />
         </>
-    );
-};
-
+    )
+}
 
 export default ProjectDetails
