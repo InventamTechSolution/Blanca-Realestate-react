@@ -1,0 +1,51 @@
+/* About Section */
+.project-about-section {
+    padding: 100px 0;
+}
+
+.overview-slider .overview-slide img {
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.overview-slider .slick-dots {
+    bottom: -40px;
+    display: flex !important;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.overview-slider .slick-dots li {
+    margin: 0 5px;
+    width: auto;
+    height: auto;
+}
+
+.overview-slider .slick-dots li button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    font-size: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.overview-slider .slick-dots li button:before {
+    display: none !important;
+}
+
+.overview-slider .slick-dots li.slick-active button {
+    background: var(--primary-color);
+    width: 24px;
+    border-radius: 10px;
+}
+
+.project-description-text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--black-30);
+}

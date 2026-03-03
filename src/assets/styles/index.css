@@ -1131,3 +1131,34 @@ header form.search-form button:hover::before,
     box-shadow: 0 0 0 35px rgba(255, 255, 255, 0);
   }
 }
+
+.common-title {
+  color: var(--heading-color);
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+}
+
+.common-subtitle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  gap: 10px;
+}
+
+.sub-title.common-subtitle::before,
+.sub-title.common-subtitle::after {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background: var(--primary-color);
+  /* height: 34px;
+  background-image: url('../images/logos/favicon.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; */
+}
