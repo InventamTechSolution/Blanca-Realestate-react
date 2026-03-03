@@ -12,8 +12,7 @@ import commercial1 from '../../../public/images/project-details/commercial-offic
 import commercial2 from '../../../public/images/project-details/commercial-office-2.png'
 import commercial3 from '../../../public/images/project-details/commercial-office-3.png'
 
-const ProjectDetails = () => {
-
+const Projectdetails = () => {
     const overviewData = [
         {
             id: 1,
@@ -116,4 +115,4 @@ const ProjectDetails = () => {
     )
 }
 
-export default ProjectDetails
+export default Projectdetails
