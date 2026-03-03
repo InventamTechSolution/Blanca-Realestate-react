@@ -1,7 +1,7 @@
 import React from 'react';
 import './StatBadge.css';
 
-const StatBadge = ({ count, text, className = "" }) => {
+const StatBadge = ({ count, text }) => {
     return (
         <div className={`hero-stat-box`}>
             <div className="stat-number" data-count={count}>0</div>
