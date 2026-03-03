@@ -3,8 +3,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Hero.css";
 import ThemeBtn from "../../common/Button/ThemeBtn";
-import StatBadge from "../../common/StatBadge/StatBadge";
-import MainHeroBanner from "../../common/MainHeroBanner";
+// import StatBadge from "../../common/StatBadge/StatBadge";
+// import MainHeroBanner from "../../common/MainHeroBanner";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -128,11 +128,11 @@ const Hero = () => {
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center">
                             <div className="col-lg-3 col-md-12 hero-left-stats">
-                                <StatBadge count="489" text="Upcoming Commercial Units" />
+                                {/* <StatBadge count="489" text="Upcoming Commercial Units" />
                                 <StatBadge count="174" text="Upcoming Residential Units" />
                                 <StatBadge count="76" text="Residential Units Nearly Possession" />
                                 <StatBadge count="634" text="Residential Units Delivered" />
-                                <StatBadge count="210" text="Commercial Units Delivered" />
+                                <StatBadge count="210" text="Commercial Units Delivered" /> */}
                             </div>
                             <div className="col-md-10 text-center right-side-content">
                                 <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
