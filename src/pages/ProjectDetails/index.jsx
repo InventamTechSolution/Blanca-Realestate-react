@@ -8,6 +8,9 @@ import { Container, Row, Col } from 'react-bootstrap'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import InteriorExterior from '../../components/project/InteriorExterior/InteriorExterior'
+
+// Import images
 import commercial1 from '../../../public/images/project-details/commercial-office-1.png'
 import commercial2 from '../../../public/images/project-details/commercial-office-2.png'
 import commercial3 from '../../../public/images/project-details/commercial-office-3.png'
@@ -44,6 +47,17 @@ const ProjectDetails = () => {
         cssEase: "ease-in-out",
         pauseOnHover: true,
     };
+
+    // const interiorImages = [
+    //     { src: commercial1, title: 'Modern Workspace' },
+    //     { src: commercial2, title: 'Collaborative Area' },
+    //     { src: commercial3, title: 'Executive Cabin' }
+    // ];
+
+    // const exteriorImages = [
+    //     { src: "/images/projects/lendscpae-images/blancs-business-hub.png", title: 'Architectural Excellence' },
+    //     { src: "/images/projects/lendscpae-images/blanca-tower.png", title: 'Prime Facade' }
+    // ];
 
     return (
         <>
@@ -109,6 +123,11 @@ const ProjectDetails = () => {
                         </Row>
                     </Container>
                 </section>
+
+                <InteriorExterior
+                // interiorImages={interiorImages}
+                // exteriorImages={exteriorImages}
+                />
             </main>
             <Footer />
         </>
