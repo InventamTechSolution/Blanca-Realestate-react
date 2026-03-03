@@ -9,6 +9,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import InteriorExterior from '../../components/project/InteriorExterior/InteriorExterior';
+import Amenities from '../../components/project/Amenities';
 const commercial1 = "/images/project-details/commercial-office-1.png";
 const commercial2 = "/images/project-details/commercial-office-2.png";
 const commercial3 = "/images/project-details/commercial-office-3.png";
@@ -110,8 +111,8 @@ const ProjectDetails = () => {
                         </Row>
                     </Container>
                 </section>
-
                 <InteriorExterior />
+                <Amenities />
             </main>
             <Footer />
         </>
