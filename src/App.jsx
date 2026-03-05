@@ -12,6 +12,7 @@ import Contact from "./pages/Contect";
 import Registration from "./pages/Registration";
 import Projects from "./pages/Projects";
 import ProjectDetails from "./pages/ProjectDetails";
+import Careers from "./pages/Careers";
 
 function App() {
   // useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="/careers" element={<Careers />} />
       </Routes>
     </>
   );

@@ -156,6 +156,65 @@
     gap: 12px;
 }
 
+.project-download-options-horizontal {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.download-link {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.download-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.download-icon {
+    font-size: 24px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.download-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.download-text .title {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.download-text .action {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.download-text .action i {
+    font-size: 11px;
+    color: var(--primary-color);
+}
+
 .view-details-btn {
     flex: 1;
 }
@@ -163,7 +222,6 @@
 /* Horizontal Card Styles */
 .project-card-horizontal {
     display: flex;
-    border-radius: 0px;
     cursor: pointer;
     color: var(--lg-text);
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
@@ -173,6 +231,26 @@
     overflow: hidden;
     isolation: isolate;
     border-radius: 16px;
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+.project-card-horizontal .horiz-content .project-download-options-horizontal {
+    margin-bottom: 10px;
+    gap: 8px;
+}
+
+.project-card-horizontal .horiz-content .download-link {
+    padding: 6px 10px;
+    gap: 8px;
+}
+
+.project-card-horizontal .horiz-content .download-icon {
+    font-size: 18px;
+}
+
+.project-card-horizontal .horiz-content .download-text .title {
+    font-size: 9px;
 }
 
 .project-card-horizontal::before {
@@ -203,12 +281,16 @@
     width: 180px;
     min-width: 180px;
     height: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
 }
 
 .horiz-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .horiz-content {

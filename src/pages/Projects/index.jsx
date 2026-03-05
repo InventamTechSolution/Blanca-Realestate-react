@@ -18,6 +18,22 @@ const Projects = () => {
   const [status, setStatus] = useState("all");
   const [view, setView] = useState("grid");
   const [activeDropdown, setActiveDropdown] = useState(null); // 'type' or 'status' or null
+  const [activeProjectId, setActiveProjectId] = useState(null);
+
+  const filteredProjects = projectsData.filter((project) => {
+    const matchesType =
+      type === "all" ||
+      project.propertyType.toLowerCase() === type.toLowerCase();
+    const matchesStatus =
+      status === "all" || project.status.toLowerCase() === status.toLowerCase();
+    return matchesType && matchesStatus;
+  });
+
+  useEffect(() => {
+    if (filteredProjects.length > 0 && !activeProjectId) {
+      setActiveProjectId(filteredProjects[0].id);
+    }
+  }, [filteredProjects, activeProjectId]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -76,14 +92,6 @@ const Projects = () => {
     setActiveDropdown(null);
   };
 
-  const filteredProjects = projectsData.filter((project) => {
-    const matchesType =
-      type === "all" ||
-      project.propertyType.toLowerCase() === type.toLowerCase();
-    const matchesStatus =
-      status === "all" || project.status.toLowerCase() === status.toLowerCase();
-    return matchesType && matchesStatus;
-  });
 
   return (
     <div className="projects-page">
@@ -179,18 +187,16 @@ const Projects = () => {
                   {/* ================= View Toggle ================= */}
                   <div className="view-toggles">
                     <ThemeBtn
-                      className={`view-toggle-btn ${
-                        view === "grid" ? "active" : ""
-                      }`}
+                      className={`view-toggle-btn ${view === "grid" ? "active" : ""
+                        }`}
                       onClick={() => setView("grid")}
                     >
                       GRID VIEW
                     </ThemeBtn>
 
                     <ThemeBtn
-                      className={`view-toggle-btn ${
-                        view === "map" ? "active" : ""
-                      }`}
+                      className={`view-toggle-btn ${view === "map" ? "active" : ""
+                        }`}
                       onClick={() => setView("map")}
                     >
                       MAP VIEW
@@ -220,19 +226,37 @@ const Projects = () => {
               <div className="map-view-container">
                 <div className="map-side-list">
                   {filteredProjects.map((project) => (
-                    <ProjectCard
+                    <div
                       key={project.id}
-                      project={project}
-                      layout="horizontal"
-                    />
+                      onMouseEnter={() => setActiveProjectId(project.id)}
+                      className={`map-project-item ${activeProjectId === project.id ? "active-project" : ""
+                        }`}
+                    >
+                      <ProjectCard project={project} layout="horizontal" />
+                    </div>
                   ))}
                 </div>
                 <div className="map-side-view">
                   <div id="project-map-placeholder">
-                    {/* Map integration would go here */}
-                    <div className="d-flex align-items-center justify-content-center h-100 bg-dark text-white">
-                      Map View Placeholder
-                    </div>
+                    {activeProjectId ? (
+                      <iframe
+                        title="Project Location"
+                        src={
+                          filteredProjects.find((p) => p.id === activeProjectId)
+                            ?.mapUrl || ""
+                        }
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                      ></iframe>
+                    ) : (
+                      <div className="d-flex align-items-center justify-content-center h-100 bg-dark text-white">
+                        Select a project to view on map
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

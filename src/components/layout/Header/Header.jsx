@@ -214,9 +214,9 @@ const Header = () => {
                     <Link to="/contact" onClick={closeMenus}>Contact Us</Link>
                   </li>
                   <li className="header-link">
-                    <a href="mailto:reachus.blanca@gmail.com?subject=Career">
+                    <Link to="/careers" onClick={closeMenus}>
                       Career
-                    </a>
+                    </Link>
                   </li>
                   <li className="header-link">
                     <Link
@@ -280,9 +280,9 @@ const Header = () => {
 
                       <li className={isCurrent('/contact')}><Link to="/contact" onClick={closeMenus}>Contact Us</Link></li>
                       <li>
-                        <a href="mailto:reachus.blanca@gmail.com?subject=Career">
+                        <Link to="/careers" onClick={closeMenus}>
                           Career
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <Link
