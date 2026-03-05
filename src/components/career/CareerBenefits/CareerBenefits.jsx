@@ -7,28 +7,28 @@ import { motion as Motion } from "framer-motion";
 
 const benefits = [
     {
-        icon: "lucide:users",
+        icon: "lucide:award",
         title: "Strong legacy & growing brand",
         description:
-            "We believe in diversity and inclusion, fostering a workplace where everyone feels welcome and valued.",
+            "Built on years of trust and excellence, our strong legacy continues to shape a growing and respected brand in the real estate industry.",
+    },
+    {
+        icon: "lucide:eye",
+        title: "Transparent work culture",
+        description:
+            "We follow a transparent work culture that ensures honesty, clear communication, and complete trust in every real estate transaction.",
     },
     {
         icon: "lucide:trending-up",
-        title: "Transparent work culture",
-        description:
-            "Continuous learning and career advancement pathways to help you reach your full potential.",
-    },
-    {
-        icon: "lucide:heart",
         title: "Opportunity to grow with landmark projects",
         description:
-            "Comprehensive health insurance and wellness programs to support your physical and mental well-being.",
+            "Be part of landmark real estate projects that offer exceptional opportunities for professional growth and long-term success.",
     },
     {
-        icon: "lucide:clock",
+        icon: "lucide:cpu",
         title: "Professional, technology-driven environment",
         description:
-            "Modern work arrangements including remote options to ensure a healthy work-life balance.",
+            "Work in a professional, technology-driven environment that enhances efficiency, innovation, and excellence in real estate development.",
     },
     // {
     //     icon: "lucide:award",
