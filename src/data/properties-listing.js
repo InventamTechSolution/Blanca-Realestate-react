@@ -30,6 +30,8 @@ export const projectsData = [
       "/images/projects/lendscpae-images/blancs-business-hub.png",
       "/images/projects/lendscpae-images/blanca-tower.png",
     ],
+    mapUrl:
+      "https://maps.google.com/maps?q=Blanca+Ekaiva+Turbhe+Navi+Mumbai&output=embed",
   },
   {
     id: 2,
@@ -60,6 +62,8 @@ export const projectsData = [
       "/images/projects/lendscpae-images/blanca-tower.png",
       "/images/projects/lendscpae-images/blancs-business-hub.png",
     ],
+    mapUrl:
+      "https://maps.google.com/maps?q=Blanca+Tower+Borivali+Mumbai&output=embed",
   },
   {
     id: 3,
@@ -86,6 +90,8 @@ export const projectsData = [
       "Well-ventilated apartments",
     ],
     gallery: ["/images/projects/lendscpae-images/nd-pearl.png"],
+    mapUrl:
+      "https://maps.google.com/maps?q=ND+Pearl+Kamothe+Navi+Mumbai&output=embed",
   },
   {
     id: 4,
@@ -112,6 +118,8 @@ export const projectsData = [
       "Great investment potential",
     ],
     gallery: ["/images/projects/lendscpae-images/nd-garden-tower.png"],
+    mapUrl:
+      "https://maps.google.com/maps?q=ND+Garden+Tower+Ulwe+Navi+Mumbai&output=embed",
   },
   {
     id: 5,
@@ -136,6 +144,8 @@ export const projectsData = [
       "Community living experience",
     ],
     gallery: ["/images/projects/lendscpae-images/nd-garden.png"],
+    mapUrl:
+      "https://maps.google.com/maps?q=ND+Garden+Ulwe+Navi+Mumbai&output=embed",
   },
   {
     id: 6,
@@ -160,6 +170,8 @@ export const projectsData = [
       "High rentability",
     ],
     gallery: ["/images/projects/lendscpae-images/gajanand-krupa.png"],
+    mapUrl:
+      "https://maps.google.com/maps?q=Shree+Gajanand+Krupa+Ulwe+Navi+Mumbai&output=embed",
   },
   {
     id: 7,
@@ -187,6 +199,7 @@ export const projectsData = [
       "Panoramic city views",
     ],
     gallery: ["/images/projects/lendscpae-images/blanca-hill.png"],
+    mapUrl: "https://maps.google.com/maps?q=Ulwe+Navi+Mumbai&output=embed",
   },
   {
     id: 8,
@@ -214,5 +227,6 @@ export const projectsData = [
       "Exceptional connectivity",
     ],
     gallery: ["/images/projects/lendscpae-images/Blanca-Seascape.png"],
+    mapUrl: "https://maps.google.com/maps?q=Ulwe+Navi+Mumbai&output=embed",
   },
 ];

@@ -1,4 +1,5 @@
 import React from "react";
+import { Icon } from "@iconify/react";
 import ThemeBtn from "../Button/ThemeBtn";
 import "./ProjectCard.css";
 
@@ -19,6 +20,24 @@ const ProjectCard = ({ project, layout = "grid" }) => {
           <p className="horiz-desc">
             {project.propertyType} | {project.configuration}
           </p>
+          <div className="project-download-options-horizontal">
+            <a href="#" className="download-link brochure">
+              <div className="download-icon">
+                <Icon icon="solar:document-text-outline" />
+              </div>
+              <div className="download-text">
+                <span className="title">BROCHURE</span>
+              </div>
+            </a>
+            <a href="#" className="download-link fact-sheet">
+              <div className="download-icon">
+                <Icon icon="solar:bill-list-outline" />
+              </div>
+              <div className="download-text">
+                <span className="title">FACT SHEET</span>
+              </div>
+            </a>
+          </div>
           <a href={project.href} className="read-more-link">
             Read More
           </a>
@@ -56,6 +75,31 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             <span>Area – Carpet:</span>
             <strong>{project.area}</strong>
           </div>
+        </div>
+
+        <div className="project-download-options-horizontal">
+          <a href="#" className="download-link brochure">
+            <div className="download-icon">
+              <Icon icon="solar:document-text-outline" />
+            </div>
+            <div className="download-text">
+              <span className="title">PROJECT BROCHURE</span>
+              <span className="action">
+                DOWNLOAD <i className="fas fa-arrow-down"></i>
+              </span>
+            </div>
+          </a>
+          <a href="#" className="download-link fact-sheet">
+            <div className="download-icon">
+              <Icon icon="solar:bill-list-outline" />
+            </div>
+            <div className="download-text">
+              <span className="title">FACT SHEET</span>
+              <span className="action">
+                DOWNLOAD <i className="fas fa-arrow-down"></i>
+              </span>
+            </div>
+          </a>
         </div>
 
         <div className="project-card-button-section">
