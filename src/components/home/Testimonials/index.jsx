@@ -1,6 +1,7 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 import { Icon } from "@iconify/react";
 import "./Testimonials.css";
 import { Container, Row, Col } from "react-bootstrap";
@@ -8,36 +9,6 @@ import { testimonialsData } from "../../../data/testimonialsData";
 import { motion as Motion } from "framer-motion";
 
 const Testimonials = () => {
-  const settings = {
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: true,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 991,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
-
   return (
     <section className="reviews2-area">
       <Container>
@@ -75,9 +46,25 @@ const Testimonials = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <Slider {...settings} className="testimonials-modern__slider">
+              <Swiper
+                modules={[Pagination, Autoplay]}
+                pagination={{ clickable: true }}
+                autoplay={{ delay: 5000, disableOnInteraction: false }}
+                loop={true}
+                spaceBetween={18}
+                slidesPerView={1}
+                breakpoints={{
+                  768: {
+                    slidesPerView: 2,
+                  },
+                  0: {
+                    slidesPerView: 1,
+                  },
+                }}
+                className="testimonials-modern__slider"
+              >
                 {testimonialsData.map((testimonial) => (
-                  <div key={testimonial.id}>
+                  <SwiperSlide key={testimonial.id}>
                     <div className="testimonials-modern__card">
                       <div className="testimonials-modern__card-top">
                         <div className="testimonials-modern__avatar">
@@ -111,9 +98,9 @@ const Testimonials = () => {
                         {testimonial.quote}
                       </p>
                     </div>
-                  </div>
+                  </SwiperSlide>
                 ))}
-              </Slider>
+              </Swiper>
             </Motion.div>
           </Col>
         </Row>

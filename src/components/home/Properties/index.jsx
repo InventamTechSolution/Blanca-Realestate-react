@@ -1,6 +1,7 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 import "./Properties.css";
 import { Col, Row } from "react-bootstrap";
 import { projectsData } from "../../../data/projectsData";
@@ -10,43 +11,12 @@ import { motion as Motion } from "framer-motion";
 
 const Properties = () => {
   const navigate = useNavigate();
-  const settings = {
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: true,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          centerMode: true,
-          centerPadding: "30px",
-        },
-      },
-    ],
-  };
 
   return (
     <section className="homeproject-area py-128" id="our-projects">
       <Row className="projects-shell align-items-center g-4">
         {/* Left Intro Section */}
-        <Col lg={4} className="projects-intro">
+        <Col lg={5} className="projects-intro">
           <Motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -87,62 +57,87 @@ const Properties = () => {
         </Col>
 
         {/* Project Cards */}
-        <Col lg={8} className="projects-strip">
-          <Slider {...settings}>
+        <Col lg={7} className="projects-strip">
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            spaceBetween={12}
+            slidesPerView={2}
+            loop={true}
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              320: {
+                slidesPerView: 1.2,
+                centeredSlides: true,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 12,
+                centeredSlides: false,
+              },
+            }}
+            className="property-swiper"
+          >
             {projectsData.map((project) => (
-              <div key={project.id} className="project-card-wrapper">
-                <Motion.div
-                  className="project-card"
-                  onClick={() => navigate(`/project/${project.id}`)}
-                  style={{ cursor: "pointer" }}
-                  initial={{ opacity: 0, x: -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: parseFloat(project.animationDelay) || 0,
-                  }}
-                  viewport={{ once: true }}
-                >
-                  <img src={project.image} alt={project.title} />
-                  <div className="project-card__content">
-                    <h4>{project.title}</h4>
-                    <div className="project-card__meta">
-                      <div className="row">
-                        <div className="col">
-                          <span>Location:</span>
-                          <strong>{project.location}</strong>
-                        </div>
-                        <div className="col">
-                          <span>Property Type:</span>
-                          <strong>{project.propertyType}</strong>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col">
-                          <span>Configuration:</span>
-                          <strong>{project.configuration}</strong>
-                        </div>
-                        <div className="col">
-                          <span>Area – Carpet:</span>
-                          <strong>{project.area}</strong>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col">
-                          <span>From INR:</span>
-                          <strong>{project.price}</strong>
-                        </div>
-                        <div className="col">
-                          <span>Status:</span>
-                          <strong>{project.status}</strong>
-                        </div>
+              <SwiperSlide key={project.id}>
+                <div className="project-card-wrapper">
+                  <Motion.div
+                    className="project-card"
+                    onClick={() => navigate(`/project/${project.id}`)}
+                    style={{ cursor: "pointer" }}
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: parseFloat(project.animationDelay) || 0,
+                    }}
+                    viewport={{ once: true }}
+                  >
+                    <img src={project.image} alt={project.title} />
+                    <div className="project-card__content">
+                      <h4>{project.title}</h4>
+                      <div className="project-card__meta">
+                        <Row className="g-0">
+                          <Col xxl={6} xl={12} lg={12} md={12}>
+                            <span>Location:</span>
+                            <strong>{project.location}</strong>
+                          </Col>
+                          <Col xxl={6} xl={12} lg={12} md={12}>
+                            <span>Property Type:</span>
+                            <strong>{project.propertyType}</strong>
+                          </Col>
+                        </Row>
+                        <Row className="g-0">
+                          <Col xxl={6} xl={12} lg={12} md={12}>
+                            <span>Configuration:</span>
+                            <strong>{project.configuration}</strong>
+                          </Col>
+                          <Col xxl={6} xl={12} lg={12} md={12}>
+                            <span>Area – Carpet:</span>
+                            <strong>{project.area}</strong>
+                          </Col>
+                        </Row>
+                        <Row className="g-0">
+                          <Col xxl={6} xl={12} lg={12} md={12}>
+                            <span>From INR:</span>
+                            <strong>{project.price}</strong>
+                          </Col>
+                          <Col xxl={6} xl={12} lg={12} md={12}>
+                            <span>Status:</span>
+                            <strong>{project.status}</strong>
+                          </Col>
+                        </Row>
                       </div>
                     </div>
-                  </div>
-                </Motion.div>
-              </div>
+                  </Motion.div>
+                </div>
+              </SwiperSlide>
             ))}
-          </Slider>
+          </Swiper>
         </Col>
       </Row>
     </section>
