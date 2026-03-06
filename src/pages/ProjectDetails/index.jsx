@@ -241,7 +241,7 @@ const ProjectDetails = () => {
                                         </div>
 
                                         <Form className="modern-contact-form">
-                                            <Row className="gx-4 gy-4">
+                                            <Row className="g-4">
 
                                                 <Col md={12}>
                                                     <div className="input-modern-group">

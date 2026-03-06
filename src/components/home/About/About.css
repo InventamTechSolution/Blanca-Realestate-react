@@ -210,14 +210,47 @@
     }
 }
 
-@media(max-width: 400px) {
+@media(max-width: 676px) {
+    .about-area.about-modern {
+        padding: 60px 0 40px;
+    }
 
-    .about-area .big-text,
-    .light-mode .about-area .big-text {
+    .video-mask-wrapper {
+        margin-bottom: 30px;
+    }
+
+    .about-modern__title {
+        font-size: clamp(34px, 10vw, 42px);
+        line-height: 1.1;
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+    .about-modern__text {
         font-size: 16px;
-        text-shadow: none;
-        color: var(--primary-color);
-        font-weight: normal;
-        letter-spacing: 0;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+    }
+
+    .about-modern__content {
+        text-align: left;
+    }
+
+    .buttons {
+        margin-top: 25px;
+    }
+}
+
+@media(max-width: 400px) {
+    .about-modern__title {
+        font-size: 32px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 676px) {
+    .about-modern__wrap.g-5 {
+        --bs-gutter-x: 0;
+        --bs-gutter-y: 0;
     }
 }

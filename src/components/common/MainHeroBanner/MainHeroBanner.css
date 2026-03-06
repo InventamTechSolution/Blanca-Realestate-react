@@ -178,3 +178,13 @@
 .hero-area-2 .slick-dots li:not(:last-child) button {
     margin-right: 10px;
 }
+
+@media only screen and (max-width: 768px) {
+    .hero-area-2 .container-fluid .row>div {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

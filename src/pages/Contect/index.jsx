@@ -81,7 +81,7 @@ const Contact = () => {
 
                 <div className="contact-form-section">
                     <Container>
-                        <Row className="gx-5">
+                        <Row className="g-5">
                             <Col lg={5}>
                                 <motion.div
                                     className="contact-info-wrapper"
@@ -150,7 +150,7 @@ const Contact = () => {
                                     viewport={{ once: true }}
                                 >
                                     <Form>
-                                        <Row className="gx-4">
+                                        <Row className="g-4">
                                             <Col md={6}>
                                                 <InputField
                                                     label="FIRST NAME"
