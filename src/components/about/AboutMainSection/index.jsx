@@ -66,7 +66,7 @@ const AboutSection = () => {
       </div>
 
       {/* Bottom Row: Content Box and Image */}
-      <Row className="row about-bottom-grid gx-4 align-items-center">
+      <Row className="row about-bottom-grid g-4 align-items-center">
         {/* Left Content Box */}
         <Col lg={5}>
           <Montion.div

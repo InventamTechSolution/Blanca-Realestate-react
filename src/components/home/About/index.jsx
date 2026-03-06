@@ -8,7 +8,7 @@ const About = () => {
   return (
     <section className="about-area about-modern" id="about">
       <Container>
-        <Row className="about-modern__wrap align-items-center gx-5">
+        <Row className="about-modern__wrap align-items-center g-5">
           {/* Video Section */}
           <Col lg={6} className="about-modern__media">
             <Motion.div

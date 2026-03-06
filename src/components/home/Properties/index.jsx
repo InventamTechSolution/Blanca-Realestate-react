@@ -44,7 +44,7 @@ const Properties = () => {
 
   return (
     <section className="homeproject-area py-128" id="our-projects">
-      <Row className="projects-shell align-items-center gx-4">
+      <Row className="projects-shell align-items-center g-4">
         {/* Left Intro Section */}
         <Col lg={4} className="projects-intro">
           <Motion.div

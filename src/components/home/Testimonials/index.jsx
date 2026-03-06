@@ -41,7 +41,7 @@ const Testimonials = () => {
   return (
     <section className="reviews2-area">
       <Container>
-        <Row className="align-items-center gx-4">
+        <Row className="align-items-center g-4">
           {/* Section Title */}
           <Col lg={3}>
             <div className="section-title testimonials-modern__content mb-32">

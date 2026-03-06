@@ -119,7 +119,7 @@ const Registration = () => {
                                         <div className="tab-content active">
                                             <div className="section-header">| Personal Details</div>
 
-                                            <Row className="gx-4">
+                                            <Row className="g-4">
                                                 <Col md={6} className="mb-4">
                                                     <Dropdown
                                                         label="Real Estate Agent Type*"
@@ -148,7 +148,7 @@ const Registration = () => {
                                                     </Col>
                                                 )}
                                             </Row>
-                                            <Row className="gx-4">
+                                            <Row className="g-4">
 
                                                 <Col md={6}>
                                                     <InputField
@@ -239,7 +239,7 @@ const Registration = () => {
                                         <div className="tab-content active">
                                             <div className="section-header">| Address Details</div>
 
-                                            <Row className="gx-4">
+                                            <Row className="g-4">
                                                 <Col md={6}>
                                                     <div className="mb-4">
                                                         <Dropdown
