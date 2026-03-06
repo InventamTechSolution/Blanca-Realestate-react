@@ -715,9 +715,9 @@ header form.search-form button>* {
     margin-right: auto;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
     .main-menu .mobile-logo {
-        max-width: 180px;
+        max-width: 160px;
     }
 }
 
