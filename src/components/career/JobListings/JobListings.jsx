@@ -4,11 +4,16 @@ import { Container } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { motion as Montion, AnimatePresence } from "framer-motion";
 import { jobs } from "../../../data/jobsData";
+import JobApplyModal from "../JobApplyModal/JobApplyModal";
 
 const JobListings = () => {
     const [activeTab, setActiveTab] = useState("All Jobs");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 4;
+
+    // Modal State
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedJobTitle, setSelectedJobTitle] = useState("");
 
     const categories = ["All Jobs", "Sales", "Marketing"];
 
@@ -27,6 +32,12 @@ const JobListings = () => {
     const handleTabChange = (category) => {
         setActiveTab(category);
         setCurrentPage(1);
+    };
+
+    const handleApplyNow = (e, title) => {
+        e.preventDefault();
+        setSelectedJobTitle(title);
+        setIsModalOpen(true);
     };
 
     return (
@@ -108,10 +119,13 @@ const JobListings = () => {
                                         </div>
                                         <div className="job-action-wrap">
                                             <div className="job-action">
-                                                <a href="#application-form" className="theme-btn job-apply-btn">
+                                                <button
+                                                    onClick={(e) => handleApplyNow(e, job.title)}
+                                                    className="theme-btn job-apply-btn border-0"
+                                                >
                                                     Apply Now
                                                     <Icon icon="lucide:arrow-right" className="ms-2" />
-                                                </a>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -156,6 +170,12 @@ const JobListings = () => {
                     </Montion.div>
                 )}
             </Container>
+
+            <JobApplyModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                jobTitle={selectedJobTitle}
+            />
         </section>
     );
 };
