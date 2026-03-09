@@ -77,11 +77,13 @@ const CareerBenefits = () => {
                                 transition={{ delay: index * 0.1 }}
                                 viewport={{ once: true }}
                             >
-                                <div className="benefit-icon-wrapper mb-25">
-                                    <Icon icon={benefit.icon} className="benefit-icon" />
+                                <div className="benefit-icon-title-part">
+                                    <div className="benefit-icon-wrapper mb-25">
+                                        <Icon icon={benefit.icon} className="benefit-icon" />
+                                    </div>
+                                    <h3 className="benefit-title mb-15">{benefit.title}</h3>
                                 </div>
                                 <div>
-                                    <h3 className="benefit-title mb-15">{benefit.title}</h3>
                                     <p className="benefit-text mb-0">{benefit.description}</p>
                                 </div>
                             </Motion.div>
