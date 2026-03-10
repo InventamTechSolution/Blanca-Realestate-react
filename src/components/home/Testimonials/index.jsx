@@ -5,10 +5,28 @@ import "swiper/css/pagination";
 import { Icon } from "@iconify/react";
 import "./Testimonials.css";
 import { Container, Row, Col } from "react-bootstrap";
-import { testimonialsData } from "../../../data/testimonialsData";
+import avatarImg from "../../../../public/images/testimonials/avtar-img.png";
+// import { testimonialsData } from "../../../data/testimonialsData";
+import { useTestimonials } from "../../../hooks/useTestimonials";
 import { motion as Motion } from "framer-motion";
 
 const Testimonials = () => {
+
+  const {data, isLoading, error} = useTestimonials({page: 1, limit: 10, isActive: true});
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  const testimonials = data.data || [];
+
+  const activeTestimonials = testimonials.filter(
+    (item) => item.testimonial_is_active
+  );
+
   return (
     <section className="reviews2-area">
       <Container>
@@ -63,27 +81,27 @@ const Testimonials = () => {
                 }}
                 className="testimonials-modern__slider"
               >
-                {testimonialsData.map((testimonial) => (
+                {activeTestimonials.map((testimonial) => (
                   <SwiperSlide key={testimonial.id}>
                     <div className="testimonials-modern__card">
                       <div className="testimonials-modern__card-top">
                         <div className="testimonials-modern__avatar">
                           <img
-                            src={testimonial.avatar}
-                            alt={testimonial.name}
+                            src={testimonial.testimonial_profile_image || avatarImg}
+                            alt={testimonial.testimonial_user_name}
                           />
                         </div>
 
                         <div className="testimonials-modern__info">
                           <h3 className="testimonials-modern__name">
-                            {testimonial.name}
+                            {testimonial.testimonial_user_name}
                           </h3>
                           <p className="testimonials-modern__role">
-                            {testimonial.role}
+                            {testimonial.testimonial_designation}
                           </p>
 
                           <div className="testimonials-modern__rating">
-                            {[...Array(testimonial.rating)].map((_, i) => (
+                            {[...Array(testimonial.testimonial_rating)].map((_, i) => (
                               <Icon key={i} icon="lucide:star" />
                             ))}
                           </div>
@@ -95,7 +113,7 @@ const Testimonials = () => {
                       </div>
 
                       <p className="testimonials-modern__text">
-                        {testimonial.quote}
+                        {testimonial.testimonial_description}
                       </p>
                     </div>
                   </SwiperSlide>
