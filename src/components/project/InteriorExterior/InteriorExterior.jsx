@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import { Container, Row, Col, Carousel, Button } from "react-bootstrap";
 import "./InteriorExterior.css";
 
-const InteriorExterior = () => {
-    const interiorImages = [
-        "/images/interior/item-1.png",
-        "/images/interior/item-2.png",
-        "/images/interior/item-3.png",
-        "/images/interior/item-4.png",
-    ];
+const InteriorExterior = ({ interiorImages, exteriorImages }) => {
+    // const interiorImages = [
+    //     "/images/interior/item-1.png",
+    //     "/images/interior/item-2.png",
+    //     "/images/interior/item-3.png",
+    //     "/images/interior/item-4.png",
+    // ];
 
-    const exteriorImages = [
-        "/images/Exterior/item-1.png",
-        "/images/Exterior/item-2.png",
-        "/images/Exterior/item-3.png",
-        "/images/Exterior/item-4.png",
-    ];
+    // const exteriorImages = [
+    //     "/images/Exterior/item-1.png",
+    //     "/images/Exterior/item-2.png",
+    //     "/images/Exterior/item-3.png",
+    //     "/images/Exterior/item-4.png",
+    // ];
 
     const [interiorIndex, setInteriorIndex] = useState(0);
     const [exteriorIndex, setExteriorIndex] = useState(0);

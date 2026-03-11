@@ -5,12 +5,12 @@ import './MainHeroBanner.css'
 const MainHeroBanner = ({
     videoSrc,
     poster,
-    tagline,
+    status,
     title,
-    description,
+    location,
     buttonText = "View More",
     buttonTo = "/projects",
-    overlayOpacity = 0.6
+    overlayOpacity,
 }) => {
     return (
         <section className="hero-area-2 black-120-bg">
@@ -52,7 +52,7 @@ const MainHeroBanner = ({
                         left: 0,
                         width: "100%",
                         height: "100%",
-                        backgroundColor: `rgba(17, 17, 17, ${overlayOpacity})`,
+                        backgroundColor: overlayOpacity,
                         zIndex: 1,
                     }}
                 ></div>
@@ -61,9 +61,9 @@ const MainHeroBanner = ({
                     <div className="row align-items-center justify-content-center">
                         <div className="col-md-10 text-center">
                             <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
-                                {tagline && <h5 className="text-white">{tagline}</h5>}
+                                {status && <h5 className="text-white">{status}</h5>}
                                 {title && <h1 className="text-white bs-font-colgent-regular">{title}</h1>}
-                                {description && <h5 className="text-white">{description}</h5>}
+                                {location && <h5 className="text-white">{location}</h5>}
                             </div>
                             <div className="buttons mt-96">
                                 <ThemeBtn to={buttonTo} className="bs-font-montserrat">

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
 import Hero from '../../components/home/Hero';
@@ -10,26 +9,28 @@ import Preloader from '../../components/common/Preloader';
 import ScrollToTop from '../../components/common/ScrollToTop';
 import { AnimatePresence } from 'framer-motion';
 import MainHeroBanner from '../../components/common/MainHeroBanner';
-import { bannerVideo1, blancaTowerVideo, videoProject2 } from '../../components/home/Hero';
+// import { bannerVideo1, blancaTowerVideo, videoProject2 } from '../../components/home/Hero';
+import { useProjects } from '../../hooks/useProjects';
 
 const Home = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const {data, isLoading} = useProjects({page: 1, limit: 50, show_on_home_page: true});
 
-    useEffect(() => {
-        const handleLoad = () => {
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 800); // Slightly longer for smoother transition
-        };
+    const projects = data?.data || [];
 
-        if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-        }
+    // useEffect(() => {
+    //     const handleLoad = () => {
+    //         setTimeout(() => {
+    //         }, 800); // Slightly longer for smoother transition
+    //     };
 
-        return () => window.removeEventListener('load', handleLoad);
-    }, []);
+    //     if (document.readyState === 'complete') {
+    //         handleLoad();
+    //     } else {
+    //         window.addEventListener('load', handleLoad);
+    //     }
+
+    //     return () => window.removeEventListener('load', handleLoad);
+    // }, []);
 
     return (
         <div className="home-page">
@@ -38,26 +39,17 @@ const Home = () => {
             </AnimatePresence>
             <Header />
             <main>
-                <MainHeroBanner
-                    videoSrc={bannerVideo1}
-                    poster="/images/projects/lendscpae-images/blancs-business-hub.png"
-                    tagline="New Launch"
-                    title="Blanca : Ekaiva"
-                    description="Commercial - Turbhe Navi Mumbai"
-                />
-                <MainHeroBanner
-                    videoSrc={blancaTowerVideo}
-                    tagline="New Launch"
-                    title="Blanca Tower"
-                    description="Commercial - Borivali"
-                    overlayOpacity={0.6}
-                />
-                <MainHeroBanner
-                    videoSrc={videoProject2}
-                    tagline="Sold Out"
-                    title="ND Pearl"
-                    description="Residential – Kamothe, Navi Mumbai"
-                />
+                { projects.length > 0 && projects.map((project) => (
+                    <MainHeroBanner
+                        key={project.id}
+                        videoSrc={project.project_banner_image}
+                        poster={project.project_image}
+                        status={project.project_status}
+                        title={project.project_name}
+                        location={`${project.categories?.[0]?.category_name} - ${project.project_location}`}
+                        overlayOpacity={project.project_banner_color}
+                    />
+                ))}
                 <Hero />
                 <About />
                 <Properties />

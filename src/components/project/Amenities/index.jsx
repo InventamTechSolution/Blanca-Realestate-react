@@ -2,55 +2,56 @@ import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./Amenities.css";
 
-const Amenities = () => {
+const Amenities = ({ amenities }) => {
+console.log("🚀 ~ Amenities ~ amenities:", amenities)
 
-    const amenitiesImages = [
-        "/images/amenities/amenity-1.png",
-        "/images/amenities/amenity-2.png",
-        "/images/amenities/amenity-3.png",
-        "/images/amenities/amenity-4.png",
-        "/images/amenities/amenity-5.png",
-        "/images/amenities/amenity-6.png",
-    ];
+    // const amenitiesImages = [
+    //     "/images/amenities/amenity-1.png",
+    //     "/images/amenities/amenity-2.png",
+    //     "/images/amenities/amenity-3.png",
+    //     "/images/amenities/amenity-4.png",
+    //     "/images/amenities/amenity-5.png",
+    //     "/images/amenities/amenity-6.png",
+    // ];
 
-    const amenities = [
-        {
-            id: 1,
-            title: "Swimming Pool",
-            desc: "Luxurious infinity pool with stunning views",
-            img: amenitiesImages[0],
-        },
-        {
-            id: 2,
-            title: "Fitness Center",
-            desc: "State-of-the-art gym with modern equipment",
-            img: amenitiesImages[1],
-        },
-        {
-            id: 3,
-            title: "Parking Space",
-            desc: "Secure covered parking for residents",
-            img: amenitiesImages[2],
-        },
-        {
-            id: 4,
-            title: "Siting Pavilion",
-            desc: "Pavilion with beautiful views and seating area",
-            img: amenitiesImages[3],
-        },
-        {
-            id: 5,
-            title: "Jogging Track",
-            desc: "Jogging Track with fitness equipment",
-            img: amenitiesImages[4],
-        },
-        {
-            id: 6,
-            title: "Club House",
-            desc: "Club House with all games and amenities",
-            img: amenitiesImages[5],
-        },
-    ];
+    // const amenities = [
+    //     {
+    //         id: 1,
+    //         title: "Swimming Pool",
+    //         desc: "Luxurious infinity pool with stunning views",
+    //         img: amenitiesImages[0],
+    //     },
+    //     {
+    //         id: 2,
+    //         title: "Fitness Center",
+    //         desc: "State-of-the-art gym with modern equipment",
+    //         img: amenitiesImages[1],
+    //     },
+    //     {
+    //         id: 3,
+    //         title: "Parking Space",
+    //         desc: "Secure covered parking for residents",
+    //         img: amenitiesImages[2],
+    //     },
+    //     {
+    //         id: 4,
+    //         title: "Siting Pavilion",
+    //         desc: "Pavilion with beautiful views and seating area",
+    //         img: amenitiesImages[3],
+    //     },
+    //     {
+    //         id: 5,
+    //         title: "Jogging Track",
+    //         desc: "Jogging Track with fitness equipment",
+    //         img: amenitiesImages[4],
+    //     },
+    //     {
+    //         id: 6,
+    //         title: "Club House",
+    //         desc: "Club House with all games and amenities",
+    //         img: amenitiesImages[5],
+    //     },
+    // ];
 
     const [activeAmenity, setActiveAmenity] = useState(amenities[0]);
 
@@ -101,7 +102,7 @@ const Amenities = () => {
                                                         <h4 className="text-white">
                                                             {item.title}
                                                         </h4>
-                                                        <p>{item.desc}</p>
+                                                        <p>{item.description}</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -113,8 +114,8 @@ const Amenities = () => {
                                         <div className="lux-amenity-visual">
                                             <div className="visual-inner">
                                                 <img
-                                                    src={activeAmenity.img}
-                                                    alt={activeAmenity.title}
+                                                    src={activeAmenity.image}
+                                                    alt={activeAmenity.name}
                                                     className="img-fluid"
                                                 />
                                                 <div className="visual-overlay"></div>
