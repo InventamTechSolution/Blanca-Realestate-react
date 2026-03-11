@@ -1,55 +1,56 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "../../components/layout/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
 import SmallHeroBanner from "../../components/common/Small-hero-banner";
-import { projectsData } from "../../data/properties-listing";
 import "./Projects.css";
 import ThemeBtn from "../../components/common/Button/ThemeBtn";
 import ProjectCard from "../../components/common/ProjectCard/ProjectCard";
 import Preloader from "../../components/common/Preloader";
 import { AnimatePresence } from "framer-motion";
+import { useProjectsWithFilter } from "../../hooks/useProjects";
 
 const Projects = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get("filter");
+
   const projectBg = "/images/background/project-listing-bg.png"; // Fixed path for public asset
   const dropdownRef = useRef(null);
-  const [type, setType] = useState("all");
   const [status, setStatus] = useState("all");
   const [view, setView] = useState("grid");
   const [activeDropdown, setActiveDropdown] = useState(null); // 'type' or 'status' or null
   const [activeProjectId, setActiveProjectId] = useState(null);
 
-  const filteredProjects = projectsData.filter((project) => {
-    const matchesType =
-      type === "all" ||
-      project.propertyType.toLowerCase() === type.toLowerCase();
-    const matchesStatus =
-      status === "all" || project.status.toLowerCase() === status.toLowerCase();
-    return matchesType && matchesStatus;
+  const { data, isLoading } = useProjectsWithFilter({
+    page: 1,
+    limit: 10,
+    category: filter || "all",
+    status: status,
   });
 
-  useEffect(() => {
-    if (filteredProjects.length > 0 && !activeProjectId) {
-      setActiveProjectId(filteredProjects[0].id);
-    }
-  }, [filteredProjects, activeProjectId]);
+  const apiProjects = data?.data || [];
+
+  const projects = apiProjects.map((project) => ({
+    id: project?.project_project_id || project?.id,
+    title: project?.title || project?.project_name,
+    image: project?.project_card_image || project?.image,
+    href: `/project/${project?.project_project_id || project?.id}`,
+    location: project?.project_location || project?.location,
+    propertyType:
+      project?.categories?.[0]?.category_name || project?.propertyType,
+    configuration: project?.project_configuration || project?.configuration,
+    area: project?.project_sq_ft || project?.area,
+    status: project?.project_status || project?.status,
+    animationDelay: project?.animationDelay || "0.2s",
+    mapUrl: project?.map_url || project?.mapUrl,
+  }));
+
+  const filteredProjects = projects
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const handleLoad = () => {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 800);
-    };
-
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-    }
-
-    return () => window.removeEventListener("load", handleLoad);
   }, []);
 
   const typeOptions = [
@@ -61,11 +62,11 @@ const Projects = () => {
 
   const statusOptions = [
     { label: "All Status", value: "all" },
-    { label: "New Launches", value: "New Launches" },
-    { label: "Coming Soon", value: "Coming Soon" },
-    { label: "Ongoing Projects", value: "Ongoing" },
-    { label: "Completed", value: "Completed" },
-    { label: "Sold Out", value: "Sold Out" },
+    { label: "New Launches", value: "new-launches" },
+    { label: "Coming Soon", value: "coming-soon" },
+    { label: "Ongoing Projects", value: "on-going" },
+    { label: "Completed", value: "completed" },
+    { label: "Sold Out", value: "sold-out" },
   ];
 
   // Handle click outside to close dropdowns
@@ -87,8 +88,17 @@ const Projects = () => {
     }
   };
 
-  const handleOptionSelect = (setter, value) => {
-    setter(value);
+  const handleTypeSelect = (value) => {
+    if (value === "all") {
+      navigate("/projects");
+    } else {
+      navigate(`/projects?filter=${value}`);
+    }
+    setActiveDropdown(null);
+  };
+
+  const handleStatusSelect = (value) => {
+    setStatus(value);
     setActiveDropdown(null);
   };
 
@@ -126,8 +136,9 @@ const Projects = () => {
                       >
                         <span>
                           {
-                            typeOptions.find((item) => item.value === type)
-                              ?.label
+                            typeOptions.find(
+                              (item) => item.value === (filter || "all"),
+                            )?.label
                           }
                         </span>
                         <i className="fas fa-chevron-down"></i>
@@ -137,10 +148,12 @@ const Projects = () => {
                         {typeOptions.map((item) => (
                           <li
                             key={item.value}
-                            className={type === item.value ? "selected" : ""}
-                            onClick={() =>
-                              handleOptionSelect(setType, item.value)
+                            className={
+                              (filter || "all") === item.value
+                                ? "selected"
+                                : ""
                             }
+                            onClick={() => handleTypeSelect(item.value)}
                           >
                             {item.label}
                           </li>
@@ -173,9 +186,7 @@ const Projects = () => {
                           <li
                             key={item.value}
                             className={status === item.value ? "selected" : ""}
-                            onClick={() =>
-                              handleOptionSelect(setStatus, item.value)
-                            }
+                            onClick={() => handleStatusSelect(item.value)}
                           >
                             {item.label}
                           </li>

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProjects, getProjectById } from "../services/projectService";
+import { getProjects, getProjectById, getProjectsWithFilter } from "../services/projectService";
 
 export const useProjects = (params) => {
   return useQuery({
@@ -12,5 +12,12 @@ export const useProjectById = (id) => {
   return useQuery({
     queryKey: ["project", id],
     queryFn: () => getProjectById(id),
+  });
+};
+
+export const useProjectsWithFilter = (params) => {
+  return useQuery({
+    queryKey: ["projects-filter", params],
+    queryFn: () => getProjectsWithFilter(params),
   });
 };
