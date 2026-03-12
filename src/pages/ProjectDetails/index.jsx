@@ -10,20 +10,39 @@ import "slick-carousel/slick/slick-theme.css";
 import InteriorExterior from "../../components/project/InteriorExterior/InteriorExterior";
 import Amenities from "../../components/project/Amenities";
 import ThemeBtn from "../../components/common/Button/ThemeBtn";
-import { useProjectById } from "../../hooks/useProjects";
+import { useEnquire, useProjectById } from "../../hooks/useProjects";
 import { useParams } from "react-router-dom";
 import { PROJECT_STATUS_LABELS } from "../../utils/constant";
 import Preloader from "../../components/common/Preloader";
 import { AnimatePresence } from "framer-motion";
+import { useForm, Controller } from "react-hook-form";
 // const commercial1 = "/images/project-details/commercial-office-1.png";
 // const commercial2 = "/images/project-details/commercial-office-2.png";
 // const commercial3 = "/images/project-details/commercial-office-3.png";
 
+const defaultValues = {
+  project_id: "",
+  name: "",
+  email: "",
+  phone_number: "",
+  message: "",
+};
+
 const ProjectDetails = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useProjectById(id);
+  const { mutate, isPending } = useEnquire();
 
   const project = data?.data;
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues,
+  });
 
   if (isLoading) {
     return (
@@ -67,6 +86,23 @@ const ProjectDetails = () => {
     speed: 1000,
     cssEase: "ease-in-out",
     pauseOnHover: true,
+  };
+
+  const onSubmit = (data) => {
+    const payload = {
+      ...data,
+      project_id: project?.project_project_id,
+    };
+    mutate(payload, {
+      onSuccess: () => {
+        alert("Enquiry sent successfully");
+        reset();
+      },
+      onError: () => {
+        alert("Something went wrong");
+      },
+    });
+    console.log(payload);
   };
 
   return (
@@ -251,76 +287,144 @@ const ProjectDetails = () => {
                       </p>
                     </div>
 
-                    <Form className="modern-contact-form">
+                    <Form
+                      className="modern-contact-form"
+                      onSubmit={handleSubmit(onSubmit)}
+                    >
                       <Row className="g-4">
+                        {/* NAME */}
                         <Col md={12}>
-                          <div className="input-modern-group">
-                            <Form.Control
-                              type="text"
-                              name="name"
-                              className="modern-input"
-                              placeholder=" "
-                              required
-                            />
-                            <label className="modern-label">Full Name</label>
-                            <span className="focus-border"></span>
-                          </div>
+                          <Controller
+                            name="name"
+                            control={control}
+                            rules={{ required: "Full name is required" }}
+                            render={({ field }) => (
+                              <div className="input-modern-group">
+                                <Form.Control
+                                  {...field}
+                                  type="text"
+                                  className="modern-input"
+                                  placeholder=" "
+                                />
+                                <label className="modern-label">
+                                  Full Name
+                                </label>
+                                <span className="focus-border"></span>
+
+                                {errors.name && (
+                                  <small className="text-danger">
+                                    {errors.name.message}
+                                  </small>
+                                )}
+                              </div>
+                            )}
+                          />
                         </Col>
 
+                        {/* EMAIL */}
                         <Col md={12}>
-                          <div className="input-modern-group">
-                            <Form.Control
-                              type="email"
-                              name="email"
-                              className="modern-input"
-                              placeholder=" "
-                              required
-                            />
-                            <label className="modern-label">
-                              Email Address
-                            </label>
-                            <span className="focus-border"></span>
-                          </div>
+                          <Controller
+                            name="email"
+                            control={control}
+                            rules={{
+                              required: "Email is required",
+                              pattern: {
+                                value: /^\S+@\S+$/i,
+                                message: "Invalid email address",
+                              },
+                            }}
+                            render={({ field }) => (
+                              <div className="input-modern-group">
+                                <Form.Control
+                                  {...field}
+                                  type="email"
+                                  className="modern-input"
+                                  placeholder=" "
+                                />
+                                <label className="modern-label">
+                                  Email Address
+                                </label>
+                                <span className="focus-border"></span>
+
+                                {errors.email && (
+                                  <small className="text-danger">
+                                    {errors.email.message}
+                                  </small>
+                                )}
+                              </div>
+                            )}
+                          />
                         </Col>
 
+                        {/* PHONE */}
                         <Col md={12}>
-                          <div className="input-modern-group">
-                            <Form.Control
-                              type="text"
-                              name="phone"
-                              className="modern-input"
-                              placeholder=" "
-                              required
-                            />
-                            <label className="modern-label">Phone Number</label>
-                            <span className="focus-border"></span>
-                          </div>
+                          <Controller
+                            name="phone_number"
+                            control={control}
+                            rules={{
+                              required: "Phone number is required",
+                              minLength: {
+                                value: 10,
+                                message:
+                                  "Phone number must be at least 10 digits",
+                              },
+                            }}
+                            render={({ field }) => (
+                              <div className="input-modern-group">
+                                <Form.Control
+                                  {...field}
+                                  type="text"
+                                  className="modern-input"
+                                  placeholder=" "
+                                />
+                                <label className="modern-label">
+                                  Phone Number
+                                </label>
+                                <span className="focus-border"></span>
+
+                                {errors.phone && (
+                                  <small className="text-danger">
+                                    {errors.phone_number.message}
+                                  </small>
+                                )}
+                              </div>
+                            )}
+                          />
                         </Col>
 
+                        {/* MESSAGE */}
                         <Col md={12}>
-                          <div className="input-modern-group">
-                            <Form.Control
-                              as="textarea"
-                              name="message"
-                              rows={3}
-                              className="modern-input"
-                              placeholder=" "
-                            />
-                            <label className="modern-label">
-                              Message (Optional)
-                            </label>
-                            <span className="focus-border"></span>
-                          </div>
+                          <Controller
+                            name="message"
+                            control={control}
+                            render={({ field }) => (
+                              <div className="input-modern-group">
+                                <Form.Control
+                                  {...field}
+                                  as="textarea"
+                                  rows={3}
+                                  className="modern-input"
+                                  placeholder=" "
+                                />
+                                <label className="modern-label">
+                                  Message (Optional)
+                                </label>
+                                <span className="focus-border"></span>
+                              </div>
+                            )}
+                          />
                         </Col>
 
+                        {/* SUBMIT BUTTON */}
                         <Col md={12}>
                           <div className="buttons submit-enquiry-btn">
-                            <ThemeBtn
-                              to="/projects"
-                              className="bs-font-montserrat"
+                            <button
+                              type="submit"
+                              className="theme-btn bs-font-montserrat"
+                              disabled={isPending}
                             >
-                              Submit Inquiry
-                            </ThemeBtn>
+                              {isPending ? "Sending..." : "Submit Inquiry"}
+                            </button>
                           </div>
                         </Col>
                       </Row>

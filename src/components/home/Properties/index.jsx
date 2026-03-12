@@ -102,9 +102,9 @@ const Properties = () => {
                     }}
                     viewport={{ once: true }}
                   >
-                    <img src={project.project_card_image} alt={project.title} />
+                    <img src={project.project_card_image} alt={project.project_name} />
                     <div className="project-card__content">
-                      <h4>{project.title}</h4>
+                      <h4>{project.project_name}</h4>
                       <div className="project-card__meta">
                         <Row className="g-0">
                           <Col xxl={6} xl={12} lg={12} md={12}>
@@ -113,7 +113,7 @@ const Properties = () => {
                           </Col>
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Property Type:</span>
-                            <strong>{project.categories?.[0]?.category_name}</strong>
+                            <strong>{project.categories?.map((cat) => cat.category_name).join(" & ")}</strong>
                           </Col>
                         </Row>
                         <Row className="g-0">

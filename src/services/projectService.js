@@ -38,3 +38,9 @@ export const getProjectsWithFilter = async ({
 
   return data;
 };
+
+
+export const sendEnquiry = async (payload) => {
+  const { data } = await axiosInstance.post("/enquire", payload);
+  return data;
+};
