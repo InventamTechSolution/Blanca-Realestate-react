@@ -12,42 +12,48 @@ import Amenities from "../../components/project/Amenities";
 import ThemeBtn from "../../components/common/Button/ThemeBtn";
 import { useProjectById } from "../../hooks/useProjects";
 import { useParams } from "react-router-dom";
+import { PROJECT_STATUS_LABELS } from "../../utils/constant";
+import Preloader from "../../components/common/Preloader";
+import { AnimatePresence } from "framer-motion";
 // const commercial1 = "/images/project-details/commercial-office-1.png";
 // const commercial2 = "/images/project-details/commercial-office-2.png";
 // const commercial3 = "/images/project-details/commercial-office-3.png";
 
 const ProjectDetails = () => {
-    const { id } = useParams();
-    const { data, isLoading, error } = useProjectById(id);
-    
-    const project = data?.data;
-  console.log("🚀 ~ ProjectDetails ~ project:", project)
+  const { id } = useParams();
+  const { data, isLoading, error } = useProjectById(id);
+
+  const project = data?.data;
 
   if (isLoading) {
-    return <p>Loading project...</p>;
+    return (
+      <AnimatePresence>
+        <Preloader key="preloader" isLoading={isLoading} />
+      </AnimatePresence>
+    );
   }
-  
+
   if (error) {
     return <p>Something went wrong</p>;
   }
 
-//   const overviewData = [
-//     {
-//       id: 1,
-//       image: commercial1,
-//       alt: "Blanca Ekaiva Office 1",
-//     },
-//     {
-//       id: 2,
-//       image: commercial2,
-//       alt: "Blanca Ekaiva Office 2",
-//     },
-//     {
-//       id: 3,
-//       image: commercial3,
-//       alt: "Blanca Ekaiva Office 3",
-//     },
-//   ];
+  //   const overviewData = [
+  //     {
+  //       id: 1,
+  //       image: commercial1,
+  //       alt: "Blanca Ekaiva Office 1",
+  //     },
+  //     {
+  //       id: 2,
+  //       image: commercial2,
+  //       alt: "Blanca Ekaiva Office 2",
+  //     },
+  //     {
+  //       id: 3,
+  //       image: commercial3,
+  //       alt: "Blanca Ekaiva Office 3",
+  //     },
+  //   ];
 
   const settings = {
     infinite: true,
@@ -71,7 +77,7 @@ const ProjectDetails = () => {
           videoSrc={project?.project_banner_image}
           overlayOpacity={project?.project_banner_color}
           poster={project?.project_card_image}
-          status={project?.project_status}
+          status={PROJECT_STATUS_LABELS[project?.project_status]}
           title={project?.project_name}
           location={`${project?.categories?.[0]?.category_name} - ${project?.project_location}`}
         />
@@ -98,7 +104,7 @@ const ProjectDetails = () => {
               <Col lg={6} className="wow fadeInRight">
                 <div className="overview-slider">
                   <Slider {...settings}>
-                    {project?.project_overview_image.map((item) => (
+                    {project?.project_overview_image?.map((item) => (
                       <div key={item}>
                         <img
                           className="d-block w-100 rounded"
@@ -113,7 +119,10 @@ const ProjectDetails = () => {
             </Row>
           </Container>
         </section>
-        <InteriorExterior interiorImages={project?.project_interior} exteriorImages={project?.project_exterior} />
+        <InteriorExterior
+          interiorImages={project?.project_interior}
+          exteriorImages={project?.project_exterior}
+        />
         {project?.project_amenities?.length > 0 && (
           <Amenities amenities={project?.project_amenities} />
         )}
@@ -166,7 +175,7 @@ const ProjectDetails = () => {
                   </div>
 
                   <h2 className="common-title bs-font-playfair-display text-white">
-                    Interested in Blanca : Ekaiva?
+                    Interested in {project?.project_name}?
                   </h2>
 
                   <p className="text-white opacity-50">
@@ -234,7 +243,7 @@ const ProjectDetails = () => {
                   <div className="lux-enquiry-card glass-morphism">
                     <div className="enquiry-card-header text-center mb-40">
                       <h2 className="common-title bs-font-playfair-display text-white">
-                        Enquire for Blanca : Ekaiva
+                        Enquire for {project?.project_name}
                       </h2>
                       <p>
                         Fill in your details and our team will be in touch
