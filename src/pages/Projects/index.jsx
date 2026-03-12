@@ -33,22 +33,22 @@ const Projects = () => {
   const apiProjects = data?.data || [];
 
   const projects = apiProjects.map((project) => ({
-    id: project?.project_project_id || project?.id,
-    title: project?.title || project?.project_name,
-    image: project?.project_card_image || project?.image,
-    href: `/project/${project?.project_project_id || project?.id}`,
-    location: project?.project_location || project?.location,
+    id: project?.project_project_id,
+    title: project?.project_name,
+    image: project?.project_card_image,
+    href: `/project/${project?.project_project_id}`,
+    location: project?.project_location,
     propertyType:
-    project?.categories?.map((cat) => cat.category_name).join(" & ") ||
-    project?.propertyType,
-    configuration: project?.project_configuration || project?.configuration,
-    area: project?.project_sq_ft || project?.area,
-    status: project?.project_status || project?.status,
+      project?.categories?.map((cat) => cat.category_name).join(" & ") ||
+      project?.propertyType,
+    configuration: project?.project_configuration,
+    area: project?.project_sq_ft,
+    status: project?.project_status,
     animationDelay: project?.animationDelay || "0.2s",
-    mapUrl: project?.map_url || project?.mapUrl,
+    mapUrl: project?.project_map_link,
   }));
 
-  const filteredProjects = projects
+  const filteredProjects = projects;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -103,7 +103,6 @@ const Projects = () => {
     setActiveDropdown(null);
   };
 
-
   return (
     <div className="projects-page">
       <AnimatePresence>
@@ -150,9 +149,7 @@ const Projects = () => {
                           <li
                             key={item.value}
                             className={
-                              (filter || "all") === item.value
-                                ? "selected"
-                                : ""
+                              (filter || "all") === item.value ? "selected" : ""
                             }
                             onClick={() => handleTypeSelect(item.value)}
                           >
@@ -199,16 +196,18 @@ const Projects = () => {
                   {/* ================= View Toggle ================= */}
                   <div className="view-toggles">
                     <ThemeBtn
-                      className={`view-toggle-btn ${view === "grid" ? "active" : ""
-                        }`}
+                      className={`view-toggle-btn ${
+                        view === "grid" ? "active" : ""
+                      }`}
                       onClick={() => setView("grid")}
                     >
                       GRID VIEW
                     </ThemeBtn>
 
                     <ThemeBtn
-                      className={`view-toggle-btn ${view === "map" ? "active" : ""
-                        }`}
+                      className={`view-toggle-btn ${
+                        view === "map" ? "active" : ""
+                      }`}
                       onClick={() => setView("map")}
                     >
                       MAP VIEW
