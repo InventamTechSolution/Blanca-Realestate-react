@@ -5,6 +5,7 @@ import "./ProjectCard.css";
 import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 
 const ProjectCard = ({ project, layout = "grid" }) => {
+  console.log("🚀 ~ ProjectCard ~ project:", project)
   if (!project) return null;
 
   if (layout === "horizontal") {

@@ -39,7 +39,8 @@ const Projects = () => {
     href: `/project/${project?.project_project_id || project?.id}`,
     location: project?.project_location || project?.location,
     propertyType:
-      project?.categories?.[0]?.category_name || project?.propertyType,
+    project?.categories?.map((cat) => cat.category_name).join(" & ") ||
+    project?.propertyType,
     configuration: project?.project_configuration || project?.configuration,
     area: project?.project_sq_ft || project?.area,
     status: project?.project_status || project?.status,
