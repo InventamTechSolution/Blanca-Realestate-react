@@ -11,6 +11,7 @@ import { AnimatePresence } from 'framer-motion';
 import MainHeroBanner from '../../components/common/MainHeroBanner';
 // import { bannerVideo1, blancaTowerVideo, videoProject2 } from '../../components/home/Hero';
 import { useProjects } from '../../hooks/useProjects';
+import { PROJECT_STATUS_LABELS } from '../../utils/constant';
 
 const Home = () => {
     const {data, isLoading} = useProjects({page: 1, limit: 50, show_on_home_page: true});
@@ -44,7 +45,7 @@ const Home = () => {
                         key={project.id}
                         videoSrc={project.project_banner_image}
                         poster={project.project_image}
-                        status={project.project_status}
+                        status={PROJECT_STATUS_LABELS[project.project_status] || project.project_status}
                         title={project.project_name}
                         location={`${project.categories?.[0]?.category_name} - ${project.project_location}`}
                         overlayOpacity={project.project_banner_color}

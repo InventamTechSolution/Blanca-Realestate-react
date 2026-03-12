@@ -9,6 +9,7 @@ import ThemeBtn from "../../common/Button/ThemeBtn";
 import { useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
 import { useProjects } from "../../../hooks/useProjects";
+import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 
 const Properties = () => {
   const navigate = useNavigate();
@@ -132,7 +133,7 @@ const Properties = () => {
                           </Col>
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Status:</span>
-                            <strong>{project.project_status}</strong>
+                            <strong>{PROJECT_STATUS_LABELS[project.project_status] || project.project_status}</strong>
                           </Col>
                         </Row>
                       </div>

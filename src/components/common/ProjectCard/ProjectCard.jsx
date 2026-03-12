@@ -2,6 +2,7 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import ThemeBtn from "../Button/ThemeBtn";
 import "./ProjectCard.css";
+import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 
 const ProjectCard = ({ project, layout = "grid" }) => {
   if (!project) return null;
@@ -53,7 +54,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
         <div
           className={`project-status-badge status-${project.status?.toLowerCase().replace(/\s+/g, "-")}`}
         >
-          {project.status}
+          {PROJECT_STATUS_LABELS[project.status]}
         </div>
       </div>
       <div className="project-content-body">

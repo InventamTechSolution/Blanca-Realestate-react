@@ -114,7 +114,9 @@ const ProjectDetails = () => {
           </Container>
         </section>
         <InteriorExterior interiorImages={project?.project_interior} exteriorImages={project?.project_exterior} />
-        <Amenities amenities={project?.project_amenities} />
+        {project?.project_amenities?.length > 0 && (
+          <Amenities amenities={project?.project_amenities} />
+        )}
 
         <section className="project-location">
           {/* Heading */}

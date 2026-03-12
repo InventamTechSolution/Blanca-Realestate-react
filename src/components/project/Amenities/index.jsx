@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./Amenities.css";
 
 const Amenities = ({ amenities }) => {
-console.log("🚀 ~ Amenities ~ amenities:", amenities)
 
     // const amenitiesImages = [
     //     "/images/amenities/amenity-1.png",
@@ -87,7 +86,7 @@ console.log("🚀 ~ Amenities ~ amenities:", amenities)
                                     {/* Left List */}
                                     <Col lg={5}>
                                         <div className="lux-amenities-list">
-                                            {amenities.map((item, index) => (
+                                            {amenities?.map((item, index) => (
                                                 <div
                                                     key={item.id}
                                                     className={`lux-amenity-item ${activeAmenity.id === item.id ? "active" : ""
@@ -100,9 +99,9 @@ console.log("🚀 ~ Amenities ~ amenities:", amenities)
 
                                                     <div className="amenity-text">
                                                         <h4 className="text-white">
-                                                            {item.title}
+                                                            {item?.title}
                                                         </h4>
-                                                        <p>{item.description}</p>
+                                                        <p>{item?.description}</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -114,8 +113,8 @@ console.log("🚀 ~ Amenities ~ amenities:", amenities)
                                         <div className="lux-amenity-visual">
                                             <div className="visual-inner">
                                                 <img
-                                                    src={activeAmenity.image}
-                                                    alt={activeAmenity.name}
+                                                    src={activeAmenity?.image}
+                                                    alt={activeAmenity?.title}
                                                     className="img-fluid"
                                                 />
                                                 <div className="visual-overlay"></div>
