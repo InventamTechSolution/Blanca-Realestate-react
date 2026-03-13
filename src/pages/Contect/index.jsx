@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
@@ -7,14 +7,18 @@ import Preloader from '../../components/common/Preloader';
 import ScrollToTop from '../../components/common/ScrollToTop';
 import SmallHeroBanner from '../../components/common/Small-hero-banner';
 import InputField from "../../components/common/InputField/InputField";
-import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
 import RadioGroup from "../../components/common/RadioGroup/RadioGroup";
 import Checkbox from "../../components/common/Checkbox/Checkbox";
+import Field from "../../components/common/Field/Field";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
+import Select from "react-select";
+import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
+import { Country } from "country-state-city";
+import { useContactUs } from "../../hooks/useContactUs";
 
 
 const schema = yup.object().shape({
@@ -34,8 +38,19 @@ import './contect.css';
 const Contact = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showThankYou, setShowThankYou] = useState(false);
+    const { mutate: sendContact, isPending } = useContactUs();
 
-    const { control, handleSubmit, formState: { errors }, reset } = useForm({
+    const countryOptions = useMemo(
+        () =>
+            Country.getAllCountries().map((c) => ({
+                label: c.name,
+                value: c.isoCode.toLowerCase(),
+                isoCode: c.isoCode.toLowerCase(),
+            })),
+        []
+    );
+
+    const { control, handleSubmit, formState: { errors }, reset, watch, setValue } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
             firstName: "",
@@ -68,10 +83,29 @@ const Contact = () => {
     }, []);
 
     const onSubmit = (data) => {
-        console.log("Form Data:", data);
-        setShowThankYou(true);
-        reset();
+        const payload = {
+            first_name: data.firstName,
+            last_name: data.lastName,
+            email: data.email,
+            phone_number: data.phone,
+            message: data.message,
+            is_notified: !!data.newsOffers,
+            notification_mode: data.contactMode,
+        };
+
+        sendContact(payload, {
+            onSuccess: () => {
+                setShowThankYou(true);
+                reset();
+            },
+            onError: () => {
+                // eslint-disable-next-line no-alert
+                alert("Something went wrong. Please try again.");
+            },
+        });
     };
+
+    const selectedCountryCode = watch("country") || "in";
 
 
     return (
@@ -210,6 +244,8 @@ const Contact = () => {
                                                         <PhoneInput
                                                             {...field}
                                                             label="PHONE NUMBER"
+                                                            selectedCountryCode={selectedCountryCode}
+                                                            onCountryChange={(isoCode) => setValue("country", isoCode)}
                                                         />
                                                     )}
                                                 />
@@ -220,12 +256,26 @@ const Contact = () => {
                                                     name="country"
                                                     control={control}
                                                     render={({ field }) => (
-                                                        <Dropdown
-                                                            {...field}
-                                                            label="COUNTRY"
-                                                            placeholder="-- select one --"
-                                                            options={["India", "UAE", "USA", "UK"]}
-                                                        />
+                                                        <Field label="COUNTRY">
+                                                            <div className="glass-input-wrapper overflow-visible">
+                                                                <Select
+                                                                    {...field}
+                                                                    className="contact-country-select"
+                                                                    classNamePrefix="contact-country-select"
+                                                                    options={countryOptions}
+                                                                    value={
+                                                                        countryOptions.find(
+                                                                            (option) =>
+                                                                                option.value === field.value
+                                                                        ) || null
+                                                                    }
+                                                                    onChange={(option) =>
+                                                                        field.onChange(option ? option.value : "")
+                                                                    }
+                                                                    placeholder="-- select one --"
+                                                                />
+                                                            </div>
+                                                        </Field>
                                                     )}
                                                 />
                                                 {errors.country && <p className="text-danger small mt-1">{errors.country.message}</p>}
@@ -294,8 +344,12 @@ const Contact = () => {
                                             </Col>
                                         </Row>
                                         <div className="submit-btn-contect-page mt-4">
-                                            <button type="submit" className="theme-btn bs-font-montserrat">
-                                                Submit
+                                            <button
+                                                type="submit"
+                                                className="theme-btn bs-font-montserrat"
+                                                disabled={isPending}
+                                            >
+                                                {isPending ? "Sending..." : "Submit"}
                                             </button>
                                         </div>
                                     </Form>

@@ -41,6 +41,8 @@
     display: none;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     z-index: 9999;
+    max-height: 220px;
+    overflow-y: auto;
 }
 
 .country-dropdown.show {
@@ -63,4 +65,18 @@
 
 .country-dropdown li img {
     width: 20px;
+}
+
+/* Scrollbar styling for country list */
+.country-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.country-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.country-dropdown::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
 }
