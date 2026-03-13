@@ -39,9 +39,9 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               </div>
             </a>
           </div>
-          <a href={project.href} className="read-more-link">
+          <ThemeBtn to={project.href} className="read-more-link">
             Read More
-          </a>
+          </ThemeBtn>
         </div>
       </div>
     );
@@ -105,13 +105,13 @@ const ProjectCard = ({ project, layout = "grid" }) => {
 
         <div className="project-card-button-section">
           <ThemeBtn
-            href={`/project/${project.id}`}
+            to={`/project/${project.id}`}
             className="view-details-btn"
           >
             View Details
           </ThemeBtn>
           <ThemeBtn
-            href={`/project/${project.id}`}
+            to={`/project/${project.id}`}
             className="view-details-btn"
           >
             Enquireies
