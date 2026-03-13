@@ -11,11 +11,14 @@ import "slick-carousel/slick/slick-theme.css";
 import InteriorExterior from '../../components/project/InteriorExterior/InteriorExterior';
 import Amenities from '../../components/project/Amenities';
 import ThemeBtn from '../../components/common/Button/ThemeBtn'
+import { Icon } from '@iconify/react'
+import { useContactModal } from '../../context/ContactModalContext'
 const commercial1 = "/images/project-details/commercial-office-1.png";
 const commercial2 = "/images/project-details/commercial-office-2.png";
 const commercial3 = "/images/project-details/commercial-office-3.png";
 
 const ProjectDetails = () => {
+    const { openContactModal } = useContactModal();
     const overviewData = [
         {
             id: 1,
@@ -90,6 +93,27 @@ const ProjectDetails = () => {
                                         Blanca : Ekaiva stands as a testament to Blanca's commitment
                                         to quality and urban excellence.
                                     </p>
+                                </div>
+
+                                <div className="download-buttons-wrapper mt-40">
+                                    <button className="download-btn" onClick={openContactModal}>
+                                        <div className="btn-icon">
+                                            <Icon icon="ph:article-light" />
+                                        </div>
+                                        <div className="btn-text">
+                                            <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
+                                            <span className="btn-subtitle">DOWNLOAD ↓</span>
+                                        </div>
+                                    </button>
+                                    <button className="download-btn" onClick={openContactModal}>
+                                        <div className="btn-icon">
+                                            <Icon icon="ph:list-checks-light" />
+                                        </div>
+                                        <div className="btn-text">
+                                            <span className="btn-title bs-font-montserrat">FACT SHEET</span>
+                                            <span className="btn-subtitle">DOWNLOAD ↓</span>
+                                        </div>
+                                    </button>
                                 </div>
                             </Col>
 

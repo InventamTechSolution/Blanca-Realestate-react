@@ -15,6 +15,8 @@ import ProjectDetails from "./pages/ProjectDetails";
 import Careers from "./pages/Careers";
 
 import ScrollToTopOnRouteChange from "./components/common/ScrollToTopOnRouteChange";
+import { ContactModalProvider } from "./context/ContactModalContext";
+import ContactModal from "./components/common/ContactModal/ContactModal";
 
 function App() {
   // useEffect(() => {
@@ -24,11 +26,12 @@ function App() {
   // }, []);
 
   return (
-    <>
+    <ContactModalProvider>
       <ScrollToTopOnRouteChange />
       <LiquidFilters />
 
       <FloatingContactButtons />
+      <ContactModal />
       <Routes>
 
         <Route path="/" element={<Home />} />
@@ -39,7 +42,7 @@ function App() {
         <Route path="/project/:id" element={<ProjectDetails />} />
         <Route path="/careers" element={<Careers />} />
       </Routes>
-    </>
+    </ContactModalProvider>
   );
 }
 
