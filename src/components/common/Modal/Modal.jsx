@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Modal.css";
 
-const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
+const Modal = ({ isOpen, onClose, title, children, size = "md", showHeader = true }) => {
     // Prevent scrolling when modal is open
     useEffect(() => {
         if (isOpen) {
@@ -35,12 +35,14 @@ const Modal = ({ isOpen, onClose, title, children, size = "md" }) => {
                         transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
                     >
                         <div className="modal-content glass-card">
-                            <div className="modal-header">
-                                {title && <h3 className="modal-title">{title}</h3>}
-                                <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
-                                    <Icon icon="lucide:x" />
-                                </button>
-                            </div>
+                            {showHeader && (
+                                <div className="modal-header">
+                                    {title && <h3 className="modal-title">{title}</h3>}
+                                    <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+                                        <Icon icon="lucide:x" />
+                                    </button>
+                                </div>
+                            )}
                             <div className="modal-body">
                                 {children}
                             </div>

@@ -11,20 +11,43 @@ import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
 import RadioGroup from "../../components/common/RadioGroup/RadioGroup";
 import Checkbox from "../../components/common/Checkbox/Checkbox";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
+
+
+const schema = yup.object().shape({
+    firstName: yup.string().required("First name is required"),
+    lastName: yup.string().required("Last name is required"),
+    email: yup.string().email("Invalid email").required("Email is required"),
+    phone: yup.string().required("Phone number is required"),
+    country: yup.string().required("Country is required"),
+    contactMode: yup.string().required("Preferred mode of contact is required"),
+    message: yup.string().required("Message is required"),
+    newsOffers: yup.boolean(),
+    privacyPolicy: yup.boolean().oneOf([true], "You must accept the privacy policy")
+});
 const contactBg = "/images/background/contect-us.png";
 import './contect.css';
 
 const Contact = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const [formData, setFormData] = React.useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        country: "",
-        contactMode: "",
-        newsOffers: false,
-        privacyPolicy: false
+    const [showThankYou, setShowThankYou] = useState(false);
+
+    const { control, handleSubmit, formState: { errors }, reset } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            country: "",
+            contactMode: "",
+            message: "",
+            newsOffers: false,
+            privacyPolicy: false
+        }
     });
 
     useEffect(() => {
@@ -44,27 +67,12 @@ const Contact = () => {
         return () => window.removeEventListener('load', handleLoad);
     }, []);
 
-    const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
+    const onSubmit = (data) => {
+        console.log("Form Data:", data);
+        setShowThankYou(true);
+        reset();
     };
 
-    const handlePhoneChange = (e) => {
-        setFormData(prev => ({
-            ...prev,
-            phone: e.target.value
-        }));
-    };
-
-    const handleDropdownChange = (name, value) => {
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
 
     return (
         <div className="contact-page">
@@ -149,86 +157,140 @@ const Contact = () => {
                                     transition={{ duration: 0.8, ease: "easeOut" }}
                                     viewport={{ once: true }}
                                 >
-                                    <Form>
+                                    <Form onSubmit={handleSubmit(onSubmit)}>
                                         <Row className="g-4">
                                             <Col md={6}>
-                                                <InputField
-                                                    label="FIRST NAME"
-                                                    placeholder="FIRST NAME"
+                                                <Controller
                                                     name="firstName"
-                                                    value={formData.firstName}
-                                                    onChange={handleInputChange}
-                                                    required
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <InputField
+                                                            {...field}
+                                                            label="FIRST NAME"
+                                                            placeholder="FIRST NAME"
+                                                        />
+                                                    )}
                                                 />
+                                                {errors.firstName && <p className="text-danger small mt-1">{errors.firstName.message}</p>}
                                             </Col>
                                             <Col md={6}>
-                                                <InputField
-                                                    label="LAST NAME"
-                                                    placeholder="LAST NAME"
+                                                <Controller
                                                     name="lastName"
-                                                    value={formData.lastName}
-                                                    onChange={handleInputChange}
-                                                    required
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <InputField
+                                                            {...field}
+                                                            label="LAST NAME"
+                                                            placeholder="LAST NAME"
+                                                        />
+                                                    )}
                                                 />
+                                                {errors.lastName && <p className="text-danger small mt-1">{errors.lastName.message}</p>}
                                             </Col>
                                             <Col md={6}>
-                                                <InputField
-                                                    type="email"
-                                                    label="EMAIL"
-                                                    placeholder="YOUR EMAIL"
+                                                <Controller
                                                     name="email"
-                                                    value={formData.email}
-                                                    onChange={handleInputChange}
-                                                    required
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <InputField
+                                                            {...field}
+                                                            type="email"
+                                                            label="EMAIL"
+                                                            placeholder="YOUR EMAIL"
+                                                        />
+                                                    )}
                                                 />
+                                                {errors.email && <p className="text-danger small mt-1">{errors.email.message}</p>}
                                             </Col>
                                             <Col md={6}>
-                                                <PhoneInput
-                                                    label="PHONE NUMBER"
+                                                <Controller
                                                     name="phone"
-                                                    value={formData.phone}
-                                                    onChange={handlePhoneChange}
-                                                    required
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <PhoneInput
+                                                            {...field}
+                                                            label="PHONE NUMBER"
+                                                        />
+                                                    )}
                                                 />
+                                                {errors.phone && <p className="text-danger small mt-1">{errors.phone.message}</p>}
                                             </Col>
                                             <Col md={6}>
-                                                <Dropdown
-                                                    label="COUNTRY"
-                                                    placeholder="-- select one --"
+                                                <Controller
                                                     name="country"
-                                                    options={["India", "UAE", "USA", "UK"]}
-                                                    value={formData.country}
-                                                    onChange={(val) => handleDropdownChange("country", val)}
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <Dropdown
+                                                            {...field}
+                                                            label="COUNTRY"
+                                                            placeholder="-- select one --"
+                                                            options={["India", "UAE", "USA", "UK"]}
+                                                        />
+                                                    )}
                                                 />
+                                                {errors.country && <p className="text-danger small mt-1">{errors.country.message}</p>}
                                             </Col>
                                             <Col md={6}>
-                                                <RadioGroup
-                                                    label="PREFERRED MODE OF CONTACT"
+                                                <Controller
                                                     name="contactMode"
-                                                    options={[
-                                                        { label: "PHONE", value: "phone" },
-                                                        { label: "EMAIL", value: "email" }
-                                                    ]}
-                                                    selectedValue={formData.contactMode}
-                                                    onChange={handleInputChange}
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <RadioGroup
+                                                            {...field}
+                                                            label="PREFERRED MODE OF CONTACT"
+                                                            options={[
+                                                                { label: "PHONE", value: "phone" },
+                                                                { label: "EMAIL", value: "email" }
+                                                            ]}
+                                                            selectedValue={field.value}
+                                                        />
+                                                    )}
                                                 />
+                                                {errors.contactMode && <p className="text-danger small mt-1">{errors.contactMode.message}</p>}
+                                            </Col>
+                                            <Col md={12}>
+                                                <Controller
+                                                    name="message"
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <InputField
+                                                            {...field}
+                                                            as="textarea"
+                                                            rows={3}
+                                                            label="MESSAGE"
+                                                            placeholder="YOUR MESSAGE"
+                                                        />
+                                                    )}
+                                                />
+                                                {errors.message && <p className="text-danger small mt-1">{errors.message.message}</p>}
                                             </Col>
                                             <Col md={6}>
-                                                <Checkbox
-                                                    label="I'd like to hear about news and offers."
+                                                <Controller
                                                     name="newsOffers"
-                                                    checked={formData.newsOffers}
-                                                    onChange={handleInputChange}
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <Checkbox
+                                                            {...field}
+                                                            label="I'd like to hear about news and offers."
+                                                            checked={field.value}
+                                                        />
+                                                    )}
                                                 />
+                                                {errors.newsOffers && <p className="text-danger small mt-1">{errors.newsOffers.message}</p>}
                                             </Col>
                                             <Col md={6}>
-                                                <Checkbox
-                                                    label={<>I've read and agree to the <a href="/privacy-policy">Privacy Policy</a></>}
+                                                <Controller
                                                     name="privacyPolicy"
-                                                    checked={formData.privacyPolicy}
-                                                    onChange={handleInputChange}
-                                                    required
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <Checkbox
+                                                            {...field}
+                                                            label={<>I've read and agree to the <a href="/privacy-policy">Privacy Policy</a></>}
+                                                            checked={field.value}
+                                                        />
+                                                    )}
                                                 />
+                                                {errors.privacyPolicy && <p className="text-danger small mt-1">{errors.privacyPolicy.message}</p>}
                                             </Col>
                                         </Row>
                                         <div className="submit-btn-contect-page mt-4">
@@ -245,6 +307,11 @@ const Contact = () => {
             </main>
             <Footer />
             <ScrollToTop />
+            <ThankYouModal 
+                isOpen={showThankYou} 
+                onClose={() => setShowThankYou(false)}
+                message="Thank you for reaching out! We’ve received your details and a Blanca representative will get in touch with you shortly to discuss your requirements."
+            />
         </div>
     );
 };
