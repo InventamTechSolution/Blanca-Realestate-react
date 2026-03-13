@@ -6,12 +6,16 @@ import ScrollToTop from '../../components/common/ScrollToTop';
 import SmallHeroBanner from '../../components/common/Small-hero-banner';
 import InputField from "../../components/common/InputField/InputField";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
+import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
 import "./ragistration.css";
+
 const RegistrationBg = "/images/background/registration-bg.png";
 
 const Registration = () => {
     const location = useLocation();
     const [activeTab, setActiveTab] = useState("personal-details");
+    const [showThankYou, setShowThankYou] = useState(false);
+
     const [formData, setFormData] = useState({
         agentType: location.state?.agentType || "Individual Registration",
         gstin: "",
@@ -65,7 +69,9 @@ const Registration = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form Data Submitted:", formData);
+        setShowThankYou(true);
     };
+
 
     return (
         <div className="registration-page">
@@ -325,6 +331,12 @@ const Registration = () => {
             </main>
             {/* <Footer /> */}
             <ScrollToTop />
+            <ThankYouModal 
+                isOpen={showThankYou} 
+                onClose={() => setShowThankYou(false)}
+                title="Registration Successful"
+                message="Thank you for registering as a Blanca Channel Partner! Our team will review your application and get in touch with you shortly."
+            />
         </div>
     );
 };
