@@ -31,6 +31,7 @@ const defaultValues = {
 };
 
 const ProjectDetails = () => {
+    const { openContactModal } = useContactModal();
   const { id } = useParams();
   const { data, isLoading, error } = useProjectById(id);
   const { mutate, isPending } = useEnquire();
@@ -137,6 +138,27 @@ const ProjectDetails = () => {
                 <div className="project-description-text">
                   {project?.project_overview_description}
                 </div>
+
+                                <div className="download-buttons-wrapper mt-40">
+                                    <button className="download-btn" onClick={openContactModal}>
+                                        <div className="btn-icon">
+                                            <Icon icon="ph:article-light" />
+                                        </div>
+                                        <div className="btn-text">
+                                            <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
+                                            <span className="btn-subtitle">DOWNLOAD ↓</span>
+                                        </div>
+                                    </button>
+                                    <button className="download-btn" onClick={openContactModal}>
+                                        <div className="btn-icon">
+                                            <Icon icon="ph:list-checks-light" />
+                                        </div>
+                                        <div className="btn-text">
+                                            <span className="btn-title bs-font-montserrat">FACT SHEET</span>
+                                            <span className="btn-subtitle">DOWNLOAD ↓</span>
+                                        </div>
+                                    </button>
+                                </div>
               </Col>
 
               {/* Right Slider */}

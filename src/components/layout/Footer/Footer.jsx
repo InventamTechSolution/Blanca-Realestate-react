@@ -272,11 +272,11 @@ const Footer = () => {
                 </div>
             </div>
 
-            <ThankYouModal 
-                isOpen={showThankYou} 
+            <ThankYouModal
+                isOpen={showThankYou}
                 onClose={() => setShowThankYou(false)}
                 title="Subscription Successful"
-                message="Thank you for subscribing! You'll now receive the latest updates and news from Blanca Real Estate directly in your inbox."
+                message="Welcome to Blanca! Thank you for connecting. You’re now on the list to receive first exclusive property insights and investment updates across Mumbai and Navi Mumbai check your inbox soon!"
             />
         </footer>
 
