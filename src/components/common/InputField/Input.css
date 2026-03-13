@@ -3,7 +3,7 @@
     border-radius: 5px;
     background: rgba(255, 255, 255, 0.03);
     /* Lowered for more transparency */
-    color: var(--lg-text);
+    color: #ffffff;
     border: 1px solid var(--lg-highlight);
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4px);
@@ -54,11 +54,15 @@
     border: none;
     border-radius: 5px;
     padding: 15px 20px;
-    color: var(--lg-text);
+    color: #ffffff !important;
     font-size: 14px;
     height: 55px;
     position: relative;
     z-index: 2;
+}
+
+textarea.form-control-new {
+    height: auto;
 }
 
 .form-control-new::placeholder {
@@ -78,7 +82,7 @@
 .form-control-new:-webkit-autofill:focus,
 .form-control-new:-webkit-autofill:active {
     -webkit-background-clip: text;
-    -webkit-text-fill-color: var(--lg-text) !important;
+    -webkit-text-fill-color: #ffffff !important;
     transition: background-color 5000s ease-in-out 0s;
     box-shadow: inset 0 0 20px 20px transparent !important;
 }

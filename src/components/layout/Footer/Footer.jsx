@@ -4,11 +4,15 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import $ from 'jquery';
 import 'jquery.ripples';
+import ThankYouModal from '../../common/ThankYouModal/ThankYouModal';
 import './Footer.css';
+
 const logo = '/images/logos/blanca-logo.png';
 
 const Footer = () => {
     const footerRef = React.useRef(null);
+    const [showThankYou, setShowThankYou] = React.useState(false);
+
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -47,6 +51,13 @@ const Footer = () => {
         };
     }, []);
 
+    const handleSubscribe = (e) => {
+        e.preventDefault();
+        setShowThankYou(true);
+        e.target.reset();
+    };
+
+
     return (
         <footer ref={footerRef} className="main-footer modern-footer">
             <div className="footer-container">
@@ -66,7 +77,7 @@ const Footer = () => {
 
                             <div className="footer-stay-updated">
                                 <span className="update-label">STAY UPDATED</span>
-                                <form className="update-form">
+                                <form className="update-form" onSubmit={handleSubscribe}>
                                     <input
                                         type="email"
                                         placeholder="Enter your email address*"
@@ -76,6 +87,7 @@ const Footer = () => {
                                         Send
                                     </button>
                                 </form>
+
                             </div>
                         </div>
 
@@ -260,7 +272,14 @@ const Footer = () => {
                 </div>
             </div>
 
+            <ThankYouModal 
+                isOpen={showThankYou} 
+                onClose={() => setShowThankYou(false)}
+                title="Subscription Successful"
+                message="Thank you for subscribing! You'll now receive the latest updates and news from Blanca Real Estate directly in your inbox."
+            />
         </footer>
+
     );
 };
 

@@ -9,9 +9,13 @@ import Dropdown from "../../common/Dropdown/Dropdown";
 import FileUpload from "../../common/FileUpload/FileUpload";
 import TextArea from "../../common/TextArea/TextArea";
 import ThemeButton from "../../common/Button/ThemeBtn";
+import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
+
 
 const JobApplyModal = ({ isOpen, onClose, jobTitle }) => {
+    const [showThankYou, setShowThankYou] = useState(false);
     const [formData, setFormData] = useState({
+
         fullName: "",
         email: "",
         phoneNumber: "",
@@ -33,12 +37,14 @@ const JobApplyModal = ({ isOpen, onClose, jobTitle }) => {
         e.preventDefault();
         console.log("Form Data Submitted:", formData);
         // Add submission logic here (e.g., API call)
-        alert("Application submitted successfully!");
-        onClose();
+        setShowThankYou(true);
     };
 
+
     return (
+        <>
         <Modal
+
             isOpen={isOpen}
             onClose={onClose}
             title="Apply For Position"
@@ -120,8 +126,19 @@ const JobApplyModal = ({ isOpen, onClose, jobTitle }) => {
                     </ThemeButton>
                 </div>
             </Form>
-        </Modal>
+            </Modal>
+            <ThankYouModal 
+                isOpen={showThankYou} 
+                onClose={() => {
+                    setShowThankYou(false);
+                    onClose();
+                }}
+                title="Application Sent"
+                message="Thank you for applying! Our HR team will review your profile and get in touch if your qualifications match our requirements."
+            />
+        </>
     );
 };
+
 
 export default JobApplyModal;
