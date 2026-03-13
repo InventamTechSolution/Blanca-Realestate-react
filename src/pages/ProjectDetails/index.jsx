@@ -16,6 +16,8 @@ import { PROJECT_STATUS_LABELS } from "../../utils/constant";
 import Preloader from "../../components/common/Preloader";
 import { AnimatePresence } from "framer-motion";
 import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { enquirySchema } from "../../schema/validationSchema";
 // const commercial1 = "/images/project-details/commercial-office-1.png";
 // const commercial2 = "/images/project-details/commercial-office-2.png";
 // const commercial3 = "/images/project-details/commercial-office-3.png";
@@ -42,6 +44,7 @@ const ProjectDetails = () => {
     formState: { errors },
   } = useForm({
     defaultValues,
+    resolver: yupResolver(enquirySchema),
   });
 
   if (isLoading) {
@@ -297,9 +300,12 @@ const ProjectDetails = () => {
                           <Controller
                             name="name"
                             control={control}
-                            rules={{ required: "Full name is required" }}
                             render={({ field }) => (
-                              <div className="input-modern-group">
+                              <div
+                                className={`input-modern-group ${
+                                  errors.name ? "has-error" : ""
+                                }`}
+                              >
                                 <Form.Control
                                   {...field}
                                   type="text"
@@ -326,15 +332,12 @@ const ProjectDetails = () => {
                           <Controller
                             name="email"
                             control={control}
-                            rules={{
-                              required: "Email is required",
-                              pattern: {
-                                value: /^\S+@\S+$/i,
-                                message: "Invalid email address",
-                              },
-                            }}
                             render={({ field }) => (
-                              <div className="input-modern-group">
+                              <div
+                                className={`input-modern-group ${
+                                  errors.email ? "has-error" : ""
+                                }`}
+                              >
                                 <Form.Control
                                   {...field}
                                   type="email"
@@ -361,16 +364,12 @@ const ProjectDetails = () => {
                           <Controller
                             name="phone_number"
                             control={control}
-                            rules={{
-                              required: "Phone number is required",
-                              minLength: {
-                                value: 10,
-                                message:
-                                  "Phone number must be at least 10 digits",
-                              },
-                            }}
                             render={({ field }) => (
-                              <div className="input-modern-group">
+                              <div
+                                className={`input-modern-group ${
+                                  errors.phone_number ? "has-error" : ""
+                                }`}
+                              >
                                 <Form.Control
                                   {...field}
                                   type="text"
@@ -382,7 +381,7 @@ const ProjectDetails = () => {
                                 </label>
                                 <span className="focus-border"></span>
 
-                                {errors.phone && (
+                                {errors.phone_number && (
                                   <small className="text-danger">
                                     {errors.phone_number.message}
                                   </small>
