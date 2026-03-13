@@ -14,6 +14,8 @@ import Projects from "./pages/Projects";
 import ProjectDetails from "./pages/ProjectDetails";
 import Careers from "./pages/Careers";
 
+import ScrollToTopOnRouteChange from "./components/common/ScrollToTopOnRouteChange";
+
 function App() {
   // useEffect(() => {
   //   if ("scrollRestoration" in window.history) {
@@ -23,9 +25,12 @@ function App() {
 
   return (
     <>
+      <ScrollToTopOnRouteChange />
       <LiquidFilters />
+
       <FloatingContactButtons />
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

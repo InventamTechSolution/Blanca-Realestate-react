@@ -110,6 +110,14 @@
     margin-left: 15px;
 }
 
+.hero-area-2 .buttons {
+    cursor: pointer !important;
+}
+
+.hero-area-2 .buttons .theme-btn {
+    cursor: pointer !important;
+}
+
 .hero-area-2 .slick-dots:before {
     content: '';
     position: absolute;
@@ -197,6 +205,11 @@
     height: auto !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
+    pointer-events: none; /* Allow clicks to pass through to the center */
+}
+
+.hero-left-stats > * {
+    pointer-events: auto; /* Re-enable clicks for the actual badges */
 }
 
 /* Center content alignment */
