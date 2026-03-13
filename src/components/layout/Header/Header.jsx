@@ -176,10 +176,10 @@ const Header = () => {
                   <li className={`header-link has-submenu ${isCurrent('/', '#our-story')} ${activeSubmenu === 'communities' ? 'is-open' : ''}`}>
                     <a href="#our-story" onClick={(e) => handleNavClick(e, '/', 'communities')}>Communities</a>
                     <ul className="header-submenu">
-                      <li><Link to="/projects" onClick={closeMenus}>New Launches</Link></li>
-                      <li><Link to="/projects" onClick={closeMenus}>Coming Soon</Link></li>
-                      <li><Link to="/projects" onClick={closeMenus}>Ongoing Projects</Link></li>
-                      <li><Link to="/projects" onClick={closeMenus}>Completed</Link></li>
+                      <li><Link to="/projects?status=new-launches" onClick={closeMenus}>New Launches</Link></li>
+                      <li><Link to="/projects?status=coming-soon" onClick={closeMenus}>Coming Soon</Link></li>
+                      <li><Link to="/projects?status=on-going" onClick={closeMenus}>Ongoing Projects</Link></li>
+                      <li><Link to="/projects?status=completed" onClick={closeMenus}>Completed</Link></li>
                     </ul>
                   </li>
 

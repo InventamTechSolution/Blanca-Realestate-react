@@ -15,10 +15,11 @@ const Projects = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const filter = searchParams.get("filter");
+  const statusParam = searchParams.get("status") || "all";
 
   const projectBg = "/images/background/project-listing-bg.png"; // Fixed path for public asset
   const dropdownRef = useRef(null);
-  const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState(statusParam);
   const [view, setView] = useState("grid");
   const [activeDropdown, setActiveDropdown] = useState(null); // 'type' or 'status' or null
   const [activeProjectId, setActiveProjectId] = useState(null);
@@ -53,6 +54,10 @@ const Projects = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    setStatus(statusParam);
+  }, [statusParam]);
 
   const typeOptions = [
     { label: "All Projects", value: "all" },
@@ -90,16 +95,21 @@ const Projects = () => {
   };
 
   const handleTypeSelect = (value) => {
-    if (value === "all") {
-      navigate("/projects");
-    } else {
-      navigate(`/projects?filter=${value}`);
-    }
+    const params = new URLSearchParams();
+    if (value && value !== "all") params.set("filter", value);
+    if (status && status !== "all") params.set("status", status);
+    const qs = params.toString();
+    navigate(qs ? `/projects?${qs}` : "/projects");
     setActiveDropdown(null);
   };
 
   const handleStatusSelect = (value) => {
     setStatus(value);
+    const params = new URLSearchParams();
+    if (filter && filter !== "all") params.set("filter", filter);
+    if (value && value !== "all") params.set("status", value);
+    const qs = params.toString();
+    navigate(qs ? `/projects?${qs}` : "/projects");
     setActiveDropdown(null);
   };
 
