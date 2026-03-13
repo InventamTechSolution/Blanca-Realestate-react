@@ -1,9 +1,11 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import ThemeBtn from "../Button/ThemeBtn";
+import { useContactModal } from "../../../context/ContactModalContext";
 import "./ProjectCard.css";
 
 const ProjectCard = ({ project, layout = "grid" }) => {
+  const { openContactModal } = useContactModal();
   if (!project) return null;
 
   if (layout === "horizontal") {
@@ -21,22 +23,30 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             {project.propertyType} | {project.configuration}
           </p>
           <div className="project-download-options-horizontal">
-            <a href="#" className="download-link brochure">
+            <div 
+              className="download-link brochure" 
+              onClick={() => openContactModal({ type: 'Brochure', project: project.title })}
+              role="button"
+            >
               <div className="download-icon">
                 <Icon icon="solar:document-text-outline" />
               </div>
               <div className="download-text">
                 <span className="title">BROCHURE</span>
               </div>
-            </a>
-            <a href="#" className="download-link fact-sheet">
+            </div>
+            <div 
+              className="download-link fact-sheet" 
+              onClick={() => openContactModal({ type: 'Fact Sheet', project: project.title })}
+              role="button"
+            >
               <div className="download-icon">
                 <Icon icon="solar:bill-list-outline" />
               </div>
               <div className="download-text">
                 <span className="title">FACT SHEET</span>
               </div>
-            </a>
+            </div>
           </div>
           <ThemeBtn to={project.href} className="read-more-link">
             Read More
@@ -78,7 +88,11 @@ const ProjectCard = ({ project, layout = "grid" }) => {
         </div>
 
         <div className="project-download-options-horizontal">
-          <a href="#" className="download-link brochure">
+          <div 
+            className="download-link brochure" 
+            onClick={() => openContactModal({ type: 'Brochure', project: project.title })}
+            role="button"
+          >
             <div className="download-icon">
               <Icon icon="solar:document-text-outline" />
             </div>
@@ -88,8 +102,12 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                 DOWNLOAD <i className="fas fa-arrow-down"></i>
               </span>
             </div>
-          </a>
-          <a href="#" className="download-link fact-sheet">
+          </div>
+          <div 
+            className="download-link fact-sheet" 
+            onClick={() => openContactModal({ type: 'Fact Sheet', project: project.title })}
+            role="button"
+          >
             <div className="download-icon">
               <Icon icon="solar:bill-list-outline" />
             </div>
@@ -99,7 +117,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                 DOWNLOAD <i className="fas fa-arrow-down"></i>
               </span>
             </div>
-          </a>
+          </div>
         </div>
 
         <div className="project-card-button-section">
