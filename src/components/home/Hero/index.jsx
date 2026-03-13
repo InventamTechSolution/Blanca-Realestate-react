@@ -127,19 +127,19 @@ const Hero = () => {
                     </div>
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center">
-                            <div className="col-lg-3 col-md-12 hero-left-stats">
+                            <div className="col-lg-3 col-md-12 hero-left-stats" style={{ zIndex: 3 }}>
                                 <StatBadge count="489" text="Upcoming Commercial Units" />
                                 <StatBadge count="174" text="Upcoming Residential Units" />
                                 <StatBadge count="76" text="Residential Units Nearly Possession" />
                                 <StatBadge count="634" text="Residential Units Delivered" />
                                 <StatBadge count="210" text="Commercial Units Delivered" />
                             </div>
-                            <div className="col-md-10 text-center right-side-content">
+                            <div className="col-lg-9 col-md-12 text-center right-side-content" style={{ zIndex: 4, position: "relative" }}>
                                 <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
                                     <h1 className="text-white bs-font-colgent-regular vision-title">Where Vision Takes Shape</h1>
                                 </div>
-                                <div className="buttons mt-96">
-                                    <ThemeBtn to="/projects" className="bs-font-montserrat">View More</ThemeBtn>
+                                <div className="buttons mt-96" style={{ cursor: "pointer", position: "relative", zIndex: 10 }}>
+                                    <ThemeBtn to="/about" className="bs-font-montserrat">View More</ThemeBtn>
                                 </div>
                             </div>
                         </div>
