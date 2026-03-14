@@ -19,19 +19,9 @@ import Select from "react-select";
 import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
 import { Country } from "country-state-city";
 import { useContactUs } from "../../hooks/useContactUs";
+import { contactSchema } from "../../schema/validationSchema";
 
 
-const schema = yup.object().shape({
-    firstName: yup.string().required("First name is required"),
-    lastName: yup.string().required("Last name is required"),
-    email: yup.string().email("Invalid email").required("Email is required"),
-    phone: yup.string().required("Phone number is required"),
-    country: yup.string().required("Country is required"),
-    contactMode: yup.string().required("Preferred mode of contact is required"),
-    message: yup.string().required("Message is required"),
-    newsOffers: yup.boolean(),
-    privacyPolicy: yup.boolean().oneOf([true], "You must accept the privacy policy")
-});
 const contactBg = "/images/background/contect-us.png";
 import './contect.css';
 
@@ -49,7 +39,7 @@ const Contact = () => {
 
 
     const { control, handleSubmit, formState: { errors }, reset, setValue } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(contactSchema),
         mode: "onSubmit",
         shouldUnregister: true,
         defaultValues: {

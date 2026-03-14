@@ -393,7 +393,7 @@ const ProjectDetails = () => {
                               >
                                 <Form.Control
                                   {...field}
-                                  type="text"
+                                  type="number"
                                   className="modern-input"
                                   placeholder=" "
                                 />
@@ -430,6 +430,12 @@ const ProjectDetails = () => {
                                   Message (Optional)
                                 </label>
                                 <span className="focus-border"></span>
+
+                                {errors.message && (
+                                  <small className="text-danger">
+                                    {errors.message.message}
+                                  </small>
+                                )}
                               </div>
                             )}
                           />
