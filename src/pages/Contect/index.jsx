@@ -25,6 +25,18 @@ import { contactSchema } from "../../schema/validationSchema";
 const contactBg = "/images/background/contect-us.png";
 import './contect.css';
 
+const defaultValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    country: "",
+    contactMode: "",
+    message: "",
+    newsOffers: false,
+    privacyPolicy: false
+};
+
 const Contact = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showThankYou, setShowThankYou] = useState(false);
@@ -38,22 +50,18 @@ const Contact = () => {
 
 
 
-    const { control, handleSubmit, formState: { errors }, reset, setValue } = useForm({
-        resolver: yupResolver(contactSchema),
-        mode: "onSubmit",
-        shouldUnregister: true,
-        defaultValues: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            phone: "",
-            country: "",
-            contactMode: "",
-            message: "",
-            newsOffers: false,
-            privacyPolicy: false
-        }
-    });
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+        reset,
+        setValue,
+        watch } = useForm({
+            resolver: yupResolver(contactSchema),
+            mode: "onChange",
+            shouldUnregister: true,
+            defaultValues,
+        });
 
     useEffect(() => {
         window.scrollTo(0, 0);
