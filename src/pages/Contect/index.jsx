@@ -11,7 +11,7 @@ import Dropdown from "../../components/common/Dropdown/Dropdown";
 import RadioGroup from "../../components/common/RadioGroup/RadioGroup";
 import Checkbox from "../../components/common/Checkbox/Checkbox";
 import Field from "../../components/common/Field/Field";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
@@ -40,18 +40,18 @@ const Contact = () => {
     const [showThankYou, setShowThankYou] = useState(false);
     const { mutate: sendContact, isPending } = useContactUs();
 
-    const countryOptions = useMemo(
-        () =>
-            Country.getAllCountries().map((c) => ({
-                label: c.name,
-                value: c.isoCode.toLowerCase(),
-                isoCode: c.isoCode.toLowerCase(),
-            })),
-        []
-    );
+    const countryOptions = Country.getAllCountries().map((c) => ({
+        label: c.name,
+        value: c.isoCode.toLowerCase(),
+        isoCode: c.isoCode.toLowerCase(),
+    }));
 
-    const { control, handleSubmit, formState: { errors }, reset, watch, setValue } = useForm({
+
+
+    const { control, handleSubmit, formState: { errors }, reset, setValue } = useForm({
         resolver: yupResolver(schema),
+        mode: "onSubmit",
+        shouldUnregister: true,
         defaultValues: {
             firstName: "",
             lastName: "",
@@ -67,22 +67,11 @@ const Contact = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        const handleLoad = () => {
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 800);
-        };
-
-        if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-        }
-
-        return () => window.removeEventListener('load', handleLoad);
+        const timer = setTimeout(() => setIsLoading(false), 400);
+        return () => clearTimeout(timer);
     }, []);
 
-    const onSubmit = (data) => {
+    const onSubmit = React.useCallback((data) => {
         const payload = {
             first_name: data.firstName,
             last_name: data.lastName,
@@ -99,14 +88,16 @@ const Contact = () => {
                 reset();
             },
             onError: () => {
-                // eslint-disable-next-line no-alert
                 alert("Something went wrong. Please try again.");
             },
         });
-    };
+    }, [sendContact, reset]);
 
-    const selectedCountryCode = watch("country") || "in";
-
+    const selectedCountryCode = useWatch({
+        control,
+        name: "country",
+        defaultValue: "in",
+    });
 
     return (
         <div className="contact-page">
@@ -361,8 +352,8 @@ const Contact = () => {
             </main>
             <Footer />
             <ScrollToTop />
-            <ThankYouModal 
-                isOpen={showThankYou} 
+            <ThankYouModal
+                isOpen={showThankYou}
                 onClose={() => setShowThankYou(false)}
                 message="Thank you for reaching out! We’ve received your details and a Blanca representative will get in touch with you shortly to discuss your requirements."
             />
