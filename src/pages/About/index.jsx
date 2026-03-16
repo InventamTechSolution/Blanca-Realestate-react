@@ -17,20 +17,9 @@ const About = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (!window.location.hash) {
-            window.scrollTo(0, 0);
-        }
-        
         const handleLoad = () => {
             setTimeout(() => {
                 setIsLoading(false);
-                if (window.location.hash) {
-                    const id = window.location.hash.replace('#', '');
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
             }, 800);
         };
 
