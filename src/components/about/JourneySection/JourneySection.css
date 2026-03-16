@@ -96,7 +96,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%) skewX(-25deg);
-    width: 120px;
+    width: 240px;
     height: 50px;
     background: linear-gradient(135deg, #1e4bb5 0%, #0a1f4d 100%);
     display: flex;

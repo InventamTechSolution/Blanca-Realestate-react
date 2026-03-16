@@ -8,6 +8,19 @@ const JourneySection = () => {
     const [startX, setStartX] = React.useState(0);
     const [scrollLeft, setScrollLeft] = React.useState(0);
 
+    React.useEffect(() => {
+        // Function to scroll to the end
+        const scrollToEnd = () => {
+            if (scrollRef.current) {
+                scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+            }
+        };
+
+        // Scroll after a short delay to ensure content is rendered and widths are calculated
+        const timeoutId = setTimeout(scrollToEnd, 100);
+        return () => clearTimeout(timeoutId);
+    }, []);
+
     const handleMouseDown = (e) => {
         setIsDragging(true);
         setStartX(e.pageX - scrollRef.current.offsetLeft);

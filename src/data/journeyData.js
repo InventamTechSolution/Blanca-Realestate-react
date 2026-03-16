@@ -150,15 +150,6 @@ export const journeyData = [
     year: "2024",
     projects: [
       {
-        title: "ND Pearl",
-        location: "Kamothe - Navi Mumbai",
-        type: "Residential",
-        description:
-          "An apartment type construction spread across 31,010 Sq. Ft. Consisted of 42 residential units.",
-        position: "above",
-        image: "/images/projects/lendscpae-images/nd-pearl.png",
-      },
-      {
         title: "ND Garden Tower",
         location: "Ulwe - Navi Mumbai",
         type: "Residential",
@@ -170,43 +161,72 @@ export const journeyData = [
     ],
   },
   {
-    year: "2025+",
+    year: "2025",
     projects: [
       {
-        title: "Blanca Business Hub",
-        location: "Turbhe - Navi Mumbai",
-        type: "Commercial",
-        description:
-          "Where Innovation Meets Location - Elevate Your Business at Blanca Business Hub, Strategically Positioned for Unmatched Success.",
-        position: "below",
-        image: "/images/projects/lendscpae-images/blancs-business-hub.png",
-      },
-      {
-        title: "Blanca Seascape",
-        location: "Ulwe - Navi Mumbai",
+        title: "ND Pearl",
+        location: "Kamothe - Navi Mumbai",
         type: "Residential",
-        description: "",
+        description:
+          "An apartment type construction spread across 31,010 Sq. Ft. Consisted of 42 residential units.",
         position: "above",
+        image: "/images/projects/lendscpae-images/nd-pearl.png",
       },
     ],
   },
   {
-    year: "2025+",
+    year: "2026",
+    projects: [
+      {
+        title: "Blanca Tower",
+        location: "Borivali - Navi Mumbai",
+        type: "Commercial",
+        description:
+          "An commercial type construction spread across 56,000 Sq.Ft. It consisted of 70 commercial units.",
+        position: "below",
+        image: "/images/projects/lendscpae-images/blanca-tower.png",
+      },
+    ],
+  },
+  {
+    year: "Ongoing 2026",
+    projects: [
+      {
+        title: "Blanca : Ekaiva",
+        location: "Turbhe - Navi Mumbai",
+        type: "Commercial",
+        description:
+          "Where Innovation Meets Location - Elevate Your Business at Blanca Business Hub, Strategically Positioned for Unmatched Success.",
+        position: "above",
+        image: "/images/projects/lendscpae-images/blancs-business-hub.png",
+      },
+      // {
+      //   title: "Blanca Seascape",
+      //   location: "Ulwe - Navi Mumbai",
+      //   type: "Residential",
+      //   description: "",
+      //   position: "above",
+      // },
+    ],
+  },
+  {
+    year: "Upcoming 2027",
     projects: [
       {
         title: "Blanca Hill",
         location: "Ulwe - Navi Mumbai",
         type: "Residential",
-        description: "",
+        description:
+          "An apartment type construction spread across 37,800 Sq.Ft. It consisted of 54 residential units.",
         position: "above",
       },
       {
-        title: "Blanca Tower",
-        location: "Borivali - Navi Mumbai",
+        title: "Blanca Seascape",
+        location: "Ulwe - Navi Mumbai",
         type: "Residential",
-        description: "",
+        description:
+          "An apartment type construction spread across 60,000 Sq.Ft. It consisted of 50 residential & 7 Commercial units.",
         position: "below",
-        image: "/images/projects/lendscpae-images/blanca-tower.png",
       },
     ],
   },

@@ -16,11 +16,11 @@ const SmallHeroBanner = ({
       className="contact-hero"
       style={{ backgroundImage: `url(${image})` }}
     >
-      {showBackButton && (
+      {/* {showBackButton && (
         <Link to={backLink} className="go-to-website-btn">
           <i className="fas fa-arrow-left"></i> Go to Website
         </Link>
-      )}
+      )} */}
       <Container>
         <Motion.h1
           className="bs-font-playfair-display text-white small-hero-title"

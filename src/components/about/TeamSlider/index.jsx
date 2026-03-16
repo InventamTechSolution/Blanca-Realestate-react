@@ -4,19 +4,43 @@ import "./TeamSlider.css";
 
 const TeamSlider = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [animState, setAnimState] = useState("idle"); // "idle", "exiting", "entering"
+    const [direction, setDirection] = useState(""); // "next", "prev"
 
     const prevIndex =
         (currentIndex - 1 + teamData.length) % teamData.length;
     const nextIndex = (currentIndex + 1) % teamData.length;
 
     const handleNext = () => {
-        setCurrentIndex((prev) => (prev + 1) % teamData.length);
+        if (animState !== "idle") return;
+        setDirection("next");
+        setAnimState("exiting");
+
+        setTimeout(() => {
+            setCurrentIndex((prev) => (prev + 1) % teamData.length);
+            setAnimState("entering");
+
+            setTimeout(() => {
+                setAnimState("idle");
+            }, 800);
+        }, 400);
     };
 
     const handlePrev = () => {
-        setCurrentIndex(
-            (prev) => (prev - 1 + teamData.length) % teamData.length
-        );
+        if (animState !== "idle") return;
+        setDirection("prev");
+        setAnimState("exiting");
+
+        setTimeout(() => {
+            setCurrentIndex(
+                (prev) => (prev - 1 + teamData.length) % teamData.length
+            );
+            setAnimState("entering");
+
+            setTimeout(() => {
+                setAnimState("idle");
+            }, 800);
+        }, 400);
     };
 
     // Helper to resolve image paths (similar to JourneySection if needed, but here we'll assume relative to public or src)
@@ -29,10 +53,20 @@ const TeamSlider = () => {
         return imagePath;
     };
 
+    const getAnimationClass = () => {
+        if (animState === "exiting") {
+            return direction === "next" ? "slide-out-left" : "slide-out-right";
+        }
+        if (animState === "entering") {
+            return direction === "next" ? "slide-in-right" : "slide-in-left";
+        }
+        return "";
+    };
+
     return (
         <section className="team-slider-section" id="leadership">
             <div className="container">
-                <div className="section-title text-center mb-50">
+                <div className="section-title text-center mb-0">
                     <div className="sub-title-wrapper">
                         <span className="sub-title common-subtitle">
                             Our Members
@@ -56,7 +90,7 @@ const TeamSlider = () => {
                     </div>
 
                     {/* Active Card */}
-                    <div className="team-active-card">
+                    <div className={`team-active-card ${getAnimationClass()}`}>
                         <div className="team-member-img-wrap">
                             <img
                                 src={getImagePath(teamData[currentIndex].image)}
@@ -78,6 +112,7 @@ const TeamSlider = () => {
                                     className="team-nav-btn team-prev"
                                     onClick={handlePrev}
                                     aria-label="Previous member"
+                                    disabled={animState !== "idle"}
                                 >
                                     <i className="fas fa-arrow-left"></i>
                                 </button>
@@ -86,6 +121,7 @@ const TeamSlider = () => {
                                     className="team-nav-btn team-next"
                                     onClick={handleNext}
                                     aria-label="Next member"
+                                    disabled={animState !== "idle"}
                                 >
                                     <i className="fas fa-arrow-right"></i>
                                 </button>

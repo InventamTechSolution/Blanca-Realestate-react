@@ -163,13 +163,13 @@ const Header = () => {
                   <li className={`header-link has-submenu ${isCurrent('/about')} ${activeSubmenu === 'about' ? 'is-open' : ''}`}>
                     <Link to="/about" onClick={(e) => handleNavClick(e, '/about', 'about')}>About Us</Link>
                     <ul className="header-submenu">
-                      <li><Link to="/about" onClick={closeMenus}>Legacy</Link></li>
+                      <li><Link to="/about#about" onClick={closeMenus}>Legacy</Link></li>
                       <li><Link to="/about#about-page-blueprint" onClick={closeMenus}>Our Value</Link></li>
                       <li><Link to="/about#about-vision-section-four" onClick={closeMenus}>Our Vision</Link></li>
                       <li><Link to="/about#about-mission-section-four" onClick={closeMenus}>Our Mission</Link></li>
-                      <li><Link to="/about" onClick={closeMenus}>Why Choose Us</Link></li>
-                      <li><Link to="/about" onClick={closeMenus}>Journey of Innovations</Link></li>
-                      <li><Link to="/about" onClick={closeMenus}>Leadership</Link></li>
+                      <li><Link to="/#why-choose-us" onClick={closeMenus}>Why Choose Us</Link></li>
+                      <li><Link to="/about#journey" onClick={closeMenus}>Journey of Innovations</Link></li>
+                      <li><Link to="/about#leadership" onClick={closeMenus}>Leadership</Link></li>
                     </ul>
                   </li>
 

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import Preloader from '../../components/common/Preloader';
+import Header from '../../components/layout/Header/Header';
 import ScrollToTop from '../../components/common/ScrollToTop';
 import SmallHeroBanner from '../../components/common/Small-hero-banner';
 import InputField from "../../components/common/InputField/InputField";
+import TextArea from "../../components/common/TextArea/TextArea";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
 import "./ragistration.css";
@@ -76,7 +78,7 @@ const Registration = () => {
     return (
         <div className="registration-page">
             <Preloader />
-            {/* <Header /> */}
+            <Header />
             <main>
                 <SmallHeroBanner title="Channel Partner Registration" description="" image={RegistrationBg} showBackButton={true} />
 
@@ -125,8 +127,8 @@ const Registration = () => {
                                         <div className="tab-content active">
                                             <div className="section-header">| Personal Details</div>
 
-                                            <Row className="g-4">
-                                                <Col md={6} className="mb-4">
+                                            <Row className="gx-4 gy-4 mb-4">
+                                                <Col md={6}>
                                                     <Dropdown
                                                         label="Real Estate Agent Type*"
                                                         placeholder="-- select one --"
@@ -142,19 +144,19 @@ const Registration = () => {
                                                     )}
                                                 </Col>
                                                 {formData.agentType === "Agency Registration" && (
-                                                    <Col md={6} className="mb-4">
+                                                    <Col md={6}>
                                                         <InputField
                                                             label="GSTIN"
                                                             placeholder="GSTIN"
                                                             name="gstin"
                                                             value={formData.gstin}
                                                             onChange={handleInputChange}
-                                                            extra={<Button type="button" className="validate-btn">Validate</Button>}
+                                                        // extra={<Button type="button" className="validate-btn">Validate</Button>}
                                                         />
                                                     </Col>
                                                 )}
                                             </Row>
-                                            <Row className="g-4">
+                                            <Row className="gx-4 gy-4">
 
                                                 <Col md={6}>
                                                     <InputField
@@ -183,7 +185,7 @@ const Registration = () => {
                                                         value={formData.phone}
                                                         onChange={handlePhoneChange}
                                                         required
-                                                        extra={<Button type="button" className="otp-btn">Send OTP</Button>}
+                                                    // extra={<Button type="button" className="otp-btn">Send OTP</Button>}
                                                     />
                                                 </Col>
                                                 <Col md={6}>
@@ -216,14 +218,14 @@ const Registration = () => {
                                                     />
                                                 </Col>
 
-                                                {formData.agentType === "Individual Registration" && (
+                                                {/* {formData.agentType === "Individual Registration" && (
                                                     <Col md={12}>
                                                         <div className="aadhaar-group mt-2">
                                                             <Button type="button" className="aadhaar-btn">Verify Aadhaar</Button>
                                                             <Button type="button" className="check-status-btn">Check Status</Button>
                                                         </div>
                                                     </Col>
-                                                )}
+                                                )} */}
                                             </Row>
 
                                             <div className="tab-nav-btns mt-5">
@@ -245,63 +247,39 @@ const Registration = () => {
                                         <div className="tab-content active">
                                             <div className="section-header">| Address Details</div>
 
-                                            <Row className="g-4">
+                                            <Row className="gx-4 gy-4">
                                                 <Col md={6}>
-                                                    <div className="mb-4">
-                                                        <Dropdown
-                                                            label="Country *"
-                                                            placeholder="India"
-                                                            name="country"
-                                                            options={["India"]}
-                                                            value={formData.country}
-                                                            onChange={(e) => handleDropdownChange("country", e.target.value)}
-                                                        />
-                                                    </div>
-                                                    <div className="mb-4">
-                                                        <Dropdown
-                                                            label="State *"
-                                                            placeholder="Select State"
-                                                            name="state"
-                                                            options={["Maharashtra", "Gujarat", "Karnataka", "Delhi"]}
-                                                            value={formData.state}
-                                                            onChange={(e) => handleDropdownChange("state", e.target.value)}
-                                                        />
-                                                    </div>
-                                                    <div className="mb-4">
-                                                        <Dropdown
-                                                            label="City *"
-                                                            placeholder="Select City"
-                                                            name="city"
-                                                            options={["Navi Mumbai", "Mumbai", "Pune", "Thane"]}
-                                                            value={formData.city}
-                                                            onChange={(e) => handleDropdownChange("city", e.target.value)}
-                                                        />
-                                                    </div>
+                                                    <Dropdown
+                                                        label="Country *"
+                                                        placeholder="India"
+                                                        name="country"
+                                                        options={["India"]}
+                                                        value={formData.country}
+                                                        onChange={(e) => handleDropdownChange("country", e.target.value)}
+                                                    />
                                                 </Col>
                                                 <Col md={6}>
-                                                    <div className="mb-4">
-                                                        <InputField
-                                                            label="Address *"
-                                                            placeholder="Enter Address"
-                                                            name="address"
-                                                            value={formData.address}
-                                                            onChange={handleInputChange}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="mb-4">
-                                                        <InputField
-                                                            label="PinCode *"
-                                                            placeholder="Enter PinCode"
-                                                            name="pinCode"
-                                                            value={formData.pinCode}
-                                                            onChange={handleInputChange}
-                                                            required
-                                                        />
-                                                        <p className="note-text mt-2">
-                                                            Note*:Please enter 0 in PinCode if you don't have Pincode
-                                                        </p>
-                                                    </div>
+                                                    <InputField
+                                                        label="PinCode *"
+                                                        placeholder="Enter PinCode"
+                                                        name="pinCode"
+                                                        value={formData.pinCode}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
+                                                    <p className="note-text mt-2">
+                                                        Note*:Please enter 0 in PinCode if you don't have Pincode
+                                                    </p>
+                                                </Col>
+                                                <Col md={12}>
+                                                    <TextArea
+                                                        label="Address *"
+                                                        placeholder="Enter Address"
+                                                        name="address"
+                                                        value={formData.address}
+                                                        onChange={handleInputChange}
+                                                        required
+                                                    />
                                                 </Col>
                                             </Row>
 
@@ -331,8 +309,8 @@ const Registration = () => {
             </main>
             {/* <Footer /> */}
             <ScrollToTop />
-            <ThankYouModal 
-                isOpen={showThankYou} 
+            <ThankYouModal
+                isOpen={showThankYou}
                 onClose={() => setShowThankYou(false)}
                 title="Registration Successful"
                 message="Thank you for registering as a Blanca Channel Partner! Our team will review your application and get in touch with you shortly."

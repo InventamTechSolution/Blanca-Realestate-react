@@ -84,7 +84,7 @@ const WhyChooseUs = () => {
   };
 
   return (
-    <div className="meet-team-full-section-wrapper">
+    <div className="meet-team-full-section-wrapper" id="why-choose-us">
       <section className="meet-team-area-title-sec py-0 overflow-hidden position-relative">
         <div className="section-title mb-60 text-center">
           <div className="story-section-top-content">
