@@ -79,6 +79,7 @@ const Contact = () => {
             last_name: data.lastName,
             email: data.email,
             phone_number: phoneWithCountryCode,
+            country: selectedCountry?.label || data.country,
             message: data.message,
             is_notified: !!data.newsOffers,
             notification_mode: data.contactMode,
