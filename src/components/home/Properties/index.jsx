@@ -10,12 +10,16 @@ import { useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
 import { useProjects } from "../../../hooks/useProjects";
 import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
+import { useContactModal } from "../../../context/ContactModalContext";
+
 
 const Properties = () => {
   const navigate = useNavigate();
   const { data } = useProjects({page: 1, limit: 50, is_active: true});
 
   const projects = data?.data || [];
+  const { openContactModal } = useContactModal();
+
 
   return (
     <section className="homeproject-area py-128" id="our-projects">
@@ -54,7 +58,7 @@ const Properties = () => {
               <ThemeBtn className="bs-font-montserrat" to="/projects">
                 View All Projects
               </ThemeBtn>
-              <ThemeBtn className="bs-font-montserrat" to="/projects">
+              <ThemeBtn className="bs-font-montserrat" onClick={openContactModal}>
                 Schedule a Visit
               </ThemeBtn>
             </div>
