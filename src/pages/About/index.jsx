@@ -9,6 +9,7 @@ import AboutBlueprintSection from '../../components/about/AboutBlueprintSection'
 import VisionSection from '../../components/about/VisionSection';
 import MissionSection from '../../components/about/MissionSection';
 import JourneySection from '../../components/about/JourneySection';
+import ShowcaseSection from "../../components/about/ShowcaseSection";
 import TeamSlider from '../../components/about/TeamSlider';
 import { AnimatePresence } from 'framer-motion';
 
@@ -46,6 +47,7 @@ const About = () => {
                 <MissionSection />
                 <JourneySection />
                 <TeamSlider />
+                <ShowcaseSection />
             </main>
             <Footer />
             <ScrollToTop />
