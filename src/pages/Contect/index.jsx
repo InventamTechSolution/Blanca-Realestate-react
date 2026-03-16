@@ -46,9 +46,8 @@ const Contact = () => {
         label: c.name,
         value: c.isoCode.toLowerCase(),
         isoCode: c.isoCode.toLowerCase(),
+        phoneCode: `+${c.phonecode}`,
     }));
-
-
 
     const {
         control,
@@ -70,11 +69,16 @@ const Contact = () => {
     }, []);
 
     const onSubmit = React.useCallback((data) => {
+        const selectedCountry = countryOptions.find((c) => c.value === data.country);
+        const phoneWithCountryCode = selectedCountry?.phoneCode
+            ? `${selectedCountry.phoneCode}${data.phone}`
+            : data.phone;
+
         const payload = {
             first_name: data.firstName,
             last_name: data.lastName,
             email: data.email,
-            phone_number: data.phone,
+            phone_number: phoneWithCountryCode,
             message: data.message,
             is_notified: !!data.newsOffers,
             notification_mode: data.contactMode,
@@ -89,7 +93,7 @@ const Contact = () => {
                 alert("Something went wrong. Please try again.");
             },
         });
-    }, [sendContact, reset]);
+    }, [sendContact, reset, countryOptions]);
 
     const selectedCountryCode = useWatch({
         control,
