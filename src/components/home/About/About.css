@@ -210,7 +210,7 @@
     }
 }
 
-@media(max-width: 676px) {
+@media(max-width: 767px) {
     .about-area.about-modern {
         padding: 60px 0 40px;
     }
@@ -248,7 +248,7 @@
     }
 }
 
-@media (min-width: 320px) and (max-width: 676px) {
+@media (min-width: 320px) and (max-width: 767px) {
     .about-modern__wrap.g-5 {
         --bs-gutter-x: 0;
         --bs-gutter-y: 0;

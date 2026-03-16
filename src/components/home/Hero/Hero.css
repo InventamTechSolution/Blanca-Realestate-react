@@ -205,11 +205,13 @@
     height: auto !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    pointer-events: none; /* Allow clicks to pass through to the center */
+    pointer-events: none;
+    /* Allow clicks to pass through to the center */
 }
 
-.hero-left-stats > * {
-    pointer-events: auto; /* Re-enable clicks for the actual badges */
+.hero-left-stats>* {
+    pointer-events: auto;
+    /* Re-enable clicks for the actual badges */
 }
 
 /* Center content alignment */
@@ -381,7 +383,7 @@
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
     .hero-left-stats {
         padding: 0px;
         position: absolute;
