@@ -307,8 +307,8 @@ const Contact = () => {
             </main>
             <Footer />
             <ScrollToTop />
-            <ThankYouModal 
-                isOpen={showThankYou} 
+            <ThankYouModal
+                isOpen={showThankYou}
                 onClose={() => setShowThankYou(false)}
                 message="Thank you for reaching out! We’ve received your details and a Blanca representative will get in touch with you shortly to discuss your requirements."
             />
