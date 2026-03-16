@@ -25,7 +25,7 @@ export const enquirySchema = yup.object().shape({
     phone: yup.string().required("Phone number is required").matches(REGEX.phone, "Please enter a valid phone number"),
     country: yup.string().required("Country is required"),
     contactMode: yup.string().required("Preferred mode of contact is required"),
-    message: yup.string().matches(REGEX.startingSpaceNotAllowed, "Please enter a valid message").max(400, "Message must be at most 400 characters long").optional(),
+    message: yup.string().required("Message is required").matches(REGEX.startingSpaceNotAllowed, "Please enter a valid message").max(400, "Message must be at most 400 characters long").optional(),
     newsOffers: yup.boolean(),
     privacyPolicy: yup.boolean().oneOf([true], "You must accept the privacy policy")
 });

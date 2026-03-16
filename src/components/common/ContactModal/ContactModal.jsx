@@ -22,16 +22,13 @@ const ContactModal = () => {
   const [showThankYou, setShowThankYou] = useState(false);
   const { mutate: sendContact, isPending } = useContactUs();
 
-  const countryOptions = useMemo(
-    () =>
+  const countryOptions = 
       Country.getAllCountries().map((c) => ({
         label: c.name,
         value: c.isoCode.toLowerCase(),
         isoCode: c.isoCode.toLowerCase(),
         phoneCode: `+${c.phonecode}`,
-      })),
-    []
-  );
+      }));
 
   const {
     control,
