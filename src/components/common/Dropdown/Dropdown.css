@@ -33,7 +33,7 @@
 
 .dropdown-arrow {
     font-size: 18px;
-    color: var(--primary-color);
+    color: #fff;
     transition: transform 0.3s ease;
 }
 

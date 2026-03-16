@@ -9,6 +9,7 @@ import AboutBlueprintSection from '../../components/about/AboutBlueprintSection'
 import VisionSection from '../../components/about/VisionSection';
 import MissionSection from '../../components/about/MissionSection';
 import JourneySection from '../../components/about/JourneySection';
+import ShowcaseSection from "../../components/about/ShowcaseSection";
 import TeamSlider from '../../components/about/TeamSlider';
 import { AnimatePresence } from 'framer-motion';
 
@@ -16,10 +17,20 @@ const About = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        }
+        
         const handleLoad = () => {
             setTimeout(() => {
                 setIsLoading(false);
+                if (window.location.hash) {
+                    const id = window.location.hash.replace('#', '');
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
             }, 800);
         };
 
@@ -46,6 +57,7 @@ const About = () => {
                 <MissionSection />
                 <JourneySection />
                 <TeamSlider />
+                <ShowcaseSection />
             </main>
             <Footer />
             <ScrollToTop />
