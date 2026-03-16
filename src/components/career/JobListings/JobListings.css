@@ -36,7 +36,7 @@
         width: 100%;
         min-width: 100%;
     }
-    
+
     .category-filter-wrapper {
         width: 100%;
     }
@@ -203,9 +203,7 @@
         width: 100%;
         display: flex;
     }
-}
 
-@media (max-width: 992px) {
     .job-section-header .main-title-badge {
         text-align: center;
     }
@@ -224,5 +222,10 @@
 
     .job-section-header .section-title h2 {
         text-align: center;
+    }
+
+    .job-subtitle {
+        text-align: center;
+        margin-top: 20px;
     }
 }

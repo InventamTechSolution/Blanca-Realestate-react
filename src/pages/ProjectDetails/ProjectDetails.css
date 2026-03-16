@@ -45,7 +45,7 @@
 }
 
 .project-description-text {
-    font-size: 1.125rem;
+    font-size: 18px;
     line-height: 1.8;
     color: var(--black-30);
 }
@@ -110,8 +110,8 @@
 
 @media (max-width: 575px) {
     .download-buttons-wrapper {
-        gap: 30px;
-        margin-top: 30px;
+        gap: 24px;
+        margin: 30px 0px;
     }
 
     .download-btn .btn-icon {
@@ -462,4 +462,45 @@ textarea.modern-input {
 .submit-enquiry-btn {
     text-align: center;
     margin: 8px 0px 20px 0px;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+    .c-feature-item .icon-circle {
+        max-width: 60px;
+        width: 100%;
+    }
+
+    .enquiry-premium-section {
+        padding: 60px 12px;
+    }
+
+    .enquiry-hero-title {
+        font-size: 2rem;
+    }
+
+    .enquiry-description {
+        font-size: 1rem;
+    }
+
+    .lux-enquiry-card.glass-morphism {
+        padding: 30px 20px;
+    }
+
+    .enquiry-card-header h2 {
+        font-size: 24px;
+    }
+
+    .download-buttons-wrapper {
+        gap: 24px;
+        margin: 30px 0px;
+    }
+
+    .project-about-section {
+        padding: 60px 0;
+    }
+
+    .project-description-text {
+        font-size: 14px;
+    }
 }
