@@ -210,4 +210,8 @@
     .amenity-text h4 {
         font-size: 1.25rem;
     }
+
+    .amenities-main {
+        padding: 0px 0px 80px;
+    }
 }
