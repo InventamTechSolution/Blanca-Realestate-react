@@ -67,6 +67,14 @@ select.glass-input option {
     color: var(--primary-color);
 }
 
+.apply-for-position-btn {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .mb-25 {
     margin-bottom: 25px;
 }

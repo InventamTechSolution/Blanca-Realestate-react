@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { motion as Montion, AnimatePresence } from "framer-motion";
 import { jobs } from "../../../data/jobsData";
 import JobApplyModal from "../JobApplyModal/JobApplyModal";
+import Dropdown from "../../common/Dropdown/Dropdown";
 
 const JobListings = () => {
     const [activeTab, setActiveTab] = useState("All Jobs");
@@ -15,7 +16,7 @@ const JobListings = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedJobTitle, setSelectedJobTitle] = useState("");
 
-    const categories = ["All Jobs", "Sales", "Marketing"];
+    const categories = ["All Jobs", ...new Set(jobs.map(job => job.category))];
 
     const filteredJobs = activeTab === "All Jobs"
         ? jobs
@@ -57,23 +58,26 @@ const JobListings = () => {
                         >
                             Join Our Growing Team
                         </Montion.h2>
+                        <p className="job-subtitle mt-10">
+                            Don't find what you're looking for? <button onClick={(e) => handleApplyNow(e, "")} className="text-primary fw-bold bg-transparent border-0 p-0">Quick Apply here</button>
+                        </p>
                     </div>
 
                     <Montion.div
-                        className="category-tabs"
+                        className="category-filter-wrapper"
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        {categories.map((category) => (
-                            <button
-                                key={category}
-                                className={`category-tab ${activeTab === category ? "active" : ""}`}
-                                onClick={() => handleTabChange(category)}
-                            >
-                                {category}
-                            </button>
-                        ))}
+                        <div className="category-dropdown-container">
+                            <Dropdown
+                                label="Filter by Category:"
+                                options={categories.map(c => ({ label: c, value: c }))}
+                                value={activeTab}
+                                onChange={(e) => handleTabChange(e.target.value)}
+                                className="category-dropdown"
+                            />
+                        </div>
                     </Montion.div>
                 </div>
 
