@@ -118,7 +118,7 @@ export const jobs = [
   {
     id: 9,
     title: "Accounts Executive",
-    category: "Finance",
+    category: "Accountants",
     description: "Handles financial transactions, billing, and compliance.",
     responsibilities: [
       "Maintain books of accounts",
@@ -183,5 +183,3 @@ export const jobs = [
     ],
   },
 ];
-
-
