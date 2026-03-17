@@ -417,7 +417,7 @@
 
 @media(max-width:767px) {
     .about-page-modern-title {
-        font-size: clamp(30px, 6vw, 44px);
+        font-size: 44px;
     }
 }
 
@@ -498,5 +498,23 @@
         /* Ensure it fits */
         white-space: nowrap;
         /* Keep nowrap for sliding effect unless highly requested otherwise */
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .about-page-team-title {
+        font-size: 36px;
+        letter-spacing: 0px;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+    .about-page-modern-title {
+        font-size: 54px;
+    }
+
+    .vertical-text-slider {
+        height: 74px;
     }
 }
