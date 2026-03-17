@@ -1,5 +1,20 @@
 .about-page-section-main {
     overflow-x: hidden;
+    padding: 80px 0;
+}
+
+.about-page-modern-title {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.about-page-modern-text {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.about-bottom-grid {
+    margin-top: 60px;
 }
 
 .about-details-slider {
@@ -14,6 +29,11 @@
     font-size: 24px;
     margin-bottom: 15px;
     color: #fff;
+}
+
+.about-image-wrapper {
+    overflow: hidden;
+    border-radius: 12px;
 }
 
 .about-details-slider .slick-dots {
@@ -41,4 +61,89 @@
 
 .about-details-slider .slick-dots li button {
     display: none;
+}
+
+/* Responseive Styles */
+@media (max-width: 1440px) {
+    .about-page-modern-title {
+        font-size: 42px;
+    }
+
+    .about-page-section-main {
+        padding: 60px 20px;
+    }
+
+    .about-bottom-grid {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .about-page-modern-title {
+        font-size: 36px;
+    }
+
+    .about-page-section-main {
+        padding: 60px 20px;
+        margin: 0;
+    }
+
+    .about-page-modern-text {
+        margin: 0px;
+        font-size: 16px;
+    }
+
+    .about-bottom-grid {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .about-page-modern-title {
+        font-size: 32px;
+    }
+
+    .about-bottom-grid {
+        margin-top: 0px;
+    }
+
+    .about-section-info-part {
+        margin-bottom: 30px;
+    }
+
+    .about-page-section-main {
+        padding: 60px 20px;
+        margin: 0;
+    }
+
+    .about-page-modern-text {
+        margin: 0px;
+    }
+}
+
+@media (max-width: 767px) {
+    .about-page-modern-title {
+        font-size: 28px;
+    }
+
+    .about-page-modern-text {
+        font-size: 16px;
+        margin: 0px;
+    }
+
+    .about-page-section-main {
+        padding: 40px 20px;
+    }
+
+    .about-page-section-main {
+        gap: 24px;
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-page-modern-title {
+        font-size: 42px;
+        margin-bottom: 0px;
+    }
 }
