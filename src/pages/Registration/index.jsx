@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
 import Preloader from '../../components/common/Preloader';
 import Header from '../../components/layout/Header/Header';
 import ScrollToTop from '../../components/common/ScrollToTop';
@@ -18,23 +19,32 @@ const Registration = () => {
     const [activeTab, setActiveTab] = useState("personal-details");
     const [showThankYou, setShowThankYou] = useState(false);
 
-    const [formData, setFormData] = useState({
-        agentType: location.state?.agentType || "Individual Registration",
-        gstin: "",
-        name: "",
-        contactPerson: "",
-        phone: "",
-        reraNo: "",
-        email: "",
-        pan: "",
-        country: "India",
-        state: "",
-        city: "",
-        address: "",
-        pinCode: "",
-        newsOffers: false,
-        privacyPolicy: false
+    const {
+        control,
+        handleSubmit,
+        setValue,
+        watch
+    } = useForm({
+        defaultValues: {
+            agentType: location.state?.agentType || "Individual Registration",
+            gstin: "",
+            name: "",
+            contactPerson: "",
+            phone: "",
+            reraNo: "",
+            email: "",
+            pan: "",
+            country: "India",
+            state: "",
+            city: "",
+            address: "",
+            pinCode: "",
+            newsOffers: false,
+            privacyPolicy: false
+        }
     });
+
+    const agentType = watch("agentType");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -42,35 +52,12 @@ const Registration = () => {
 
     useEffect(() => {
         if (location.state?.agentType) {
-            setFormData(prev => ({ ...prev, agentType: location.state.agentType }));
+            setValue("agentType", location.state.agentType, { shouldDirty: false });
         }
     }, [location.state]);
 
-    const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-    };
-
-    const handlePhoneChange = (e) => {
-        setFormData(prev => ({
-            ...prev,
-            phone: e.target.value
-        }));
-    };
-
-    const handleDropdownChange = (name, value) => {
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form Data Submitted:", formData);
+    const onSubmit = (data) => {
+        console.log("Form Data Submitted:", data);
         setShowThankYou(true);
     };
 
@@ -119,7 +106,7 @@ const Registration = () => {
 
                             {/* Main Form Area */}
                             <div className="reg-main-content">
-                                <Form className="registration-form" onSubmit={handleSubmit}>
+                                <Form className="registration-form" onSubmit={handleSubmit(onSubmit)}>
                                     {/* ========================= */}
                                     {/* Tab 1: Personal Details */}
                                     {/* ========================= */}
@@ -129,29 +116,42 @@ const Registration = () => {
 
                                             <Row className="gx-4 gy-4 mb-4">
                                                 <Col md={6}>
-                                                    <Dropdown
-                                                        label="Real Estate Agent Type*"
-                                                        placeholder="-- select one --"
+                                                    <Controller
                                                         name="agentType"
-                                                        options={["Agency Registration", "Individual Registration"]}
-                                                        value={formData.agentType}
-                                                        onChange={(e) => handleDropdownChange("agentType", e.target.value)}
+                                                        control={control}
+                                                        rules={{ required: true }}
+                                                        render={({ field }) => (
+                                                            <Dropdown
+                                                                label="Real Estate Agent Type*"
+                                                                placeholder="-- select one --"
+                                                                name={field.name}
+                                                                options={["Agency Registration", "Individual Registration"]}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e?.target?.value)}
+                                                            />
+                                                        )}
                                                     />
-                                                    {formData.agentType === "Individual Registration" && (
+                                                    {agentType === "Individual Registration" && (
                                                         <p className="note-text mt-3">
                                                             Note: After verifying through DigiLocker, proceed by selecting Check Status.
                                                         </p>
                                                     )}
                                                 </Col>
-                                                {formData.agentType === "Agency Registration" && (
+                                                {agentType === "Agency Registration" && (
                                                     <Col md={6}>
-                                                        <InputField
-                                                            label="GSTIN"
-                                                            placeholder="GSTIN"
+                                                        <Controller
                                                             name="gstin"
-                                                            value={formData.gstin}
-                                                            onChange={handleInputChange}
-                                                        // extra={<Button type="button" className="validate-btn">Validate</Button>}
+                                                            control={control}
+                                                            render={({ field }) => (
+                                                                <InputField
+                                                                    label="GSTIN"
+                                                                    placeholder="GSTIN"
+                                                                    name={field.name}
+                                                                    value={field.value}
+                                                                    onChange={(e) => field.onChange(e.target.value)}
+                                                                    // extra={<Button type="button" className="validate-btn">Validate</Button>}
+                                                                />
+                                                            )}
                                                         />
                                                     </Col>
                                                 )}
@@ -159,62 +159,104 @@ const Registration = () => {
                                             <Row className="gx-4 gy-4">
 
                                                 <Col md={6}>
-                                                    <InputField
-                                                        label="Name *"
-                                                        placeholder="Enter Name"
+                                                    <Controller
                                                         name="name"
-                                                        value={formData.name}
-                                                        onChange={handleInputChange}
-                                                        required
+                                                        control={control}
+                                                        rules={{ required: true }}
+                                                        render={({ field }) => (
+                                                            <InputField
+                                                                label="Name *"
+                                                                placeholder="Enter Name"
+                                                                name={field.name}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e.target.value)}
+                                                                required
+                                                            />
+                                                        )}
                                                     />
                                                 </Col>
                                                 <Col md={6}>
-                                                    <InputField
-                                                        label="Contact Person Name"
-                                                        placeholder="Enter Contact Person"
+                                                    <Controller
                                                         name="contactPerson"
-                                                        value={formData.contactPerson}
-                                                        onChange={handleInputChange}
+                                                        control={control}
+                                                        render={({ field }) => (
+                                                            <InputField
+                                                                label="Contact Person Name"
+                                                                placeholder="Enter Contact Person"
+                                                                name={field.name}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e.target.value)}
+                                                            />
+                                                        )}
                                                     />
                                                 </Col>
                                                 <Col md={6}>
-                                                    <InputField
-                                                        label="Mobile Number *"
-                                                        placeholder="Enter Mobile Number"
+                                                    <Controller
                                                         name="phone"
-                                                        value={formData.phone}
-                                                        onChange={handlePhoneChange}
-                                                        required
-                                                    // extra={<Button type="button" className="otp-btn">Send OTP</Button>}
+                                                        control={control}
+                                                        rules={{ required: true }}
+                                                        render={({ field }) => (
+                                                            <InputField
+                                                                label="Mobile Number *"
+                                                                placeholder="Enter Mobile Number"
+                                                                name={field.name}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e.target.value)}
+                                                                required
+                                                                // extra={<Button type="button" className="otp-btn">Send OTP</Button>}
+                                                            />
+                                                        )}
                                                     />
                                                 </Col>
                                                 <Col md={6}>
-                                                    <InputField
-                                                        label="RERA Registration No."
-                                                        placeholder="Enter RERA Number"
+                                                    <Controller
                                                         name="reraNo"
-                                                        value={formData.reraNo}
-                                                        onChange={handleInputChange}
+                                                        control={control}
+                                                        render={({ field }) => (
+                                                            <InputField
+                                                                label="RERA Registration No."
+                                                                placeholder="Enter RERA Number"
+                                                                name={field.name}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e.target.value)}
+                                                            />
+                                                        )}
                                                     />
                                                 </Col>
                                                 <Col md={6}>
-                                                    <InputField
-                                                        type="email"
-                                                        label="Email *"
-                                                        placeholder="Enter Email"
+                                                    <Controller
                                                         name="email"
-                                                        value={formData.email}
-                                                        onChange={handleInputChange}
-                                                        required
+                                                        control={control}
+                                                        rules={{
+                                                            required: true,
+                                                            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                                                        }}
+                                                        render={({ field }) => (
+                                                            <InputField
+                                                                type="email"
+                                                                label="Email *"
+                                                                placeholder="Enter Email"
+                                                                name={field.name}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e.target.value)}
+                                                                required
+                                                            />
+                                                        )}
                                                     />
                                                 </Col>
                                                 <Col md={6}>
-                                                    <InputField
-                                                        label="PAN"
-                                                        placeholder="Enter PAN Number"
+                                                    <Controller
                                                         name="pan"
-                                                        value={formData.pan}
-                                                        onChange={handleInputChange}
+                                                        control={control}
+                                                        render={({ field }) => (
+                                                            <InputField
+                                                                label="PAN"
+                                                                placeholder="Enter PAN Number"
+                                                                name={field.name}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e.target.value)}
+                                                            />
+                                                        )}
                                                     />
                                                 </Col>
 
@@ -249,36 +291,57 @@ const Registration = () => {
 
                                             <Row className="gx-4 gy-4">
                                                 <Col md={6}>
-                                                    <Dropdown
-                                                        label="Country *"
-                                                        placeholder="India"
+                                                    <Controller
                                                         name="country"
-                                                        options={["India"]}
-                                                        value={formData.country}
-                                                        onChange={(e) => handleDropdownChange("country", e.target.value)}
+                                                        control={control}
+                                                        rules={{ required: true }}
+                                                        render={({ field }) => (
+                                                            <Dropdown
+                                                                label="Country *"
+                                                                placeholder="India"
+                                                                name={field.name}
+                                                                options={["India"]}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e?.target?.value)}
+                                                            />
+                                                        )}
                                                     />
                                                 </Col>
                                                 <Col md={6}>
-                                                    <InputField
-                                                        label="PinCode *"
-                                                        placeholder="Enter PinCode"
+                                                    <Controller
                                                         name="pinCode"
-                                                        value={formData.pinCode}
-                                                        onChange={handleInputChange}
-                                                        required
+                                                        control={control}
+                                                        rules={{ required: true }}
+                                                        render={({ field }) => (
+                                                            <InputField
+                                                                label="PinCode *"
+                                                                placeholder="Enter PinCode"
+                                                                name={field.name}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e.target.value)}
+                                                                required
+                                                            />
+                                                        )}
                                                     />
                                                     <p className="note-text mt-2">
                                                         Note*:Please enter 0 in PinCode if you don't have Pincode
                                                     </p>
                                                 </Col>
                                                 <Col md={12}>
-                                                    <TextArea
-                                                        label="Address *"
-                                                        placeholder="Enter Address"
+                                                    <Controller
                                                         name="address"
-                                                        value={formData.address}
-                                                        onChange={handleInputChange}
-                                                        required
+                                                        control={control}
+                                                        rules={{ required: true }}
+                                                        render={({ field }) => (
+                                                            <TextArea
+                                                                label="Address *"
+                                                                placeholder="Enter Address"
+                                                                name={field.name}
+                                                                value={field.value}
+                                                                onChange={(e) => field.onChange(e.target.value)}
+                                                                required
+                                                            />
+                                                        )}
                                                     />
                                                 </Col>
                                             </Row>
