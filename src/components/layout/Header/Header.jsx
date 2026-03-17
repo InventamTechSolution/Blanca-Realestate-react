@@ -256,10 +256,33 @@ const Header = () => {
 
                   <div className={`navbar-collapse collapse clearfix ${mobileMenuOpen ? 'show' : ''}`}>
                     <ul className="navigation clearfix">
-                      <li className={isCurrent('/about')}><Link to="/about" onClick={closeMenus}>About Us</Link></li>
+                      <li className={`dropdown ${isCurrent('/about')} ${activeSubmenu === 'mobile-about' ? 'open' : ''}`}>
+                        <Link to="/about" onClick={(e) => {
+                          if (window.innerWidth <= 991) {
+                            e.preventDefault();
+                            toggleSubmenu('mobile-about');
+                          } else {
+                            closeMenus();
+                          }
+                        }}>About Us</Link>
+                        <ul style={{ display: activeSubmenu === 'mobile-about' ? 'block' : 'none' }}>
+                          <li><Link to="/about#about" onClick={closeMenus}>Legacy</Link></li>
+                          <li><Link to="/about#about-page-blueprint" onClick={closeMenus}>Our Value</Link></li>
+                          <li><Link to="/about#about-vision-section-four" onClick={closeMenus}>Our Vision</Link></li>
+                          <li><Link to="/about#about-mission-section-four" onClick={closeMenus}>Our Mission</Link></li>
+                          <li><Link to="/#why-choose-us" onClick={closeMenus}>Why Choose Us</Link></li>
+                          <li><Link to="/about#journey" onClick={closeMenus}>Journey of Innovations</Link></li>
+                          <li><Link to="/about#leadership" onClick={closeMenus}>Leadership</Link></li>
+                        </ul>
+                        <div className="dropdown-btn" onClick={() => toggleSubmenu('mobile-about')}><Icon icon="lucide:chevron-down" /></div>
+                      </li>
 
                       <li className={`dropdown ${isCurrent('/', '#our-story')} ${activeSubmenu === 'mobile-communities' ? 'open' : ''}`}>
-                        <a href="#our-story" onClick={(e) => { e.preventDefault(); toggleSubmenu('mobile-communities'); document.querySelector('#our-story')?.scrollIntoView({ behavior: 'smooth' }); }}>Communities</a>
+                        <a href="#our-story" onClick={(e) => {
+                          e.preventDefault();
+                          toggleSubmenu('mobile-communities');
+                          document.querySelector('#our-story')?.scrollIntoView({ behavior: 'smooth' });
+                        }}>Communities</a>
                         <ul style={{ display: activeSubmenu === 'mobile-communities' ? 'block' : 'none' }}>
                           <li><Link to="/projects" onClick={closeMenus}>New Launches</Link></li>
                           <li><Link to="/projects" onClick={closeMenus}>Coming Soon</Link></li>
@@ -270,7 +293,10 @@ const Header = () => {
                       </li>
 
                       <li className={`dropdown ${isCurrent('/projects')} ${activeSubmenu === 'mobile-properties' ? 'open' : ''}`}>
-                        <Link to="/projects" onClick={(e) => { e.preventDefault(); toggleSubmenu('mobile-properties'); }}>Properties</Link>
+                        <Link to="/projects" onClick={(e) => {
+                          e.preventDefault();
+                          toggleSubmenu('mobile-properties');
+                        }}>Properties</Link>
                         <ul style={{ display: activeSubmenu === 'mobile-properties' ? 'block' : 'none' }}>
                           <li><Link to="/projects?filter=commercial" onClick={closeMenus}>Commercial</Link></li>
                           <li><Link to="/projects?filter=residential" onClick={closeMenus}>Residential</Link></li>
