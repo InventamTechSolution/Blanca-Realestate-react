@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
+import { useRegisterChannelPartner } from '../../hooks/useChannelPartner';
 import Preloader from '../../components/common/Preloader';
 import Header from '../../components/layout/Header/Header';
 import ScrollToTop from '../../components/common/ScrollToTop';
@@ -14,21 +15,10 @@ import "./ragistration.css";
 
 const RegistrationBg = "/images/background/registration-bg.png";
 
-const Registration = () => {
-    const location = useLocation();
-    const [activeTab, setActiveTab] = useState("personal-details");
-    const [showThankYou, setShowThankYou] = useState(false);
-
-    const {
-        control,
-        handleSubmit,
-        setValue,
-        watch
-    } = useForm({
-        defaultValues: {
-            agentType: location.state?.agentType || "Individual Registration",
+const defaultValues = {
+    agentType: location.state?.agentType || "Individual Registration",
             gstin: "",
-            name: "",
+            fullname: "",
             contactPerson: "",
             phone: "",
             reraNo: "",
@@ -41,7 +31,26 @@ const Registration = () => {
             pinCode: "",
             newsOffers: false,
             privacyPolicy: false
-        }
+}
+
+const Registration = () => {
+    const location = useLocation();
+    const [activeTab, setActiveTab] = useState("personal-details");
+    const [showThankYou, setShowThankYou] = useState(false);
+    const [submitError, setSubmitError] = useState("");
+
+    const { mutateAsync: registerPartner, isPending: isSubmitting } =
+        useRegisterChannelPartner();
+
+    const {
+        control,
+        handleSubmit,
+        setValue,
+        watch,
+        reset
+    } = useForm({
+        defaultValues,
+        // resolver: yupResolver(channelPartnerSchema),
     });
 
     const agentType = watch("agentType");
@@ -54,11 +63,45 @@ const Registration = () => {
         if (location.state?.agentType) {
             setValue("agentType", location.state.agentType, { shouldDirty: false });
         }
-    }, [location.state]);
+    }, [location.state, setValue]);
 
-    const onSubmit = (data) => {
-        console.log("Form Data Submitted:", data);
-        setShowThankYou(true);
+    const onSubmit = async (data) => {
+        setSubmitError("");
+
+        const agent_type =
+            data.agentType === "Individual Registration"
+                ? "individual"
+                : data.agentType === "Agency Registration"
+                    ? "agency"
+                    : String(data.agentType || "").toLowerCase();
+
+        const payload = {
+            fullname: data.fullname || "",
+            agent_type,
+            phone_number: data.phone || "",
+            email: data.email || "",
+            country: data.country || "",
+            pincode: data.pinCode || "",
+            address: data.address || "",
+            gstin: data.gstin || "",
+            contact_name: data.contactPerson || "",
+            rera_number: data.reraNo || "",
+            pan_number: data.pan || ""
+        };
+
+        try {
+            await registerPartner(payload);
+            console.log("Form Data Submitted:", payload);
+            setShowThankYou(true);
+            reset();
+        } catch (err) {
+            const message =
+                err?.response?.data?.message ||
+                err?.response?.data?.error ||
+                err?.message ||
+                "Something went wrong. Please try again.";
+            setSubmitError(message);
+        }
     };
 
 
@@ -160,7 +203,7 @@ const Registration = () => {
 
                                                 <Col md={6}>
                                                     <Controller
-                                                        name="name"
+                                                        name="fullname"
                                                         control={control}
                                                         rules={{ required: true }}
                                                         render={({ field }) => (
@@ -346,11 +389,18 @@ const Registration = () => {
                                                 </Col>
                                             </Row>
 
+                                            {submitError ? (
+                                                <div className="mt-3">
+                                                    <p className="text-danger mb-0">{submitError}</p>
+                                                </div>
+                                            ) : null}
+
                                             <div className="tab-nav-btns d-flex justify-content-between">
                                                 <Button
                                                     type="button"
                                                     className="theme-btn"
                                                     onClick={() => setActiveTab("personal-details")}
+                                                    disabled={isSubmitting}
                                                 >
                                                     Previous
                                                 </Button>
@@ -358,8 +408,9 @@ const Registration = () => {
                                                 <Button
                                                     type="submit"
                                                     className="theme-btn bs-font-montserrat"
+                                                    disabled={isSubmitting}
                                                 >
-                                                    Register Now
+                                                    {isSubmitting ? "Submitting..." : "Register Now"}
                                                 </Button>
                                             </div>
                                         </div>
