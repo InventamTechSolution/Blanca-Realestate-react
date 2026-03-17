@@ -12,9 +12,11 @@ import JourneySection from '../../components/about/JourneySection';
 import ShowcaseSection from "../../components/about/ShowcaseSection";
 import TeamSlider from '../../components/about/TeamSlider';
 import { AnimatePresence } from 'framer-motion';
+import { useOtherField } from "../../hooks/useOtherField";
 
 const About = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const { data: aboutPageResponse } = useOtherField();
 
     useEffect(() => {
         const handleLoad = () => {
@@ -32,6 +34,45 @@ const About = () => {
         return () => window.removeEventListener('load', handleLoad);
     }, []);
 
+    const { teamItems, showcaseSlides } = React.useMemo(() => {
+        const raw = aboutPageResponse;
+        const groups = raw?.data ?? raw?.message?.data ?? raw;
+        const list = Array.isArray(groups) ? groups : [];
+
+        const byModel = new Map(
+            list
+                .filter(Boolean)
+                .map((g) => [String(g?.model ?? ""), Array.isArray(g?.data) ? g.data : []])
+        );
+
+        const teamRaw = byModel.get("Team") ?? [];
+        const showcaseRaw = byModel.get("Showcase") ?? [];
+
+        const team = teamRaw
+            .map((item) => {
+                const fields = item?.fields ?? {};
+                return {
+                    name: fields?.title ?? "",
+                    quote: fields?.description ?? "",
+                    image: fields?.image ?? "",
+                };
+            })
+            .filter((t) => t.name || t.quote || t.image);
+
+        const showcase = showcaseRaw
+            .map((item) => {
+                const fields = item?.fields ?? {};
+                return {
+                    title: fields?.title ?? "",
+                    text: fields?.description ?? "",
+                    image: fields?.image ?? "",
+                };
+            })
+            .filter((s) => s.title || s.text || s.image);
+
+        return { teamItems: team, showcaseSlides: showcase };
+    }, [aboutPageResponse]);
+
     return (
         <div className="about-page">
             <AnimatePresence>
@@ -45,8 +86,8 @@ const About = () => {
                 <VisionSection />
                 <MissionSection />
                 <JourneySection />
-                <TeamSlider />
-                <ShowcaseSection />
+                <TeamSlider items={teamItems} />
+                <ShowcaseSection slides={showcaseSlides} />
             </main>
             <Footer />
             <ScrollToTop />

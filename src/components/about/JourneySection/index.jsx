@@ -14,8 +14,7 @@ const JourneySection = () => {
         const groups = raw?.data ?? raw?.message?.data ?? raw;
         const list = Array.isArray(groups) ? groups : [];
 
-        const normalizeProject = (project, index) => {
-            console.log(project);
+        const normalizeProject = (project) => {
             const title = project?.name;
             const location = project?.location;
             const description = project?.description;
@@ -32,9 +31,14 @@ const JourneySection = () => {
                 type: type || "",
                 description,
                 image,
-                position: index % 2 === 0 ? "above" : "below",
             };
         };
+
+        const withAutoPosition = (projects) =>
+            projects.map((project, index) => ({
+                ...project,
+                position: index % 2 === 0 ? "above" : "below",
+            }));
 
         return list
             .map((group) => {
@@ -42,7 +46,7 @@ const JourneySection = () => {
                 const category = group?.category ?? group?.category_name ?? "";
                 const projectsRaw = group?.projects ?? group?.data ?? group?.items ?? [];
                 const projects = Array.isArray(projectsRaw)
-                    ? projectsRaw.map(normalizeProject)
+                    ? withAutoPosition(projectsRaw.map(normalizeProject))
                     : [];
 
                 if (!year) return null;

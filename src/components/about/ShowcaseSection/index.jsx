@@ -7,13 +7,13 @@ import "./ShowcaseSection.css";
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-const ShowcaseSection = () => {
+const ShowcaseSection = ({ slides: slidesProp }) => {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const slidesRef = useRef([]);
   const dotsRef = useRef([]);
 
-  const slides = [
+  const defaultSlides = [
     {
       image: "/images/showcase/iteam-1.png",
       title: "Why a Real Estate Developer Matters in Mumbai",
@@ -40,6 +40,7 @@ const ShowcaseSection = () => {
       text: "We don’t just build projects. We build confidence, performance, and lasting relations that trust. Blanca stands for value that endures."
     }
   ];
+  const slides = Array.isArray(slidesProp) && slidesProp.length > 0 ? slidesProp : defaultSlides;
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -137,7 +138,7 @@ const ShowcaseSection = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [slides.length]);
+  }, [slides]);
 
   return (
     <section className="team-showcase-section" ref={sectionRef}>
@@ -150,7 +151,7 @@ const ShowcaseSection = () => {
             ref={(el) => (slidesRef.current[index] = el)}
           >
             <div className="team-slide-image">
-              <img src={slide.image} alt={slide.title} />
+              {slide.image && <img src={slide.image} alt={slide.title} />}
             </div>
 
             <div className="team-slide-content">
