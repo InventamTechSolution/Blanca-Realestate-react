@@ -45,6 +45,6 @@ export const jobApplySchema = yup.object().shape({
   email: yup.string().required("Email is required").matches(REGEX.email, "Please enter a valid email"),
   phoneNumber: yup.string().required("Phone number is required").matches(REGEX.phone, "Please enter a valid phone number"),
   position: yup.string().required("Please select a position"),
-  resume: yup.mixed().required("Resume is required"),
+  resume: yup.string().required("Resume is required"),
   description: yup.string().required("Please describe your experience").matches(REGEX.startingSpaceNotAllowed, "Please enter a valid message").max(500, "Description must be at most 500 characters")
 });

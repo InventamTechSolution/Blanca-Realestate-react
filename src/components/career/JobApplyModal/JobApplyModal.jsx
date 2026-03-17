@@ -8,39 +8,35 @@ import "./JobApplyModal.css";
 import InputField from "../../common/InputField/InputField";
 import PhoneInput from "../../common/PhoneInput/PhoneInput";
 import Dropdown from "../../common/Dropdown/Dropdown";
-import FileUpload from "../../common/FileUpload/FileUpload";
+import MediaDropzone from "../../common/MediaDropzone/MediaDropzone";
 import TextArea from "../../common/TextArea/TextArea";
 import ThemeButton from "../../common/Button/ThemeBtn";
 import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
 import { jobApplySchema } from "../../../schema/validationSchema";
 import { useApplyCareer } from "../../../hooks/useCareers";
-
-const fileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (e) => reject(e);
-    });
+import { useS3Uploader } from "../../../utils/useS3Uploader";
+import { acceptedDocsExtensions } from "../../../utils/constant";
 
 const defaultValues = {
     fullName: "",
     email: "",
     phoneNumber: "",
     position: "",
-    resume: null,
+    resume: "",
     description: ""
 };
 
 const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
     const [showThankYou, setShowThankYou] = React.useState(false);
     const { mutate: applyCareer, isPending } = useApplyCareer();
+    const { removeUploadedFileFromS3 } = useS3Uploader();
 
     const {
         control,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
+        getValues
     } = useForm({
         resolver: yupResolver(jobApplySchema),
         mode: "onChange",
@@ -71,17 +67,12 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
 
     const onSubmit = React.useCallback(
         async (data) => {
-            const resumeBase64 =
-                data.resume && data.resume instanceof File
-                    ? await fileToBase64(data.resume)
-                    : "";
-
             const payload = {
                 career_category_id: data.position,
                 fullname: data.fullName,
                 email: data.email,
                 phone_number: data.phoneNumber,
-                resume: resumeBase64,
+                resume: data.resume,
                 pitch: data.description
             };
 
@@ -98,11 +89,20 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
         [applyCareer, reset]
     );
 
+    const handleClose = React.useCallback(() => {
+        const resumeKey = getValues("resume");
+        if (resumeKey) {
+            removeUploadedFileFromS3(resumeKey).catch(() => {});
+        }
+        reset(defaultValues);
+        onClose();
+    }, [getValues, removeUploadedFileFromS3, reset, onClose]);
+
     return (
         <>
             <Modal
                 isOpen={isOpen}
-                onClose={onClose}
+                onClose={handleClose}
                 title="Apply For Position"
                 size="lg"
             >
@@ -180,12 +180,15 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
                                 name="resume"
                                 control={control}
                                 render={({ field }) => (
-                                    <FileUpload
+                                    <MediaDropzone
                                         label="Upload Resume"
-                                        name="resume"
                                         value={field.value}
-                                        onChange={(e) => field.onChange(e.target?.value)}
-                                        required
+                                        onChange={field.onChange}
+                                        uploadType="resume"
+                                        acceptExtensions={acceptedDocsExtensions}
+                                        maxSize={{ size: 2, type: "MB" }}
+                                        noteMsg="PDF or DOC/DOCX only."
+                                        errorMsg={errors.resume?.message}
                                     />
                                 )}
                             />
@@ -228,7 +231,7 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
                 isOpen={showThankYou}
                 onClose={() => {
                     setShowThankYou(false);
-                    onClose();
+                    handleClose();
                 }}
                 title="Application Sent"
                 message="Thank you for applying! Our HR team will review your profile and get in touch if your qualifications match our requirements."
