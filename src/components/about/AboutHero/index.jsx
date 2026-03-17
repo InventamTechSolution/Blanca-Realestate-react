@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion as Montion } from "framer-motion";
+import StatBadge from "../../common/StatBadge";
 import "./abouthero.css";
 
 // Register GSAP plugins
@@ -49,9 +50,9 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="hero-area-2 black-120-bg">
+    <section className="about-area-2 black-120-bg">
       <div
-        className="hero-2-item justify-content-center"
+        className="about-2-item justify-content-center"
         style={{ position: "relative", overflow: "hidden" }}
       >
         <video
@@ -148,26 +149,11 @@ const HeroSection = () => {
           <div className="row align-items-center">
             {/* Left Stats */}
             <div className="about-left-stats">
-              {[
-                { count: 489, text: "Upcoming Commercial Units" },
-                { count: 174, text: "Upcoming Residential Units" },
-                { count: 76, text: "Residential Units Nearly Possession" },
-                { count: 634, text: "Residential Units Delivered" },
-                { count: 210, text: "Commercial Units Delivered" },
-              ].map((item, index) => (
-                <Montion.div
-                  className="about-stat-box"
-                  key={index}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                >
-                  <div className="stat-number" data-count={item.count}>
-                    0
-                  </div>
-                  <div className="stat-text">{item.text}</div>
-                </Montion.div>
-              ))}
+              <StatBadge count="489" text="Upcoming Commercial Units" />
+              <StatBadge count="174" text="Upcoming Residential Units" />
+              <StatBadge count="76" text="Residential Units Nearly Possession" />
+              <StatBadge count="634" text="Residential Units Delivered" />
+              <StatBadge count="210" text="Commercial Units Delivered" />
             </div>
 
             {/* Center Content */}
@@ -189,7 +175,7 @@ const HeroSection = () => {
                     ].map((text, index) => (
                       <h1
                         key={index}
-                        className="text-white bs-font-colgent-regular vision-title"
+                        className="text-white bs-font-colgent-regular about-hero-title"
                       >
                         {text}
                       </h1>

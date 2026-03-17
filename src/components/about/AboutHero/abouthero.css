@@ -109,13 +109,13 @@
     }
 }
 
-.hero-area-2 {
+.about-area-2 {
     overflow-x: hidden;
     height: 100vh;
     min-height: 100vh;
 }
 
-.hero-2-item {
+.about-2-item {
     height: 100vh;
     min-height: 100vh;
     display: flex;
@@ -123,11 +123,11 @@
     justify-content: center;
 }
 
-.hero-area-2 .container-fluid {
+.about-area-2 .container-fluid {
     height: 100%;
 }
 
-.hero-area-2 .container-fluid .row {
+.about-area-2 .container-fluid .row {
     height: 100%;
     min-height: 100%;
     align-items: center !important;
@@ -381,31 +381,12 @@
 }
 
 @media only screen and (max-width: 991px) {
-    .about-expert-badge {
-        top: 20px;
-        right: 20px;
-        width: 100px;
-        height: 100px;
-    }
-
     .badge-year {
         font-size: 36px;
     }
 
     .badge-text-ring text {
         font-size: 12px;
-    }
-}
-
-@media only screen and (max-width: 575px) {
-    .about-expert-badge {
-        display: none;
-    }
-}
-
-@media(max-width:991px) {
-    .about-left-stats {
-        display: none;
     }
 }
 
@@ -448,7 +429,7 @@
     /* Prevent wrapping for animation consistency */
 }
 
-.vision-title {
+.about-hero-title {
     font-size: 68px;
     letter-spacing: -2px;
 }
@@ -483,28 +464,16 @@
     }
 }
 
-/* Response height adjustment if needed */
-@media (max-width: 768px) {
-    .vertical-text-slider {
-        height: 1.4em;
-        /* Slightly larger for mobile readability if font scales */
-    }
-
-    .vertical-text-slider h1 {
-        line-height: 1.4em;
-        white-space: normal;
-        /* Allow wrap on mobile if needed */
-        font-size: 24px;
-        /* Ensure it fits */
-        white-space: nowrap;
-        /* Keep nowrap for sliding effect unless highly requested otherwise */
-    }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 992px) {
+@media only screen and (min-width: 768px) and (max-width: 991px) {
     .about-page-team-title {
         font-size: 36px;
         letter-spacing: 0px;
+    }
+
+    .about-left-stats {
+        top: 59%;
+        gap: 8px;
+        left: 15px;
     }
 }
 
@@ -516,5 +485,105 @@
 
     .vertical-text-slider {
         height: 74px;
+    }
+
+    .about-left-stats {
+        top: 60%;
+        gap: 10px;
+        left: 24px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+    .about-expert-badge {
+        top: 24%;
+        left: 8%;
+        width: 100px;
+        height: 100px;
+    }
+
+    .scroll-down-btn {
+        display: none;
+    }
+
+    .about-left-stats {
+        top: 80%;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-right: 0px;
+    }
+
+    .vertical-text-slider {
+        height: 42px;
+    }
+
+    .vertical-text-slider h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        line-height: 36px;
+        white-space: nowrap;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 450px) {
+    .about-hero-title {
+        font-size: 16px;
+        letter-spacing: 0px;
+    }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 768px) {
+    .about-hero-title {
+        font-size: 24px;
+        letter-spacing: 0px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 820px) {
+    .about-hero-title {
+        font-size: 32px;
+        letter-spacing: -2px;
+    }
+
+    .vertical-text-slider {
+        height: 42px;
+    }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 992px) {
+    .about-hero-title {
+        font-size: 36px;
+        letter-spacing: -2px;
+    }
+
+    .vertical-text-slider {
+        height: 48px;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .about-hero-title {
+        font-size: 46px;
+        letter-spacing: -2px;
+    }
+
+    .vertical-text-slider {
+        height: 60px;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1440px) {
+    .about-hero-title {
+        font-size: 54px;
+        letter-spacing: -2px;
+    }
+
+    .vertical-text-slider {
+        height: 70px;
     }
 }
