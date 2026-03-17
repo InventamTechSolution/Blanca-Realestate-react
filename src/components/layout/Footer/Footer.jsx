@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import $ from 'jquery';
 import 'jquery.ripples';
 import ThankYouModal from '../../common/ThankYouModal/ThankYouModal';
+import { useSetting } from '../../../hooks/useSetting';
 import './Footer.css';
 
 const logo = '/images/logos/blanca-logo.png';
@@ -12,6 +13,58 @@ const logo = '/images/logos/blanca-logo.png';
 const Footer = () => {
     const footerRef = React.useRef(null);
     const [showThankYou, setShowThankYou] = React.useState(false);
+    const { data: settingResponse } = useSetting();
+
+    const settingRecord = React.useMemo(() => {
+        return settingResponse?.data?.[0] || null;
+    }, [settingResponse]);
+
+    const toTelHref = React.useCallback((value) => {
+        if (!value) return "";
+        const trimmed = String(value).trim();
+        const normalized = trimmed.replace(/[^\d+]/g, "");
+        return normalized ? `tel:${normalized}` : "";
+    }, []);
+
+    const toWaHref = React.useCallback((value) => {
+        if (!value) return "";
+        const normalized = String(value).replace(/[^\d]/g, "");
+        return normalized ? `https://wa.me/${normalized}` : "";
+    }, []);
+
+    const getLink = React.useCallback((obj, keys) => {
+        for (const key of keys) {
+            const value = obj?.[key];
+            if (value) return String(value);
+        }
+        return "";
+    }, []);
+
+    const websiteUrl = settingRecord?.setting_website || "https://www.blanca.co.in";
+    const websiteLabel = settingRecord?.setting_website || "www.blanca.co.in";
+
+    const email = settingRecord?.setting_email || "reachus.blanca@gmail.com";
+
+    const phone = settingRecord?.setting_contact_number || "+91 7021913284";
+
+    const address =
+        settingRecord?.setting_address ||
+        "Greenland CHS 16 Plot 20 Sector 40 Nerul Seawood Navi Mumbai, 400706.";
+
+    const social = React.useMemo(() => {
+        const list = settingRecord?.setting_social_media || [];
+
+        const findLink = (platform) =>
+            list.find((item) => item.platform === platform)?.link || "#";
+
+        return {
+            instagram: findLink("instagram"),
+            facebook: findLink("facebook"),
+            twitter: findLink("twitter"),
+            youtube: findLink("youtube"),
+            linkedin: findLink("linkedin"),
+        };
+    }, [settingRecord]);
 
 
     useEffect(() => {
@@ -167,24 +220,24 @@ const Footer = () => {
                             <li className="contact-item">
                                 <Icon icon="lucide:globe" className="contact-icon" />
                                 <a
-                                    href="https://www.blanca.co.in"
+                                    href={websiteUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    www.blanca.co.in
+                                    {websiteLabel}
                                 </a>
                             </li>
 
                             <li className="contact-item">
                                 <Icon icon="lucide:mail" className="contact-icon" />
-                                <a href="mailto:reachus.blanca@gmail.com">
-                                    reachus.blanca@gmail.com
+                                <a href={`mailto:${email}`}>
+                                    {email}
                                 </a>
                             </li>
 
                             <li className="contact-item">
                                 <Icon icon="lucide:phone" className="contact-icon" />
-                                <a href="tel:+917021913284">+91 7021913284</a>
+                                <a href={toTelHref(phone)}>{phone}</a>
                             </li>
 
                             <li
@@ -192,10 +245,7 @@ const Footer = () => {
                                 style={{ marginBottom: "0px" }}
                             >
                                 <Icon icon="lucide:map-pin" className="contact-icon" />
-                                <span>
-                                    Greenland CHS 16 Plot 20 Sector 40 Nerul Seawood Navi Mumbai,
-                                    400706.
-                                </span>
+                                <span>{address}</span>
                             </li>
                         </ul>
                     </div>
@@ -213,51 +263,17 @@ const Footer = () => {
                         {/* Social Links */}
                         <div className="footer-social-center">
                             <div className="social-links">
-                                <a
-                                    href="https://www.instagram.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-link"
-                                    aria-label="Instagram"
-                                >
-                                    <Icon icon="lucide:instagram" />
-                                </a>
-                                <a
-                                    href="https://www.facebook.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-link"
-                                    aria-label="Facebook"
-                                >
-                                    <Icon icon="lucide:facebook" />
-                                </a>
-                                <a
-                                    href="https://www.twitter.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-link"
-                                    aria-label="Twitter"
-                                >
-                                    <Icon icon="lucide:twitter" />
-                                </a>
-                                <a
-                                    href="https://www.youtube.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-link"
-                                    aria-label="YouTube"
-                                >
-                                    <Icon icon="lucide:youtube" />
-                                </a>
-                                <a
-                                    href="https://www.linkedin.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="social-link"
-                                    aria-label="LinkedIn"
-                                >
-                                    <Icon icon="lucide:linkedin" />
-                                </a>
+                                {settingRecord?.setting_social_media?.map((item) => (
+                                    <a
+                                        key={item.platform}
+                                        href={item.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="social-link"
+                                    >
+                                        <Icon icon={`lucide:${item.platform}`} />
+                                    </a>
+                                ))}
                             </div>
                         </div>
 

@@ -20,6 +20,7 @@ import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
 import { Country } from "country-state-city";
 import { useContactUs } from "../../hooks/useContactUs";
 import { contactSchema } from "../../schema/validationSchema";
+import { useSetting } from "../../hooks/useSetting";
 
 
 const contactBg = "/images/background/contect-us.png";
@@ -41,6 +42,19 @@ const Contact = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showThankYou, setShowThankYou] = useState(false);
     const { mutate: sendContact, isPending } = useContactUs();
+    const { data: settingResponse } = useSetting();
+
+    const settingRecord = useMemo(() => {
+        return settingResponse?.data?.[0] || null;
+      }, [settingResponse]);
+      console.log("settingRecord",settingRecord);
+
+        const reachEmail =
+            settingRecord?.setting_email
+    const salesPhone = settingRecord?.setting_contact_number
+ 
+    const address =
+        settingRecord?.setting_address
 
     const countryOptions = Country.getAllCountries().map((c) => ({
         label: c.name,
@@ -144,8 +158,8 @@ const Contact = () => {
                                             <div className="contact-text">
                                                 <h5>Reach Us</h5>
                                                 <p>
-                                                    <a href="mailto:reachus.blanca@gmail.com">
-                                                        <i className="fa-regular fa-comment-dots"></i> reachus.blanca@gmail.com
+                                                    <a href={`mailto:${reachEmail}`}>
+                                                        <i className="fa-regular fa-comment-dots"></i> {reachEmail}
                                                     </a>
                                                 </p>
                                             </div>
@@ -157,8 +171,7 @@ const Contact = () => {
                                             </div>
                                             <div className="contact-text">
                                                 <h5>OTHER INQUIRIES</h5>
-                                                <p>+91 77700 55535 (Blanca Sales)</p>
-                                                <p>+91 70219 13284 (Head Office Feedback and Complaints)</p>
+                                                <p>{salesPhone} (Blanca Sales)</p>
                                             </div>
                                         </div>
 
@@ -169,8 +182,12 @@ const Contact = () => {
                                             <div className="contact-text">
                                                 <h5>ADDRESS:</h5>
                                                 <p>
-                                                    Greenland CHS 16 Plot 20 Sector 40 Nerul Seawood,<br />
-                                                    Navi Mumbai, 400706.
+                                                    {String(address).split("\n").map((line, idx) => (
+                                                        <React.Fragment key={idx}>
+                                                            {line}
+                                                            <br />
+                                                        </React.Fragment>
+                                                    ))}
                                                 </p>
                                             </div>
                                         </div>

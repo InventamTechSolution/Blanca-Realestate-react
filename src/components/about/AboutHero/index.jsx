@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion as Montion } from "framer-motion";
 import StatBadge from "../../common/StatBadge";
 import "./abouthero.css";
+import { useSetting } from "../../../hooks/useSetting";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -12,6 +13,12 @@ const video = "/videos/about-banner-video.mp4";
 // import FallbackImage from "../../../assets/images/background/slider-1.png";
 
 const HeroSection = () => {
+  const { data: settingResponse } = useSetting();
+
+  const statsData = React.useMemo(() => {
+    return settingResponse?.data?.[0]?.setting_other_field || [];
+  }, [settingResponse]);
+
   useEffect(() => {
     // ## Counter Logic using GSAP ScrollTrigger
     const counters = document.querySelectorAll(".badge-year, .stat-number");
@@ -47,7 +54,7 @@ const HeroSection = () => {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, []);
+  }, [statsData]);
 
   return (
     <section className="about-area-2 black-120-bg">
@@ -149,11 +156,13 @@ const HeroSection = () => {
           <div className="row align-items-center">
             {/* Left Stats */}
             <div className="about-left-stats">
-              <StatBadge count="489" text="Upcoming Commercial Units" />
-              <StatBadge count="174" text="Upcoming Residential Units" />
-              <StatBadge count="76" text="Residential Units Nearly Possession" />
-              <StatBadge count="634" text="Residential Units Delivered" />
-              <StatBadge count="210" text="Commercial Units Delivered" />
+              {statsData?.length > 0 && statsData?.map((item, index) => (
+                <StatBadge
+                  key={index}
+                  count={item.count}
+                  text={item.field}
+                />
+              ))}
             </div>
 
             {/* Center Content */}

@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Hero.css";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import StatBadge from "../../common/StatBadge";
+import { useSetting } from "../../../hooks/useSetting";
 // import MainHeroBanner from "../../common/MainHeroBanner";
 
 // Register GSAP plugins
@@ -16,6 +17,12 @@ export const videoProject2 = "/videos/Video-Project-2.mp4";
 export const employeeVideo = "/videos/employee-video.mp4";
 
 const Hero = () => {
+    const { data: settingResponse } = useSetting();
+
+    const statsData = React.useMemo(() => {
+        return settingResponse?.data?.[0]?.setting_other_field || [];
+    }, [settingResponse]);
+
     useEffect(() => {
         // ## Counter Logic using GSAP ScrollTrigger
         const counters = document.querySelectorAll(".badge-year, .stat-number");
@@ -68,7 +75,7 @@ const Hero = () => {
         return () => {
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
-    }, []);
+    }, [statsData]);
 
     return (
         <>
@@ -128,11 +135,13 @@ const Hero = () => {
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center">
                             <div className="col-lg-3 col-md-12 hero-left-stats" style={{ zIndex: 3 }}>
-                                <StatBadge count="489" text="Upcoming Commercial Units" />
-                                <StatBadge count="174" text="Upcoming Residential Units" />
-                                <StatBadge count="76" text="Residential Units Nearly Possession" />
-                                <StatBadge count="634" text="Residential Units Delivered" />
-                                <StatBadge count="210" text="Commercial Units Delivered" />
+                                {statsData?.length > 0 && statsData?.map((item, index) => (
+                                    <StatBadge
+                                        key={index}
+                                        count={item.count}
+                                        text={item.field}
+                                    />
+                                ))}
                             </div>
                             <div className="col-lg-9 col-md-12 text-center right-side-content" style={{ zIndex: 4, position: "relative" }}>
                                 <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
