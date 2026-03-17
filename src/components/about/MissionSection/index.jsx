@@ -11,7 +11,7 @@ const MissionSection = () => {
       id="about-mission-section-four"
     >
       <div className="container">
-        <div className="row align-items-center gap-4">
+        <div className="row align-items-center gap-4 mission-data-row">
           <Col>
             <Montion.div
               className="vision-image-collage"

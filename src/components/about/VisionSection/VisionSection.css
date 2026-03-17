@@ -175,7 +175,7 @@
     }
 }
 
-@media only screen and (min-width: 320px) and (max-width: 767px) {
+@media only screen and (min-width: 320px) and (max-width: 768px) {
     .collage-item-1 {
         /* width: 240px;
         height: 320px;
@@ -194,11 +194,15 @@
 
     .vision-outline-text {
         margin-left: 0px;
-        font-size: 80px;
+        font-size: 62px;
     }
 
     .vision-content-part {
         margin-bottom: 0px;
+    }
+
+    .about-vision-section-four {
+        padding: 60px 0;
     }
 }
 
