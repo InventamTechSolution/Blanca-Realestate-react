@@ -88,15 +88,22 @@
 }
 
 .lux-amenity-item {
-    padding: 20px 32px;
+    padding: 24px 32px;
     display: flex;
-    align-items: center;
-    gap: 30px;
+    flex-direction: column;
+    gap: 0px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     position: relative;
     overflow: hidden;
+}
+
+.amenity-item-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
 }
 
 .lux-amenity-item:last-child {
@@ -183,13 +190,46 @@
     background: linear-gradient(90deg, rgba(15, 16, 14, 0.4) 0%, transparent 100%);
 }
 
+.mobile-amenity-image {
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 0;
+}
+
+.mobile-amenity-image.show {
+    max-height: 400px;
+    opacity: 1;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.mobile-amenity-image img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    display: block;
+}
+
+@media (min-width: 992px) {
+    .mobile-amenity-image {
+        display: none;
+    }
+}
+
 @media (max-width: 991px) {
     .lux-amenity-item {
-        padding: 24px 30px;
+        padding: 20px 24px;
     }
 
     .amenity-num {
         font-size: 2rem;
+    }
+
+    .amenity-item-content {
+        gap: 20px;
     }
 }
 
@@ -199,8 +239,12 @@
     }
 
     .lux-amenity-item {
-        padding: 20px;
+        padding: 16px 20px;
         gap: 20px;
+    }
+
+    .amenity-item-content {
+        gap: 15px;
     }
 
     .amenity-num {
@@ -213,5 +257,9 @@
 
     .amenities-main {
         padding: 0px 0px 80px;
+    }
+
+    .mobile-amenity-image.show {
+        max-height: 300px;
     }
 }

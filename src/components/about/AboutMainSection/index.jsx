@@ -25,8 +25,8 @@ const AboutSection = () => {
     <section className="about-page-section-main" id="about">
       <div>
         {/* Top Row: Heading and Intro Text */}
-        <div className="row align-items-start gap-4">
-          <Col>
+        <div className="row align-items-start g-4">
+          <Col md={12} lg={5}>
             <Montion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ const AboutSection = () => {
             </Montion.div>
           </Col>
 
-          <Col lg={7}>
+          <Col md={12} lg={7}>
             <Montion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -66,9 +66,9 @@ const AboutSection = () => {
       </div>
 
       {/* Bottom Row: Content Box and Image */}
-      <Row className="row about-bottom-grid g-4 align-items-center">
+      <Row className="about-bottom-grid g-4 align-items-center">
         {/* Left Content Box */}
-        <Col lg={5}>
+        <Col md={12} lg={5}>
           <Montion.div
             className="about-section-info-part"
             initial={{ opacity: 0, x: -50 }}
@@ -115,38 +115,40 @@ const AboutSection = () => {
         </Col>
 
         {/* Right Image */}
-        <Col lg={7}>
-          <Row>
-            <Col lg={8}>
+        <Col md={12} lg={7}>
+          <Row className="g-4">
+            <Col xs={12} md={8}>
               <Montion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
+                className="h-100"
               >
                 <div className="about-image-wrapper h-100">
                   <img
                     src={aboutdetailImg1}
                     alt="About Blanca"
                     className="img-cover w-100 h-100"
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: "cover", minHeight: "300px" }}
                   />
                 </div>
               </Montion.div>
             </Col>
-            <Col lg={4}>
+            <Col xs={12} md={4}>
               <Montion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
+                className="h-100"
               >
                 <div className="about-image-wrapper h-100">
                   <img
                     src={aboutdetailImg2}
                     alt="About Blanca"
                     className="img-cover w-100 h-100"
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: "cover", minHeight: "200px", maxHeight: "400px" }}
                   />
                 </div>
               </Montion.div>

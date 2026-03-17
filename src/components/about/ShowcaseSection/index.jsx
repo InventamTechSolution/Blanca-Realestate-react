@@ -151,7 +151,7 @@ const ShowcaseSection = ({ slides: slidesProp }) => {
             ref={(el) => (slidesRef.current[index] = el)}
           >
             <div className="team-slide-image">
-              {slide.image && <img src={slide.image} alt={slide.title} />}
+              {slide.image && <img src={slide?.image} alt={slide?.title} />}
             </div>
 
             <div className="team-slide-content">

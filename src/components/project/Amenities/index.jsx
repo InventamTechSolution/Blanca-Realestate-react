@@ -89,19 +89,30 @@ const Amenities = ({ amenities }) => {
                                             {amenities?.map((item, index) => (
                                                 <div
                                                     key={item.id}
-                                                    className={`lux-amenity-item ${activeAmenity.id === item.id ? "active" : ""
+                                                    className={`lux-amenity-item ${activeAmenity?.id === item?.id ? "active" : ""
                                                         }`}
                                                     onClick={() => setActiveAmenity(item)}
                                                 >
-                                                    <span className="amenity-num">
-                                                        {String(index + 1).padStart(2, "0")}
-                                                    </span>
+                                                    <div className="amenity-item-content">
+                                                        <span className="amenity-num">
+                                                            {String(index + 1).padStart(2, "0")}
+                                                        </span>
 
-                                                    <div className="amenity-text">
-                                                        <h4 className="text-white">
-                                                            {item?.title}
-                                                        </h4>
-                                                        <p>{item?.description}</p>
+                                                        <div className="amenity-text">
+                                                            <h4 className="text-white">
+                                                                {item?.title}
+                                                            </h4>
+                                                            <p>{item?.description}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Mobile Inline Image */}
+                                                    <div className={`mobile-amenity-image ${activeAmenity?.id === item?.id ? "show" : ""}`}>
+                                                        <img
+                                                            src={item?.image}
+                                                            alt={item?.title}
+                                                            className="img-fluid"
+                                                        />
                                                     </div>
                                                 </div>
                                             ))}

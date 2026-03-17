@@ -11,8 +11,8 @@ const VisionSection = () => {
       id="about-vision-section-four"
     >
       <div className="container">
-        <div className="row align-items-center gap-4">
-          <Col lg={6}>
+        <div className="row align-items-center x-4">
+          <Col lg={6} md={6}>
             <Motion.div
               className="vision-content-part"
               initial={{ opacity: 0, x: -50 }}
@@ -49,7 +49,7 @@ const VisionSection = () => {
             </Motion.div>
           </Col>
 
-          <Col>
+          <Col md={6}>
             <Motion.div
               className="vision-image-collage"
               initial={{ opacity: 0, x: 50 }}

@@ -218,6 +218,11 @@ mark {
   z-index: 1;
 }
 
+.theme-btn:hover {
+  color: var(--bs-btn-hover-color);
+  background-color: transparent;
+  border-color: transparent;
+}
 
 .theme-btn>* {
   position: relative;
