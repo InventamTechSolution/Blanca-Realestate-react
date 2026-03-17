@@ -39,3 +39,12 @@ export const contactModalSchema = yup.object().shape({
   message: yup.string().required("Message is required").matches(REGEX.startingSpaceNotAllowed, "Please enter a valid message").max(400, "Message must be at most 400 characters long"),
   privacyPolicy: yup.boolean().oneOf([true], "You must accept the privacy policy")
 });
+
+export const jobApplySchema = yup.object().shape({
+  fullName: yup.string().required("Full name is required").matches(REGEX.fullName, "Full name should contain only letters and spaces"),
+  email: yup.string().required("Email is required").matches(REGEX.email, "Please enter a valid email"),
+  phoneNumber: yup.string().required("Phone number is required").matches(REGEX.phone, "Please enter a valid phone number"),
+  position: yup.string().required("Please select a position"),
+  resume: yup.mixed().required("Resume is required"),
+  description: yup.string().required("Please describe your experience").matches(REGEX.startingSpaceNotAllowed, "Please enter a valid message").max(500, "Description must be at most 500 characters")
+});

@@ -16,3 +16,8 @@ export const getCareers = async (params = {}) => {
   return data;
 };
 
+export const submitCareerApplication = async (payload) => {
+  const { data } = await axiosInstance.post("/career", payload);
+  return data;
+};
+

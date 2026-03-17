@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { getCareerCategories, getCareers } from "../services/careerService";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getCareerCategories, getCareers, submitCareerApplication } from "../services/careerService";
 
 export const useCareerCategories = (params) => {
   return useQuery({
@@ -12,6 +12,12 @@ export const useCareers = (params) => {
   return useQuery({
     queryKey: ["careers", params],
     queryFn: () => getCareers(params),
+  });
+};
+
+export const useApplyCareer = () => {
+  return useMutation({
+    mutationFn: submitCareerApplication,
   });
 };
 

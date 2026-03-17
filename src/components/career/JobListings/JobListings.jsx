@@ -21,7 +21,8 @@ const JobListings = () => {
 
     // Modal State
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedJobTitle, setSelectedJobTitle] = useState("");
+    // 🔹 CHANGE: store full job instead of title
+    const [selectedJob, setSelectedJob] = useState(null);
 
     // 🔹 CHANGE: fetch categories for dropdown
     const { data: categoryData } = useCareerCategories({
@@ -29,7 +30,7 @@ const JobListings = () => {
         limit: 10,
         is_parent: true,
     });
-
+    
     // 🔹 CHANGE: fetch careers list
     const { data: careerData, isLoading } = useCareerCategories({
         page: currentPage,
@@ -37,7 +38,7 @@ const JobListings = () => {
         is_parent: false,
         category_id: activeTab === "all" ? undefined : activeTab,
     });
-    
+
     // 🔹 CHANGE: prepare dropdown options
     const categories = [
         { label: "All Jobs", value: "all" },
@@ -61,9 +62,12 @@ const JobListings = () => {
         setCurrentPage(1);
     };
 
-    const handleApplyNow = (e, title) => {
+    const handleApplyNow = (e, job) => {
         e.preventDefault();
-        setSelectedJobTitle(title);
+
+        // 🔹 CHANGE: store full job object
+        setSelectedJob(job);
+
         setIsModalOpen(true);
     };
 
@@ -89,7 +93,7 @@ const JobListings = () => {
                         <p className="job-subtitle mt-10">
                             Don't find what you're looking for?{" "}
                             <button
-                                onClick={(e) => handleApplyNow(e, "")}
+                                onClick={(e) => handleApplyNow(e, null)}
                                 className="text-primary fw-bold bg-transparent border-0 p-0"
                             >
                                 Quick Apply here
@@ -190,7 +194,7 @@ const JobListings = () => {
                                             <div className="job-action">
                                                 <button
                                                     onClick={(e) =>
-                                                        handleApplyNow(e, job.title)
+                                                        handleApplyNow(e, job)
                                                     }
                                                     className="theme-btn job-apply-btn border-0"
                                                 >
@@ -266,7 +270,8 @@ const JobListings = () => {
             <JobApplyModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                jobTitle={selectedJobTitle}
+                job={selectedJob} // 🔹 CHANGE
+                categories={categoryData?.data || []} // 🔹 CHANGE
             />
         </section>
     );
