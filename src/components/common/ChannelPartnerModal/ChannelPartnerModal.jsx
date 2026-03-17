@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import './ChannelPartnerModal.css';
@@ -8,6 +8,18 @@ const leftBg = "/images/background/popup-left-bg.png";
 
 const ChannelPartnerModal = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
+
+    // Prevent scrolling when modal is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [isOpen]);
 
     if (!isOpen) return null;
 

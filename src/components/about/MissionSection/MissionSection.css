@@ -1,6 +1,6 @@
 .mission-outline-text {
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(60px, 12vw, 150px);
+    font-size: 120px;
     font-weight: 700;
     text-transform: uppercase;
     color: transparent;
@@ -53,18 +53,6 @@
     border-radius: 24px 24px 24px 24px;
 }
 
-@media (max-width: 1199px) {
-    .mission-collage-item-1 {
-        width: 300px;
-        height: 400px;
-    }
-
-    .mission-collage-item-2 {
-        width: 380px;
-        height: 480px;
-    }
-}
-
 @media (max-width: 767px) {
 
     .mission-collage-item-1 {
@@ -77,5 +65,23 @@
         width: 280px;
         height: 380px;
         transform: translateX(40px) translateY(20px);
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .mission-outline-text {
+        font-size: 92px;
+    }
+
+    .mission-collage-item-2 {
+        width: 340px;
+        height: 236px;
+        top: -138px;
+    }
+
+    .mission-collage-item-1 {
+        width: 328px;
+        top: -210px;
+        height: 390px;
     }
 }
