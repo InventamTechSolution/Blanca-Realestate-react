@@ -175,7 +175,7 @@
     }
 }
 
-@media only screen and (min-width: 320px) and (max-width: 768px) {
+@media only screen and (min-width: 320px) and (max-width: 767px) {
     .collage-item-1 {
         /* width: 240px;
         height: 320px;
@@ -210,6 +210,23 @@
     .about-vision-section-four {
         padding: 60px 0;
     }
+
+    .collage-item-1 {
+        width: 334px;
+        height: 398px;
+        right: 0;
+    }
+
+    .collage-item-2 {
+        width: 300px;
+        height: 240px;
+        top: -195px;
+        left: 0;
+    }
+
+    .vision-outline-text {
+        margin-left: 0px;
+    }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -238,5 +255,13 @@
 
     .about-vision-section-four {
         padding: 60px 0;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .vision-text {
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: justify;
     }
 }

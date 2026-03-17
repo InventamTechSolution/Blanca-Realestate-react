@@ -97,3 +97,22 @@
         height: 390px;
     }
 }
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .mission-collage-item-1 {
+        width: 328px;
+        height: 390px;
+    }
+
+    .mission-collage-item-2 {
+        width: 280px;
+        height: 236px;
+        top: -195px;
+        right: 0;
+    }
+
+    .mission-outline-text {
+        font-size: 80px;
+        margin-left: -40px;
+    }
+}
