@@ -11,8 +11,8 @@ const MissionSection = () => {
       id="about-mission-section-four"
     >
       <div className="container">
-        <div className="row align-items-center gap-4">
-          <Col>
+        <div className="row align-items-center gx-4 mission-data-row">
+          <Col md={6}>
             <Montion.div
               className="vision-image-collage"
               initial={{ opacity: 0, x: -50 }}
@@ -30,7 +30,7 @@ const MissionSection = () => {
             </Montion.div>
           </Col>
 
-          <Col lg={6}>
+          <Col lg={6} md={6}>
             <Montion.div
               className="vision-content-part"
               initial={{ opacity: 0, x: 50 }}

@@ -356,6 +356,10 @@
     .homeproject-area .projects-intro {
         max-width: 100%;
     }
+
+    .homeproject-area {
+        padding: 60px 0px;
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -369,6 +373,9 @@
         min-height: 380px;
     }
 
+    .homeproject-area {
+        padding: 60px 0px;
+    }
 }
 
 @media only screen and (max-width: 575px) {

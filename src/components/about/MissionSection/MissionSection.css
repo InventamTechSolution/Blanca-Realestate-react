@@ -53,18 +53,30 @@
     border-radius: 24px 24px 24px 24px;
 }
 
-@media (max-width: 767px) {
-
+@media only screen and (min-width: 320px) and (max-width: 767px) {
     .mission-collage-item-1 {
-        width: 240px;
+        /* width: 240px;
         height: 320px;
-        transform: translateX(-40px);
+        transform: translateX(-40px); */
+        display: none;
     }
 
     .mission-collage-item-2 {
-        width: 280px;
-        height: 380px;
-        transform: translateX(40px) translateY(20px);
+        width: 100%;
+        max-height: 380px;
+        top: 0px;
+        /* transform: translateX(40px) translateY(20px); */
+        position: relative;
+        border: none;
+    }
+
+    .mission-data-row {
+        flex-direction: column-reverse;
+    }
+
+    .mission-outline-text {
+        font-size: 62px;
+        margin-left: 0px;
     }
 }
 
@@ -83,5 +95,24 @@
         width: 328px;
         top: -210px;
         height: 390px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .mission-collage-item-1 {
+        width: 328px;
+        height: 390px;
+    }
+
+    .mission-collage-item-2 {
+        width: 280px;
+        height: 236px;
+        top: -195px;
+        right: 0;
+    }
+
+    .mission-outline-text {
+        font-size: 80px;
+        margin-left: -40px;
     }
 }

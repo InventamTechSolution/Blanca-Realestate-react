@@ -189,7 +189,7 @@
 }
 
 /* Responsive Styles for Section 3 */
-@media (max-width: 1199px) {
+@media (max-width: 1400px) {
     .banner-title {
         font-size: 56px;
     }
@@ -199,9 +199,21 @@
     }
 }
 
+@media (max-width: 1199px) {
+    .vision-banner-content {
+        left: 40px;
+        top: 40px;
+    }
+    
+    .banner-title {
+        font-size: 48px;
+    }
+}
+
 @media (max-width: 991px) {
     .about-vision-banner {
-        height: 500px;
+        height: 60vh;
+        min-height: 400px;
     }
 
     .vision-banner-top-right {
@@ -215,16 +227,23 @@
     }
 
     .banner-title {
-        font-size: 44px;
+        font-size: 40px;
+    }
+
+    .about-values-container {
+        position: relative;
+        padding: 60px 0;
+        background-color: var(--black-100);
     }
 
     .about-values-row {
         flex-wrap: wrap;
-        gap: 40px;
+        gap: 30px;
+        justify-content: center;
     }
 
     .value-card {
-        flex: 0 0 calc(33.33% - 40px);
+        flex: 0 0 calc(50% - 30px);
     }
 }
 
@@ -235,20 +254,38 @@
 
     .vision-banner-content {
         left: 20px;
-        bottom: 40px;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
     .banner-title {
-        font-size: 36px;
+        font-size: 32px;
+    }
+
+    .banner-logo-icon {
+        width: 70px;
+    }
+
+    .about-values-row {
+        gap: 20px;
     }
 
     .value-card {
-        flex: 0 0 calc(50% - 40px);
+        flex: 0 0 calc(50% - 20px);
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
     .value-card {
         flex: 0 0 100%;
+        padding: 0;
+    }
+
+    .banner-title {
+        font-size: 28px;
+    }
+
+    .about-vision-banner {
+        height: 50vh;
     }
 }

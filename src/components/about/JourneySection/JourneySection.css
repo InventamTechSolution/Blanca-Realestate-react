@@ -304,7 +304,7 @@
     }
 
     .journey-container.journey-marquee {
-        min-height: 700px;
+        min-height: 1040px;
     }
 
     .journey-item {
@@ -316,7 +316,7 @@
     }
 
     .year-block {
-        width: 180px;
+        width: 210px;
     }
 
     .year-text {
@@ -331,7 +331,7 @@
     }
 
     .journey-container.journey-marquee {
-        min-height: 600px;
+        min-height: 805px;
         padding-bottom: 60px;
     }
 
@@ -357,7 +357,7 @@
     }
 
     .year-block {
-        width: 140px;
+        width: 170px;
         height: 40px;
     }
 
@@ -367,6 +367,14 @@
 
     .timeline-track {
         height: 2px;
+    }
+
+    .journeyproject-card.below::before {
+        left: 120px;
+    }
+
+    .journeyproject-card.above::before {
+        left: 120px;
     }
 }
 
@@ -388,6 +396,14 @@
     .journey-item {
         width: 350px;
     }
+
+    .journeyproject-card.below::before {
+        left: 140px;
+    }
+
+    .journeyproject-card.above::before {
+        left: 140px;
+    }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -397,6 +413,14 @@
     }
 
     .journey-container.journey-marquee {
-        min-height: 920px;
+        min-height: 916px;
+    }
+
+    .journeyproject-card.below::before {
+        left: 172px;
+    }
+
+    .journeyproject-card.above::before {
+        left: 172px;
     }
 }
