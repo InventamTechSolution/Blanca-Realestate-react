@@ -37,7 +37,6 @@ const PrivacyPolicy = () => {
       <main>
         <SmallHeroBanner
           title="Privacy Policy"
-          description="Your privacy is important to us. Learn how we handle your data."
           image="/images/background/privacy-policy.png"
         />
         <section className="legal-content-area">
