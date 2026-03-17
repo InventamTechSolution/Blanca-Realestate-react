@@ -93,15 +93,26 @@ const Amenities = () => {
                                                         }`}
                                                     onClick={() => setActiveAmenity(item)}
                                                 >
-                                                    <span className="amenity-num">
-                                                        {String(index + 1).padStart(2, "0")}
-                                                    </span>
+                                                    <div className="amenity-item-content">
+                                                        <span className="amenity-num">
+                                                            {String(index + 1).padStart(2, "0")}
+                                                        </span>
 
-                                                    <div className="amenity-text">
-                                                        <h4 className="text-white">
-                                                            {item.title}
-                                                        </h4>
-                                                        <p>{item.desc}</p>
+                                                        <div className="amenity-text">
+                                                            <h4 className="text-white">
+                                                                {item.title}
+                                                            </h4>
+                                                            <p>{item.desc}</p>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Mobile Inline Image */}
+                                                    <div className={`mobile-amenity-image ${activeAmenity.id === item.id ? "show" : ""}`}>
+                                                        <img
+                                                            src={item.img}
+                                                            alt={item.title}
+                                                            className="img-fluid"
+                                                        />
                                                     </div>
                                                 </div>
                                             ))}
