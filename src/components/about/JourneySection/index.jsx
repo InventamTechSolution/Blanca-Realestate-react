@@ -1,5 +1,5 @@
 import React from 'react';
-import { journeyData } from '../../../data/journeyData';
+import { useProjectByYearWithCategory } from '../../../hooks/useAbout';
 import './JourneySection.css';
 
 const JourneySection = () => {
@@ -7,6 +7,54 @@ const JourneySection = () => {
     const [isDragging, setIsDragging] = React.useState(false);
     const [startX, setStartX] = React.useState(0);
     const [scrollLeft, setScrollLeft] = React.useState(0);
+    const { data: journeyResponse } = useProjectByYearWithCategory();
+
+    const journeyData = React.useMemo(() => {
+        const raw = journeyResponse;
+        const groups = raw?.data ?? raw?.message?.data ?? raw;
+        const list = Array.isArray(groups) ? groups : [];
+
+        const normalizeProject = (project, index) => {
+            console.log(project);
+            const title = project?.name;
+            const location = project?.location;
+            const description = project?.description;
+            // Set 'type' to the first category_name if available, else empty string
+            const type = Array.isArray(project?.categories) && project.categories.length > 0
+                ? project.categories[0]?.category_name
+                : "";
+
+            const image = project?.card_image;
+
+            return {
+                title,
+                location,
+                type: type || "",
+                description,
+                image,
+                position: index % 2 === 0 ? "above" : "below",
+            };
+        };
+
+        return list
+            .map((group) => {
+                const year = String(group?.year ?? group?.label ?? "");
+                const category = group?.category ?? group?.category_name ?? "";
+                const projectsRaw = group?.projects ?? group?.data ?? group?.items ?? [];
+                const projects = Array.isArray(projectsRaw)
+                    ? projectsRaw.map(normalizeProject)
+                    : [];
+
+                if (!year) return null;
+
+                return {
+                    year,
+                    category,
+                    projects,
+                };
+            })
+            .filter(Boolean);
+    }, [journeyResponse]);
 
     React.useEffect(() => {
         // Function to scroll to the end
@@ -19,7 +67,7 @@ const JourneySection = () => {
         // Scroll after a short delay to ensure content is rendered and widths are calculated
         const timeoutId = setTimeout(scrollToEnd, 100);
         return () => clearTimeout(timeoutId);
-    }, []);
+    }, [journeyData.length]);
 
     const handleMouseDown = (e) => {
         setIsDragging(true);
