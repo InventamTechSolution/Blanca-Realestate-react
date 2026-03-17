@@ -43,37 +43,6 @@ const JourneySection = () => {
         scrollRef.current.scrollLeft = scrollLeft - walk;
     };
 
-    const renderJourneyItem = (item, index, isDuplicate = false) => (
-        <div className="journey-item" key={`${isDuplicate ? 'dup-' : 'orig-'}${index}`}>
-            {item.category && (
-                <div className="category-marker" style={{ position: 'absolute', bottom: '60px', zIndex: 1 }}>
-                    {item.category}
-                </div>
-            )}
-
-            {item.projects.map((project, pIndex) => (
-                <div key={pIndex} className={`journeyproject-card ${project.position}`}>
-                    {project.image && (
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                            className="project-image"
-                        />
-                    )}
-                    <h3 className="project-title">{project.title}</h3>
-                    <div className="project-meta">
-                        <i className="fas fa-map-marker-alt"></i> {project.location}
-                        <i className={`fas ${project.type === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i> {project.type}
-                    </div>
-                    {project.description && <p className="project-description">{project.description}</p>}
-                </div>
-            ))}
-
-            <div className="year-block" style={item.yearWidth ? { width: item.yearWidth } : {}}>
-                <span className="year-text">{item.year}</span>
-            </div>
-        </div>
-    );
 
     return (
         <section className="journey-innovation-section" id="journey">
@@ -98,7 +67,47 @@ const JourneySection = () => {
                     <div className="timeline-track"></div>
 
                     {/* Original Content */}
-                    {journeyData.map((item, index) => renderJourneyItem(item, index))}
+                    {(() => {
+                        let cumulativeProjectCount = 0;
+                        return journeyData.map((item, index) => {
+                            const currentOffset = cumulativeProjectCount;
+                            cumulativeProjectCount += item.projects.length;
+                            return (
+                                <div className="journey-item" key={`orig-${index}`}>
+                                    {item.category && (
+                                        <div className="category-marker" style={{ position: 'absolute', bottom: '60px', zIndex: 1 }}>
+                                            {item.category}
+                                        </div>
+                                    )}
+
+                                    {item.projects.map((project, pIndex) => {
+                                        const dynamicPosition = (currentOffset + pIndex) % 2 === 0 ? 'above' : 'below';
+                                        return (
+                                            <div key={pIndex} className={`journeyproject-card ${dynamicPosition}`}>
+                                                {project.image && (
+                                                    <img
+                                                        src={project.image}
+                                                        alt={project.title}
+                                                        className="project-image"
+                                                    />
+                                                )}
+                                                <h3 className="project-title">{project.title}</h3>
+                                                <div className="project-meta">
+                                                    <i className="fas fa-map-marker-alt"></i> {project.location}
+                                                    <i className={`fas ${project.type === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i> {project.type}
+                                                </div>
+                                                {project.description && <p className="project-description">{project.description}</p>}
+                                            </div>
+                                        );
+                                    })}
+
+                                    <div className="year-block" style={item.yearWidth ? { width: item.yearWidth } : {}}>
+                                        <span className="year-text">{item.year}</span>
+                                    </div>
+                                </div>
+                            );
+                        });
+                    })()}
 
                     {/* Duplicated Content for Seamless Scroll - Re-enabling if desired */}
                     {/* {journeyData.map((item, index) => renderJourneyItem(item, index, true))} */}
