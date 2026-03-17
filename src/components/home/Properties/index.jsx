@@ -65,7 +65,7 @@ const Properties = () => {
           <Swiper
             modules={[Pagination, Autoplay]}
             spaceBetween={12}
-            slidesPerView={2}
+            slidesPerView={3}
             loop={true}
             pagination={{ clickable: true }}
             autoplay={{
@@ -74,14 +74,16 @@ const Properties = () => {
             }}
             breakpoints={{
               320: {
-                slidesPerView: 1.2,
-                centeredSlides: true,
+                slidesPerView: 1,
                 spaceBetween: 10,
               },
               768: {
                 slidesPerView: 2,
                 spaceBetween: 12,
-                centeredSlides: false,
+              },
+              1025: {
+                slidesPerView: 3,
+                spaceBetween: 16,
               },
             }}
             className="property-swiper"
