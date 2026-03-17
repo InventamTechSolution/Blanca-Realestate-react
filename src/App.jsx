@@ -13,7 +13,8 @@ import Registration from "./pages/Registration";
 import Projects from "./pages/Projects";
 import ProjectDetails from "./pages/ProjectDetails";
 import Careers from "./pages/Careers";
-
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsConditions";
 import ScrollToTopOnRouteChange from "./components/common/ScrollToTopOnRouteChange";
 import { ContactModalProvider } from "./context/ContactModalContext";
 import ContactModal from "./components/common/ContactModal/ContactModal";
@@ -33,7 +34,6 @@ function App() {
       <FloatingContactButtons />
       <ContactModal />
       <Routes>
-
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
@@ -41,6 +41,8 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
         <Route path="/careers" element={<Careers />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
     </ContactModalProvider>
   );
