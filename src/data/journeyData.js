@@ -8,7 +8,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "A villa community spread across 107,639 Sq. Ft. consisted of 106 villas.",
-        position: "above",
       },
     ],
   },
@@ -21,7 +20,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "A villa spread across 75,347 Sq. Ft. It consisted of 40 Residential Units.",
-        position: "above",
       },
     ],
   },
@@ -34,7 +32,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "A villa community spread across 107,639 Sq. Ft. consisted of 50 Residential Units & 12 commercial Units.",
-        position: "below",
       },
     ],
   },
@@ -47,7 +44,6 @@ export const journeyData = [
         type: "Commercial",
         description:
           "an industrial shed project spread across 107,639 Sq. Ft. consisted of 105 commercial units.",
-        position: "below",
       },
     ],
   },
@@ -60,7 +56,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "A villa community spread across 134,549 Sq. Ft. It consisted of 110 Residential Units.",
-        position: "above",
       },
     ],
   },
@@ -73,7 +68,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "A villa community spread across 387,500 Sq. Ft. It consisted of 260 Residential Units.",
-        position: "below",
       },
     ],
   },
@@ -86,7 +80,6 @@ export const journeyData = [
         type: "Commercial",
         description:
           "An Industrial Shed Project spread across 27,986 Sq. Ft. It consisted of 25 Commercial Units.",
-        position: "above",
       },
     ],
   },
@@ -100,7 +93,6 @@ export const journeyData = [
         type: "Commercial",
         description:
           "An Industrial Shed Project spread across 59,201 Sq. Ft. It consisted of 52 Commercial Units.",
-        position: "above",
       },
       {
         title: "Ganesh Estate 2",
@@ -108,7 +100,6 @@ export const journeyData = [
         type: "Commercial",
         description:
           "An Industrial Shed Project spread across 27,986 Sq. Ft. It consisted of 16 Commercial Units.",
-        position: "below",
       },
     ],
   },
@@ -127,7 +118,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "An apartment type construction spread across 16,900 Sq. Ft. It consisted of 26 residential units.",
-        position: "below",
         image: "/images/projects/lendscpae-images/gajanand-krupa.png",
       },
     ],
@@ -141,7 +131,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "An apartment type construction spread across 28,700 Sq. Ft. It consisted of 42 residential units.",
-        position: "above",
         image: "/images/projects/lendscpae-images/nd-garden.png",
       },
     ],
@@ -155,7 +144,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "An apartment type construction spread across 34,000 Sq. Ft. Consisted of 34 residential units.",
-        position: "below",
         image: "/images/projects/lendscpae-images/nd-garden-tower.png",
       },
     ],
@@ -169,7 +157,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "An apartment type construction spread across 31,010 Sq. Ft. Consisted of 42 residential units.",
-        position: "above",
         image: "/images/projects/lendscpae-images/nd-pearl.png",
       },
     ],
@@ -183,7 +170,6 @@ export const journeyData = [
         type: "Commercial",
         description:
           "An commercial type construction spread across 56,000 Sq.Ft. It consisted of 70 commercial units.",
-        position: "below",
         image: "/images/projects/lendscpae-images/blanca-tower.png",
       },
     ],
@@ -197,7 +183,6 @@ export const journeyData = [
         type: "Commercial",
         description:
           "Where Innovation Meets Location - Elevate Your Business at Blanca Business Hub, Strategically Positioned for Unmatched Success.",
-        position: "above",
         image: "/images/projects/lendscpae-images/blancs-business-hub.png",
       },
       // {
@@ -218,7 +203,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "An apartment type construction spread across 37,800 Sq.Ft. It consisted of 54 residential units.",
-        position: "above",
       },
       {
         title: "Blanca Seascape",
@@ -226,7 +210,6 @@ export const journeyData = [
         type: "Residential",
         description:
           "An apartment type construction spread across 60,000 Sq.Ft. It consisted of 50 residential & 7 Commercial units.",
-        position: "below",
       },
     ],
   },
