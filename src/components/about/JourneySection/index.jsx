@@ -1,6 +1,83 @@
 import React from 'react';
-import { journeyData } from '../../../data/journeyData';
 import './JourneySection.css';
+
+const journeyData = [
+    {
+        "year": "1999",
+        "data": [
+            {
+                "project_id": "d7e037cf-2476-4743-8076-559557b1be47",
+                "name": "Blanca Tower",
+                "description": "",
+                "location": "Borivali - Mumbai",
+                "banner_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/f31290ec-f82b-406e-9127-4192aa94cd44.mp4",
+                "banner_color": "rgba(17, 17, 17, 0.6)",
+                "card_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/1822ffe4-82e4-4d0d-8e44-dd7acff8552a.png",
+                "card_color": "rgba(0, 0, 0, 1)",
+                "status": "completed",
+                "started_at": null,
+                "completed_at": 946185637,
+                "categories": [
+                    {
+                        "category_id": "29b3d795-e9b7-444c-856b-be9cf38bb026",
+                        "category_name": "Commercial",
+                        "category_slug": "commercial"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "year": "2010",
+        "data": [
+            {
+                "project_id": "97750100-591e-40fe-82a7-7d11514b93b2",
+                "name": "Blanca Hill",
+                "description": "",
+                "location": "Ulwe, Navi Mumbai",
+                "banner_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/f31290ec-f82b-406e-9127-4192aa94cd44.mp4",
+                "banner_color": "rgba(17, 17, 17, 0.6)",
+                "card_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/0fb62a5b-1f25-419a-9c12-c6864be84f95.png",
+                "card_color": "rgba(0, 0, 0, 1)",
+                "status": "completed",
+                "started_at": null,
+                "completed_at": 1287206437,
+                "categories": [
+                    {
+                        "category_id": "9bc767d4-f461-4407-8fdf-0dd73ef4642c",
+                        "category_name": "Residential",
+                        "category_slug": "residential"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "year": "2026",
+        "data": [
+            {
+                "project_id": "05751bc6-c0e1-4e0d-8f89-ab344d8d5da2",
+                "name": "ND Pearl",
+                "description": "",
+                "location": "Kamothe, Navi Mumbai",
+                "banner_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/f31290ec-f82b-406e-9127-4192aa94cd44.mp4",
+                "banner_color": "rgba(17, 17, 17, 0.6)",
+                "card_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/88108358-9180-4237-8a43-e595c753012a.png",
+                "card_color": "rgba(0, 0, 0, 1)",
+                "status": "sold-out",
+                "started_at": 1737091237,
+                "completed_at": 1772169637,
+                "categories": [
+                    {
+                        "category_id": "9bc767d4-f461-4407-8fdf-0dd73ef4642c",
+                        "category_name": "Residential",
+                        "category_slug": "residential"
+                    }
+                ]
+            }
+        ]
+    }
+];
 
 const JourneySection = () => {
     const scrollRef = React.useRef(null);
@@ -71,7 +148,7 @@ const JourneySection = () => {
                         let cumulativeProjectCount = 0;
                         return journeyData.map((item, index) => {
                             const currentOffset = cumulativeProjectCount;
-                            cumulativeProjectCount += item.projects.length;
+                            cumulativeProjectCount += item.data.length;
                             return (
                                 <div className="journey-item" key={`orig-${index}`}>
                                     {item.category && (
@@ -80,21 +157,21 @@ const JourneySection = () => {
                                         </div>
                                     )}
 
-                                    {item.projects.map((project, pIndex) => {
+                                    {item.data.map((project, pIndex) => {
                                         const dynamicPosition = (currentOffset + pIndex) % 2 === 0 ? 'above' : 'below';
                                         return (
                                             <div key={pIndex} className={`journeyproject-card ${dynamicPosition}`}>
-                                                {project.image && (
+                                                {project.card_image && (
                                                     <img
-                                                        src={project.image}
-                                                        alt={project.title}
+                                                        src={project.card_image}
+                                                        alt={project.name}
                                                         className="project-image"
                                                     />
                                                 )}
-                                                <h3 className="project-title">{project.title}</h3>
+                                                <h3 className="project-title">{project.name}</h3>
                                                 <div className="project-meta">
                                                     <i className="fas fa-map-marker-alt"></i> {project.location}
-                                                    <i className={`fas ${project.type === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i> {project.type}
+                                                    <i className={`fas ${project.categories[0]?.category_name === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i> {project.categories[0]?.category_name}
                                                 </div>
                                                 {project.description && <p className="project-description">{project.description}</p>}
                                             </div>
