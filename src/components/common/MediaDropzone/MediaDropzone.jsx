@@ -154,9 +154,9 @@ export default function MediaDropzone({
 
         {noteMsg && <p className="media-dropzone-note">{noteMsg}</p>}
 
-        {combinedError && (
+        {/* {combinedError && (
           <p className="media-dropzone-error">{combinedError}</p>
-        )}
+        )} */}
 
         {fileName?.key && (
           <div className="media-dropzone-file-preview">
