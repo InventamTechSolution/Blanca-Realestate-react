@@ -65,7 +65,7 @@ const Properties = () => {
           <Swiper
             modules={[Pagination, Autoplay]}
             spaceBetween={12}
-            slidesPerView={3}
+            slidesPerView={2}
             loop={true}
             pagination={{ clickable: true }}
             autoplay={{
@@ -82,7 +82,11 @@ const Properties = () => {
                 spaceBetween: 12,
               },
               1025: {
-                slidesPerView: 3,
+                slidesPerView: 2,
+                spaceBetween: 16,
+              },
+              1200: {
+                slidesPerView: 2,
                 spaceBetween: 16,
               },
             }}
