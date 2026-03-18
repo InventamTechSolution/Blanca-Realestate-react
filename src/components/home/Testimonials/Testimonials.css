@@ -321,3 +321,15 @@
         max-width: 140px;
     }
 }
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .testimonials-modern__role {
+        max-width: 150px;
+    }
+}
+
+@media only screen and (min-width: 1199px) and (max-width: 1440px) {
+    .testimonials-modern__role {
+        max-width: 200px;
+    }
+}

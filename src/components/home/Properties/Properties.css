@@ -346,6 +346,10 @@
     .homeproject-area .projects-shell {
         padding: 0 48px;
     }
+
+    .homeproject-area {
+        padding: 60px 0px;
+    }
 }
 
 @media only screen and (max-width: 991px) {
