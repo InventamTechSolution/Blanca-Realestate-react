@@ -39,14 +39,18 @@ const About = () => {
         const groups = raw?.data ?? raw?.message?.data ?? raw;
         const list = Array.isArray(groups) ? groups : [];
 
-        const byModel = new Map(
-            list
-                .filter(Boolean)
-                .map((g) => [String(g?.model ?? ""), Array.isArray(g?.data) ? g.data : []])
-        );
+        const byModel = list.reduce((acc, g) => {
+            if (!g) return acc;
+            const model = String(g?.model ?? "");
+            if (!model) return acc;
+            const data = Array.isArray(g?.data) ? g.data : [];
+            if (!acc[model]) acc[model] = [];
+            acc[model].push(...data);
+            return acc;
+        }, {});
 
-        const teamRaw = byModel.get("Team") ?? [];
-        const showcaseRaw = byModel.get("Showcase") ?? [];
+        const teamRaw = byModel["Team"] ?? [];
+        const showcaseRaw = byModel["Showcase"] ?? [];
 
         const team = teamRaw
             .map((item) => {

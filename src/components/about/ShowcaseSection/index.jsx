@@ -13,34 +13,7 @@ const ShowcaseSection = ({ slides: slidesProp }) => {
   const slidesRef = useRef([]);
   const dotsRef = useRef([]);
 
-  const defaultSlides = [
-    {
-      image: "/images/showcase/iteam-1.png",
-      title: "Why a Real Estate Developer Matters in Mumbai",
-      text: "Mumbai’s real estate market demands experience, precision, and accountability. A trusted developer ensures legal clarity, quality construction, and timely delivery. The right developer doesn’t just build properties they protect your investment."
-    },
-    {
-      image: "/images/showcase/iteam-2.png",
-      title: "Why Developer Credibility Is Critical",
-      text: "In Mumbai, credibility defines long-term value. Reputed developers deliver on promises, maintain transparency, and build assets that age well. Trust today shapes resale value and future returns."
-    },
-    {
-      image: "/images/showcase/iteam-3.png",
-      title: "Why Blanca Is a Name to Trust",
-      text: "Blanca is built on experience, execution discipline, and thoughtful design. Every space is planned for usability, efficiency, and longevity. Every corner is crafted with care so you don’t have to worry later."
-    },
-    {
-      image: "/images/showcase/iteam-4.png",
-      title: "Why Invest With Blanca",
-      text: "Blanca develops projects in strategic locations with long-term growth potential. Our spaces are designed for today’s business needs and tomorrow’s demand. Investments that deliver value beyond possession."
-    },
-    {
-      image: "/images/showcase/iteam-5.png",
-      title: "The Blanca Promise",
-      text: "We don’t just build projects. We build confidence, performance, and lasting relations that trust. Blanca stands for value that endures."
-    }
-  ];
-  const slides = Array.isArray(slidesProp) && slidesProp.length > 0 ? slidesProp : defaultSlides;
+  const slides = Array.isArray(slidesProp) ? slidesProp : [];
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {

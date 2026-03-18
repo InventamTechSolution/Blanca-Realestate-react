@@ -2,84 +2,6 @@ import React from 'react';
 import { useProjectByYearWithCategory } from '../../../hooks/useAbout';
 import './JourneySection.css';
 
-const journeyData = [
-    {
-        "year": "1999",
-        "data": [
-            {
-                "project_id": "d7e037cf-2476-4743-8076-559557b1be47",
-                "name": "Blanca Tower",
-                "description": "",
-                "location": "Borivali - Mumbai",
-                "banner_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/f31290ec-f82b-406e-9127-4192aa94cd44.mp4",
-                "banner_color": "rgba(17, 17, 17, 0.6)",
-                "card_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/1822ffe4-82e4-4d0d-8e44-dd7acff8552a.png",
-                "card_color": "rgba(0, 0, 0, 1)",
-                "status": "completed",
-                "started_at": null,
-                "completed_at": 946185637,
-                "categories": [
-                    {
-                        "category_id": "29b3d795-e9b7-444c-856b-be9cf38bb026",
-                        "category_name": "Commercial",
-                        "category_slug": "commercial"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "year": "2010",
-        "data": [
-            {
-                "project_id": "97750100-591e-40fe-82a7-7d11514b93b2",
-                "name": "Blanca Hill",
-                "description": "",
-                "location": "Ulwe, Navi Mumbai",
-                "banner_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/f31290ec-f82b-406e-9127-4192aa94cd44.mp4",
-                "banner_color": "rgba(17, 17, 17, 0.6)",
-                "card_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/0fb62a5b-1f25-419a-9c12-c6864be84f95.png",
-                "card_color": "rgba(0, 0, 0, 1)",
-                "status": "completed",
-                "started_at": null,
-                "completed_at": 1287206437,
-                "categories": [
-                    {
-                        "category_id": "9bc767d4-f461-4407-8fdf-0dd73ef4642c",
-                        "category_name": "Residential",
-                        "category_slug": "residential"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "year": "2026",
-        "data": [
-            {
-                "project_id": "05751bc6-c0e1-4e0d-8f89-ab344d8d5da2",
-                "name": "ND Pearl",
-                "description": "",
-                "location": "Kamothe, Navi Mumbai",
-                "banner_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/f31290ec-f82b-406e-9127-4192aa94cd44.mp4",
-                "banner_color": "rgba(17, 17, 17, 0.6)",
-                "card_image": "https://s3.ap-south-1.amazonaws.com/inventam-test-s3/Img/f9cdf9ae-22d4-405f-a94c-09b95a548199/88108358-9180-4237-8a43-e595c753012a.png",
-                "card_color": "rgba(0, 0, 0, 1)",
-                "status": "sold-out",
-                "started_at": 1737091237,
-                "completed_at": 1772169637,
-                "categories": [
-                    {
-                        "category_id": "9bc767d4-f461-4407-8fdf-0dd73ef4642c",
-                        "category_name": "Residential",
-                        "category_slug": "residential"
-                    }
-                ]
-            }
-        ]
-    }
-];
-
 const JourneySection = () => {
     const scrollRef = React.useRef(null);
     const [isDragging, setIsDragging] = React.useState(false);
@@ -135,7 +57,7 @@ const JourneySection = () => {
                     projects,
                 };
             })
-            .filter(Boolean);
+            .filter((g) => Boolean(g) && Array.isArray(g.projects) && g.projects.length > 0);
     }, [journeyResponse]);
 
     React.useEffect(() => {
@@ -151,6 +73,7 @@ const JourneySection = () => {
         return () => clearTimeout(timeoutId);
     }, [journeyData.length]);
 
+    if (!journeyData?.length) return null;
     const handleMouseDown = (e) => {
         setIsDragging(true);
         if (!scrollRef.current) return;

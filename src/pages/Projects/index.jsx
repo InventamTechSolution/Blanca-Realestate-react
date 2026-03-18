@@ -50,6 +50,7 @@ const Projects = () => {
   }));
 
   const filteredProjects = projects;
+  const hasProjects = filteredProjects.length > 0;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -58,6 +59,10 @@ const Projects = () => {
   useEffect(() => {
     setStatus(statusParam);
   }, [statusParam]);
+
+  useEffect(() => {
+    if (!hasProjects) setActiveProjectId(null);
+  }, [hasProjects]);
 
   const typeOptions = [
     { label: "All Projects", value: "all" },
@@ -231,7 +236,15 @@ const Projects = () => {
 
         <div className="projects-list-area">
           <Container>
-            {view === "grid" && (
+            {!hasProjects && (
+              <div className="text-center py-5">
+                <h3 className="text-white">
+                  No projects found matching your criteria.
+                </h3>
+              </div>
+            )}
+
+            {hasProjects && view === "grid" && (
               <div className="projects-grid">
                 {filteredProjects.map((project) => (
                   <ProjectCard
@@ -243,7 +256,7 @@ const Projects = () => {
               </div>
             )}
 
-            {view === "map" && (
+            {hasProjects && view === "map" && (
               <div className="map-view-container">
                 <div className="map-side-list">
                   {filteredProjects.map((project) => (
@@ -280,14 +293,6 @@ const Projects = () => {
                     )}
                   </div>
                 </div>
-              </div>
-            )}
-
-            {filteredProjects.length === 0 && (
-              <div className="text-center py-5">
-                <h3 className="text-white">
-                  No projects found matching your criteria.
-                </h3>
               </div>
             )}
           </Container>

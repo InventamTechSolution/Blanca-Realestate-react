@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { teamData } from "../../../data/teamData";
 import "./TeamSlider.css";
 
 const TeamSlider = ({ items }) => {
-    const data = Array.isArray(items) && items.length > 0 ? items : teamData;
+    const data = Array.isArray(items) ? items : [];
     const [currentIndex, setCurrentIndex] = useState(0);
     const [animState, setAnimState] = useState("idle"); // "idle", "exiting", "entering"
     const [direction, setDirection] = useState(""); // "next", "prev"
