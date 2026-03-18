@@ -108,7 +108,6 @@ const ProjectDetails = () => {
         alert("Something went wrong");
       },
     });
-    console.log(payload);
   };
 
   return (

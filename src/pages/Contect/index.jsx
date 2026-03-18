@@ -47,7 +47,6 @@ const Contact = () => {
     const settingRecord = useMemo(() => {
         return settingResponse?.data?.[0] || null;
       }, [settingResponse]);
-      console.log("settingRecord",settingRecord);
 
         const reachEmail =
             settingRecord?.setting_email

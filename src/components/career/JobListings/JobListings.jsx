@@ -50,7 +50,6 @@ const JobListings = () => {
 
     // 🔹 CHANGE: jobs now come from API
     const jobs = careerData?.data || [];
-    console.log("🚀 ~ JobListings ~ jobs:", jobs)
 
     // 🔹 CHANGE: total pages from API
     const totalPages = careerData?.meta?.totalPages || 1;

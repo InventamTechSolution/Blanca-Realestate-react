@@ -213,7 +213,6 @@ const JourneySection = () => {
                                     )}
 
                                     {item?.projects?.map((project, pIndex) => {
-                                        console.log("project",project);
                                         const dynamicPosition = (currentOffset + pIndex) % 2 === 0 ? 'above' : 'below';
                                         const imgSrc = typeof project?.image === "string" && project.image.trim() ? project.image : undefined;
                                         return (

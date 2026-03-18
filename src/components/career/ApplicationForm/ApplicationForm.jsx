@@ -35,7 +35,6 @@ const ApplicationForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Common CV Submission:", formData);
         // Add submission logic here
         setShowThankYou(true);
     };

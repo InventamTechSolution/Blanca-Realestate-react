@@ -91,7 +91,6 @@ const Registration = () => {
 
         try {
             await registerPartner(payload);
-            console.log("Form Data Submitted:", payload);
             setShowThankYou(true);
             reset();
         } catch (err) {

@@ -15,7 +15,6 @@ const FloatingContactButtons = () => {
         return candidate || null;
     }, [settingResponse]);
     
-    console.log(settingRecord);
     const phone = settingRecord?.setting_contact_number 
     const email = settingRecord?.setting_email
 
