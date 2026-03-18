@@ -15,9 +15,11 @@ import ProjectDetails from "./pages/ProjectDetails";
 import Careers from "./pages/Careers";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsConditions";
+import CookiePolicy from "./pages/CookiePolicy";
 import ScrollToTopOnRouteChange from "./components/common/ScrollToTopOnRouteChange";
 import { ContactModalProvider } from "./context/ContactModalContext";
 import ContactModal from "./components/common/ContactModal/ContactModal";
+import CookieConsent from "./components/common/CookieConsent/CookieConsent";
 
 function App() {
   // useEffect(() => {
@@ -33,6 +35,7 @@ function App() {
 
       <FloatingContactButtons />
       <ContactModal />
+      <CookieConsent />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -43,6 +46,7 @@ function App() {
         <Route path="/careers" element={<Careers />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
       </Routes>
     </ContactModalProvider>
   );
