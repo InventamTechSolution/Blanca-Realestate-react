@@ -122,6 +122,7 @@ const ProjectDetails = () => {
           status={PROJECT_STATUS_LABELS[project?.project_status]}
           title={project?.project_name}
           location={`${project?.categories?.[0]?.category_name} - ${project?.project_location}`}
+          projectLink = {project?.project_link}
         />
 
         <section className="project-about-section">

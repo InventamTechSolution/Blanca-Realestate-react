@@ -16,8 +16,11 @@ export const blancaTowerVideo = "/videos/blanca-tower-video.mp4";
 export const videoProject2 = "/videos/Video-Project-2.mp4";
 export const employeeVideo = "/videos/employee-video.mp4";
 
+const FOUNDING_YEAR = 1981;
+
 const Hero = () => {
     const { data: settingResponse } = useSetting();
+    const yearsOfExpertise = new Date().getFullYear() - FOUNDING_YEAR;
 
     const statsData = React.useMemo(() => {
         return settingResponse?.data?.[0]?.setting_other_field || [];
@@ -75,7 +78,7 @@ const Hero = () => {
         return () => {
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
-    }, [statsData]);
+    }, [statsData, yearsOfExpertise]);
 
     return (
         <>
@@ -119,14 +122,14 @@ const Hero = () => {
 
                     <div className="hero-expert-badge">
                         <div className="badge-content">
-                            <span className="badge-year" data-count="45">0</span>
+                            <span className="badge-year" data-count={yearsOfExpertise}>0</span>
                             <svg className="badge-text-ring" viewBox="0 0 100 100" width="100" height="100">
                                 <defs>
                                     <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
                                 </defs>
-                                <text fill="#FFF" font-family="'Montserrat', sans-serif" font-size="10" font-weight="500" letter-spacing="1">
+                                <text fill="#FFF" fontFamily="'Montserrat', sans-serif" fontSize="10" fontWeight="500" letterSpacing="1">
                                     <textPath href="#circlePath">
-                                        &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE
+                                        {`\u00A0•\u00A0 SINCE ${FOUNDING_YEAR} \u00A0•\u00A0 YEARS OF EXPERTISE \u00A0`.repeat(3)}
                                     </textPath>
                                 </text>
                             </svg>

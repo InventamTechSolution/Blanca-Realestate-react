@@ -10,10 +10,12 @@ import { useSetting } from "../../../hooks/useSetting";
 gsap.registerPlugin(ScrollTrigger);
 
 const video = "/videos/about-banner-video.mp4";
+const FOUNDING_YEAR = 1981;
 // import FallbackImage from "../../../assets/images/background/slider-1.png";
 
 const HeroSection = () => {
   const { data: settingResponse } = useSetting();
+  const yearsOfExpertise = new Date().getFullYear() - FOUNDING_YEAR;
 
   const statsData = React.useMemo(() => {
     return settingResponse?.data?.[0]?.setting_other_field || [];
@@ -54,7 +56,7 @@ const HeroSection = () => {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, [statsData]);
+  }, [statsData, yearsOfExpertise]);
 
   return (
     <section className="about-area-2 black-120-bg">
@@ -118,7 +120,7 @@ const HeroSection = () => {
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
         >
           <div className="badge-content">
-            <span className="badge-year" data-count="45">
+            <span className="badge-year" data-count={yearsOfExpertise}>
               0
             </span>
 
@@ -142,7 +144,9 @@ const HeroSection = () => {
                 letterSpacing="1"
               >
                 <textPath xlinkHref="#circlePath">
-                  &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE
+                  {`\u00A0•\u00A0 SINCE ${FOUNDING_YEAR} \u00A0•\u00A0 YEARS OF EXPERTISE \u00A0`.repeat(
+                    3,
+                  )}
                 </textPath>
               </text>
             </svg>

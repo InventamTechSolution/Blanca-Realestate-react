@@ -11,6 +11,7 @@ const MainHeroBanner = ({
     buttonText = "View More",
     buttonTo = "/projects",
     overlayOpacity,
+    projectLink,
 }) => {
     return (
         <section className="hero-area-2 black-120-bg">
@@ -65,11 +66,12 @@ const MainHeroBanner = ({
                                 {title && <h1 className="text-white bs-font-colgent-regular">{title}</h1>}
                                 {location && <h5 className="text-white">{location}</h5>}
                             </div>
-                            <div className="buttons mt-96">
-                                <ThemeBtn to={buttonTo} className="bs-font-montserrat">
-                                    {buttonText}
-                                </ThemeBtn>
-                            </div>
+                            {projectLink && <div className="buttons mt-96">
+                                    <ThemeBtn to={projectLink} className="bs-font-montserrat">
+                                        {buttonText}
+                                    </ThemeBtn>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
