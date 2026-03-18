@@ -104,11 +104,11 @@ const JourneySection = () => {
             const image = project?.card_image;
 
             return {
-                title,
-                location,
+                title: title ?? "",
+                location: location ?? "",
                 type: type || "",
-                description,
-                image,
+                description: description ?? "",
+                image: image ?? "",
             };
         };
 
@@ -153,6 +153,7 @@ const JourneySection = () => {
 
     const handleMouseDown = (e) => {
         setIsDragging(true);
+        if (!scrollRef.current) return;
         setStartX(e.pageX - scrollRef.current.offsetLeft);
         setScrollLeft(scrollRef.current.scrollLeft);
     };
@@ -167,6 +168,7 @@ const JourneySection = () => {
 
     const handleMouseMove = (e) => {
         if (!isDragging) return;
+        if (!scrollRef.current) return;
         e.preventDefault();
         const x = e.pageX - scrollRef.current.offsetLeft;
         const walk = (x - startX) * 2; // Scroll speed
@@ -199,9 +201,9 @@ const JourneySection = () => {
                     {/* Original Content */}
                     {(() => {
                         let cumulativeProjectCount = 0;
-                        return journeyData.map((item, index) => {
+                        return journeyData?.map((item, index) => {
                             const currentOffset = cumulativeProjectCount;
-                            cumulativeProjectCount += item.data.length;
+                            cumulativeProjectCount += item.projects?.length ?? 0;
                             return (
                                 <div className="journey-item" key={`orig-${index}`}>
                                     {item.category && (
@@ -210,21 +212,23 @@ const JourneySection = () => {
                                         </div>
                                     )}
 
-                                    {item.data.map((project, pIndex) => {
+                                    {item?.projects?.map((project, pIndex) => {
+                                        console.log("project",project);
                                         const dynamicPosition = (currentOffset + pIndex) % 2 === 0 ? 'above' : 'below';
+                                        const imgSrc = typeof project?.image === "string" && project.image.trim() ? project.image : undefined;
                                         return (
                                             <div key={pIndex} className={`journeyproject-card ${dynamicPosition}`}>
-                                                {project.card_image && (
+                                                {imgSrc && (
                                                     <img
-                                                        src={project.card_image}
-                                                        alt={project.name}
+                                                        src={imgSrc}
+                                                        alt={project.title || "Project image"}
                                                         className="project-image"
                                                     />
                                                 )}
-                                                <h3 className="project-title">{project.name}</h3>
+                                                <h3 className="project-title">{project.title}</h3>
                                                 <div className="project-meta">
                                                     <i className="fas fa-map-marker-alt"></i> {project.location}
-                                                    <i className={`fas ${project.categories[0]?.category_name === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i> {project.categories[0]?.category_name}
+                                                    <i className={`fas ${project.type === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i> {project.type}
                                                 </div>
                                                 {project.description && <p className="project-description">{project.description}</p>}
                                             </div>

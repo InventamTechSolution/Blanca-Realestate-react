@@ -44,7 +44,7 @@ const ShowcaseSection = ({ slides: slidesProp }) => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const teamSlides = slidesRef.current;
+      const teamSlides = slidesRef.current.filter(Boolean);
       const dots = dotsRef.current;
 
       if (!containerRef.current || teamSlides.length === 0) return;
@@ -81,6 +81,8 @@ const ShowcaseSection = ({ slides: slidesProp }) => {
         if (i === 0) return; // Skip first slide
 
         const prevSlide = teamSlides[i - 1];
+        if (!slide) return;
+
         const currentImage = slide.querySelector("img");
         const memberInfo = slide.querySelectorAll(
           ".member-name, .member-quote",
@@ -88,7 +90,7 @@ const ShowcaseSection = ({ slides: slidesProp }) => {
 
         // Set initial positions for incoming elements
         gsap.set(slide, { y: "100%", visibility: "visible", zIndex: 10 + i });
-        gsap.set(currentImage, { y: "20%" }); // Parallax start
+        if (currentImage) gsap.set(currentImage, { y: "20%" }); // Parallax start
         gsap.set(memberInfo, { y: 30, opacity: 0 });
 
         // Add to timeline
@@ -102,19 +104,23 @@ const ShowcaseSection = ({ slides: slidesProp }) => {
         );
 
         // Parallax effect for current image
-        tl.to(
-          currentImage,
-          {
-            y: "-10%",
-            ease: "none",
-          },
-          i - 1,
-        );
+        if (currentImage) {
+          tl.to(
+            currentImage,
+            {
+              y: "-10%",
+              ease: "none",
+            },
+            i - 1,
+          );
+        }
 
         // Slow down previous image (parallax)
         if (prevSlide) {
+          const prevImage = prevSlide.querySelector?.("img");
+          if (!prevImage) return;
           tl.to(
-            prevSlide.querySelector("img"),
+            prevImage,
             {
               y: "-20%",
               ease: "none",
