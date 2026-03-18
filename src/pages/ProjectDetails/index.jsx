@@ -190,7 +190,7 @@ const ProjectDetails = () => {
           <Amenities amenities={project?.project_amenities} />
         )}
 
-        <section className="project-location">
+        {project?.project_map_link && <section className="project-location">
           {/* Heading */}
           <div className="location-heading text-center mb-60 wow fadeInUp delay-0-3s">
             <div className="sub-title-wrapper mb-20 d-inline-block">
@@ -223,7 +223,7 @@ const ProjectDetails = () => {
               </Col>
             </Row>
           </Container>
-        </section>
+        </section>} 
 
         <section className="enquiry-premium-section py-150">
           <Container fluid>
