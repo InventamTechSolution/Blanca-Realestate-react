@@ -745,7 +745,7 @@ header form.search-form button>* {
     .main-menu .navbar-collapse>ul {
         display: block;
         padding: 18px 15px;
-        background: rgba(10, 10, 10, 0.45);
+        background: rgba(10, 10, 10, 0.9);
         -webkit-backdrop-filter: blur(25px) saturate(200%);
         backdrop-filter: blur(25px) saturate(200%);
         border-bottom: 2px solid rgba(255, 255, 255, 0.08);
