@@ -96,6 +96,10 @@
     z-index: 100;
 }
 
+.custom-dropdown.active {
+    z-index: 101;
+}
+
 .dropdown-selected {
     /* background: rgba(255, 255, 255, 0.05); */
     /* backdrop-filter: blur(10px); */
