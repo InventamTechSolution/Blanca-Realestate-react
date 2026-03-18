@@ -351,3 +351,28 @@
     text-decoration: none;
     text-transform: uppercase;
 }
+
+@media only screen and (min-width: 320px) and (max-width: 425px) {
+    .project-card-horizontal {
+        flex-direction: column;
+    }
+
+    .horiz-img-wrapper {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .project-card-horizontal .horiz-content .download-link {
+        padding: 12px 10px;
+        gap: 8px;
+    }
+
+    .project-download-options-horizontal {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .horiz-meta {
+        margin-bottom: 5px;
+    }
+}
