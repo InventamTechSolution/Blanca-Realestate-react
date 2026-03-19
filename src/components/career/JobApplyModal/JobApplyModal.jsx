@@ -22,6 +22,10 @@ const defaultValues = {
     email: "",
     phoneNumber: "",
     position: "",
+    currentCtc: "",
+    expectedCtc: "",
+    experience: "",
+    joiningPreference: "",
     resume: "",
     description: ""
 };
@@ -64,6 +68,13 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
             })),
         [categories]
     );
+    const joiningPreferenceOptions = React.useMemo(
+        () => [
+            { label: "Immediate Joiner", value: "immediate_joiner" },
+            { label: "Notice Period", value: "notice_period" }
+        ],
+        []
+    );
 
     const onSubmit = React.useCallback(
         async (data) => {
@@ -72,6 +83,10 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
                 fullname: data.fullName,
                 email: data.email,
                 phone_number: data.phoneNumber,
+                current_ctc: data.currentCtc,
+                expected_ctc: data.expectedCtc,
+                experience: data.experience,
+                joining_preference: data.joiningPreference,
                 resume: data.resume,
                 pitch: data.description
             };
@@ -194,6 +209,76 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
                             />
                             {errors.resume && (
                                 <p className="text-danger small mt-1">{errors.resume.message}</p>
+                            )}
+                        </Col>
+                        <Col md={6} className="mb-3">
+                            <Controller
+                                name="currentCtc"
+                                control={control}
+                                render={({ field }) => (
+                                    <InputField
+                                        {...field}
+                                        type="text"
+                                        label="Current CTC"
+                                        placeholder="Current CTC"
+                                    />
+                                )}
+                            />
+                            {errors.currentCtc && (
+                                <p className="text-danger small mt-1">{errors.currentCtc.message}</p>
+                            )}
+                        </Col>
+                        <Col md={6} className="mb-3">
+                            <Controller
+                                name="expectedCtc"
+                                control={control}
+                                render={({ field }) => (
+                                    <InputField
+                                        {...field}
+                                        type="text"
+                                        label="Expected CTC"
+                                        placeholder="Expected CTC"
+                                    />
+                                )}
+                            />
+                            {errors.expectedCtc && (
+                                <p className="text-danger small mt-1">{errors.expectedCtc.message}</p>
+                            )}
+                        </Col>
+                        <Col md={6} className="mb-3">
+                            <Controller
+                                name="experience"
+                                control={control}
+                                render={({ field }) => (
+                                    <InputField
+                                        {...field}
+                                        type="text"
+                                        label="Experience"
+                                        placeholder="Experience (e.g. 3.5 years)"
+                                    />
+                                )}
+                            />
+                            {errors.experience && (
+                                <p className="text-danger small mt-1">{errors.experience.message}</p>
+                            )}
+                        </Col>
+                        <Col md={6} className="mb-3">
+                            <Controller
+                                name="joiningPreference"
+                                control={control}
+                                render={({ field }) => (
+                                    <Dropdown
+                                        label="Joining Preference"
+                                        placeholder="Select Joining Type"
+                                        name="joiningPreference"
+                                        options={joiningPreferenceOptions}
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                    />
+                                )}
+                            />
+                            {errors.joiningPreference && (
+                                <p className="text-danger small mt-1">{errors.joiningPreference.message}</p>
                             )}
                         </Col>
                         <Col md={12} className="mb-3">
