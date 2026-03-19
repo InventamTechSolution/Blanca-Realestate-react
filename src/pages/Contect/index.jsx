@@ -46,11 +46,36 @@ const Contact = () => {
 
     const settingRecord = useMemo(() => {
         return settingResponse?.data?.[0] || null;
-      }, [settingResponse]);
+    }, [settingResponse]);
 
-        const reachEmail =
-            settingRecord?.setting_email
-    const salesPhone = settingRecord?.setting_contact_number
+    const reachEmail = settingRecord?.setting_email;
+    const salesPhone = useMemo(() => {
+        const raw = settingRecord?.setting_contact_number;
+        if (!raw) return [];
+
+        if (Array.isArray(raw)) {
+            return raw.map((item) =>
+                typeof item === "string" ? { title: "Contact", number: item } : item
+            );
+        }
+
+        if (typeof raw === "string") {
+            try {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) {
+                    return parsed.map((item) =>
+                        typeof item === "string" ? { title: "Contact", number: item } : item
+                    );
+                }
+            } catch (_e) {
+                // fallback to plain string format
+            }
+            return [{ title: "Contact", number: raw }];
+        }
+
+        if (typeof raw === "object") return [raw];
+        return [];
+    }, [settingRecord?.setting_contact_number]);
  
     const address =
         settingRecord?.setting_address
@@ -170,7 +195,11 @@ const Contact = () => {
                                             </div>
                                             <div className="contact-text">
                                                 <h5>OTHER INQUIRIES</h5>
-                                                <p>{salesPhone} (Blanca Sales)</p>
+                                                {salesPhone.map((phoneItem, index) => (
+                                                    <p key={index}>
+                                                        {`${phoneItem?.number || ""} ${phoneItem?.title ? `${phoneItem.title} ` : ""}`}
+                                                    </p>
+                                                ))}
                                             </div>
                                         </div>
 

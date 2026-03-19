@@ -17,7 +17,7 @@ const FloatingContactButtons = () => {
         return candidate || null;
     }, [settingResponse]);
     
-    const phone = settingRecord?.setting_contact_number 
+    const phone = settingRecord?.setting_contact_number || ""
     const email = settingRecord?.setting_email
 
     const normalizedDigits = String(phone).replace(/[^\d]/g, "");

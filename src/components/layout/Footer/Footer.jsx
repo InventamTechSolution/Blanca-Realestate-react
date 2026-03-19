@@ -13,7 +13,7 @@ const logo = '/images/logos/blanca-logo.png';
 const Footer = () => {
     const footerRef = React.useRef(null);
     const [showThankYou, setShowThankYou] = React.useState(false);
-    const { data: settingResponse } = useSetting();
+    const { data: settingResponse } = useSetting({ show_on_home_page: true });
 
     const settingRecord = React.useMemo(() => {
         return settingResponse?.data?.[0] || null;
@@ -45,7 +45,29 @@ const Footer = () => {
 
     const email = settingRecord?.setting_email || "reachus.blanca@gmail.com";
 
-    const phone = settingRecord?.setting_contact_number || "+91 7021913284";
+    const contactNumbers = React.useMemo(() => {
+        const raw = settingRecord?.setting_contact_number;
+        if (!raw) return [];
+
+        if (Array.isArray(raw)) return raw;
+
+        if (typeof raw === "string") {
+            try {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) return parsed;
+            } catch (_e) {
+                // fallback to plain string format
+            }
+            return [{ title: "Contact", number: raw }];
+        }
+
+        if (typeof raw === "object") return [raw];
+        return [];
+    }, [settingRecord?.setting_contact_number]);
+
+    const primaryContact = contactNumbers[0] || null;
+    const phone = primaryContact?.number || "+91 7021913284";
+    const phoneTitle = primaryContact?.title || "Call Us";
 
     const address =
         settingRecord?.setting_address ||
@@ -239,7 +261,10 @@ const Footer = () => {
 
                             <li className="contact-item">
                                 <Icon icon="lucide:phone" className="contact-icon" />
-                                <a href={toTelHref(phone)}>{phone}</a>
+                                <div>
+                                    {/* <span className="d-block">{phoneTitle}</span> */}
+                                    <a href={toTelHref(phone)}>{phone}</a>
+                                </div>
                             </li>
 
                             <li
