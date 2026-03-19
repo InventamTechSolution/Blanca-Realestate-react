@@ -22,7 +22,7 @@ const AgencyForm = ({
             {/* ========================= */}
             {activeTab === "personal-details" && (
                 <div className="tab-content active">
-                    <div className="section-header">| Personal Details</div>
+                    <div className="section-header"> Personal Details</div>
 
                     <Row className="gx-4 gy-4 mb-4">
                         <Col md={6}>
@@ -197,7 +197,7 @@ const AgencyForm = ({
             {/* ========================= */}
             {activeTab === "address-details" && (
                 <div className="tab-content active">
-                    <div className="section-header">| Address Details</div>
+                    <div className="section-header">Address Details</div>
 
                     <Row className="gx-4 gy-4">
                         <Col md={6}>

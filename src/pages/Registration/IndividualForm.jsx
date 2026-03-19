@@ -25,7 +25,7 @@ const IndividualForm = ({
             {/* ========================= */}
             {activeTab === "personal-details" && (
                 <div className="tab-content active">
-                    <div className="section-header">| Personal Details</div>
+                    <div className="section-header">Personal Details</div>
 
                     <Row className="gx-4 gy-4 mb-4">
                         <Col md={6}>
@@ -90,7 +90,7 @@ const IndividualForm = ({
             {/* ========================= */}
             {activeTab === "address-details" && (
                 <div className="tab-content active">
-                    <div className="section-header">| Refer</div>
+                    <div className="section-header">Refer</div>
 
                     {/* CHANGE: add spacing between refer inputs */}
                     <Row className="gx-4 gy-4 mb-4">

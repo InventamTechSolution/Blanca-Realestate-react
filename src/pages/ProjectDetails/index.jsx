@@ -53,6 +53,15 @@ const ProjectDetails = () => {
     resolver: yupResolver(enquirySchema),
   });
 
+  useEffect(() => {
+    if (location.hash !== "#enquiry") return;
+    // Wait for content to be rendered (including images/layout)
+    const t = window.setTimeout(() => {
+      enquiryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, [location.hash, isLoading]);
+
   if (isLoading) {
     return (
       <AnimatePresence>
@@ -112,15 +121,6 @@ const ProjectDetails = () => {
       },
     });
   };
-
-  useEffect(() => {
-    if (location.hash !== "#enquiry") return;
-    // Wait for content to be rendered (including images/layout)
-    const t = window.setTimeout(() => {
-      enquiryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 0);
-    return () => window.clearTimeout(t);
-  }, [location.hash, isLoading]);
 
   return (
     <>

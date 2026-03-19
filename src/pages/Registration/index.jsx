@@ -11,6 +11,7 @@ import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
 import IndividualForm from "./IndividualForm";
 import AgencyForm from "./AgencyForm";
 import "./ragistration.css";
+import Footer from '../../components/layout/Footer/Footer';
 
 const RegistrationBg = "/images/background/registration-bg.png";
 
@@ -183,7 +184,7 @@ const Registration = () => {
                     </Container>
                 </section>
             </main>
-            {/* <Footer /> */}
+            <Footer />
             <ScrollToTop />
             <ThankYouModal
                 isOpen={showThankYou}
