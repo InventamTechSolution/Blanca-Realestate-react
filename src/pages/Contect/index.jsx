@@ -141,7 +141,7 @@ const Contact = () => {
                                 >
                                     <div className="title-with-border">
                                         <h2 className="bs-font-playfair-display text-white">
-                                            GET IN TOUCH WITH US
+                                            Reach Us For More Detail
                                         </h2>
                                     </div>
 

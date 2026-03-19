@@ -56,11 +56,11 @@
 
 .title-with-border {
     position: relative;
-    padding-left: 20px;
+    /* padding-left: 20px; */
     margin-bottom: 30px;
 }
 
-.title-with-border::before {
+/* .title-with-border::before {
     content: '';
     position: absolute;
     left: 0;
@@ -68,7 +68,7 @@
     bottom: 5px;
     width: 3px;
     background-color: #fff;
-}
+} */
 
 .title-with-border h2 {
     font-size: 32px;

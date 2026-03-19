@@ -203,7 +203,7 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
                                 render={({ field }) => (
                                     <TextArea
                                         {...field}
-                                        label="What makes you a great fit for Art & Architecture Associates?"
+                                        label="What makes you a great fit?"
                                         name="description"
                                         rows={3}
                                         placeholder="Describe your experience and why you are interested..."
