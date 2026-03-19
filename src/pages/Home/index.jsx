@@ -14,7 +14,7 @@ import { useProjects } from '../../hooks/useProjects';
 import { PROJECT_STATUS_LABELS } from '../../utils/constant';
 
 const Home = () => {
-    const {data, isLoading} = useProjects({page: 1, limit: 50, show_on_home_page: true});
+    const {data, isLoading} = useProjects({page: 1, limit: 50, sort_column: 'project_home_sequence', sort_order: 'asc', show_on_home_page: true});
 
     const projects = data?.data || [];
 
