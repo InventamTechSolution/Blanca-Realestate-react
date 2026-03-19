@@ -49,6 +49,7 @@ const Home = () => {
                         title={project.project_name}
                         location={`${project.categories?.[0]?.category_name} - ${project.project_location}`}
                         overlayOpacity={project.project_banner_color}
+                        projectLink={project.project_link}
                         isHomePage={true}
                         projectId={project.project_project_id}
                     />

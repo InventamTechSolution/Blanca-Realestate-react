@@ -15,6 +15,12 @@ const MainHeroBanner = ({
     isHomePage = false,
     projectId,
 }) => {
+
+    const redirectLink = projectLink ? projectLink : `/project/${projectId}`;
+
+    const shouldShowButton = isHomePage || (!isHomePage && projectLink);
+
+    
     return (
         <section className="hero-area-2 black-120-bg">
             <div
@@ -68,19 +74,14 @@ const MainHeroBanner = ({
                                 {title && <h1 className="text-white bs-font-colgent-regular">{title}</h1>}
                                 {location && <h5 className="text-white">{location}</h5>}
                             </div>
-                            {isHomePage && (
+                            {shouldShowButton && (
                                 <div className="buttons mt-96">
-                                    <ThemeBtn to={`/project/${projectId}`} className="bs-font-montserrat">
+                                    <ThemeBtn to={redirectLink} className="bs-font-montserrat">
                                         {buttonText}
                                     </ThemeBtn>
                                 </div>
                             )}
-                            {projectLink && <div className="buttons mt-96">
-                                    <ThemeBtn to={projectLink} className="bs-font-montserrat">
-                                        {buttonText}
-                                    </ThemeBtn>
-                                </div>
-                            }
+
                         </div>
                     </div>
                 </div>
