@@ -164,7 +164,7 @@ const Header = () => {
                     <Link to="/about" onClick={(e) => handleNavClick(e, '/about', 'about')}>About Us</Link>
                     <ul className="header-submenu">
                       <li><Link to="/about#about" onClick={closeMenus}>Legacy</Link></li>
-                      <li><Link to="/about#about-page-blueprint" onClick={closeMenus}>Our Value</Link></li>
+                      <li><Link to="/about#showcase-section" onClick={closeMenus}>Value</Link></li>
                       <li><Link to="/about#about-vision-section-four" onClick={closeMenus}>Our Vision</Link></li>
                       <li><Link to="/about#about-mission-section-four" onClick={closeMenus}>Our Mission</Link></li>
                       <li><Link to="/#why-choose-us" onClick={closeMenus}>Why Choose Us</Link></li>
@@ -267,7 +267,7 @@ const Header = () => {
                         }}>About Us</Link>
                         <ul style={{ display: activeSubmenu === 'mobile-about' ? 'block' : 'none' }}>
                           <li><Link to="/about#about" onClick={closeMenus}>Legacy</Link></li>
-                          <li><Link to="/about#about-page-blueprint" onClick={closeMenus}>Our Value</Link></li>
+                          <li><Link to="/about#showcase-section" onClick={closeMenus}>Value</Link></li>
                           <li><Link to="/about#about-vision-section-four" onClick={closeMenus}>Our Vision</Link></li>
                           <li><Link to="/about#about-mission-section-four" onClick={closeMenus}>Our Mission</Link></li>
                           <li><Link to="/#why-choose-us" onClick={closeMenus}>Why Choose Us</Link></li>
