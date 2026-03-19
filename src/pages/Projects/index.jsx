@@ -9,26 +9,31 @@ import ThemeBtn from "../../components/common/Button/ThemeBtn";
 import ProjectCard from "../../components/common/ProjectCard/ProjectCard";
 import Preloader from "../../components/common/Preloader";
 import { AnimatePresence } from "framer-motion";
-import { useProjectsWithFilter } from "../../hooks/useProjects";
+import { useProjectLocations, useProjectsWithFilter } from "../../hooks/useProjects";
 
 const Projects = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const filter = searchParams.get("filter");
   const statusParam = searchParams.get("status") || "all";
+  const areaParam = searchParams.get("area") || "all";
 
   const projectBg = "/images/background/project-listing-bg.png"; // Fixed path for public asset
   const dropdownRef = useRef(null);
   const [status, setStatus] = useState(statusParam);
+  const [area, setArea] = useState(areaParam);
   const [view, setView] = useState("grid");
   const [activeDropdown, setActiveDropdown] = useState(null); // 'type' or 'status' or null
   const [activeProjectId, setActiveProjectId] = useState(null);
+
+  const { data: locationData } = useProjectLocations();
 
   const { data, isLoading } = useProjectsWithFilter({
     page: 1,
     limit: 10,
     category: filter || "all",
     status: status,
+    location: area,
   });
 
   const apiProjects = data?.data || [];
@@ -61,6 +66,10 @@ const Projects = () => {
   }, [statusParam]);
 
   useEffect(() => {
+    setArea(areaParam);
+  }, [areaParam]);
+
+  useEffect(() => {
     if (!hasProjects) setActiveProjectId(null);
   }, [hasProjects]);
 
@@ -78,6 +87,13 @@ const Projects = () => {
     { label: "Ongoing Projects", value: "on-going" },
     { label: "Completed", value: "completed" },
     { label: "Sold Out", value: "sold-out" },
+  ];
+
+  const apiLocations = locationData?.data;
+  const locationList = Array.isArray(apiLocations) ? apiLocations : [];
+  const areaOptions = [
+    { label: "All Areas", value: "all" },
+    ...locationList.map((loc) => ({ label: String(loc), value: String(loc) })),
   ];
 
   // Handle click outside to close dropdowns
@@ -103,6 +119,7 @@ const Projects = () => {
     const params = new URLSearchParams();
     if (value && value !== "all") params.set("filter", value);
     if (status && status !== "all") params.set("status", status);
+    if (area && area !== "all") params.set("area", area);
     const qs = params.toString();
     navigate(qs ? `/projects?${qs}` : "/projects");
     setActiveDropdown(null);
@@ -113,6 +130,18 @@ const Projects = () => {
     const params = new URLSearchParams();
     if (filter && filter !== "all") params.set("filter", filter);
     if (value && value !== "all") params.set("status", value);
+    if (area && area !== "all") params.set("area", area);
+    const qs = params.toString();
+    navigate(qs ? `/projects?${qs}` : "/projects");
+    setActiveDropdown(null);
+  };
+
+  const handleAreaSelect = (value) => {
+    setArea(value);
+    const params = new URLSearchParams();
+    if (filter && filter !== "all") params.set("filter", filter);
+    if (status && status !== "all") params.set("status", status);
+    if (value && value !== "all") params.set("area", value);
     const qs = params.toString();
     navigate(qs ? `/projects?${qs}` : "/projects");
     setActiveDropdown(null);
@@ -200,6 +229,33 @@ const Projects = () => {
                             key={item.value}
                             className={status === item.value ? "selected" : ""}
                             onClick={() => handleStatusSelect(item.value)}
+                          >
+                            {item.label}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Area Dropdown */}
+                    <div
+                      className={`custom-dropdown ${activeDropdown === "area" ? "active" : ""}`}
+                    >
+                      <div
+                        className="dropdown-selected"
+                        onClick={() => toggleDropdown("area")}
+                      >
+                        <span>
+                          {areaOptions.find((item) => item.value === area)?.label}
+                        </span>
+                        <i className="fas fa-chevron-down"></i>
+                      </div>
+
+                      <ul className="dropdown-list">
+                        {areaOptions.map((item) => (
+                          <li
+                            key={item.value}
+                            className={area === item.value ? "selected" : ""}
+                            onClick={() => handleAreaSelect(item.value)}
                           >
                             {item.label}
                           </li>

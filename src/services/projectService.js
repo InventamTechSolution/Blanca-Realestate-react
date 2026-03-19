@@ -14,6 +14,7 @@ export const getProjectById = async (id) => {
 export const getProjectsWithFilter = async ({
   category,
   status,
+  location,
   page = 1,
   limit = 50,
 }) => {
@@ -22,6 +23,7 @@ export const getProjectsWithFilter = async ({
     filter: {
       category_slug:
         category && category !== "all" ? [category] : [],
+      location: location && location !== "all" ? location : undefined,
       is_active: true,
       status: status && status !== "all" ? status : undefined,
     },
@@ -36,6 +38,11 @@ export const getProjectsWithFilter = async ({
     body
   );
 
+  return data;
+};
+
+export const getProjectLocations = async () => {
+  const { data } = await axiosInstance.get("/project/location/listing");
   return data;
 };
 

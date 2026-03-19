@@ -1,5 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getProjects, getProjectById, getProjectsWithFilter, sendEnquiry } from "../services/projectService";
+import {
+  getProjects,
+  getProjectById,
+  getProjectsWithFilter,
+  getProjectLocations,
+  sendEnquiry,
+} from "../services/projectService";
 
 export const useProjects = (params) => {
   return useQuery({
@@ -19,6 +25,13 @@ export const useProjectsWithFilter = (params) => {
   return useQuery({
     queryKey: ["projects-filter", params],
     queryFn: () => getProjectsWithFilter(params),
+  });
+};
+
+export const useProjectLocations = () => {
+  return useQuery({
+    queryKey: ["project-locations"],
+    queryFn: getProjectLocations,
   });
 };
 
