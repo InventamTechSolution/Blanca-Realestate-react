@@ -34,6 +34,15 @@ const About = () => {
         return () => window.removeEventListener('load', handleLoad);
     }, []);
 
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0, 
+            left: 0,
+            behavior: "instant", // or "smooth"
+        });
+    }, []);
+
     const { teamItems, showcaseSlides } = React.useMemo(() => {
         const raw = aboutPageResponse;
         const groups = raw?.data ?? raw?.message?.data ?? raw;
