@@ -97,7 +97,7 @@ const Footer = () => {
                             <div className="footer-links-column">
                                 <h5 className="footer-title">About Us</h5>
                                 <ul className="footer-links">
-                                    <li><Link to="/about#about-page-blueprint">Our Value</Link></li>
+                                    <li><Link to="/about#showcase-section">Value</Link></li>
                                     <li><Link to="/about#about-vision-section-four">Our Vision</Link></li>
                                     <li><Link to="/about#about-mission-section-four">Our Mission</Link></li>
                                     <li><Link to="/about">Journey of Innovation</Link></li>

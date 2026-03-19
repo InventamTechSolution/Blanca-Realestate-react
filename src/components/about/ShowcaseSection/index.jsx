@@ -11,7 +11,6 @@ const ShowcaseSection = () => {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const slidesRef = useRef([]);
-  const dotsRef = useRef([]);
 
   const slides = [
     {
@@ -44,7 +43,6 @@ const ShowcaseSection = () => {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const teamSlides = slidesRef.current;
-      const dots = dotsRef.current;
 
       if (!containerRef.current || teamSlides.length === 0) return;
 
@@ -66,11 +64,17 @@ const ShowcaseSection = () => {
             ease: "power2.inOut",
           },
           onUpdate: (self) => {
-            // Update dots based on progress
+            // Update slide counter
             const activeIndex = Math.round(self.progress * (teamSlides.length - 1));
-            dots.forEach((dot, i) => {
-              if (dot) dot.classList.toggle("active", i === activeIndex);
-            });
+            const counterElement = sectionRef.current.querySelector(".slide-counter");
+            if (counterElement) {
+              const current = String(activeIndex + 1).padStart(2, "0");
+              const total = String(teamSlides.length).padStart(2, "0");
+              const currentSpan = counterElement.querySelector(".counter-current");
+              if (currentSpan) {
+                currentSpan.textContent = current;
+              }
+            }
           },
         },
       });
@@ -140,9 +144,28 @@ const ShowcaseSection = () => {
   }, [slides.length]);
 
   return (
-    <section className="team-showcase-section" ref={sectionRef}>
+    <section className="team-showcase-section" id="showcase-section" ref={sectionRef}>
+      <div className="container">
+        <div className="section-title text-center mb-0">
+          <div className="sub-title-wrapper">
+            <span className="sub-title common-subtitle">
+              Value
+            </span>
+          </div>
+          <div className="showcase-section-title bs-font-playfair-display">
+            {/* Mumbai Real Estate Developer Insights */}
+            Real Estate Developer Insights
+          </div>
+        </div>
+      </div>
       {/* <Container> */}
       <div className="team-slides-container" ref={containerRef}>
+        {/* Slide Counter - Fixed for the section */}
+        <div className="slide-counter">
+          <span className="counter-current">01</span>
+          <span className="counter-total">/ {String(slides.length).padStart(2, "0")}</span>
+        </div>
+
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -159,17 +182,6 @@ const ShowcaseSection = () => {
             </div>
           </div>
         ))}
-
-        {/* Progress Dots */}
-        <div className="team-progress">
-          {slides.map((_, index) => (
-            <div
-              key={index}
-              className={`progress-dot ${index === 0 ? "active" : ""}`}
-              ref={(el) => (dotsRef.current[index] = el)}
-            ></div>
-          ))}
-        </div>
       </div>
       {/* </Container> */}
     </section>
