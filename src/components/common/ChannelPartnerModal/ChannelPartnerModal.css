@@ -129,6 +129,35 @@
 
 .cp-logo-wrapper {
     margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.cp-logo-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.55) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: cp-logo-shine 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes cp-logo-shine {
+    0% {
+        left: -100%;
+    }
+    40%, 100% {
+        left: 160%;
+    }
 }
 
 .cp-modal-logo {

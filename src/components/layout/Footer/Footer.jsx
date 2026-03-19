@@ -151,12 +151,14 @@ const Footer = () => {
                     {/* Logo */}
                     <div className="footer-logo">
                         <Link to="/">
-                            <img
-                                className="footer-logo-image"
-                                src={logo}
-                                alt="Logo"
-                                title="Logo"
-                            />
+                            <div className="footer-logo-shine-wrapper">
+                                <img
+                                    className="footer-logo-image"
+                                    src={logo}
+                                    alt="Logo"
+                                    title="Logo"
+                                />
+                            </div>
                         </Link>
                     </div>
 
