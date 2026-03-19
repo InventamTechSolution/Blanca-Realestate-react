@@ -221,15 +221,13 @@ const AgencyForm = ({
                             <Controller
                                 name="pinCode"
                                 control={control}
-                                rules={{ required: true }}
                                 render={({ field }) => (
                                     <InputField
-                                        label="PinCode *"
+                                        label="PinCode"
                                         placeholder="Enter PinCode"
                                         name={field.name}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
-                                        required
                                     />
                                 )}
                             />
