@@ -30,11 +30,13 @@ const AboutBlueprintSection = () => {
 
                 <div className="vision-banner-content">
                     <div className="banner-logo-branding">
-                        <img
-                            src={favicon}
-                            alt="Blanca Logo"
-                            className="banner-logo-icon"
-                        />
+                        <div className="banner-logo-shine-wrapper">
+                            <img
+                                src={favicon}
+                                alt="Blanca Logo"
+                                className="banner-logo-icon"
+                            />
+                        </div>
                         <h2 className="banner-title bs-font-Smothing">
                             Blanca Does What's Right
                         </h2>

@@ -279,6 +279,77 @@
     align-items: center;
 }
 
+/* ---- Logo Shine Effect (desktop + mobile) ---- */
+.logo-header {
+    position: relative;
+    display: inline-block;
+}
+
+/* Give mobile-logo the same stacking context */
+.mobile-logo {
+    position: relative;
+    display: inline-block;
+}
+
+/* Both desktop and mobile logo anchors need overflow:hidden to clip the beam */
+.logo-header a,
+.mobile-logo a {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.header-logo-image {
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Shine beam pseudo-element for BOTH logos */
+.logo-header a::after,
+.mobile-logo a::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -100%;
+    width: 55%;
+    height: 140%;
+    background: linear-gradient(
+        105deg,
+        rgba(255, 255, 255, 0)    0%,
+        rgba(255, 255, 255, 0.08) 30%,
+        rgba(255, 255, 255, 0.45) 50%,
+        rgba(255, 255, 255, 0.08) 70%,
+        rgba(255, 255, 255, 0)    100%
+    );
+    z-index: 2;
+    pointer-events: none;
+    animation: logo-shine 2.5s ease-in-out infinite;
+    animation-delay: 3s;
+}
+
+@keyframes logo-shine {
+    0% {
+        left: -100%;
+        opacity: 0;
+    }
+    5% {
+        opacity: 1;
+    }
+    50% {
+        left: 160%;
+        opacity: 1;
+    }
+    51% {
+        opacity: 0;
+    }
+    100% {
+        left: 160%;
+        opacity: 0;
+    }
+}
+
 .header-mobile-nav {
     display: none;
 }

@@ -105,7 +105,7 @@ const JobApplyModal = ({ isOpen, onClose, jobTitle }) => {
                         </Col>
                         <Col md={12} className="mb-3">
                             <TextArea
-                                label="What makes you a great fit for Art & Architecture Associates?"
+                                label="What makes you a great fit?"
                                 name="description"
                                 rows={3}
                                 placeholder="Describe your experience and why you are interested..."
