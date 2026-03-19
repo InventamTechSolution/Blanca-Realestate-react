@@ -34,7 +34,6 @@ const About = () => {
         return () => window.removeEventListener('load', handleLoad);
     }, []);
 
-
     useEffect(() => {
         window.scrollTo({
             top: 0, 

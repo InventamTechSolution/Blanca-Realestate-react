@@ -1,10 +1,12 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 import { useSetting } from '../../../hooks/useSetting';
+import { useContactModal } from '../../../context/ContactModalContext';
 import './FloatingContactButtons.css';
 
 const FloatingContactButtons = () => {
     const { data: settingResponse } = useSetting();
+    const { openContactModal } = useContactModal();
 
     const settingRecord = React.useMemo(() => {
         const raw = settingResponse;
@@ -30,7 +32,14 @@ const FloatingContactButtons = () => {
                 aria-label="WhatsApp">
                 <Icon icon="ri:whatsapp-line" />
             </a>
-            <a className="fab-item fab-inquiry" href={`mailto:${email}`} aria-label="Inquiry">
+            <a
+                className="fab-item fab-inquiry"
+                onClick={(e) => {
+                    e.preventDefault();
+                    openContactModal();
+                }}
+                aria-label="Inquiry"
+            >
                 <Icon icon="lucide:mail" />
             </a>
         </div>
