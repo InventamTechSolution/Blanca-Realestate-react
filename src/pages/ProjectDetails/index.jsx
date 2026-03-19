@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./ProjectDetails.css";
 import Header from "../../components/layout/Header/Header";
 import Footer from "../../components/layout/Footer/Footer";
@@ -20,6 +20,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { enquirySchema } from "../../schema/validationSchema";
 import { Icon } from "@iconify/react";
 import { useContactModal } from "../../context/ContactModalContext";
+import { useLocation } from "react-router-dom";
 // const commercial1 = "/images/project-details/commercial-office-1.png";
 // const commercial2 = "/images/project-details/commercial-office-2.png";
 // const commercial3 = "/images/project-details/commercial-office-3.png";
@@ -35,6 +36,8 @@ const defaultValues = {
 const ProjectDetails = () => {
   const { openContactModal } = useContactModal();
   const { id } = useParams();
+  const location = useLocation();
+  const enquiryRef = useRef(null);
   const { data, isLoading, error } = useProjectById(id);
   const { mutate, isPending } = useEnquire();
 
@@ -109,6 +112,15 @@ const ProjectDetails = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (location.hash !== "#enquiry") return;
+    // Wait for content to be rendered (including images/layout)
+    const t = window.setTimeout(() => {
+      enquiryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+    return () => window.clearTimeout(t);
+  }, [location.hash, isLoading]);
 
   return (
     <>
@@ -225,7 +237,11 @@ const ProjectDetails = () => {
           </Container>
         </section>} 
 
-        <section className="enquiry-premium-section py-150">
+        <section
+          id="enquiry"
+          ref={enquiryRef}
+          className="enquiry-premium-section py-150"
+        >
           <Container fluid>
             <Row className="align-items-center gap-4">
               {/* LEFT CONTENT */}

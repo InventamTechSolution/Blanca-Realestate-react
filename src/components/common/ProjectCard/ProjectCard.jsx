@@ -129,7 +129,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             View Details
           </ThemeBtn>
           <ThemeBtn
-            to={`/project/${project.id}`}
+            to={`/project/${project.id}#enquiry`}
             className="view-details-btn"
           >
             Enquireies
