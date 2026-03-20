@@ -32,7 +32,10 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                 <Icon icon="solar:document-text-outline" />
               </div>
               <div className="download-text">
-                <span className="title">BROCHURE</span>
+                <span className="title">PROJECT BROCHURE</span>
+                <span className="action">
+                  DOWNLOAD <i className="fas fa-arrow-down"></i>
+                </span>
               </div>
             </div>
             <div
@@ -45,6 +48,9 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               </div>
               <div className="download-text">
                 <span className="title">FACT SHEET</span>
+                <span className="action">
+                  DOWNLOAD <i className="fas fa-arrow-down"></i>
+                </span>
               </div>
             </div>
           </div>
