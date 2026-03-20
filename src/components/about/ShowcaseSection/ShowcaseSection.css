@@ -278,13 +278,14 @@
     }
 
     .navigation-arrows {
-        top: 24px;
-        right: 24px;
-        left: auto;
-        background: rgba(0, 0, 0, 0.52);
-        backdrop-filter: blur(10px);
-        padding: 5px;
-        border-radius: 30px;
+        bottom: 20px;
+        left: 20px;
+        top: auto;
+    }
+
+    .slide-counter {
+        left: 20px;
+        right: auto;
     }
 
     .nav-arrow {
