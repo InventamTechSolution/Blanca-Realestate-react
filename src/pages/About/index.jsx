@@ -42,7 +42,7 @@ const About = () => {
         });
     }, []);
 
-    const { teamItems, showcaseSlides } = React.useMemo(() => {
+    const { teamItems, showcaseSlides, heroMessages } = React.useMemo(() => {
         const raw = aboutPageResponse;
         const groups = raw?.data ?? raw?.message?.data ?? raw;
         const list = Array.isArray(groups) ? groups : [];
@@ -59,6 +59,7 @@ const About = () => {
 
         const teamRaw = byModel["Team"] ?? [];
         const showcaseRaw = byModel["Showcase"] ?? [];
+        const aboutUsRaw = byModel["AboutUs"] ?? [];
 
         const team = teamRaw
             .map((item) => {
@@ -82,7 +83,17 @@ const About = () => {
             })
             .filter((s) => s.title || s.text || s.image);
 
-        return { teamItems: team, showcaseSlides: showcase };
+        const aboutMessages = aboutUsRaw
+            .flatMap((item) => {
+                const messages = item?.fields?.messages;
+                if (Array.isArray(messages)) return messages;
+                if (typeof messages === "string") return [messages];
+                return [];
+            })
+            .map((message) => (typeof message === "string" ? message.trim() : ""))
+            .filter(Boolean);
+
+        return { teamItems: team, showcaseSlides: showcase, heroMessages: aboutMessages };
     }, [aboutPageResponse]);
 
     return (
@@ -92,7 +103,7 @@ const About = () => {
             </AnimatePresence>
             <Header />
             <main>
-                <AboutHero />
+                <AboutHero messages={heroMessages} />
                 <AboutSection />
                 <AboutBlueprintSection />
                 <VisionSection />
