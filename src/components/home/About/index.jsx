@@ -1,10 +1,56 @@
 import "./About.css";
+import React from "react";
 const bannerVideo1 = "/videos/banner-video-3.mp4";
 import { Col, Container, Row } from "react-bootstrap";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import { motion as Motion } from "framer-motion";
+import { useOtherField } from "../../../hooks/useOtherField";
 
 const About = () => {
+  const { data: homeAboutResponse } = useOtherField();
+
+  const aboutContent = React.useMemo(() => {
+    const fallback = {
+      title: "Every Corner Crafted with Care",
+      description:
+        "At Blanca, every home is designed with meticulous attention to detail so you can enjoy complete peace of mind.",
+      media: bannerVideo1,
+    };
+
+    const raw = homeAboutResponse;
+    const groups = raw?.data ?? raw?.message?.data ?? raw;
+    const list = Array.isArray(groups) ? groups : [];
+
+    const homeModelGroup = list.find(
+      (group) => String(group?.model ?? "") === "Home",
+    );
+    const homeModelData = Array.isArray(homeModelGroup?.data)
+      ? homeModelGroup.data
+      : [];
+    const firstHomeItem = homeModelData[0]?.fields ?? {};
+
+    const title =
+      typeof firstHomeItem?.title === "string" && firstHomeItem.title.trim()
+        ? firstHomeItem.title.trim()
+        : fallback.title;
+
+    const descriptionRaw =
+      typeof firstHomeItem?.description === "string"
+        ? firstHomeItem.description.trim()
+        : "";
+
+    const media =
+      typeof firstHomeItem?.image === "string" && firstHomeItem.image.trim()
+        ? firstHomeItem.image.trim()
+        : fallback.media;
+
+    return {
+      title,
+      descriptionHtml: descriptionRaw || fallback.description,
+      media,
+    };
+  }, [homeAboutResponse]);
+
   return (
     <section className="about-area about-modern" id="about">
       <Container>
@@ -19,7 +65,7 @@ const About = () => {
               viewport={{ once: true }}
             >
               <video
-                src={bannerVideo1}
+                src={aboutContent.media}
                 autoPlay
                 muted
                 loop
@@ -32,33 +78,15 @@ const About = () => {
           {/* Content Section */}
           <Col lg={6} className="about-modern__content">
             <h2 className="about-modern__title bs-font-Smothing">
-              Every Corner Crafted with Care
+              {aboutContent.title}
             </h2>
 
-            <p className="about-modern__text">
-              At Blanca, every home is designed with meticulous attention to
-              detail –{" "}
-              <span className="bs-font-Marjorie-italic">
-                so you can enjoy complete peace of mind.
-              </span>
-            </p>
-
-            <p className="about-modern__text">
-              From intelligent site planning and refined architectural finishes
-              to hand picked fittings and seamless customer handover, every
-              stage is thoughtfully{" "}
-              <span className="bs-font-Marjorie-italic">
-                executed, quality checked, and perfected.
-              </span>
-            </p>
-
-            <p className="about-modern__text">
-              The result is more than a real estate project in Mumbai or Navi
-              Mumbai – it's a thoughtfully{" "}
-              <span className="bs-font-Marjorie-italic">
-                crafted address you'll be proud to call your own.
-              </span>
-            </p>
+            <div
+              className="about-modern__text about_contains_div"
+              dangerouslySetInnerHTML={{
+                __html: aboutContent.descriptionHtml,
+              }}
+            />
 
             <div className="buttons">
               <ThemeBtn to="/projects" className="bs-font-montserrat">

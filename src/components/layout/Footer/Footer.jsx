@@ -18,7 +18,6 @@ const Footer = () => {
   const settingRecord = React.useMemo(() => {
     return settingResponse?.data?.[0] || null;
   }, [settingResponse]);
-  console.log("🚀 ~ Footer ~ settingRecord:", settingRecord)
 
   const toTelHref = React.useCallback((value) => {
     if (!value) return "";
