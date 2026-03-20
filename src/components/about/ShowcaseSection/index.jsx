@@ -1,136 +1,148 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 // import { Container } from "react-bootstrap";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ShowcaseSection.css";
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
-
-const ShowcaseSection = ({ slides: slidesProp }) => {
+const ShowcaseSection = ({ slides = [] }) => {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
   const slidesRef = useRef([]);
-  const dotsRef = useRef([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const slides = Array.isArray(slidesProp) ? slidesProp : [];
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const teamSlides = slidesRef.current.filter(Boolean);
-      const dots = dotsRef.current;
-
+      const teamSlides = slidesRef.current.filter((el) => el !== null);
       if (!containerRef.current || teamSlides.length === 0) return;
 
-      // Set initial state
-      gsap.set(teamSlides[0], { visibility: "visible", zIndex: 2 });
+      // Animate current slide
+      const currentSlide = teamSlides[currentIndex];
+      if (!currentSlide) return;
 
-      // Create the master timeline
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${window.innerHeight * (teamSlides.length - 1)}`,
-          pin: true,
-          scrub: 1, // Smooth scrolling
-          snap: {
-            snapTo: 1 / (teamSlides.length - 1),
-            duration: { min: 0.2, max: 0.5 },
-            delay: 0.1,
-            ease: "power2.inOut",
-          },
-          onUpdate: (self) => {
-            // Update dots based on progress
-            const activeIndex = Math.round(self.progress * (teamSlides.length - 1));
-            dots.forEach((dot, i) => {
-              if (dot) dot.classList.toggle("active", i === activeIndex);
-            });
-          },
-        },
-      });
+      const currentImage = currentSlide.querySelector("img");
+      const memberInfo = currentSlide.querySelectorAll(
+        ".member-name, .member-quote",
+      );
 
-      // Animate slides (Slide up reveal)
-      teamSlides.forEach((slide, i) => {
-        if (i === 0) return; // Skip first slide
+      // Hide all slides first (reset state)
+      gsap.set(teamSlides, { visibility: "hidden", y: "0%", zIndex: 1 });
 
-        const prevSlide = teamSlides[i - 1];
-        if (!slide) return;
+      // Setup current slide
+      gsap.set(currentSlide, { visibility: "visible", zIndex: 10 });
 
-        const currentImage = slide.querySelector("img");
-        const memberInfo = slide.querySelectorAll(
-          ".member-name, .member-quote",
+      // Animation timeline
+      const tl = gsap.timeline();
+
+      if (currentImage) {
+        tl.fromTo(
+          currentImage,
+          { scale: 1.1, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 1.2, ease: "power2.out" },
         );
+      }
 
-        // Set initial positions for incoming elements
-        gsap.set(slide, { y: "100%", visibility: "visible", zIndex: 10 + i });
-        if (currentImage) gsap.set(currentImage, { y: "20%" }); // Parallax start
-        gsap.set(memberInfo, { y: 30, opacity: 0 });
-
-        // Add to timeline
-        tl.to(
-          slide,
-          {
-            y: "0%",
-            ease: "none", // Smooth scroll scrub
-          },
-          i - 1,
-        );
-
-        // Parallax effect for current image
-        if (currentImage) {
-          tl.to(
-            currentImage,
-            {
-              y: "-10%",
-              ease: "none",
-            },
-            i - 1,
-          );
-        }
-
-        // Slow down previous image (parallax)
-        if (prevSlide) {
-          const prevImage = prevSlide.querySelector?.("img");
-          if (!prevImage) return;
-          tl.to(
-            prevImage,
-            {
-              y: "-20%",
-              ease: "none",
-            },
-            i - 1,
-          );
-        }
-
-        // Text animations
-        tl.to(
+      if (memberInfo.length > 0) {
+        tl.fromTo(
           memberInfo,
-          {
-            y: 0,
-            opacity: 1,
-            stagger: 0.1,
-            ease: "power2.out",
-          },
-          i - 0.5,
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" },
+          "-=0.8",
         );
-      });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [slides]);
+  }, [currentIndex, slides.length]);
 
   return (
-    <section className="team-showcase-section" ref={sectionRef}>
+    <section
+      className="team-showcase-section"
+      id="showcase-section"
+      ref={sectionRef}
+    >
+      <div className="container">
+        <div className="section-title text-center mb-0">
+          <div className="sub-title-wrapper">
+            <span className="sub-title common-subtitle">Value</span>
+          </div>
+          <div className="showcase-section-title bs-font-playfair-display">
+            {/* Mumbai Real Estate Developer Insights */}
+            Real Estate Developer Insights
+          </div>
+        </div>
+      </div>
       {/* <Container> */}
       <div className="team-slides-container" ref={containerRef}>
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`team-slide`}
+            className={`team-slide ${index === currentIndex ? "active" : ""}`}
             ref={(el) => (slidesRef.current[index] = el)}
           >
             <div className="team-slide-image">
-              {slide.image && <img src={slide?.image} alt={slide?.title} />}
+              {/* Slide Counter */}
+              <div className="slide-counter">
+                <span className="counter-current">
+                  {String(currentIndex + 1).padStart(2, "0")}
+                </span>
+                <span className="counter-total">
+                  / {String(slides.length).padStart(2, "0")}
+                </span>
+              </div>
+
+              <img src={slide.image} alt={slide.title} />
+              {/* Navigation Arrows */}
+              <div className="navigation-arrows">
+                <button
+                  className="nav-arrow prev"
+                  onClick={prevSlide}
+                  aria-label="Previous slide"
+                >
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M19 12H5M5 12L12 19M5 12L12 5"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="nav-arrow next"
+                  onClick={nextSlide}
+                  aria-label="Next slide"
+                >
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 12H19M19 12L12 5M19 12L12 19"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             <div className="team-slide-content">
@@ -139,17 +151,6 @@ const ShowcaseSection = ({ slides: slidesProp }) => {
             </div>
           </div>
         ))}
-
-        {/* Progress Dots */}
-        <div className="team-progress">
-          {slides.map((_, index) => (
-            <div
-              key={index}
-              className={`progress-dot ${index === 0 ? "active" : ""}`}
-              ref={(el) => (dotsRef.current[index] = el)}
-            ></div>
-          ))}
-        </div>
       </div>
       {/* </Container> */}
     </section>
