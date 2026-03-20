@@ -57,7 +57,10 @@ const ProjectDetails = () => {
     if (location.hash !== "#enquiry") return;
     // Wait for content to be rendered (including images/layout)
     const t = window.setTimeout(() => {
-      enquiryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      enquiryRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }, 0);
     return () => window.clearTimeout(t);
   }, [location.hash, isLoading]);
@@ -133,7 +136,7 @@ const ProjectDetails = () => {
           status={PROJECT_STATUS_LABELS[project?.project_status]}
           title={project?.project_name}
           location={`${project?.categories?.[0]?.category_name} - ${project?.project_location}`}
-          projectLink = {project?.project_link}
+          projectLink={project?.project_link}
         />
 
         <section className="project-about-section">
@@ -159,8 +162,12 @@ const ProjectDetails = () => {
                       <Icon icon="ph:article-light" />
                     </div>
                     <div className="btn-text">
-                      <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
-                      <span className="btn-subtitle">DOWNLOAD ↓</span>
+                      <span className="btn-title bs-font-montserrat">
+                        PROJECT BROCHURE
+                      </span>
+                      <span className="btn-subtitle">
+                        DOWNLOAD <i className="fas fa-arrow-down"></i>
+                      </span>
                     </div>
                   </button>
                   <button className="download-btn" onClick={openContactModal}>
@@ -168,8 +175,12 @@ const ProjectDetails = () => {
                       <Icon icon="ph:list-checks-light" />
                     </div>
                     <div className="btn-text">
-                      <span className="btn-title bs-font-montserrat">FACT SHEET</span>
-                      <span className="btn-subtitle">DOWNLOAD ↓</span>
+                      <span className="btn-title bs-font-montserrat">
+                        FACT SHEET
+                      </span>
+                      <span className="btn-subtitle">
+                        DOWNLOAD <i className="fas fa-arrow-down"></i>
+                      </span>
                     </div>
                   </button>
                 </div>
@@ -202,40 +213,42 @@ const ProjectDetails = () => {
           <Amenities amenities={project?.project_amenities} />
         )}
 
-        {project?.project_map_link && <section className="project-location">
-          {/* Heading */}
-          <div className="location-heading text-center mb-60 wow fadeInUp delay-0-3s">
-            <div className="sub-title-wrapper mb-20 d-inline-block">
-              <span className="sub-title common-subtitle">LOCATION</span>
+        {project?.project_map_link && (
+          <section className="project-location">
+            {/* Heading */}
+            <div className="location-heading text-center mb-60 wow fadeInUp delay-0-3s">
+              <div className="sub-title-wrapper mb-20 d-inline-block">
+                <span className="sub-title common-subtitle">LOCATION</span>
+              </div>
+
+              <h2 className="common-title bs-font-playfair-display text-white mb-20">
+                living at a prime address
+              </h2>
+
+              <p className="text-white opacity-50">
+                Strategically connected to everything that matters
+              </p>
             </div>
 
-            <h2 className="common-title bs-font-playfair-display text-white mb-20">
-              living at a prime address
-            </h2>
-
-            <p className="text-white opacity-50">
-              Strategically connected to everything that matters
-            </p>
-          </div>
-
-          <Container>
-            <Row className="align-items-center">
-              <Col className="wow fadeInRight">
-                <div className="location-map-wrap">
-                  <iframe
-                    src={project?.project_map_link}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    title="Project Location Map"
-                  ></iframe>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>} 
+            <Container>
+              <Row className="align-items-center">
+                <Col className="wow fadeInRight">
+                  <div className="location-map-wrap">
+                    <iframe
+                      src={project?.project_map_link}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      title="Project Location Map"
+                    ></iframe>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+        )}
 
         <section
           id="enquiry"
@@ -342,8 +355,9 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors.name ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors.name ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -373,8 +387,9 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors.email ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors.email ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -404,8 +419,9 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors.phone_number ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors.phone_number ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}
