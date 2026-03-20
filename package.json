@@ -29,6 +29,7 @@
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
     "react-dropzone": "^15.0.0",
+    "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.71.2",
     "react-phone-input-2": "^2.15.1",
     "react-player": "^3.4.0",

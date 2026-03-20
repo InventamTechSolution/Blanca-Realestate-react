@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import Marquee from "react-fast-marquee";
 import "./Header.css";
 import ChannelPartnerModal from "../../common/ChannelPartnerModal/ChannelPartnerModal";
+import { useOtherField } from "../../../hooks/useOtherField";
 const logo = "/images/logos/blanca-logo.png";
 
 const Header = () => {
@@ -16,7 +18,35 @@ const Header = () => {
   const navigate = useNavigate();
   const clickTimeout = useRef(null);
   const headerRef = useRef(null);
+  const { data: otherFieldResponse } = useOtherField();
 
+  const marqueeMessages = React.useMemo(() => {
+    const fallback = [
+      "Every detail matters when it's your life inside.",
+      "Smart Planning today. Strong returns tomorrow.",
+      "We care for you because real estate should earn trust.",
+    ];
+
+    const raw = otherFieldResponse;
+    const groups = raw?.data ?? raw?.message?.data ?? raw;
+    const list = Array.isArray(groups) ? groups : [];
+
+    const topMessageGroup = list.find(
+      (group) => String(group?.model ?? "") === "TopMessage",
+    );
+
+    const messages = (topMessageGroup?.data ?? [])
+      .flatMap((item) => {
+        const value = item?.fields?.messages ?? item?.fields?.message ?? item?.fields?.title;
+        if (Array.isArray(value)) return value;
+        if (typeof value === "string") return [value];
+        return [];
+      })
+      .map((message) => (typeof message === "string" ? message.trim() : ""))
+      .filter(Boolean);
+
+    return messages.length ? messages : fallback;
+  }, [otherFieldResponse]);
   const toggleSubmenu = (menu) => {
     setActiveSubmenu(activeSubmenu === menu ? null : menu);
   };
@@ -139,15 +169,24 @@ const Header = () => {
       {/* Header Top */}
       <div className="header-top">
         <div className="container-fluid">
-          <p className="header-top-text header-top-marquee">
-            <span className="header-top-marquee__track">
-              Every detail matters when it's your life inside.
-              <span className="header-top-sep">•</span>
-              Smart Planning today. Strong returns tomorrow.
-              <span className="header-top-sep">•</span>
-              We care for you because real estate should earn trust.
-            </span>
-          </p>
+          <div className="header-top-text header-top-marquee">
+            <Marquee
+              speed={42}
+              direction="left"
+              autoFill
+              pauseOnHover
+              gradient={false}
+            >
+              <span className="header-top-marquee__content">
+                {marqueeMessages.map((message, index) => (
+                  <span className="header-top-marquee__item" key={`${message}-${index}`}>
+                    <span>{message}</span>
+                    <span className="header-top-sep">•</span>
+                  </span>
+                ))}
+              </span>
+            </Marquee>
+          </div>
         </div>
       </div>
 
