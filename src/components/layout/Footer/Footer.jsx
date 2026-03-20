@@ -18,6 +18,7 @@ const Footer = () => {
   const settingRecord = React.useMemo(() => {
     return settingResponse?.data?.[0] || null;
   }, [settingResponse]);
+  console.log("🚀 ~ Footer ~ settingRecord:", settingRecord)
 
   const toTelHref = React.useCallback((value) => {
     if (!value) return "";
@@ -311,7 +312,7 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="social-link"
                   >
-                    <Icon icon={`lucide:${item.platform}`} />
+                    <Icon icon={`lucide:${item.platform.toLowerCase()}`} />
                   </a>
                 ))}
               </div>

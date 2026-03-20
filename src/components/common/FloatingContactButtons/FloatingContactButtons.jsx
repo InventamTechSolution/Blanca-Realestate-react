@@ -28,7 +28,7 @@ const FloatingContactButtons = () => {
             <a className="fab-item fab-call" href={`tel:${normalizedTel || phone}`} aria-label="Call us">
                 <Icon icon="lucide:phone" />
             </a>
-            <a className="fab-item fab-whatsapp" href={`https://wa.me/${normalizedDigits || phone}`} target="_blank" rel="noopener noreferrer"
+            <a className="fab-item fab-whatsapp" href={`https://api.whatsapp.com/send/?phone=${normalizedDigits || phone}`} target="_blank" rel="noopener noreferrer"
                 aria-label="WhatsApp">
                 <Icon icon="ri:whatsapp-line" />
             </a>
