@@ -154,7 +154,7 @@ const Header = () => {
       >
         <div className="header-upper">
           <div className="header-container clearfix">
-            <div className="header-inner rel d-flex align-items-center gap-5 justify-content-between">
+            <div className="header-inner rel d-flex align-items-center gap-4 justify-content-between">
 
               {/* Left Navigation */}
               <div className="header-desktop-nav header-nav-left">

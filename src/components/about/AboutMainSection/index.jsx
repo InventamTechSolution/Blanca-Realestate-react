@@ -4,7 +4,7 @@ import { motion as Montion } from "framer-motion";
 import "./aboutdetailmain.css";
 const aboutdetailImg1 = "/images/intro/architect-preparing-image.png";
 const aboutdetailImg2 = "/images/intro/architect-bulding-2.png";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 
 const AboutSection = () => {
   const sliderSettings = {
@@ -23,15 +23,16 @@ const AboutSection = () => {
   };
   return (
     <section className="about-page-section-main" id="about">
-      <div>
-        {/* Top Row: Heading and Intro Text */}
-        <div className="row align-items-start g-4">
-          <Col md={12} lg={5}>
+      <div className="top-section-spacing">
+        <Container>
+          {/* Top Row: Heading and Intro Text */}
+          <div className="about-page-discription-top-main">
             <Montion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
+              className="text-center"
             >
               <div className="sub-title-wrapper">
                 <span className="sub-title common-subtitle">About Us</span>
@@ -40,9 +41,6 @@ const AboutSection = () => {
                 Proven Trust & Excellence
               </h2>
             </Montion.div>
-          </Col>
-
-          <Col md={12} lg={7}>
             <Montion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -61,8 +59,8 @@ const AboutSection = () => {
                 thoughtful planning, and client satisfaction.
               </p>
             </Montion.div>
-          </Col>
-        </div>
+          </div>
+        </Container>
       </div>
 
       {/* Bottom Row: Content Box and Image */}
