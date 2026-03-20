@@ -286,6 +286,15 @@
     .slide-counter {
         left: 20px;
         right: auto;
+        padding: 6px 10px;
+    }
+
+    .counter-current {
+        font-size: 24px;
+    }
+
+    .counter-total {
+        font-size: 12px;
     }
 
     .nav-arrow {
