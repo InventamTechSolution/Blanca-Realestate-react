@@ -24,8 +24,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             {project.propertyType} | {project.configuration}
           </p>
           <div className="project-download-options-horizontal">
-            <div 
-              className="download-link brochure" 
+            <div
+              className="download-link brochure"
               onClick={() => openContactModal({ type: 'Brochure', project: project.title })}
               role="button"
             >
@@ -33,11 +33,14 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                 <Icon icon="solar:document-text-outline" />
               </div>
               <div className="download-text">
-                <span className="title">BROCHURE</span>
+                <span className="title">PROJECT BROCHURE</span>
+                <span className="action">
+                  DOWNLOAD <i className="fas fa-arrow-down"></i>
+                </span>
               </div>
             </div>
-            <div 
-              className="download-link fact-sheet" 
+            <div
+              className="download-link fact-sheet"
               onClick={() => openContactModal({ type: 'Fact Sheet', project: project.title })}
               role="button"
             >
@@ -46,6 +49,9 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               </div>
               <div className="download-text">
                 <span className="title">FACT SHEET</span>
+                <span className="action">
+                  DOWNLOAD <i className="fas fa-arrow-down"></i>
+                </span>
               </div>
             </div>
           </div>
@@ -89,8 +95,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
         </div>
 
         <div className="project-download-options-horizontal">
-          <div 
-            className="download-link brochure" 
+          <div
+            className="download-link brochure"
             onClick={() => openContactModal({ type: 'Brochure', project: project.title })}
             role="button"
           >
@@ -104,8 +110,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               </span>
             </div>
           </div>
-          <div 
-            className="download-link fact-sheet" 
+          <div
+            className="download-link fact-sheet"
             onClick={() => openContactModal({ type: 'Fact Sheet', project: project.title })}
             role="button"
           >

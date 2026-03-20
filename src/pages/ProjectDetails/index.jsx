@@ -156,35 +156,27 @@ const ProjectDetails = () => {
                   {project?.project_overview_description}
                 </div>
 
-                <div className="download-buttons-wrapper mt-40">
-                  <button className="download-btn" onClick={openContactModal}>
-                    <div className="btn-icon">
-                      <Icon icon="ph:article-light" />
-                    </div>
-                    <div className="btn-text">
-                      <span className="btn-title bs-font-montserrat">
-                        PROJECT BROCHURE
-                      </span>
-                      <span className="btn-subtitle">
-                        DOWNLOAD <i className="fas fa-arrow-down"></i>
-                      </span>
-                    </div>
-                  </button>
-                  <button className="download-btn" onClick={openContactModal}>
-                    <div className="btn-icon">
-                      <Icon icon="ph:list-checks-light" />
-                    </div>
-                    <div className="btn-text">
-                      <span className="btn-title bs-font-montserrat">
-                        FACT SHEET
-                      </span>
-                      <span className="btn-subtitle">
-                        DOWNLOAD <i className="fas fa-arrow-down"></i>
-                      </span>
-                    </div>
-                  </button>
-                </div>
-              </Col>
+                                <div className="download-buttons-wrapper mt-40">
+                                    <button className="download-btn" onClick={openContactModal}>
+                                        <div className="btn-icon">
+                                            <Icon icon="ph:article-light" />
+                                        </div>
+                                        <div className="btn-text">
+                                            <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
+                                            <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
+                                        </div>
+                                    </button>
+                                    <button className="download-btn" onClick={openContactModal}>
+                                        <div className="btn-icon">
+                                            <Icon icon="ph:list-checks-light" />
+                                        </div>
+                                        <div className="btn-text">
+                                            <span className="btn-title bs-font-montserrat">FACT SHEET</span>
+                                            <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </Col>
 
               {/* Right Slider */}
               <Col lg={6} className="wow fadeInRight">
