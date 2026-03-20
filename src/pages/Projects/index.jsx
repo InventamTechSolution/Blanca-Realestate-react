@@ -13,6 +13,8 @@ import { useProjectLocations, useProjectsWithFilter } from "../../hooks/useProje
 import { useCategories } from "../../hooks/useCategories";
 
 const Projects = () => {
+  const defaultMapUrl =
+    "https://www.google.com/maps?q=Navi%20Mumbai%2C%20Maharashtra&output=embed";
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const filter = searchParams.get("filter");
@@ -368,7 +370,7 @@ const Projects = () => {
                         title="Project Location"
                         src={
                           filteredProjects.find((p) => p.id === activeProjectId)
-                            ?.mapUrl || ""
+                            ?.mapUrl || defaultMapUrl
                         }
                         width="100%"
                         height="100%"
