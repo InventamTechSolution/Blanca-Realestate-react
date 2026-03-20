@@ -5,7 +5,8 @@ import { useContactModal } from '../../../context/ContactModalContext';
 import './FloatingContactButtons.css';
 
 const FloatingContactButtons = () => {
-    const { data: settingResponse } = useSetting();
+    const { data: settingResponse } = useSetting({ show_on_home_page: true });
+    console.log("🚀 ~ FloatingContactButtons ~ settingResponse:", settingResponse)
     const { openContactModal } = useContactModal();
 
     const settingRecord = React.useMemo(() => {
@@ -17,8 +18,7 @@ const FloatingContactButtons = () => {
         return candidate || null;
     }, [settingResponse]);
     
-    const phone = settingRecord?.setting_contact_number || ""
-    const email = settingRecord?.setting_email
+    const phone = settingRecord?.setting_contact_number?.[0]?.number || "+91 7021913284"
 
     const normalizedDigits = String(phone).replace(/[^\d]/g, "");
     const normalizedTel = String(phone).trim().replace(/[^\d+]/g, "");

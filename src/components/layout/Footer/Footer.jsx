@@ -16,7 +16,6 @@ const Footer = () => {
   const [showThankYou, setShowThankYou] = React.useState(false);
   const { data: settingResponse } = useSetting({ show_on_home_page: true });
   const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
-  console.log("🚀 ~ Footer ~ categoryResponse:", categoryResponse)
 
   const settingRecord = React.useMemo(() => {
     return settingResponse?.data?.[0] || null;
