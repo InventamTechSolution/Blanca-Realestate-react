@@ -6,7 +6,6 @@ import './FloatingContactButtons.css';
 
 const FloatingContactButtons = () => {
     const { data: settingResponse } = useSetting({ show_on_home_page: true });
-    console.log("🚀 ~ FloatingContactButtons ~ settingResponse:", settingResponse)
     const { openContactModal } = useContactModal();
 
     const settingRecord = React.useMemo(() => {
