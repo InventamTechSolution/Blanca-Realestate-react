@@ -149,7 +149,44 @@
         max-width: 550px;
         padding-left: 19px;
     }
+
+    .showcase-section-title {
+        font-size: 18px;
+        letter-spacing: 0px;
+        margin-bottom: 12px;
+    }
+
+    .team-slide-content {
+        padding: 8% 7%;
+        justify-content: flex-start;
+    }
+
+    .navigation-arrows {
+        bottom: 20px;
+        left: 20px;
+        top: auto;
+    }
+
+    .slide-counter {
+        left: 20px;
+        right: auto;
+    }
+
+    .nav-arrow {
+        width: 36px;
+        height: 36px;
+        background: transparent;
+        border: none;
+    }
+
+    .nav-arrow:hover {
+        transform: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
 }
+
+
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
 
