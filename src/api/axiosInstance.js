@@ -5,6 +5,7 @@ export const axiosInstance = axios.create({
   baseURL: BASE_API_URL,
   headers: {
     "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true",
     "Cache-Control": "no-cache, no-store, must-revalidate max-age=0",
     Pragma: "no-cache",
   },
