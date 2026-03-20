@@ -6,6 +6,7 @@ import $ from "jquery";
 import "jquery.ripples";
 import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
 import { useSetting } from "../../../hooks/useSetting";
+import { useCategories } from "../../../hooks/useCategories";
 import "./Footer.css";
 
 const logo = "/images/logos/blanca-logo.png";
@@ -14,6 +15,8 @@ const Footer = () => {
   const footerRef = React.useRef(null);
   const [showThankYou, setShowThankYou] = React.useState(false);
   const { data: settingResponse } = useSetting({ show_on_home_page: true });
+  const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
+  console.log("🚀 ~ Footer ~ categoryResponse:", categoryResponse)
 
   const settingRecord = React.useMemo(() => {
     return settingResponse?.data?.[0] || null;
@@ -88,6 +91,42 @@ const Footer = () => {
       linkedin: findLink("linkedin"),
     };
   }, [settingRecord]);
+
+  const propertyCategories = React.useMemo(() => {
+    const fallback = [
+      { name: "Commercial", slug: "commercial" },
+      { name: "Residential", slug: "residential" },
+    ];
+
+    const list = categoryResponse?.data;
+    if (!Array.isArray(list) || list.length === 0) return fallback;
+
+    const mapped = list
+      .map((item) => {
+        const name =
+          item?.category_name ??
+          item?.career_category_name ??
+          item?.name ??
+          item?.title ??
+          "";
+        const slug =
+          item?.category_slug ??
+          item?.career_category_slug ??
+          item?.slug ??
+          "";
+
+        const normalizedName = String(name).trim();
+        const normalizedSlug =
+          String(slug).trim() ||
+          normalizedName.toLowerCase().replace(/\s+/g, "-");
+
+        if (!normalizedName) return null;
+        return { name: normalizedName, slug: normalizedSlug };
+      })
+      .filter(Boolean);
+
+    return mapped.length ? mapped : fallback;
+  }, [categoryResponse]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -208,12 +247,13 @@ const Footer = () => {
               <div className="footer-links-column">
                 <h5 className="footer-title">Properties</h5>
                 <ul className="footer-links">
-                  <li>
-                    <Link to="/projects?filter=commercial">Commercial</Link>
-                  </li>
-                  <li>
-                    <Link to="/projects?filter=residential">Residential</Link>
-                  </li>
+                  {propertyCategories.map((category) => (
+                    <li key={category.slug}>
+                      <Link to={`/projects?filter=${encodeURIComponent(category.slug)}`}>
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

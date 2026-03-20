@@ -5,6 +5,7 @@ import Marquee from "react-fast-marquee";
 import "./Header.css";
 import ChannelPartnerModal from "../../common/ChannelPartnerModal/ChannelPartnerModal";
 import { useOtherField } from "../../../hooks/useOtherField";
+import { useCategories } from "../../../hooks/useCategories";
 const logo = "/images/logos/blanca-logo.png";
 
 const Header = () => {
@@ -19,6 +20,7 @@ const Header = () => {
   const clickTimeout = useRef(null);
   const headerRef = useRef(null);
   const { data: otherFieldResponse } = useOtherField();
+  const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
 
   const marqueeMessages = React.useMemo(() => {
     const fallback = [
@@ -47,6 +49,42 @@ const Header = () => {
 
     return messages.length ? messages : fallback;
   }, [otherFieldResponse]);
+
+  const propertyCategories = React.useMemo(() => {
+    const fallback = [
+      { name: "Commercial", slug: "commercial" },
+      { name: "Residential", slug: "residential" },
+    ];
+
+    const list = categoryResponse?.data;
+    if (!Array.isArray(list) || list.length === 0) return fallback;
+
+    const mapped = list
+      .map((item) => {
+        const name =
+          item?.category_name ??
+          item?.career_category_name ??
+          item?.name ??
+          item?.title ??
+          "";
+        const slug =
+          item?.category_slug ??
+          item?.career_category_slug ??
+          item?.slug ??
+          "";
+
+        const normalizedName = String(name).trim();
+        const normalizedSlug =
+          String(slug).trim() ||
+          normalizedName.toLowerCase().replace(/\s+/g, "-");
+
+        if (!normalizedName) return null;
+        return { name: normalizedName, slug: normalizedSlug };
+      })
+      .filter(Boolean);
+
+    return mapped.length ? mapped : fallback;
+  }, [categoryResponse]);
   const toggleSubmenu = (menu) => {
     setActiveSubmenu(activeSubmenu === menu ? null : menu);
   };
@@ -313,22 +351,16 @@ const Header = () => {
                       Properties
                     </Link>
                     <ul className="header-submenu">
-                      <li>
-                        <Link
-                          to="/projects?filter=commercial"
-                          onClick={closeMenus}
-                        >
-                          Commercial
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/projects?filter=residential"
-                          onClick={closeMenus}
-                        >
-                          Residential
-                        </Link>
-                      </li>
+                      {propertyCategories.map((category, index) => (
+                        <li key={`${category.slug}-${index}`}>
+                          <Link
+                            to={`/projects?filter=${encodeURIComponent(category.slug)}`}
+                            onClick={closeMenus}
+                          >
+                            {category.name}
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </li>
                 </ul>
@@ -546,22 +578,16 @@ const Header = () => {
                                 : "none",
                           }}
                         >
-                          <li>
-                            <Link
-                              to="/projects?filter=commercial"
-                              onClick={closeMenus}
-                            >
-                              Commercial
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              to="/projects?filter=residential"
-                              onClick={closeMenus}
-                            >
-                              Residential
-                            </Link>
-                          </li>
+                          {propertyCategories.map((category, index) => (
+                            <li key={`${category.slug}-${index}`}>
+                              <Link
+                                to={`/projects?filter=${encodeURIComponent(category.slug)}`}
+                                onClick={closeMenus}
+                              >
+                                {category.name}
+                              </Link>
+                            </li>
+                          ))}
                         </ul>
                         <div
                           className="dropdown-btn"

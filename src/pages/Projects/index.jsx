@@ -10,6 +10,7 @@ import ProjectCard from "../../components/common/ProjectCard/ProjectCard";
 import Preloader from "../../components/common/Preloader";
 import { AnimatePresence } from "framer-motion";
 import { useProjectLocations, useProjectsWithFilter } from "../../hooks/useProjects";
+import { useCategories } from "../../hooks/useCategories";
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Projects = () => {
   const [activeProjectId, setActiveProjectId] = useState(null);
 
   const { data: locationData } = useProjectLocations();
+  const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
 
   const { data, isLoading } = useProjectsWithFilter({
     page: 1,
@@ -73,11 +75,44 @@ const Projects = () => {
     if (!hasProjects) setActiveProjectId(null);
   }, [hasProjects]);
 
-  const typeOptions = [
-    { label: "All Projects", value: "all" },
-    { label: "Commercial", value: "commercial" },
-    { label: "Residential", value: "residential" },
-  ];
+  const typeOptions = React.useMemo(() => {
+    const fallback = [
+      { label: "Commercial", value: "commercial" },
+      { label: "Residential", value: "residential" },
+    ];
+
+    const list = categoryResponse?.data;
+    const categoryOptions = Array.isArray(list)
+      ? list
+          .map((item) => {
+            const label =
+              item?.category_name ??
+              item?.career_category_name ??
+              item?.name ??
+              item?.title ??
+              "";
+            const slug =
+              item?.category_slug ??
+              item?.career_category_slug ??
+              item?.slug ??
+              "";
+
+            const normalizedLabel = String(label).trim();
+            const normalizedValue =
+              String(slug).trim() ||
+              normalizedLabel.toLowerCase().replace(/\s+/g, "-");
+
+            if (!normalizedLabel) return null;
+            return { label: normalizedLabel, value: normalizedValue };
+          })
+          .filter(Boolean)
+      : [];
+
+    return [
+      { label: "All Projects", value: "all" },
+      ...(categoryOptions.length ? categoryOptions : fallback),
+    ];
+  }, [categoryResponse]);
   // ... rest of the file
 
   const statusOptions = [
