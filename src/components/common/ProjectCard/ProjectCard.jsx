@@ -23,8 +23,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             {project.propertyType} | {project.configuration}
           </p>
           <div className="project-download-options-horizontal">
-            <div 
-              className="download-link brochure" 
+            <div
+              className="download-link brochure"
               onClick={() => openContactModal({ type: 'Brochure', project: project.title })}
               role="button"
             >
@@ -35,8 +35,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                 <span className="title">BROCHURE</span>
               </div>
             </div>
-            <div 
-              className="download-link fact-sheet" 
+            <div
+              className="download-link fact-sheet"
               onClick={() => openContactModal({ type: 'Fact Sheet', project: project.title })}
               role="button"
             >
@@ -88,8 +88,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
         </div>
 
         <div className="project-download-options-horizontal">
-          <div 
-            className="download-link brochure" 
+          <div
+            className="download-link brochure"
             onClick={() => openContactModal({ type: 'Brochure', project: project.title })}
             role="button"
           >
@@ -103,8 +103,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               </span>
             </div>
           </div>
-          <div 
-            className="download-link fact-sheet" 
+          <div
+            className="download-link fact-sheet"
             onClick={() => openContactModal({ type: 'Fact Sheet', project: project.title })}
             role="button"
           >

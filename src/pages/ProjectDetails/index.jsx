@@ -102,7 +102,7 @@ const ProjectDetails = () => {
                                         </div>
                                         <div className="btn-text">
                                             <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
-                                            <span className="btn-subtitle">DOWNLOAD ↓</span>
+                                            <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
                                         </div>
                                     </button>
                                     <button className="download-btn" onClick={openContactModal}>
@@ -111,7 +111,7 @@ const ProjectDetails = () => {
                                         </div>
                                         <div className="btn-text">
                                             <span className="btn-title bs-font-montserrat">FACT SHEET</span>
-                                            <span className="btn-subtitle">DOWNLOAD ↓</span>
+                                            <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
                                         </div>
                                     </button>
                                 </div>
