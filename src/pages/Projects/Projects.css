@@ -474,30 +474,47 @@
 /* Map View Container */
 .map-view-container {
     display: grid;
-    grid-template-columns: 500px 1fr;
-    gap: 24px;
+    grid-template-columns: 550px 1fr;
+    gap: 0px;
     background: var(--black-110);
-    /* border-radius: 15px; */
     overflow: hidden;
-    /* height: 700px;
-    border: 1px solid var(--black-90); */
+    height: 100vh;
+    position: relative;
+    border: 1px solid var(--lg-highlight);
+    border-radius: 24px;
 }
 
 .map-side-list {
-    padding: 20px;
+    padding: 20px 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     color: var(--lg-text);
-    /* background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--lg-highlight); */
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    /* box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1); */
+    /* backdrop-filter: blur(4px); */
+    /* -webkit-backdrop-filter: blur(4px); */
     transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, border-color 0.2s ease, backdrop-filter 0.4s ease;
-    overflow: hidden;
-    isolation: isolate;
-    border-radius: 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* isolation: isolate; */
+    height: 100%;
+}
+
+.map-side-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.map-side-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.map-side-list::-webkit-scrollbar-thumb {
+    background: var(--lg-highlight);
+    border-radius: 10px;
+}
+
+.map-side-list::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
 
 .map-side-list::before {
@@ -521,7 +538,8 @@
 
 .map-side-view {
     height: 100%;
-    position: relative;
+    position: sticky;
+    top: 0;
 }
 
 #project-map-placeholder {
