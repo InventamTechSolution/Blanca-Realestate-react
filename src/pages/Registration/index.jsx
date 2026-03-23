@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useRegisterChannelPartner } from '../../hooks/useChannelPartner';
 import Preloader from '../../components/common/Preloader';
 import Header from '../../components/layout/Header/Header';
@@ -10,6 +11,7 @@ import SmallHeroBanner from '../../components/common/Small-hero-banner';
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
 import IndividualForm from "./IndividualForm";
 import AgencyForm from "./AgencyForm";
+import { channelPartnerSchema } from '../../schema/validationSchema';
 import "./ragistration.css";
 import Footer from '../../components/layout/Footer/Footer';
 
@@ -37,13 +39,17 @@ const Registration = () => {
         email: "",
         pan: "",
         country: "India",
-        state: "",
-        city: "",
+        // state: "",
+        // city: "",
         address: "",
-        pinCode: "",
+        pinCode: 0,
         heardAboutUs: "",
-        newsOffers: false,
-        privacyPolicy: false
+        referFullname: "",
+        referPhone: "",
+        referEmail: "",
+        referAddress: "",
+        // newsOffers: false,
+        // privacyPolicy: false
     }), [location.state?.agentType]);
 
     const {
@@ -51,14 +57,28 @@ const Registration = () => {
         handleSubmit,
         setValue,
         watch,
-        reset
+        reset,
+        trigger,
+        formState: { errors }
     } = useForm({
         defaultValues,
-        // resolver: yupResolver(channelPartnerSchema),
+        mode: "onChange",
+        resolver: yupResolver(channelPartnerSchema),
     });
 
     const agentType = watch("agentType");
     const isIndividual = agentType === INDIVIDUAL_AGENT_TYPE;
+
+    const validateBeforeAddressTab = React.useCallback(async () => {
+        const fieldsToValidate = isIndividual
+            ? ["agentType", "fullname", "phone", "email", "address"]
+            : ["agentType", "fullname", "phone", "email"];
+
+        const isValid = await trigger(fieldsToValidate, { shouldFocus: true });
+        if (isValid) {
+            setActiveTab("address-details");
+        }
+    }, [isIndividual, trigger]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -80,19 +100,35 @@ const Registration = () => {
                     ? "agency"
                     : String(data.agentType || "").toLowerCase();
 
-        const payload = {
-            fullname: data.fullname || "",
-            agent_type,
-            phone_number: data.phone || "",
-            email: data.email || "",
-            country: data.country || "",
-            pincode: data.pinCode || "",
-            address: data.address || "",
-            gstin: data.gstin || "",
-            contact_name: data.contactPerson || "",
-            rera_number: data.reraNo || "",
-            pan_number: data.pan || ""
-        };
+        const payload =
+            agent_type === "individual"
+                ? {
+                    fullname: data.fullname || "",
+                    agent_type,
+                    phone_number: data.phone || "",
+                    email: data.email || "",
+                    country: data.country || "",
+                    // pincode: data.pinCode || "",
+                    address: data.address || "",
+                    source_of_acknowledgement: data.heardAboutUs || "",
+                    referral_name: data.referFullname || "",
+                    referral_contact_number: data.referPhone || "",
+                    referral_email: data.referEmail || "",
+                    referral_address: data.referAddress || "",
+                }
+                : {
+                    fullname: data.fullname || "",
+                    agent_type,
+                    phone_number: data.phone || "",
+                    email: data.email || "",
+                    country: data.country || "",
+                    pincode: data.pinCode || 0,
+                    address: data.address || "",
+                    gstin: data.gstin || "",
+                    contact_name: data.contactPerson || "",
+                    rera_number: data.reraNo || "",
+                    pan_number: data.pan || "",
+                };
 
         try {
             await registerPartner(payload);
@@ -139,7 +175,7 @@ const Registration = () => {
                                 <div
                                     className={`reg-tab-btn ${activeTab === "address-details" ? "active" : ""
                                         }`}
-                                    onClick={() => setActiveTab("address-details")}
+                                    onClick={validateBeforeAddressTab}
                                 >
                                     <div className="tab-icon">
                                         <i className="fas fa-map-marker-alt"></i>
@@ -162,9 +198,10 @@ const Registration = () => {
                                             activeTab={activeTab}
                                             setActiveTab={setActiveTab}
                                             agentType={agentType}
+                                            errors={errors}
+                                            trigger={trigger}
                                             isSubmitting={isSubmitting}
                                             submitError={submitError}
-                                            watch={watch}
                                             individualAgentTypeLabel={INDIVIDUAL_AGENT_TYPE}
                                         />
                                     ) : (
@@ -173,6 +210,8 @@ const Registration = () => {
                                             activeTab={activeTab}
                                             setActiveTab={setActiveTab}
                                             agentType={agentType}
+                                            errors={errors}
+                                            trigger={trigger}
                                             isSubmitting={isSubmitting}
                                             submitError={submitError}
                                             individualAgentTypeLabel={INDIVIDUAL_AGENT_TYPE}

@@ -86,7 +86,7 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
                 current_ctc: data.currentCtc,
                 expected_ctc: data.expectedCtc,
                 experience: data.experience,
-                joining_preference: data.joiningPreference,
+                priority_for_joining: data.joiningPreference,
                 resume: data.resume,
                 pitch: data.description
             };

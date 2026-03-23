@@ -61,3 +61,93 @@ export const jobApplySchema = yup.object().shape({
   resume: yup.string().required("Resume is required"),
   description: yup.string().required("Please describe your experience").matches(REGEX.startingSpaceNotAllowed, "Please enter a valid message").max(500, "Description must be at most 500 characters")
 });
+
+export const channelPartnerSchema = yup.object().shape({
+  agentType: yup.string().required("Agent type is required"),
+  fullname: yup
+    .string()
+    .required("Name is required")
+    .matches(REGEX.fullName, "Name should contain only letters and spaces"),
+  phone: yup
+    .string()
+    .required("Mobile number is required")
+    .matches(REGEX.phone, "Please enter a valid phone number"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .matches(REGEX.email, "Please enter a valid email"),
+  country: yup.string().required("Country is required"),
+  address: yup
+    .string()
+    .required("Address is required")
+    .matches(REGEX.startingSpaceNotAllowed, "Please enter a valid address"),
+  pinCode: yup
+    .string()
+    .nullable()
+    .test(
+      "pincode-format",
+      "PinCode must be 6 digits or 0",
+      (value) => !value || value === "0" || /^\d{6}$/.test(value),
+    ),
+  gstin: yup.string().nullable(),
+  contactPerson: yup
+    .string()
+    .nullable()
+    .test(
+      "contact-person-format",
+      "Contact person name should contain only letters and spaces",
+      (value) => !value || REGEX.fullName.test(value),
+    ),
+  reraNo: yup.string().nullable(),
+  pan: yup
+    .string()
+    .nullable()
+    .test(
+      "pan-format",
+      "Please enter a valid PAN number",
+      (value) => !value || /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/i.test(value),
+    ),
+  heardAboutUs: yup.string().nullable(),
+  referFullname: yup
+    .string()
+    .when("agentType", {
+      is: "Individual Registration",
+      then: (schema) =>
+        schema
+          .required("Name is required")
+          .matches(REGEX.fullName, "Name should contain only letters and spaces"),
+      otherwise: (schema) => schema.nullable(),
+    }),
+  referPhone: yup
+    .string()
+    .when("agentType", {
+      is: "Individual Registration",
+      then: (schema) =>
+        schema
+          .required("Mobile number is required")
+          .matches(REGEX.phone, "Please enter a valid phone number"),
+      otherwise: (schema) => schema.nullable(),
+    }),
+  referEmail: yup
+    .string()
+    .when("agentType", {
+      is: "Individual Registration",
+      then: (schema) =>
+        schema
+          .required("Email is required")
+          .matches(REGEX.email, "Please enter a valid email"),
+      otherwise: (schema) => schema.nullable(),
+    }),
+  referAddress: yup
+    .string()
+    .when("agentType", {
+      is: "Individual Registration",
+      then: (schema) =>
+        schema
+          .required("Address is required")
+          .matches(REGEX.startingSpaceNotAllowed, "Please enter a valid address"),
+      otherwise: (schema) => schema.nullable(),
+    }),
+  newsOffers: yup.boolean(),
+  privacyPolicy: yup.boolean(),
+});

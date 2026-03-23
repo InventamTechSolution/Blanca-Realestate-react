@@ -3,6 +3,7 @@ import { Row, Col, Button } from "react-bootstrap";
 import { Controller } from "react-hook-form";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
 import InputField from "../../components/common/InputField/InputField";
+import TextArea from "../../components/common/TextArea/TextArea";
 import IndividualFields from "./IndividualFields";
 
 const IndividualForm = ({
@@ -10,13 +11,24 @@ const IndividualForm = ({
     activeTab,
     setActiveTab,
     agentType,
+    errors,
+    trigger,
     individualAgentTypeLabel,
     isSubmitting,
-    submitError,
-    watch
+    submitError
 }) => {
     // CHANGE: Individual form extracted into its own component.
-    const heardAboutUs = watch("heardAboutUs");
+
+    const handleNextStep = React.useCallback(async () => {
+        const isValid = await trigger(
+            ["agentType", "fullname", "phone", "email", "address"],
+            { shouldFocus: true }
+        );
+
+        if (isValid) {
+            setActiveTab("address-details");
+        }
+    }, [setActiveTab, trigger]);
 
     return (
         <>
@@ -44,6 +56,9 @@ const IndividualForm = ({
                                     />
                                 )}
                             />
+                            {errors?.agentType && (
+                                <p className="text-danger small mt-1">{errors.agentType.message}</p>
+                            )}
                             {agentType === individualAgentTypeLabel && (
                                 <p className="note-text mt-3">
                                     Note: On reference you will get reward. 
@@ -67,17 +82,24 @@ const IndividualForm = ({
                                     />
                                 )}
                             />
+                            {errors?.fullname && (
+                                <p className="text-danger small mt-1">{errors.fullname.message}</p>
+                            )}
                         </Col>
                     </Row>
 
                     {/* CHANGE: name is rendered above; exclude it here to avoid duplication */}
-                    <IndividualFields control={control} exclude={["fullname"]} />
+                    <IndividualFields
+                        control={control}
+                        errors={errors}
+                        exclude={["fullname"]}
+                    />
 
                     <div className="tab-nav-btns mt-5">
                         <Button
                             type="button"
                             className="theme-btn"
-                            onClick={() => setActiveTab("address-details")}
+                            onClick={handleNextStep}
                         >
                             Next: Refer
                         </Button>
@@ -110,11 +132,14 @@ const IndividualForm = ({
                                     />
                                 )}
                             />
+                            {errors?.heardAboutUs && (
+                                <p className="text-danger small mt-1">{errors.heardAboutUs.message}</p>
+                            )}
                         </Col>
                         {/* CHANGE: keep Name beside Refer dropdown (same layout as Personal Details). */}
                         <Col md={6}>
                             <Controller
-                                name="fullname"
+                                name="referFullname"
                                 control={control}
                                 rules={{ required: true }}
                                 render={({ field }) => (
@@ -128,12 +153,77 @@ const IndividualForm = ({
                                     />
                                 )}
                             />
+                            {errors?.referFullname && (
+                                <p className="text-danger small mt-1">{errors.referFullname.message}</p>
+                            )}
                         </Col>
                     </Row>
 
-                    {/* CHANGE: show the SAME Individual fields on first render (no gating by refer selection). */}
-                    {/** Keeping names identical intentionally so it edits the same form fields (no new payload changes). */}
-                    <IndividualFields control={control} exclude={["fullname"]} />
+                    <Row className="gx-4 gy-4 mt-3">
+                        <Col md={6}>
+                            <Controller
+                                name="referPhone"
+                                control={control}
+                                rules={{ required: true }}
+                                render={({ field }) => (
+                                    <InputField
+                                        label="Mobile Number *"
+                                        placeholder="Enter Mobile Number"
+                                        name={field.name}
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                        required
+                                    />
+                                )}
+                            />
+                            {errors?.referPhone && (
+                                <p className="text-danger small mt-1">{errors.referPhone.message}</p>
+                            )}
+                        </Col>
+
+                        <Col md={6}>
+                            <Controller
+                                name="referEmail"
+                                control={control}
+                                rules={{ required: true }}
+                                render={({ field }) => (
+                                    <InputField
+                                        type="email"
+                                        label="Email *"
+                                        placeholder="Enter Email"
+                                        name={field.name}
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                        required
+                                    />
+                                )}
+                            />
+                            {errors?.referEmail && (
+                                <p className="text-danger small mt-1">{errors.referEmail.message}</p>
+                            )}
+                        </Col>
+
+                        <Col md={12}>
+                            <Controller
+                                name="referAddress"
+                                control={control}
+                                rules={{ required: true }}
+                                render={({ field }) => (
+                                    <TextArea
+                                        label="Address *"
+                                        placeholder="Enter Address"
+                                        name={field.name}
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                        required
+                                    />
+                                )}
+                            />
+                            {errors?.referAddress && (
+                                <p className="text-danger small mt-1">{errors.referAddress.message}</p>
+                            )}
+                        </Col>
+                    </Row>
 
                     {submitError ? (
                         <div className="mt-3">

@@ -4,7 +4,7 @@ import { Controller } from "react-hook-form";
 import InputField from "../../components/common/InputField/InputField";
 import TextArea from "../../components/common/TextArea/TextArea";
 
-const IndividualFields = ({ control, exclude = [] }) => {
+const IndividualFields = ({ control, errors, exclude = [] }) => {
     // CHANGE: extracted shared Individual fields to reuse in both Individual + Refer sections (no UI duplication).
     return (
         <>
@@ -27,6 +27,9 @@ const IndividualFields = ({ control, exclude = [] }) => {
                                 />
                             )}
                         />
+                        {errors?.fullname && (
+                            <p className="text-danger small mt-1">{errors.fullname.message}</p>
+                        )}
                     </Col>
                 )}
 
@@ -47,6 +50,9 @@ const IndividualFields = ({ control, exclude = [] }) => {
                         />
                     )}
                 />
+                {errors?.phone && (
+                    <p className="text-danger small mt-1">{errors.phone.message}</p>
+                )}
             </Col>
 
             <Col md={6}>
@@ -69,6 +75,9 @@ const IndividualFields = ({ control, exclude = [] }) => {
                         />
                     )}
                 />
+                {errors?.email && (
+                    <p className="text-danger small mt-1">{errors.email.message}</p>
+                )}
             </Col>
 
                 <Col md={12}>
@@ -87,6 +96,9 @@ const IndividualFields = ({ control, exclude = [] }) => {
                             />
                         )}
                     />
+                    {errors?.address && (
+                        <p className="text-danger small mt-1">{errors.address.message}</p>
+                    )}
                 </Col>
             </Row>
         </>

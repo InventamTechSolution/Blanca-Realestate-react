@@ -13,6 +13,8 @@ const AgencyForm = ({
     activeTab,
     setActiveTab,
     agentType,
+    errors,
+    trigger,
     individualAgentTypeLabel,
     isSubmitting,
     submitError
@@ -25,6 +27,17 @@ const AgencyForm = ({
             })),
         []
     );
+
+    const handleNextStep = React.useCallback(async () => {
+        const isValid = await trigger(
+            ["agentType", "fullname", "phone", "email"],
+            { shouldFocus: true }
+        );
+
+        if (isValid) {
+            setActiveTab("address-details");
+        }
+    }, [setActiveTab, trigger]);
 
     return (
         <>
@@ -52,6 +65,9 @@ const AgencyForm = ({
                                     />
                                 )}
                             />
+                            {errors?.agentType && (
+                                <p className="text-danger small mt-1">{errors.agentType.message}</p>
+                            )}
                             {agentType === individualAgentTypeLabel && (
                                 <p className="note-text mt-3">
                                     Note: On reference you will get reward. 
@@ -74,6 +90,9 @@ const AgencyForm = ({
                                         />
                                     )}
                                 />
+                                {errors?.gstin && (
+                                    <p className="text-danger small mt-1">{errors.gstin.message}</p>
+                                )}
                             </Col>
                         )}
                     </Row>
@@ -95,6 +114,9 @@ const AgencyForm = ({
                                     />
                                 )}
                             />
+                            {errors?.fullname && (
+                                <p className="text-danger small mt-1">{errors.fullname.message}</p>
+                            )}
                         </Col>
                         <Col md={6}>
                             <Controller
@@ -110,6 +132,9 @@ const AgencyForm = ({
                                     />
                                 )}
                             />
+                            {errors?.contactPerson && (
+                                <p className="text-danger small mt-1">{errors.contactPerson.message}</p>
+                            )}
                         </Col>
                         <Col md={6}>
                             <Controller
@@ -128,6 +153,9 @@ const AgencyForm = ({
                                     />
                                 )}
                             />
+                            {errors?.phone && (
+                                <p className="text-danger small mt-1">{errors.phone.message}</p>
+                            )}
                         </Col>
                         <Col md={6}>
                             <Controller
@@ -143,6 +171,9 @@ const AgencyForm = ({
                                     />
                                 )}
                             />
+                            {errors?.reraNo && (
+                                <p className="text-danger small mt-1">{errors.reraNo.message}</p>
+                            )}
                         </Col>
                         <Col md={6}>
                             <Controller
@@ -164,6 +195,9 @@ const AgencyForm = ({
                                     />
                                 )}
                             />
+                            {errors?.email && (
+                                <p className="text-danger small mt-1">{errors.email.message}</p>
+                            )}
                         </Col>
                         <Col md={6}>
                             <Controller
@@ -179,6 +213,9 @@ const AgencyForm = ({
                                     />
                                 )}
                             />
+                            {errors?.pan && (
+                                <p className="text-danger small mt-1">{errors.pan.message}</p>
+                            )}
                         </Col>
 
                         {/* {formData.agentType === "Individual Registration" && (
@@ -195,7 +232,7 @@ const AgencyForm = ({
                         <Button
                             type="button"
                             className="theme-btn"
-                            onClick={() => setActiveTab("address-details")}
+                            onClick={handleNextStep}
                         >
                             Next: Address
                         </Button>
@@ -242,6 +279,9 @@ const AgencyForm = ({
                                     </Field>
                                 )}
                             />
+                            {errors?.country && (
+                                <p className="text-danger small mt-1">{errors.country.message}</p>
+                            )}
                         </Col>
                         <Col md={6}>
                             <Controller
@@ -257,6 +297,9 @@ const AgencyForm = ({
                                     />
                                 )}
                             />
+                            {errors?.pinCode && (
+                                <p className="text-danger small mt-1">{errors.pinCode.message}</p>
+                            )}
                             <p className="note-text mt-2">
                                 Note*:Please enter 0 in PinCode if you don't have Pincode
                             </p>
@@ -265,7 +308,6 @@ const AgencyForm = ({
                             <Controller
                                 name="address"
                                 control={control}
-                                rules={{ required: true }}
                                 render={({ field }) => (
                                     <TextArea
                                         label="Address *"
@@ -273,10 +315,12 @@ const AgencyForm = ({
                                         name={field.name}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
-                                        required
                                     />
                                 )}
                             />
+                            {errors?.address && (
+                                <p className="text-danger small mt-1">{errors.address.message}</p>
+                            )}
                         </Col>
                     </Row>
 
