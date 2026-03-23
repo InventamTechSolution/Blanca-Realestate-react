@@ -29,6 +29,27 @@ const Projects = () => {
   const [activeDropdown, setActiveDropdown] = useState(null); // 'type' or 'status' or null
   const [activeProjectId, setActiveProjectId] = useState(null);
 
+  const filteredProjects = projectsData.filter((project) => {
+    const matchesType =
+      type === "all" ||
+      project.propertyType.toLowerCase() === type.toLowerCase();
+    const matchesStatus =
+      status === "all" || project.status.toLowerCase() === status.toLowerCase();
+    return matchesType && matchesStatus;
+  });
+
+  useEffect(() => {
+    if (filteredProjects.length > 0) {
+      const isCurrentlyActiveValid = filteredProjects.some(
+        (project) => project.id === activeProjectId
+      );
+      if (!isCurrentlyActiveValid) {
+        setActiveProjectId(filteredProjects[0].id);
+      }
+    } else {
+      setActiveProjectId(null);
+    }
+  }, [filteredProjects, activeProjectId]);
   const { data: locationData } = useProjectLocations();
   const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
 
@@ -355,7 +376,7 @@ const Projects = () => {
                   {filteredProjects.map((project) => (
                     <div
                       key={project.id}
-                      onMouseEnter={() => setActiveProjectId(project.id)}
+                      onClick={() => setActiveProjectId(project.id)}
                       className={`map-project-item ${activeProjectId === project.id ? "active-project" : ""
                         }`}
                     >
@@ -364,22 +385,29 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className="map-side-view">
-                  <div id="project-map-placeholder">
-                    {activeProjectId ? (
-                      <iframe
-                        title="Project Location"
-                        src={
-                          filteredProjects.find((p) => p.id === activeProjectId)
-                            ?.mapUrl || defaultMapUrl
-                        }
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen=""
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                      ></iframe>
-                    ) : (
+                  <div id="project-map-placeholder" className="h-100 w-100">
+                    {projectsData.map((project) => (
+                      <div
+                        key={project.id}
+                        style={{
+                          display: activeProjectId === project.id ? "block" : "none",
+                          height: "100%",
+                          width: "100%",
+                        }}
+                      >
+                        <iframe
+                          title={`Map for ${project.title}`}
+                          src={project.mapUrl || ""}
+                          width="100%"
+                          height="100%"
+                          style={{ border: 0 }}
+                          allowFullScreen=""
+                          loading="eager"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                      </div>
+                    ))}
+                    {!activeProjectId && (
                       <div className="d-flex align-items-center justify-content-center h-100 bg-dark text-white">
                         Select a project to view on map
                       </div>
