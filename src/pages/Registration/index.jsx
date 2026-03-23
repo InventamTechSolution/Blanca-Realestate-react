@@ -134,6 +134,7 @@ const Registration = () => {
             await registerPartner(payload);
             setShowThankYou(true);
             reset();
+            setActiveTab("personal-details");
         } catch (err) {
             const message =
                 err?.response?.data?.message ||
