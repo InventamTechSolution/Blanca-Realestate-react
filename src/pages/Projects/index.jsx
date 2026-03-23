@@ -30,8 +30,15 @@ const Projects = () => {
   });
 
   useEffect(() => {
-    if (filteredProjects.length > 0 && !activeProjectId) {
-      setActiveProjectId(filteredProjects[0].id);
+    if (filteredProjects.length > 0) {
+      const isCurrentlyActiveValid = filteredProjects.some(
+        (project) => project.id === activeProjectId
+      );
+      if (!isCurrentlyActiveValid) {
+        setActiveProjectId(filteredProjects[0].id);
+      }
+    } else {
+      setActiveProjectId(null);
     }
   }, [filteredProjects, activeProjectId]);
 
@@ -228,7 +235,7 @@ const Projects = () => {
                   {filteredProjects.map((project) => (
                     <div
                       key={project.id}
-                      onMouseEnter={() => setActiveProjectId(project.id)}
+                      onClick={() => setActiveProjectId(project.id)}
                       className={`map-project-item ${activeProjectId === project.id ? "active-project" : ""
                         }`}
                     >
@@ -237,22 +244,29 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className="map-side-view">
-                  <div id="project-map-placeholder">
-                    {activeProjectId ? (
-                      <iframe
-                        title="Project Location"
-                        src={
-                          filteredProjects.find((p) => p.id === activeProjectId)
-                            ?.mapUrl || ""
-                        }
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen=""
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                      ></iframe>
-                    ) : (
+                  <div id="project-map-placeholder" className="h-100 w-100">
+                    {projectsData.map((project) => (
+                      <div
+                        key={project.id}
+                        style={{
+                          display: activeProjectId === project.id ? "block" : "none",
+                          height: "100%",
+                          width: "100%",
+                        }}
+                      >
+                        <iframe
+                          title={`Map for ${project.title}`}
+                          src={project.mapUrl || ""}
+                          width="100%"
+                          height="100%"
+                          style={{ border: 0 }}
+                          allowFullScreen=""
+                          loading="eager"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                      </div>
+                    ))}
+                    {!activeProjectId && (
                       <div className="d-flex align-items-center justify-content-center h-100 bg-dark text-white">
                         Select a project to view on map
                       </div>
