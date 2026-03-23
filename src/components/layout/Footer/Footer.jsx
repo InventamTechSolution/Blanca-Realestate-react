@@ -7,6 +7,7 @@ import "jquery.ripples";
 import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
 import { useSetting } from "../../../hooks/useSetting";
 import { useCategories } from "../../../hooks/useCategories";
+import { useContactUs } from "../../../hooks/useContactUs";
 import "./Footer.css";
 
 const logo = "/images/logos/blanca-logo.png";
@@ -14,8 +15,11 @@ const logo = "/images/logos/blanca-logo.png";
 const Footer = () => {
   const footerRef = React.useRef(null);
   const [showThankYou, setShowThankYou] = React.useState(false);
+  const [subscribeEmail, setSubscribeEmail] = React.useState("");
   const { data: settingResponse } = useSetting({ show_on_home_page: true });
   const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
+  const { mutate: sendContact, isPending: isSubmittingSubscription } =
+    useContactUs();
 
   const settingRecord = React.useMemo(() => {
     return settingResponse?.data?.[0] || null;
@@ -169,8 +173,21 @@ const Footer = () => {
 
   const handleSubscribe = (e) => {
     e.preventDefault();
-    setShowThankYou(true);
-    e.target.reset();
+    const email = String(subscribeEmail || "").trim();
+    if (!email) return;
+
+    sendContact(
+      { email, is_notified: true },
+      {
+        onSuccess: () => {
+          setShowThankYou(true);
+          setSubscribeEmail("");
+        },
+        onError: () => {
+          alert("Something went wrong. Please try again.");
+        },
+      },
+    );
   };
 
   return (
@@ -194,11 +211,17 @@ const Footer = () => {
                 <form className="update-form" onSubmit={handleSubscribe}>
                   <input
                     type="email"
+                    value={subscribeEmail}
+                    onChange={(event) => setSubscribeEmail(event.target.value)}
                     placeholder="Enter your email address*"
                     required
                   />
-                  <button type="submit" className="update-btn">
-                    Send
+                  <button
+                    type="submit"
+                    className="update-btn"
+                    disabled={isSubmittingSubscription}
+                  >
+                    {isSubmittingSubscription ? "Sending..." : "Send"}
                   </button>
                 </form>
               </div>

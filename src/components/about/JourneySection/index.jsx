@@ -5,6 +5,8 @@ import './JourneySection.css';
 
 const JourneySection = () => {
     const scrollRef = React.useRef(null);
+    const segmentRef = React.useRef(null);
+    const segmentWidthRef = React.useRef(0);
     const [isDragging, setIsDragging] = React.useState(false);
     const [startX, setStartX] = React.useState(0);
     const [scrollLeft, setScrollLeft] = React.useState(0);
@@ -17,7 +19,6 @@ const JourneySection = () => {
 
         const normalizeProject = (project) => {
             const p = project?.project ?? project;
-            console.log("🚀 ~ normalizeProject ~ p:", p)
             const title = p?.name || ""
             const location = p?.location || "";
             const description = p?.description || "";
@@ -71,20 +72,107 @@ const JourneySection = () => {
             .filter((g) => Boolean(g) && Array.isArray(g.projects) && g.projects.length > 0);
     }, [journeyResponse]);
 
-    React.useEffect(() => {
-        // Function to scroll to the end
-        const scrollToEnd = () => {
-            if (scrollRef.current) {
-                scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+    const syncInfiniteScroll = React.useCallback(() => {
+        const el = scrollRef.current;
+        const W = segmentWidthRef.current;
+        if (!el || !W) return;
+        while (el.scrollLeft >= 2 * W) {
+            el.scrollLeft -= W;
+        }
+        while (el.scrollLeft < W) {
+            el.scrollLeft += W;
+        }
+    }, []);
+
+    React.useLayoutEffect(() => {
+        const seg = segmentRef.current;
+        const el = scrollRef.current;
+        if (!seg || !el) return;
+
+        const measureAndInit = () => {
+            const w = seg.offsetWidth;
+            if (w > 0) {
+                segmentWidthRef.current = w;
+                el.scrollLeft = w;
             }
         };
 
-        // Scroll after a short delay to ensure content is rendered and widths are calculated
-        const timeoutId = setTimeout(scrollToEnd, 100);
-        return () => clearTimeout(timeoutId);
-    }, [journeyData.length]);
+        measureAndInit();
+        const ro = new ResizeObserver(() => {
+            const w = seg.offsetWidth;
+            if (w > 0) segmentWidthRef.current = w;
+            syncInfiniteScroll();
+        });
+        ro.observe(seg);
+        return () => ro.disconnect();
+    }, [journeyData, syncInfiniteScroll]);
+
+    const handleScroll = React.useCallback(() => {
+        syncInfiniteScroll();
+    }, [syncInfiniteScroll]);
 
     if (!journeyData?.length) return null;
+
+    const renderJourneyItems = (keyPrefix) => {
+        let cumulativeProjectCount = 0;
+        return journeyData.map((item, index) => {
+            const currentOffset = cumulativeProjectCount;
+            cumulativeProjectCount += item.projects?.length ?? 0;
+            return (
+                <div className="journey-item" key={`${keyPrefix}-${index}`}>
+                    {item.category && (
+                        <div className="category-marker" style={{ position: 'absolute', bottom: '60px', zIndex: 1 }}>
+                            {item.category}
+                        </div>
+                    )}
+
+                    {item?.projects?.map((project, pIndex) => {
+                        const dynamicPosition = (currentOffset + pIndex) % 2 === 0 ? 'above' : 'below';
+                        const imgSrc = typeof project?.image === 'string' && project.image.trim() ? project.image : undefined;
+                        const cardClass = `journeyproject-card ${dynamicPosition}`;
+                        const cardInner = (
+                            <>
+                                {imgSrc && (
+                                    <img
+                                        src={imgSrc}
+                                        alt={project.title || 'Project image'}
+                                        className="project-image"
+                                    />
+                                )}
+                                <h3 className="project-title">{project.title}</h3>
+                                <div className="project-meta">
+                                    <i className="fas fa-map-marker-alt"></i> {project.location}
+                                    <i className={`fas ${project.type === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i>{' '}
+                                    {project.type}
+                                </div>
+                                {project.description && <p className="project-description">{project.description}</p>}
+                            </>
+                        );
+
+                        return project.id ? (
+                            <Link
+                                key={`${keyPrefix}-${index}-${pIndex}`}
+                                to={`/project/${project.id}`}
+                                className={cardClass}
+                                onMouseDown={(e) => e.stopPropagation()}
+                            >
+                                {cardInner}
+                            </Link>
+                        ) : (
+                            <div key={`${keyPrefix}-${index}-${pIndex}`} className={cardClass}>
+                                {cardInner}
+                            </div>
+                        );
+                    })}
+
+                    <div className="year-block" style={item.yearWidth ? { width: item.yearWidth } : {}}>
+                        <span className="year-text">{item.year}</span>
+                    </div>
+                </div>
+            );
+        });
+    };
+
     const handleMouseDown = (e) => {
         setIsDragging(true);
         if (!scrollRef.current) return;
@@ -124,76 +212,25 @@ const JourneySection = () => {
             <div
                 className={`journey-container journey-marquee ${isDragging ? 'dragging' : ''}`}
                 ref={scrollRef}
+                onScroll={handleScroll}
                 onMouseDown={handleMouseDown}
                 onMouseLeave={handleMouseLeave}
                 onMouseUp={handleMouseUp}
                 onMouseMove={handleMouseMove}
             >
                 <div className="journey-content-inner">
-                    <div className="timeline-track"></div>
-
-                    {/* Original Content */}
-                    {(() => {
-                        let cumulativeProjectCount = 0;
-                        return journeyData?.map((item, index) => {
-                            const currentOffset = cumulativeProjectCount;
-                            cumulativeProjectCount += item.projects?.length ?? 0;
-                            return (
-                                <div className="journey-item" key={`orig-${index}`}>
-                                    {item.category && (
-                                        <div className="category-marker" style={{ position: 'absolute', bottom: '60px', zIndex: 1 }}>
-                                            {item.category}
-                                        </div>
-                                    )}
-
-                                    {item?.projects?.map((project, pIndex) => {
-                                        const dynamicPosition = (currentOffset + pIndex) % 2 === 0 ? 'above' : 'below';
-                                        const imgSrc = typeof project?.image === "string" && project.image.trim() ? project.image : undefined;
-                                        const cardClass = `journeyproject-card ${dynamicPosition}`;
-                                        const cardInner = (
-                                            <>
-                                                {imgSrc && (
-                                                    <img
-                                                        src={imgSrc}
-                                                        alt={project.title || "Project image"}
-                                                        className="project-image"
-                                                    />
-                                                )}
-                                                <h3 className="project-title">{project.title}</h3>
-                                                <div className="project-meta">
-                                                    <i className="fas fa-map-marker-alt"></i> {project.location}
-                                                    <i className={`fas ${project.type === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i> {project.type}
-                                                </div>
-                                                {project.description && <p className="project-description">{project.description}</p>}
-                                            </>
-                                        );
-
-                                        return project.id ? (
-                                            <Link
-                                                key={pIndex}
-                                                to={`/project/${project.id}`}
-                                                className={cardClass}
-                                                onMouseDown={(e) => e.stopPropagation()}
-                                            >
-                                                {cardInner}
-                                            </Link>
-                                        ) : (
-                                            <div key={pIndex} className={cardClass}>
-                                                {cardInner}
-                                            </div>
-                                        );
-                                    })}
-
-                                    <div className="year-block" style={item.yearWidth ? { width: item.yearWidth } : {}}>
-                                        <span className="year-text">{item.year}</span>
-                                    </div>
-                                </div>
-                            );
-                        });
-                    })()}
-
-                    {/* Duplicated Content for Seamless Scroll - Re-enabling if desired */}
-                    {/* {journeyData.map((item, index) => renderJourneyItem(item, index, true))} */}
+                    <div className="timeline-track" />
+                    <div className="journey-loop-wrapper">
+                        <div className="journey-loop-segment" aria-hidden="true">
+                            {renderJourneyItems('a')}
+                        </div>
+                        <div className="journey-loop-segment" ref={segmentRef}>
+                            {renderJourneyItems('b')}
+                        </div>
+                        <div className="journey-loop-segment" aria-hidden="true">
+                            {renderJourneyItems('c')}
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
