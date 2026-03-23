@@ -1,9 +1,12 @@
 import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { Controller } from "react-hook-form";
+import Select from "react-select";
+import { Country } from "country-state-city";
 import InputField from "../../components/common/InputField/InputField";
 import TextArea from "../../components/common/TextArea/TextArea";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
+import Field from "../../components/common/Field/Field";
 
 const AgencyForm = ({
     control,
@@ -14,7 +17,15 @@ const AgencyForm = ({
     isSubmitting,
     submitError
 }) => {
-    // CHANGE: Agency form extracted as-is (no field/behavior changes).
+    const countryOptions = React.useMemo(
+        () =>
+            Country.getAllCountries().map((country) => ({
+                label: country.name,
+                value: country.name
+            })),
+        []
+    );
+
     return (
         <>
             {/* ========================= */}
@@ -206,14 +217,29 @@ const AgencyForm = ({
                                 control={control}
                                 rules={{ required: true }}
                                 render={({ field }) => (
-                                    <Dropdown
-                                        label="Country *"
-                                        placeholder="India"
-                                        name={field.name}
-                                        options={["India"]}
-                                        value={field.value}
-                                        onChange={(e) => field.onChange(e?.target?.value)}
-                                    />
+                                    <Field label="Country *">
+                                        <div className="glass-input-wrapper overflow-visible">
+                                            <Select
+                                                {...field}
+                                                className="registration-country-select"
+                                                classNamePrefix="registration-country-select"
+                                                options={countryOptions}
+                                                value={
+                                                    countryOptions.find(
+                                                        (option) => option.value === field.value
+                                                    ) || null
+                                                }
+                                                onChange={(option) =>
+                                                    field.onChange(option ? option.value : "")
+                                                }
+                                                placeholder="-- select one --"
+                                                menuPortalTarget={
+                                                    typeof window !== "undefined" ? document.body : null
+                                                }
+                                                menuPosition="fixed"
+                                            />
+                                        </div>
+                                    </Field>
                                 )}
                             />
                         </Col>

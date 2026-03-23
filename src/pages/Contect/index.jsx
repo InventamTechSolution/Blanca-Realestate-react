@@ -38,6 +38,14 @@ const defaultValues = {
     privacyPolicy: false
 };
 
+const FALLBACK_CONTACT_EMAIL = "reachus.blanca@gmail.com";
+const FALLBACK_CONTACT_NUMBERS = [
+    { number: "+91 70219 13284", title: "Head Office Feedback and Complaints" },
+    { number: "+91 77700 559535", title: "( Blanca Sales )" }
+];
+const FALLBACK_CONTACT_ADDRESS =
+    "Greenland CHS 16 Plot 20 Sector 40 Nerul Seawood, Navi Mumbai, 400706.";
+
 const Contact = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showThankYou, setShowThankYou] = useState(false);
@@ -48,24 +56,26 @@ const Contact = () => {
         return settingResponse?.data?.[0] || null;
     }, [settingResponse]);
 
-    const reachEmail = settingRecord?.setting_email;
+    const reachEmail = settingRecord?.setting_email || FALLBACK_CONTACT_EMAIL;
     const salesPhone = useMemo(() => {
         const raw = settingRecord?.setting_contact_number;
-        if (!raw) return [];
+        if (!raw) return FALLBACK_CONTACT_NUMBERS;
 
         if (Array.isArray(raw)) {
-            return raw.map((item) =>
+            const normalized = raw.map((item) =>
                 typeof item === "string" ? { title: "Contact", number: item } : item
             );
+            return normalized.length ? normalized : FALLBACK_CONTACT_NUMBERS;
         }
 
         if (typeof raw === "string") {
             try {
                 const parsed = JSON.parse(raw);
                 if (Array.isArray(parsed)) {
-                    return parsed.map((item) =>
+                    const normalized = parsed.map((item) =>
                         typeof item === "string" ? { title: "Contact", number: item } : item
                     );
+                    return normalized.length ? normalized : FALLBACK_CONTACT_NUMBERS;
                 }
             } catch (_e) {
                 // fallback to plain string format
@@ -74,11 +84,11 @@ const Contact = () => {
         }
 
         if (typeof raw === "object") return [raw];
-        return [];
+        return FALLBACK_CONTACT_NUMBERS;
     }, [settingRecord?.setting_contact_number]);
  
     const address =
-        settingRecord?.setting_address
+        settingRecord?.setting_address || FALLBACK_CONTACT_ADDRESS;
 
     const countryOptions = Country.getAllCountries().map((c) => ({
         label: c.name,
