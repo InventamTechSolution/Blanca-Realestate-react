@@ -136,6 +136,18 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
+a.journeyproject-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+a.journeyproject-card:focus-visible {
+    outline: 2px solid #1e4bb5;
+    outline-offset: 3px;
+}
+
 .journey-item:hover .journeyproject-card {
     border-color: rgba(30, 75, 181, 0.5);
     transform: translateY(-5px);

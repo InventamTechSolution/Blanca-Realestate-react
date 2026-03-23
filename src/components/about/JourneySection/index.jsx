@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useProjectByYearWithCategory } from '../../../hooks/useAbout';
 import './JourneySection.css';
 
@@ -15,17 +16,27 @@ const JourneySection = () => {
         const list = Array.isArray(groups) ? groups : [];
 
         const normalizeProject = (project) => {
-            const title = project?.name;
-            const location = project?.location;
-            const description = project?.description;
+            const p = project?.project ?? project;
+            console.log("🚀 ~ normalizeProject ~ p:", p)
+            const title = p?.name || ""
+            const location = p?.location || "";
+            const description = p?.description || "";
             // Set 'type' to the first category_name if available, else empty string
-            const type = Array.isArray(project?.categories) && project.categories.length > 0
-                ? project.categories[0]?.category_name
-                : "";
+            const categories = p?.categories ?? project?.categories;
+            const type =
+                Array.isArray(categories) && categories.length > 0
+                    ? categories[0]?.category_name
+                    : "";
 
-            const image = project?.card_image;
+            const image = p?.card_image || "";
+
+            const rawId = p?.project_id || "";
+            const id = rawId !== undefined && rawId !== null && String(rawId).trim() !== ""
+                    ? String(rawId).trim()
+                    : "";
 
             return {
+                id,
                 title: title ?? "",
                 location: location ?? "",
                 type: type || "",
@@ -138,8 +149,9 @@ const JourneySection = () => {
                                     {item?.projects?.map((project, pIndex) => {
                                         const dynamicPosition = (currentOffset + pIndex) % 2 === 0 ? 'above' : 'below';
                                         const imgSrc = typeof project?.image === "string" && project.image.trim() ? project.image : undefined;
-                                        return (
-                                            <div key={pIndex} className={`journeyproject-card ${dynamicPosition}`}>
+                                        const cardClass = `journeyproject-card ${dynamicPosition}`;
+                                        const cardInner = (
+                                            <>
                                                 {imgSrc && (
                                                     <img
                                                         src={imgSrc}
@@ -153,6 +165,21 @@ const JourneySection = () => {
                                                     <i className={`fas ${project.type === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i> {project.type}
                                                 </div>
                                                 {project.description && <p className="project-description">{project.description}</p>}
+                                            </>
+                                        );
+
+                                        return project.id ? (
+                                            <Link
+                                                key={pIndex}
+                                                to={`/project/${project.id}`}
+                                                className={cardClass}
+                                                onMouseDown={(e) => e.stopPropagation()}
+                                            >
+                                                {cardInner}
+                                            </Link>
+                                        ) : (
+                                            <div key={pIndex} className={cardClass}>
+                                                {cardInner}
                                             </div>
                                         );
                                     })}

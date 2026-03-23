@@ -210,7 +210,7 @@ const Footer = () => {
                 <h5 className="footer-title">About Us</h5>
                 <ul className="footer-links">
                   <li>
-                    <Link to="/about#showcase-section">Our Value</Link>
+                    <Link to="/about#showcase-section">Value</Link>
                   </li>
                   <li>
                     <Link to="/about#about-vision-section-four">

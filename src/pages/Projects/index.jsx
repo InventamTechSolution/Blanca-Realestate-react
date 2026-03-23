@@ -29,27 +29,16 @@ const Projects = () => {
   const [activeDropdown, setActiveDropdown] = useState(null); // 'type' or 'status' or null
   const [activeProjectId, setActiveProjectId] = useState(null);
 
-  const filteredProjects = projectsData.filter((project) => {
-    const matchesType =
-      type === "all" ||
-      project.propertyType.toLowerCase() === type.toLowerCase();
-    const matchesStatus =
-      status === "all" || project.status.toLowerCase() === status.toLowerCase();
-    return matchesType && matchesStatus;
-  });
+  // const filteredProjects = projectsData.filter((project) => {
+  //   const matchesType =
+  //     type === "all" ||
+  //     project.propertyType.toLowerCase() === type.toLowerCase();
+  //   const matchesStatus =
+  //     status === "all" || project.status.toLowerCase() === status.toLowerCase();
+  //   return matchesType && matchesStatus;
+  // });
 
-  useEffect(() => {
-    if (filteredProjects.length > 0) {
-      const isCurrentlyActiveValid = filteredProjects.some(
-        (project) => project.id === activeProjectId
-      );
-      if (!isCurrentlyActiveValid) {
-        setActiveProjectId(filteredProjects[0].id);
-      }
-    } else {
-      setActiveProjectId(null);
-    }
-  }, [filteredProjects, activeProjectId]);
+
   const { data: locationData } = useProjectLocations();
   const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
 
@@ -81,6 +70,19 @@ const Projects = () => {
 
   const filteredProjects = projects;
   const hasProjects = filteredProjects.length > 0;
+
+  useEffect(() => {
+    if (filteredProjects.length > 0) {
+      const isCurrentlyActiveValid = filteredProjects.some(
+        (project) => project.id === activeProjectId
+      );
+      if (!isCurrentlyActiveValid) {
+        setActiveProjectId(filteredProjects[0].id);
+      }
+    } else {
+      setActiveProjectId(null);
+    }
+  }, [filteredProjects, activeProjectId]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -386,7 +388,7 @@ const Projects = () => {
                 </div>
                 <div className="map-side-view">
                   <div id="project-map-placeholder" className="h-100 w-100">
-                    {projectsData.map((project) => (
+                    {filteredProjects?.map((project) => (
                       <div
                         key={project.id}
                         style={{
@@ -397,7 +399,7 @@ const Projects = () => {
                       >
                         <iframe
                           title={`Map for ${project.title}`}
-                          src={project.mapUrl || ""}
+                          src={project.mapUrl || defaultMapUrl}
                           width="100%"
                           height="100%"
                           style={{ border: 0 }}

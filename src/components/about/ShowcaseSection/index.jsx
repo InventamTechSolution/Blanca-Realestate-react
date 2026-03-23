@@ -1,4 +1,10 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 // import { Container } from "react-bootstrap";
 import gsap from "gsap";
 import "./ShowcaseSection.css";
@@ -9,12 +15,24 @@ const ShowcaseSection = ({ slides = [] }) => {
   const slidesRef = useRef([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const validSlides = useMemo(() => {
+    if (!Array.isArray(slides)) return [];
+    return slides.filter(
+      (s) =>
+        (typeof s?.image === "string" && s.image.trim()) ||
+        (typeof s?.title === "string" && s.title.trim()) ||
+        (typeof s?.text === "string" && s.text.trim()),
+    );
+  }, [slides]);
+
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % slides.length);
+    setCurrentIndex((prev) => (prev + 1) % validSlides.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentIndex((prev) =>
+      (prev - 1 + validSlides.length) % validSlides.length,
+    );
   };
 
   useLayoutEffect(() => {
@@ -59,7 +77,14 @@ const ShowcaseSection = ({ slides = [] }) => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [currentIndex, slides.length]);
+  }, [currentIndex, validSlides.length]);
+
+  useEffect(() => {
+    if (validSlides.length === 0) return;
+    setCurrentIndex((i) => (i >= validSlides.length ? 0 : i));
+  }, [validSlides.length]);
+
+  if (validSlides.length === 0) return null;
 
   return (
     <section
@@ -80,7 +105,7 @@ const ShowcaseSection = ({ slides = [] }) => {
       </div>
       {/* <Container> */}
       <div className="team-slides-container" ref={containerRef}>
-        {slides.map((slide, index) => (
+        {validSlides.map((slide, index) => (
           <div
             key={index}
             className={`team-slide ${index === currentIndex ? "active" : ""}`}
@@ -93,7 +118,7 @@ const ShowcaseSection = ({ slides = [] }) => {
                   {String(currentIndex + 1).padStart(2, "0")}
                 </span>
                 <span className="counter-total">
-                  / {String(slides.length).padStart(2, "0")}
+                  / {String(validSlides.length).padStart(2, "0")}
                 </span>
               </div>
 

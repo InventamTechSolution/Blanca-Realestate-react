@@ -257,7 +257,7 @@ const Header = () => {
                       </li>
                       <li>
                         <Link to="/about#showcase-section" onClick={closeMenus}>
-                          Our Value
+                          Value
                         </Link>
                       </li>
                       <li>
@@ -463,7 +463,7 @@ const Header = () => {
                               to="/about#showcase-section"
                               onClick={closeMenus}
                             >
-                              Our Value
+                              Value
                             </Link>
                           </li>
                           <li>
