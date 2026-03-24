@@ -56,4 +56,5 @@ jobs:
             cd /root/blanaca-website-fe
             npm install --legacy-peer-deps
             pm2 stop blanaca-website-fe || true
-            pm2 reload blanaca-website-fe || pm2 start -n blanaca-website-fe npm -- start
+            pm2 delete blanaca-website-fe || true
+            pm2 start npm --name "blanaca-website-fe" -- run preview
