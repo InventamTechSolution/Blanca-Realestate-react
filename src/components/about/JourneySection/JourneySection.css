@@ -26,26 +26,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    scrollbar-width: thin;
-    scrollbar-color: #1e4bb5 transparent;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
     cursor: grab;
     user-select: none;
 }
 
-/* Custom Scrollbar for Webkit */
 .journey-container.journey-marquee::-webkit-scrollbar {
-    height: 6px;
-}
-
-.journey-container.journey-marquee::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.journey-container.journey-marquee::-webkit-scrollbar-thumb {
-    background-color: #1e4bb5;
-    border-radius: 10px;
-    border: 1px solid #0d0d0d;
+    display: none;
 }
 
 .journey-container.journey-marquee:active {
@@ -54,12 +43,29 @@
 
 .journey-content-inner {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
     white-space: nowrap;
     width: max-content;
     min-width: 100%;
     position: relative;
     padding-left: 50px;
     padding-right: 50px;
+}
+
+.journey-loop-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+}
+
+.journey-loop-segment {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
 }
 
 /* Central Timeline Line */
@@ -134,6 +140,18 @@
     border-radius: 12px;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+a.journeyproject-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+a.journeyproject-card:focus-visible {
+    outline: 2px solid #1e4bb5;
+    outline-offset: 3px;
 }
 
 .journey-item:hover .journeyproject-card {

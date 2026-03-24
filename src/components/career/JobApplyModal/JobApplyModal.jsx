@@ -1,130 +1,312 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import { Icon } from "@iconify/react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import Modal from "../../common/Modal/Modal";
 import "./JobApplyModal.css";
 import InputField from "../../common/InputField/InputField";
 import PhoneInput from "../../common/PhoneInput/PhoneInput";
 import Dropdown from "../../common/Dropdown/Dropdown";
-import FileUpload from "../../common/FileUpload/FileUpload";
+import MediaDropzone from "../../common/MediaDropzone/MediaDropzone";
 import TextArea from "../../common/TextArea/TextArea";
 import ThemeButton from "../../common/Button/ThemeBtn";
 import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
-import { jobs } from "../../../data/jobsData";
+import { jobApplySchema } from "../../../schema/validationSchema";
+import { useApplyCareer } from "../../../hooks/useCareers";
+import { acceptedDocsExtensions } from "../../../utils/constant";
+import { useDocumentUploader } from "../../../utils/useDocumentUploader";
 
-const JobApplyModal = ({ isOpen, onClose, jobTitle }) => {
-    const [showThankYou, setShowThankYou] = useState(false);
-    const [formData, setFormData] = useState({
+const defaultValues = {
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    position: "",
+    currentCtc: "",
+    expectedCtc: "",
+    experience: "",
+    joiningPreference: "",
+    resume: "",
+    description: ""
+};
 
-        fullName: "",
-        email: "",
-        phoneNumber: "",
-        position: jobTitle || "",
-        resume: null,
-        description: ""
+const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
+    const [showThankYou, setShowThankYou] = React.useState(false);
+    const { mutate: applyCareer, isPending } = useApplyCareer();
+    const { removeUploadedFile } = useDocumentUploader();
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+        reset,
+        getValues
+    } = useForm({
+        resolver: yupResolver(jobApplySchema),
+        mode: "onChange",
+        defaultValues
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
+    useEffect(() => {
+        if (!isOpen) return;
+        // From a specific card: pre-select that job's category (e.g. Sale). Quick Apply: job is null, leave position empty.
+        const positionValue =
+            job && typeof job === "object" && job.parent_category_id
+                ? String(job.parent_category_id)
+                : "";
+        reset({
+            ...defaultValues,
+            position: positionValue
+        });
+    }, [isOpen, job, reset]);
 
-    const handleDropdownChange = (name, value) => {
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
+    const positionOptions = React.useMemo(
+        () =>
+            (categories || []).map((cat) => ({
+                label: cat.career_category_name,
+                value: String(cat.career_category_career_category_id ?? "")
+            })),
+        [categories]
+    );
+    const joiningPreferenceOptions = React.useMemo(
+        () => [
+            { label: "Immediate Joiner", value: "immediate_joiner" },
+            { label: "Notice Period", value: "notice_period" }
+        ],
+        []
+    );
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form Data Submitted:", formData);
-        // Add submission logic here (e.g., API call)
-        setShowThankYou(true);
-    };
+    const onSubmit = React.useCallback(
+        async (data) => {
+            const payload = {
+                career_category_id: data.position,
+                fullname: data.fullName,
+                email: data.email,
+                phone_number: data.phoneNumber,
+                current_ctc: data.currentCtc,
+                expected_ctc: data.expectedCtc,
+                experience: data.experience,
+                priority_for_joining: data.joiningPreference,
+                resume: data.resume,
+                pitch: data.description
+            };
 
+            applyCareer(payload, {
+                onSuccess: () => {
+                    setShowThankYou(true);
+                    reset(defaultValues);
+                },
+                onError: () => {
+                    alert("Something went wrong. Please try again.");
+                }
+            });
+        },
+        [applyCareer, reset]
+    );
+
+    const handleClose = React.useCallback(() => {
+        const resumePath = getValues("resume");
+        if (resumePath) {
+            removeUploadedFile(resumePath).catch(() => {});
+        }
+        reset(defaultValues);
+        onClose();
+    }, [getValues, removeUploadedFile, reset, onClose]);
 
     return (
         <>
             <Modal
-
                 isOpen={isOpen}
-                onClose={onClose}
+                onClose={handleClose}
                 title="Apply For Position"
                 size="lg"
             >
-                <Form onSubmit={handleSubmit} className="job-apply-form">
+                <Form onSubmit={handleSubmit(onSubmit)} className="job-apply-form">
                     <Row>
                         <Col md={6} className="mb-3">
-                            <InputField
-                                label="Full Name"
-                                placeholder="Full Name"
+                            <Controller
                                 name="fullName"
-                                value={formData.fullName}
-                                onChange={handleChange}
-                                required
+                                control={control}
+                                render={({ field }) => (
+                                    <InputField
+                                        {...field}
+                                        label="Full Name"
+                                        placeholder="Full Name"
+                                    />
+                                )}
                             />
+                            {errors.fullName && (
+                                <p className="text-danger small mt-1">{errors.fullName.message}</p>
+                            )}
                         </Col>
                         <Col md={6} className="mb-3">
-                            <InputField
-                                label="Email Address"
-                                placeholder="Email Address"
+                            <Controller
                                 name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
+                                control={control}
+                                render={({ field }) => (
+                                    <InputField
+                                        {...field}
+                                        type="email"
+                                        label="Email Address"
+                                        placeholder="Email Address"
+                                    />
+                                )}
                             />
+                            {errors.email && (
+                                <p className="text-danger small mt-1">{errors.email.message}</p>
+                            )}
                         </Col>
                         <Col md={6} className="mb-3">
-                            <PhoneInput
-                                label="PHONE NUMBER"
+                            <Controller
                                 name="phoneNumber"
-                                value={formData.phoneNumber}
-                                onChange={handleChange}
-                                required
+                                control={control}
+                                render={({ field }) => (
+                                    <PhoneInput
+                                        {...field}
+                                        label="PHONE NUMBER"
+                                    />
+                                )}
                             />
+                            {errors.phoneNumber && (
+                                <p className="text-danger small mt-1">{errors.phoneNumber.message}</p>
+                            )}
                         </Col>
                         <Col md={6} className="mb-3">
-                            <Dropdown
-                                label="What position are you interested in?"
-                                placeholder="Select Position or Role"
+                            <Controller
                                 name="position"
-                                options={[
-                                    ...jobs.map(job => job.title),
-                                    "General Application / Other"
-                                ]}
-                                value={formData.position}
-                                onChange={(e) => handleDropdownChange("position", e.target.value)}
+                                control={control}
+                                render={({ field }) => (
+                                    <Dropdown
+                                        label="What position are you interested in?"
+                                        placeholder="Select Position or Role"
+                                        name="position"
+                                        options={positionOptions}
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                    />
+                                )}
                             />
+                            {errors.position && (
+                                <p className="text-danger small mt-1">{errors.position.message}</p>
+                            )}
                         </Col>
                         <Col md={12} className="mb-3">
-                            <FileUpload
-                                label="Upload Resume"
+                            <Controller
                                 name="resume"
-                                value={formData.resume}
-                                onChange={handleChange}
-                                required
+                                control={control}
+                                render={({ field }) => (
+                                    <MediaDropzone
+                                        label="Upload Resume"
+                                        value={field.value}
+                                        onChange={field.onChange}
+                                        uploadType="resume"
+                                        acceptExtensions={acceptedDocsExtensions}
+                                        maxSize={{ size: 2, type: "MB" }}
+                                        noteMsg="PDF or DOC/DOCX only."
+                                        errorMsg={errors.resume?.message}
+                                    />
+                                )}
                             />
+                            {errors.resume && (
+                                <p className="text-danger small mt-1">{errors.resume.message}</p>
+                            )}
+                        </Col>
+                        <Col md={6} className="mb-3">
+                            <Controller
+                                name="currentCtc"
+                                control={control}
+                                render={({ field }) => (
+                                    <InputField
+                                        {...field}
+                                        type="text"
+                                        label="Current CTC"
+                                        placeholder="Current CTC"
+                                    />
+                                )}
+                            />
+                            {errors.currentCtc && (
+                                <p className="text-danger small mt-1">{errors.currentCtc.message}</p>
+                            )}
+                        </Col>
+                        <Col md={6} className="mb-3">
+                            <Controller
+                                name="expectedCtc"
+                                control={control}
+                                render={({ field }) => (
+                                    <InputField
+                                        {...field}
+                                        type="text"
+                                        label="Expected CTC"
+                                        placeholder="Expected CTC"
+                                    />
+                                )}
+                            />
+                            {errors.expectedCtc && (
+                                <p className="text-danger small mt-1">{errors.expectedCtc.message}</p>
+                            )}
+                        </Col>
+                        <Col md={6} className="mb-3">
+                            <Controller
+                                name="experience"
+                                control={control}
+                                render={({ field }) => (
+                                    <InputField
+                                        {...field}
+                                        type="text"
+                                        label="Experience"
+                                        placeholder="Experience (e.g. 3.5 years)"
+                                    />
+                                )}
+                            />
+                            {errors.experience && (
+                                <p className="text-danger small mt-1">{errors.experience.message}</p>
+                            )}
+                        </Col>
+                        <Col md={6} className="mb-3">
+                            <Controller
+                                name="joiningPreference"
+                                control={control}
+                                render={({ field }) => (
+                                    <Dropdown
+                                        label="Joining Preference"
+                                        placeholder="Select Joining Type"
+                                        name="joiningPreference"
+                                        options={joiningPreferenceOptions}
+                                        value={field.value}
+                                        onChange={(e) => field.onChange(e.target.value)}
+                                    />
+                                )}
+                            />
+                            {errors.joiningPreference && (
+                                <p className="text-danger small mt-1">{errors.joiningPreference.message}</p>
+                            )}
                         </Col>
                         <Col md={12} className="mb-3">
-                            <TextArea
-                                label="What makes you a great fit?"
+                            <Controller
                                 name="description"
-                                rows={3}
-                                placeholder="Describe your experience and why you are interested..."
-                                value={formData.description}
-                                onChange={handleChange}
-                                required
+                                control={control}
+                                render={({ field }) => (
+                                    <TextArea
+                                        {...field}
+                                        label="What makes you a great fit?"
+                                        name="description"
+                                        rows={3}
+                                        placeholder="Describe your experience and why you are interested..."
+                                    />
+                                )}
                             />
+                            {errors.description && (
+                                <p className="text-danger small mt-1">{errors.description.message}</p>
+                            )}
                         </Col>
                     </Row>
                     <div className="apply-for-position-btn">
-                        {/* <button type="submit" className="theme-btn w-100 py-3">
-                            Submit Application
-                            <Icon icon="lucide:send" className="ms-2" />
-                        </button> */}
                         <ThemeButton
                             type="submit"
                             className="py-3"
+                            disabled={isPending}
                         >
-                            Submit Application
+                            {isPending ? "Sending..." : "Submit Application"}
                             <Icon icon="lucide:send" className="ms-2" />
                         </ThemeButton>
                     </div>
@@ -134,7 +316,7 @@ const JobApplyModal = ({ isOpen, onClose, jobTitle }) => {
                 isOpen={showThankYou}
                 onClose={() => {
                     setShowThankYou(false);
-                    onClose();
+                    handleClose();
                 }}
                 title="Application Sent"
                 message="Thank you for applying! Our HR team will review your profile and get in touch if your qualifications match our requirements."
@@ -142,6 +324,5 @@ const JobApplyModal = ({ isOpen, onClose, jobTitle }) => {
         </>
     );
 };
-
 
 export default JobApplyModal;

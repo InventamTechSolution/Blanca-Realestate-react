@@ -1,56 +1,86 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Row, Col, Form } from "react-bootstrap";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { Icon } from "@iconify/react";
 import Modal from "../Modal/Modal";
 import InputField from "../InputField/InputField";
 import PhoneInput from "../PhoneInput/PhoneInput";
-import Dropdown from "../Dropdown/Dropdown";
 import Checkbox from "../Checkbox/Checkbox";
 import ThankYouModal from "../ThankYouModal/ThankYouModal";
+import Field from "../Field/Field";
 import { useContactModal } from "../../../context/ContactModalContext";
+import { Country } from "country-state-city";
+import Select from "react-select";
+import { useContactUs } from "../../../hooks/useContactUs";
+import { contactModalSchema } from "../../../schema/validationSchema";
 import "./ContactModal.css";
 import ThemeButton from "../../common/Button/ThemeBtn";
-
-const schema = yup.object().shape({
-  firstName: yup.string().required("First name is required"),
-  lastName: yup.string().required("Last name is required"),
-  email: yup.string().email("Invalid email").required("Email is required"),
-  phone: yup.string().required("Phone number is required"),
-  country: yup.string().required("Country is required"),
-  message: yup.string().required("Message is required"),
-  privacyPolicy: yup.boolean().oneOf([true], "You must accept the privacy policy"),
-});
 
 const ContactModal = () => {
   const { isOpen, closeContactModal } = useContactModal();
   const [showThankYou, setShowThankYou] = useState(false);
+  const { mutate: sendContact, isPending } = useContactUs();
+
+  const countryOptions = 
+      Country.getAllCountries().map((c) => ({
+        label: c.name,
+        value: c.isoCode.toLowerCase(),
+        isoCode: c.isoCode.toLowerCase(),
+        phoneCode: `+${c.phonecode}`,
+      }));
 
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(contactModalSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
       email: "",
       phone: "",
-      country: "United Arab Emirates",
+      country: "ae",
       message: "",
       privacyPolicy: false,
     },
   });
 
+  const selectedCountryCode = useWatch({
+    control,
+    name: "country",
+    defaultValue: "ae",
+  });
+
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
-    setShowThankYou(true);
-    closeContactModal();
-    reset();
+    const selectedCountry = countryOptions.find((c) => c.value === data.country);
+    const phoneWithCountryCode = selectedCountry?.phoneCode
+      ? `${selectedCountry.phoneCode}${data.phone}`
+      : data.phone;
+
+    const payload = {
+      first_name: data.firstName,
+      last_name: data.lastName,
+      email: data.email,
+      phone_number: phoneWithCountryCode,
+      message: data.message,
+      is_notified: false,
+      notification_mode: "",
+    };
+
+    sendContact(payload, {
+      onSuccess: () => {
+        setShowThankYou(true);
+        closeContactModal();
+        reset();
+      },
+      onError: () => {
+        alert("Something went wrong. Please try again.");
+      },
+    });
   };
 
   return (
@@ -134,7 +164,12 @@ const ContactModal = () => {
                   name="phone"
                   control={control}
                   render={({ field }) => (
-                    <PhoneInput {...field} label="PHONE NUMBER" />
+                    <PhoneInput
+                      {...field}
+                      label="PHONE NUMBER"
+                      selectedCountryCode={selectedCountryCode}
+                      onCountryChange={(isoCode) => setValue("country", isoCode)}
+                    />
                   )}
                 />
                 {errors.phone && (
@@ -148,17 +183,25 @@ const ContactModal = () => {
                   name="country"
                   control={control}
                   render={({ field }) => (
-                    <Dropdown
-                      {...field}
-                      label="COUNTRY"
-                      options={[
-                        "United Arab Emirates",
-                        "India",
-                        "USA",
-                        "UK",
-                        "Canada",
-                      ]}
-                    />
+                    <Field label="COUNTRY">
+                      <div className="glass-input-wrapper overflow-visible">
+                        <Select
+                          {...field}
+                          className="contact-country-select"
+                          classNamePrefix="contact-country-select"
+                          options={countryOptions}
+                          value={
+                            countryOptions.find(
+                              (option) => option.value === field.value
+                            ) || null
+                          }
+                          onChange={(option) =>
+                            field.onChange(option ? option.value : "")
+                          }
+                          placeholder="-- select one --"
+                        />
+                      </div>
+                    </Field>
                   )}
                 />
                 {errors.country && (
@@ -215,8 +258,8 @@ const ContactModal = () => {
             </Row>
 
             <div className="modal-submit-container">
-              <ThemeButton type="submit">
-                Submit
+              <ThemeButton type="submit" disabled={isPending}>
+                {isPending ? "Sending..." : "Submit"}
               </ThemeButton>
             </div>
           </Form>

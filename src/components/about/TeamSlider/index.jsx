@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import { teamData } from "../../../data/teamData";
 import "./TeamSlider.css";
 
-const TeamSlider = () => {
+const TeamSlider = ({ items }) => {
+    const data = Array.isArray(items) ? items : [];
     const [currentIndex, setCurrentIndex] = useState(0);
     const [animState, setAnimState] = useState("idle"); // "idle", "exiting", "entering"
     const [direction, setDirection] = useState(""); // "next", "prev"
 
     const prevIndex =
-        (currentIndex - 1 + teamData.length) % teamData.length;
-    const nextIndex = (currentIndex + 1) % teamData.length;
+        data.length > 0 ? (currentIndex - 1 + data.length) % data.length : 0;
+    const nextIndex = data.length > 0 ? (currentIndex + 1) % data.length : 0;
 
     const handleNext = () => {
         if (animState !== "idle") return;
+        if (!data?.length) return;
         setDirection("next");
         setAnimState("exiting");
 
         setTimeout(() => {
-            setCurrentIndex((prev) => (prev + 1) % teamData.length);
+            setCurrentIndex((prev) => (prev + 1) % data.length);
             setAnimState("entering");
 
             setTimeout(() => {
@@ -28,12 +29,13 @@ const TeamSlider = () => {
 
     const handlePrev = () => {
         if (animState !== "idle") return;
+        if (!data?.length) return;
         setDirection("prev");
         setAnimState("exiting");
 
         setTimeout(() => {
             setCurrentIndex(
-                (prev) => (prev - 1 + teamData.length) % teamData.length
+                (prev) => (prev - 1 + data.length) % data.length
             );
             setAnimState("entering");
 
@@ -63,6 +65,8 @@ const TeamSlider = () => {
         return "";
     };
 
+    if (!data?.length) return null;
+
     return (
         <section className="team-slider-section" id="leadership">
             <div className="container">
@@ -84,7 +88,7 @@ const TeamSlider = () => {
                     {/* Left Preview */}
                     <div className="team-side-preview preview-left">
                         <img
-                            src={getImagePath(teamData[prevIndex].image)}
+                            src={getImagePath(data[prevIndex]?.image)}
                             alt="Previous Member"
                         />
                     </div>
@@ -93,18 +97,18 @@ const TeamSlider = () => {
                     <div className={`team-active-card ${getAnimationClass()}`}>
                         <div className="team-member-img-wrap">
                             <img
-                                src={getImagePath(teamData[currentIndex].image)}
-                                alt={teamData[currentIndex].name}
+                                src={getImagePath(data[currentIndex]?.image)}
+                                alt={data[currentIndex]?.name}
                             />
                         </div>
 
                         <div className="team-member-content">
                             <p className="team-member-quote">
-                                "{teamData[currentIndex].quote}"
+                                "{data[currentIndex]?.quote}"
                             </p>
 
                             <h3 className="team-member-name">
-                                {teamData[currentIndex].name}
+                                {data[currentIndex]?.name}
                             </h3>
 
                             <div className="team-slider-nav">
@@ -132,7 +136,7 @@ const TeamSlider = () => {
                     {/* Right Preview */}
                     <div className="team-side-preview preview-right">
                         <img
-                            src={getImagePath(teamData[nextIndex].image)}
+                            src={getImagePath(data[nextIndex]?.image)}
                             alt="Next Member"
                         />
                     </div>

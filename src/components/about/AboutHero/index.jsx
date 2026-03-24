@@ -1,17 +1,86 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion as Montion } from "framer-motion";
 import StatBadge from "../../common/StatBadge";
 import "./abouthero.css";
+import { useSetting } from "../../../hooks/useSetting";
+
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 const video = "/videos/about-banner-video.mp4";
+const FOUNDING_YEAR = 1981;
 // import FallbackImage from "../../../assets/images/background/slider-1.png";
 
-const HeroSection = () => {
+const DEFAULT_MESSAGES = [
+  "Built on Trust. Designed for Tomorrow",
+  "Where Vision Becomes Value.",
+  "Legacy in Every Square Foot.",
+  "Crafting Landmarks. Creating Confidence.",
+];
+
+const HeroSection = ({ messages = [] }) => {
+  const { data: settingResponse } = useSetting();
+  const yearsOfExpertise = new Date().getFullYear() - FOUNDING_YEAR;
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isLoopReset, setIsLoopReset] = useState(false);
+
+  const statsData = React.useMemo(() => {
+    return settingResponse?.data?.[0]?.setting_other_field || [];
+  }, [settingResponse]);
+
+  const sliderMessages = React.useMemo(() => {
+    const dynamicMessages = Array.isArray(messages)
+      ? messages
+          .map((message) => (typeof message === "string" ? message.trim() : ""))
+          .filter(Boolean)
+      : [];
+
+    const baseMessages =
+      dynamicMessages.length > 0 ? dynamicMessages : DEFAULT_MESSAGES;
+
+    // Duplicate first message to keep vertical slider loop continuity.
+    return [...baseMessages, baseMessages[0]];
+  }, [messages]);
+  const totalUniqueSlides = Math.max(sliderMessages.length - 1, 1);
+
+  useEffect(() => {
+    setActiveSlide(0);
+    setIsLoopReset(false);
+  }, [totalUniqueSlides]);
+
+  useEffect(() => {
+    if (totalUniqueSlides <= 1) return undefined;
+
+    let timeoutId;
+
+    if (activeSlide === totalUniqueSlides) {
+      timeoutId = setTimeout(() => {
+        setIsLoopReset(true);
+        setActiveSlide(0);
+      }, 900);
+    } else {
+      timeoutId = setTimeout(() => {
+        setIsLoopReset(false);
+        setActiveSlide((prev) => prev + 1);
+      }, 3500);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [activeSlide, totalUniqueSlides]);
+
+  useEffect(() => {
+    if (!isLoopReset) return undefined;
+
+    const resetFlagTimer = setTimeout(() => {
+      setIsLoopReset(false);
+    }, 80);
+
+    return () => clearTimeout(resetFlagTimer);
+  }, [isLoopReset]);
+
   useEffect(() => {
     // ## Counter Logic using GSAP ScrollTrigger
     const counters = document.querySelectorAll(".badge-year, .stat-number");
@@ -47,7 +116,7 @@ const HeroSection = () => {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, []);
+  }, [statsData, yearsOfExpertise]);
 
   return (
     <section className="about-area-2 black-120-bg">
@@ -111,7 +180,7 @@ const HeroSection = () => {
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
         >
           <div className="badge-content">
-            <span className="badge-year" data-count="45">
+            <span className="badge-year" data-count={yearsOfExpertise}>
               0
             </span>
 
@@ -135,7 +204,9 @@ const HeroSection = () => {
                 letterSpacing="1"
               >
                 <textPath xlinkHref="#circlePath">
-                  &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE
+                  {`\u00A0•\u00A0 SINCE ${FOUNDING_YEAR} \u00A0•\u00A0 YEARS OF EXPERTISE \u00A0`.repeat(
+                    3,
+                  )}
                 </textPath>
               </text>
             </svg>
@@ -149,11 +220,13 @@ const HeroSection = () => {
           <div className="row align-items-center">
             {/* Left Stats */}
             <div className="about-left-stats">
-              <StatBadge count="489" text="Upcoming Commercial Units" />
-              <StatBadge count="174" text="Upcoming Residential Units" />
-              <StatBadge count="76" text="Residential Units Nearly Possession" />
-              <StatBadge count="634" text="Residential Units Delivered" />
-              <StatBadge count="210" text="Commercial Units Delivered" />
+              {statsData?.length > 0 && statsData?.map((item, index) => (
+                <StatBadge
+                  key={index}
+                  count={item?.count}
+                  text={item?.field}
+                />
+              ))}
             </div>
 
             {/* Center Content */}
@@ -165,14 +238,16 @@ const HeroSection = () => {
                 transition={{ duration: 1, delay: 0.3 }}
               >
                 <div className="vertical-text-slider">
-                  <div className="slider-wrapper">
-                    {[
-                      "Built on Trust. Designed for Tomorrow",
-                      "Where Vision Becomes Value.",
-                      "Legacy in Every Square Foot.",
-                      "Crafting Landmarks. Creating Confidence.",
-                      "Built on Trust. Designed for Tomorrow",
-                    ].map((text, index) => (
+                  <div
+                    className="slider-wrapper"
+                    style={{
+                      transform: `translateY(-${(activeSlide * 100) / sliderMessages.length}%)`,
+                      transition: isLoopReset
+                        ? "none"
+                        : "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
+                    }}
+                  >
+                    {sliderMessages.map((text, index) => (
                       <h1
                         key={index}
                         className="text-white bs-font-colgent-regular about-hero-title"

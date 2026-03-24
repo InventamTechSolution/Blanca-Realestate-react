@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Hero.css";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import StatBadge from "../../common/StatBadge";
+import { useSetting } from "../../../hooks/useSetting";
 // import MainHeroBanner from "../../common/MainHeroBanner";
 
 // Register GSAP plugins
@@ -15,7 +16,16 @@ export const blancaTowerVideo = "/videos/blanca-tower-video.mp4";
 export const videoProject2 = "/videos/Video-Project-2.mp4";
 export const employeeVideo = "/videos/employee-video.mp4";
 
+const FOUNDING_YEAR = 1981;
+
 const Hero = () => {
+    const { data: settingResponse } = useSetting();
+    const yearsOfExpertise = new Date().getFullYear() - FOUNDING_YEAR;
+
+    const statsData = React.useMemo(() => {
+        return settingResponse?.data?.[0]?.setting_other_field || [];
+    }, [settingResponse]);
+
     useEffect(() => {
         // ## Counter Logic using GSAP ScrollTrigger
         const counters = document.querySelectorAll(".badge-year, .stat-number");
@@ -68,7 +78,7 @@ const Hero = () => {
         return () => {
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
-    }, []);
+    }, [statsData, yearsOfExpertise]);
 
     return (
         <>
@@ -112,14 +122,14 @@ const Hero = () => {
 
                     <div className="hero-expert-badge">
                         <div className="badge-content">
-                            <span className="badge-year" data-count="45">0</span>
+                            <span className="badge-year" data-count={yearsOfExpertise}>0</span>
                             <svg className="badge-text-ring" viewBox="0 0 100 100" width="100" height="100">
                                 <defs>
                                     <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
                                 </defs>
-                                <text fill="#FFF" font-family="'Montserrat', sans-serif" font-size="10" font-weight="500" letter-spacing="1">
+                                <text fill="#FFF" fontFamily="'Montserrat', sans-serif" fontSize="10" fontWeight="500" letterSpacing="1">
                                     <textPath href="#circlePath">
-                                        &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE &nbsp;•&nbsp; SINCE 1981 &nbsp;•&nbsp; YEARS OF EXPERTISE
+                                        {`\u00A0•\u00A0 SINCE ${FOUNDING_YEAR} \u00A0•\u00A0 YEARS OF EXPERTISE \u00A0`.repeat(3)}
                                     </textPath>
                                 </text>
                             </svg>
@@ -128,11 +138,13 @@ const Hero = () => {
                     <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
                         <div className="row align-items-center">
                             <div className="col-lg-3 col-md-12 hero-left-stats" style={{ zIndex: 3 }}>
-                                <StatBadge count="489" text="Upcoming Commercial Units" />
-                                <StatBadge count="174" text="Upcoming Residential Units" />
-                                <StatBadge count="76" text="Residential Units Nearly Possession" />
-                                <StatBadge count="634" text="Residential Units Delivered" />
-                                <StatBadge count="210" text="Commercial Units Delivered" />
+                                {statsData?.length > 0 && statsData?.map((item, index) => (
+                                    <StatBadge
+                                        key={index}
+                                        count={item.count}
+                                        text={item.field}
+                                    />
+                                ))}
                             </div>
                             <div className="col-lg-9 col-md-12 text-center right-side-content" style={{ zIndex: 4, position: "relative" }}>
                                 <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">

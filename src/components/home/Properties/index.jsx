@@ -4,15 +4,20 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./Properties.css";
 import { Col, Row } from "react-bootstrap";
-import { projectsData } from "../../../data/projectsData";
+// import { projectsData } from "../../../data/projectsData";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import { useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
+import { useProjects } from "../../../hooks/useProjects";
+import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 import { useContactModal } from "../../../context/ContactModalContext";
 
 
 const Properties = () => {
   const navigate = useNavigate();
+  const { data } = useProjects({page: 1, limit: 50, is_active: true});
+
+  const projects = data?.data || [];
   const { openContactModal } = useContactModal();
 
 
@@ -92,12 +97,12 @@ const Properties = () => {
             }}
             className="property-swiper"
           >
-            {projectsData.map((project) => (
-              <SwiperSlide key={project.id}>
+            {projects.map((project) => (
+              <SwiperSlide key={project.project_project_id}>
                 <div className="project-card-wrapper">
                   <Motion.div
                     className="project-card"
-                    onClick={() => navigate(`/project/${project.id}`)}
+                    onClick={() => navigate(`/project/${project.project_project_id}`)}
                     style={{ cursor: "pointer" }}
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -107,28 +112,28 @@ const Properties = () => {
                     }}
                     viewport={{ once: true }}
                   >
-                    <img src={project.image} alt={project.title} />
+                    <img src={project.project_card_image} alt={project.project_name} />
                     <div className="project-card__content">
-                      <h4>{project.title}</h4>
+                      <h4>{project.project_name}</h4>
                       <div className="project-card__meta">
                         <Row className="g-0">
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Location:</span>
-                            <strong>{project.location}</strong>
+                            <strong>{project.project_location}</strong>
                           </Col>
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Property Type:</span>
-                            <strong>{project.propertyType}</strong>
+                            <strong>{project.categories?.map((cat) => cat.category_name).join(" & ")}</strong>
                           </Col>
                         </Row>
                         <Row className="g-0">
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Configuration:</span>
-                            <strong>{project.configuration}</strong>
+                            <strong>{project.project_configuration}</strong>
                           </Col>
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Area – Carpet:</span>
-                            <strong>{project.area}</strong>
+                            <strong>{project.project_sq_ft}</strong>
                           </Col>
                         </Row>
                         <Row className="g-0">
@@ -138,7 +143,7 @@ const Properties = () => {
                           </Col>
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Status:</span>
-                            <strong>{project.status}</strong>
+                            <strong>{PROJECT_STATUS_LABELS[project.project_status] || project.project_status}</strong>
                           </Col>
                         </Row>
                       </div>

@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import ThemeBtn from "../Button/ThemeBtn";
 import { useContactModal } from "../../../context/ContactModalContext";
 import "./ProjectCard.css";
+import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 
 const ProjectCard = ({ project, layout = "grid" }) => {
   const { openContactModal } = useContactModal();
@@ -69,7 +70,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
         <div
           className={`project-status-badge status-${project.status?.toLowerCase().replace(/\s+/g, "-")}`}
         >
-          {project.status}
+          {PROJECT_STATUS_LABELS[project.status]}
         </div>
       </div>
       <div className="project-content-body">
@@ -134,7 +135,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             View Details
           </ThemeBtn>
           <ThemeBtn
-            to={`/project/${project.id}`}
+            to={`/project/${project.id}#enquiry`}
             className="view-details-btn"
           >
             Enquireies

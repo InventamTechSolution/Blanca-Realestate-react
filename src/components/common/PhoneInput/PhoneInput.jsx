@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Form } from "react-bootstrap";
 import Field from "../Field/Field";
 import "../InputField/Input.css";
 import "./PhoneInput.css";
-import InputField from "../InputField/InputField";
+import { Country } from "country-state-city";
 
 const PhoneInput = ({
     label,
@@ -12,23 +12,45 @@ const PhoneInput = ({
     value,
     onChange,
     name,
-    className = ""
+    className = "",
+    selectedCountryCode,
+    onCountryChange,
 }) => {
     const [showDropdown, setShowDropdown] = useState(false);
-    const [selectedCountry, setSelectedCountry] = useState({
-        name: "India",
-        flag: "https://flagcdn.com/w20/in.png",
-        code: "+91"
+    const countries = useMemo(
+        () =>
+            Country.getAllCountries().map((c) => ({
+                name: c.name,
+                isoCode: c.isoCode.toLowerCase(),
+                flag: `https://flagcdn.com/w20/${c.isoCode.toLowerCase()}.png`,
+                code: `+${c.phonecode}`,
+            })),
+        []
+    );
+
+    const [selectedCountry, setSelectedCountry] = useState(() => {
+        const india = countries.find((c) => c.isoCode === "in");
+        return (
+            india || {
+                name: "India",
+                isoCode: "in",
+                flag: "https://flagcdn.com/w20/in.png",
+                code: "+91",
+            }
+        );
     });
 
-    const dropdownRef = useRef(null);
     const wrapperRef = useRef(null);
 
-    const countries = [
-        { name: "India", flag: "https://flagcdn.com/w20/in.png", code: "+91" },
-        { name: "UAE", flag: "https://flagcdn.com/w20/ae.png", code: "+971" },
-        { name: "USA", flag: "https://flagcdn.com/w20/us.png", code: "+1" }
-    ];
+    useEffect(() => {
+        if (!selectedCountryCode) return;
+        const match = countries.find(
+            (c) => c.isoCode === selectedCountryCode.toLowerCase()
+        );
+        if (match) {
+            setSelectedCountry(match);
+        }
+    }, [selectedCountryCode, countries]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -45,6 +67,9 @@ const PhoneInput = ({
 
     const handleCountrySelect = (country) => {
         setSelectedCountry(country);
+        if (onCountryChange) {
+            onCountryChange(country.isoCode);
+        }
         setShowDropdown(false);
     };
 

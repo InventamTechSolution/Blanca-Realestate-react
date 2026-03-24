@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Header from '../../components/layout/Header/Header';
 import Footer from '../../components/layout/Footer/Footer';
@@ -7,72 +7,148 @@ import Preloader from '../../components/common/Preloader';
 import ScrollToTop from '../../components/common/ScrollToTop';
 import SmallHeroBanner from '../../components/common/Small-hero-banner';
 import InputField from "../../components/common/InputField/InputField";
-import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
 import RadioGroup from "../../components/common/RadioGroup/RadioGroup";
 import Checkbox from "../../components/common/Checkbox/Checkbox";
-import { useForm, Controller } from "react-hook-form";
+import Field from "../../components/common/Field/Field";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
+import Select from "react-select";
+import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
+import { Country } from "country-state-city";
+import { useContactUs } from "../../hooks/useContactUs";
+import { contactSchema } from "../../schema/validationSchema";
+import { useSetting } from "../../hooks/useSetting";
 
 
-const schema = yup.object().shape({
-    firstName: yup.string().required("First name is required"),
-    lastName: yup.string().required("Last name is required"),
-    email: yup.string().email("Invalid email").required("Email is required"),
-    phone: yup.string().required("Phone number is required"),
-    country: yup.string().required("Country is required"),
-    contactMode: yup.string().required("Preferred mode of contact is required"),
-    message: yup.string().required("Message is required"),
-    newsOffers: yup.boolean(),
-    privacyPolicy: yup.boolean().oneOf([true], "You must accept the privacy policy")
-});
 const contactBg = "/images/background/contect-us.png";
 import './contect.css';
+
+const defaultValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    country: "",
+    contactMode: "",
+    message: "",
+    newsOffers: false,
+    privacyPolicy: false
+};
+
+const FALLBACK_CONTACT_EMAIL = "reachus.blanca@gmail.com";
+const FALLBACK_CONTACT_NUMBERS = [
+    { number: "+91 70219 13284", title: "Head Office Feedback and Complaints" },
+    { number: "+91 77700 559535", title: "( Blanca Sales )" }
+];
+const FALLBACK_CONTACT_ADDRESS =
+    "Greenland CHS 16 Plot 20 Sector 40 Nerul Seawood, Navi Mumbai, 400706.";
 
 const Contact = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showThankYou, setShowThankYou] = useState(false);
+    const { mutate: sendContact, isPending } = useContactUs();
+    const { data: settingResponse } = useSetting();
 
-    const { control, handleSubmit, formState: { errors }, reset } = useForm({
-        resolver: yupResolver(schema),
-        defaultValues: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            phone: "",
-            country: "",
-            contactMode: "",
-            message: "",
-            newsOffers: false,
-            privacyPolicy: false
+    const settingRecord = useMemo(() => {
+        return settingResponse?.data?.[0] || null;
+    }, [settingResponse]);
+
+    const reachEmail = settingRecord?.setting_email || FALLBACK_CONTACT_EMAIL;
+    const salesPhone = useMemo(() => {
+        const raw = settingRecord?.setting_contact_number;
+        if (!raw) return FALLBACK_CONTACT_NUMBERS;
+
+        if (Array.isArray(raw)) {
+            const normalized = raw.map((item) =>
+                typeof item === "string" ? { title: "Contact", number: item } : item
+            );
+            return normalized.length ? normalized : FALLBACK_CONTACT_NUMBERS;
         }
-    });
+
+        if (typeof raw === "string") {
+            try {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) {
+                    const normalized = parsed.map((item) =>
+                        typeof item === "string" ? { title: "Contact", number: item } : item
+                    );
+                    return normalized.length ? normalized : FALLBACK_CONTACT_NUMBERS;
+                }
+            } catch (_e) {
+                // fallback to plain string format
+            }
+            return [{ title: "Contact", number: raw }];
+        }
+
+        if (typeof raw === "object") return [raw];
+        return FALLBACK_CONTACT_NUMBERS;
+    }, [settingRecord?.setting_contact_number]);
+ 
+    const address =
+        settingRecord?.setting_address || FALLBACK_CONTACT_ADDRESS;
+
+    const countryOptions = Country.getAllCountries().map((c) => ({
+        label: c.name,
+        value: c.isoCode.toLowerCase(),
+        isoCode: c.isoCode.toLowerCase(),
+        phoneCode: `+${c.phonecode}`,
+    }));
+
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+        reset,
+        setValue,
+        watch } = useForm({
+            resolver: yupResolver(contactSchema),
+            mode: "onChange",
+            shouldUnregister: true,
+            defaultValues,
+        });
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        const handleLoad = () => {
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 800);
-        };
-
-        if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-        }
-
-        return () => window.removeEventListener('load', handleLoad);
+        const timer = setTimeout(() => setIsLoading(false), 400);
+        return () => clearTimeout(timer);
     }, []);
 
-    const onSubmit = (data) => {
-        console.log("Form Data:", data);
-        setShowThankYou(true);
-        reset();
-    };
+    const onSubmit = React.useCallback((data) => {
+        const selectedCountry = countryOptions.find((c) => c.value === data.country);
+        const phoneWithCountryCode = selectedCountry?.phoneCode
+            ? `${selectedCountry.phoneCode}${data.phone}`
+            : data.phone;
 
+        const payload = {
+            first_name: data.firstName,
+            last_name: data.lastName,
+            email: data.email,
+            phone_number: phoneWithCountryCode,
+            country: selectedCountry?.label || data.country,
+            message: data.message,
+            is_notified: !!data.newsOffers,
+            notification_mode: data.contactMode,
+        };
+
+        sendContact(payload, {
+            onSuccess: () => {
+                setShowThankYou(true);
+                reset();
+            },
+            onError: () => {
+                alert("Something went wrong. Please try again.");
+            },
+        });
+    }, [sendContact, reset, countryOptions]);
+
+    const selectedCountryCode = useWatch({
+        control,
+        name: "country",
+        defaultValue: "in",
+    });
 
     return (
         <div className="contact-page">
@@ -116,8 +192,8 @@ const Contact = () => {
                                             <div className="contact-text">
                                                 <h5>Reach Us</h5>
                                                 <p>
-                                                    <a href="mailto:reachus.blanca@gmail.com">
-                                                        <i className="fa-regular fa-comment-dots"></i> reachus.blanca@gmail.com
+                                                    <a href={`mailto:${reachEmail}`}>
+                                                        <i className="fa-regular fa-comment-dots"></i> {reachEmail}
                                                     </a>
                                                 </p>
                                             </div>
@@ -129,8 +205,11 @@ const Contact = () => {
                                             </div>
                                             <div className="contact-text">
                                                 <h5>OTHER INQUIRIES</h5>
-                                                <p>+91 77700 55535 (Blanca Sales)</p>
-                                                <p>+91 70219 13284 (Head Office Feedback and Complaints)</p>
+                                                {salesPhone.map((phoneItem, index) => (
+                                                    <p key={index}>
+                                                        {`${phoneItem?.number || ""} ${phoneItem?.title ? `${phoneItem.title} ` : ""}`}
+                                                    </p>
+                                                ))}
                                             </div>
                                         </div>
 
@@ -141,8 +220,12 @@ const Contact = () => {
                                             <div className="contact-text">
                                                 <h5>ADDRESS:</h5>
                                                 <p>
-                                                    Greenland CHS 16 Plot 20 Sector 40 Nerul Seawood,<br />
-                                                    Navi Mumbai, 400706.
+                                                    {String(address).split("\n").map((line, idx) => (
+                                                        <React.Fragment key={idx}>
+                                                            {line}
+                                                            <br />
+                                                        </React.Fragment>
+                                                    ))}
                                                 </p>
                                             </div>
                                         </div>
@@ -210,6 +293,8 @@ const Contact = () => {
                                                         <PhoneInput
                                                             {...field}
                                                             label="PHONE NUMBER"
+                                                            selectedCountryCode={selectedCountryCode}
+                                                            onCountryChange={(isoCode) => setValue("country", isoCode)}
                                                         />
                                                     )}
                                                 />
@@ -220,12 +305,26 @@ const Contact = () => {
                                                     name="country"
                                                     control={control}
                                                     render={({ field }) => (
-                                                        <Dropdown
-                                                            {...field}
-                                                            label="COUNTRY"
-                                                            placeholder="-- select one --"
-                                                            options={["India", "UAE", "USA", "UK"]}
-                                                        />
+                                                        <Field label="COUNTRY">
+                                                            <div className="glass-input-wrapper overflow-visible">
+                                                                <Select
+                                                                    {...field}
+                                                                    className="contact-country-select"
+                                                                    classNamePrefix="contact-country-select"
+                                                                    options={countryOptions}
+                                                                    value={
+                                                                        countryOptions.find(
+                                                                            (option) =>
+                                                                                option.value === field.value
+                                                                        ) || null
+                                                                    }
+                                                                    onChange={(option) =>
+                                                                        field.onChange(option ? option.value : "")
+                                                                    }
+                                                                    placeholder="-- select one --"
+                                                                />
+                                                            </div>
+                                                        </Field>
                                                     )}
                                                 />
                                                 {errors.country && <p className="text-danger small mt-1">{errors.country.message}</p>}
@@ -294,8 +393,12 @@ const Contact = () => {
                                             </Col>
                                         </Row>
                                         <div className="submit-btn-contect-page mt-4">
-                                            <button type="submit" className="theme-btn bs-font-montserrat">
-                                                Submit
+                                            <button
+                                                type="submit"
+                                                className="theme-btn bs-font-montserrat"
+                                                disabled={isPending}
+                                            >
+                                                {isPending ? "Sending..." : "Submit"}
                                             </button>
                                         </div>
                                     </Form>

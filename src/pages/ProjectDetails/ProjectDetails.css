@@ -391,7 +391,8 @@
 .input-modern-group {
     position: relative;
     width: 100%;
-    margin-top: 8px;
+    margin-top: 12px;
+    padding-bottom: 26px; /* space for error text */
 }
 
 .modern-input {
@@ -399,7 +400,7 @@
     background: transparent !important;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 0px 0px 10px 0px;
+    padding: 0 0 10px 0;
     color: #fff !important;
     font-size: 1.05rem;
     transition: all 0.3s ease;
@@ -442,7 +443,7 @@
 
 .focus-border {
     position: absolute;
-    bottom: 0;
+    bottom: 28px; /* keep underline close to input, above error */
     left: 50%;
     width: 0;
     height: 2px;
@@ -453,6 +454,15 @@
 .modern-input:focus~.focus-border {
     width: 100%;
     left: 0;
+}
+
+.input-modern-group .text-danger {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    color: #ff6b6b;
 }
 
 textarea.modern-input {
