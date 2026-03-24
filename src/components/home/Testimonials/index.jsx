@@ -20,24 +20,8 @@ const Testimonials = () => {
 
   const testimonials = useMemo(() => data?.data ?? [], [data]);
 
-  if (isLoading) {
-    return (
-      <section className="reviews2-area">
-        <Container>
-          <p>Loading testimonials...</p>
-        </Container>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="reviews2-area">
-        <Container>
-          <p>Failed to load testimonials</p>
-        </Container>
-      </section>
-    );
+  if (isLoading || error || testimonials.length === 0) {
+    return null;
   }
 
   const renderStars = (rating) => {

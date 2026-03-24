@@ -44,7 +44,6 @@ const IndividualForm = ({
                             <Controller
                                 name="agentType"
                                 control={control}
-                                rules={{ required: true }}
                                 render={({ field }) => (
                                     <Dropdown
                                         label="Real Estate Agent Type*"
@@ -70,7 +69,6 @@ const IndividualForm = ({
                             <Controller
                                 name="fullname"
                                 control={control}
-                                rules={{ required: true }}
                                 render={({ field }) => (
                                     <InputField
                                         label="Name *"
@@ -78,7 +76,6 @@ const IndividualForm = ({
                                         name={field.name}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
-                                        required
                                     />
                                 )}
                             />
@@ -123,7 +120,7 @@ const IndividualForm = ({
                                 control={control}
                                 render={({ field }) => (
                                     <Dropdown
-                                        label="How did you hear about us?"
+                                        label="How did you hear about us? *"
                                         placeholder="-- select one --"
                                         name={field.name}
                                         options={["Friends", "Family", "Others"]}
@@ -141,7 +138,6 @@ const IndividualForm = ({
                             <Controller
                                 name="referFullname"
                                 control={control}
-                                rules={{ required: true }}
                                 render={({ field }) => (
                                     <InputField
                                         label="Name *"
@@ -149,7 +145,6 @@ const IndividualForm = ({
                                         name={field.name}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
-                                        required
                                     />
                                 )}
                             />
@@ -164,7 +159,6 @@ const IndividualForm = ({
                             <Controller
                                 name="referPhone"
                                 control={control}
-                                rules={{ required: true }}
                                 render={({ field }) => (
                                     <InputField
                                         label="Mobile Number *"
@@ -172,7 +166,6 @@ const IndividualForm = ({
                                         name={field.name}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
-                                        required
                                     />
                                 )}
                             />
@@ -185,7 +178,6 @@ const IndividualForm = ({
                             <Controller
                                 name="referEmail"
                                 control={control}
-                                rules={{ required: true }}
                                 render={({ field }) => (
                                     <InputField
                                         type="email"
@@ -194,7 +186,6 @@ const IndividualForm = ({
                                         name={field.name}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
-                                        required
                                     />
                                 )}
                             />
@@ -207,7 +198,6 @@ const IndividualForm = ({
                             <Controller
                                 name="referAddress"
                                 control={control}
-                                rules={{ required: true }}
                                 render={({ field }) => (
                                     <TextArea
                                         label="Address *"
@@ -215,7 +205,6 @@ const IndividualForm = ({
                                         name={field.name}
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
-                                        required
                                     />
                                 )}
                             />

@@ -42,7 +42,7 @@ const Registration = () => {
         // state: "",
         // city: "",
         address: "",
-        pinCode: 0,
+        pinCode: "",
         heardAboutUs: "",
         referFullname: "",
         referPhone: "",

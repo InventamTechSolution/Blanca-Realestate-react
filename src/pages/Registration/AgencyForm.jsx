@@ -149,6 +149,7 @@ const AgencyForm = ({
                                         value={field.value}
                                         onChange={(e) => field.onChange(e.target.value)}
                                         required
+                                        type="number"
                                         // extra={<Button type="button" className="otp-btn">Send OTP</Button>}
                                     />
                                 )}
