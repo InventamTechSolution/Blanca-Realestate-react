@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Icon } from "@iconify/react";
-import { S3_BASE_URL } from "../../../utils/constant";
-import { useS3Uploader } from "../../../utils/useS3Uploader";
+import { UPLOAD_BASE_URL } from "../../../utils/constant";
+import { useDocumentUploader } from "../../../utils/useDocumentUploader";
 import Field from "../Field/Field";
 import "./MediaDropzone.css";
 
@@ -29,8 +29,7 @@ export default function MediaDropzone({
   uploadType,
   noteMsg = "",
 }) {
-  const { uploadJobFileToS3, removeUploadedFileFromS3, isLoading } =
-    useS3Uploader();
+  const { uploadFile, removeUploadedFile, isLoading } = useDocumentUploader();
   const [fileName, setFileName] = useState(null);
   const [localError, setLocalError] = useState("");
 
@@ -38,16 +37,16 @@ export default function MediaDropzone({
     async (keyToRemove) => {
       if (keyToRemove) {
         try {
-          await removeUploadedFileFromS3(keyToRemove);
+          await removeUploadedFile(keyToRemove);
         } catch (err) {
-          console.error("Failed to delete file from S3:", err);
+          console.error("Failed to delete uploaded file:", err);
         }
       }
       setFileName(null);
       onChange("");
       setLocalError("");
     },
-    [onChange, removeUploadedFileFromS3]
+    [onChange, removeUploadedFile]
   );
 
   const onDrop = useCallback(
@@ -80,13 +79,15 @@ export default function MediaDropzone({
       }
 
       if (value) {
-        await removeUploadedFileFromS3(value);
+        await removeUploadedFile(value);
       }
 
       try {
-        const uploadedKey = await uploadJobFileToS3(file, uploadType);
+        const uploadedKey = await uploadFile(file);
         if (uploadedKey) {
-          const fullUrl = S3_BASE_URL ? `${S3_BASE_URL}/${uploadedKey}` : uploadedKey;
+          const fullUrl = UPLOAD_BASE_URL
+            ? `${UPLOAD_BASE_URL}/${uploadedKey}`.replace(/([^:]\/)\/+/g, "$1")
+            : uploadedKey;
           setFileName({ key: uploadedKey, url: fullUrl, name: file.name });
           onChange(uploadedKey);
           setLocalError("");
@@ -102,9 +103,9 @@ export default function MediaDropzone({
       maxSize,
       acceptExtensions,
       fileType,
-      removeUploadedFileFromS3,
       uploadType,
-      uploadJobFileToS3,
+      uploadFile,
+      removeUploadedFile,
     ]
   );
 
@@ -118,7 +119,9 @@ export default function MediaDropzone({
   useEffect(() => {
     if (value) {
       const name = value.split("/").pop() || "";
-      const fullUrl = S3_BASE_URL ? `${S3_BASE_URL}/${value}` : value;
+      const fullUrl = UPLOAD_BASE_URL
+        ? `${UPLOAD_BASE_URL}/${value}`.replace(/([^:]\/)\/+/g, "$1")
+        : value;
       setFileName({ key: value, url: fullUrl, name, type: "application/pdf" });
     } else {
       setFileName(null);

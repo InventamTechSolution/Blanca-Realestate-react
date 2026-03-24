@@ -51,6 +51,13 @@ const About = () => {
     };
   }, [homeAboutResponse]);
 
+  const isVideoMedia = React.useMemo(() => {
+    const media = aboutContent?.media;
+    if (!media) return false;
+    const cleanPath = String(media).split("?")[0].toLowerCase();
+    return /\.(mp4|webm|ogg|mov|m4v)$/i.test(cleanPath);
+  }, [aboutContent?.media]);
+
   if (isPending || isError) return null;
   if (!isSuccess || !aboutContent) return null;
 
@@ -58,7 +65,7 @@ const About = () => {
     <section className="about-area about-modern" id="about">
       <Container>
         <Row className="about-modern__wrap align-items-center g-5">
-          {/* Video Section — only when API provides media */}
+          {/* Media Section — supports both image and video */}
           {aboutContent.media ? (
             <Col lg={6} className="about-modern__media">
               <Motion.div
@@ -68,14 +75,21 @@ const About = () => {
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <video
-                  src={aboutContent.media}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  aria-label="About us banner video"
-                />
+                {isVideoMedia ? (
+                  <video
+                    src={aboutContent.media}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    aria-label="About us banner video"
+                  />
+                ) : (
+                  <img
+                    src={aboutContent.media}
+                    alt={aboutContent.title || "About us banner image"}
+                  />
+                )}
               </Motion.div>
             </Col>
           ) : null}

@@ -14,8 +14,8 @@ import ThemeButton from "../../common/Button/ThemeBtn";
 import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
 import { jobApplySchema } from "../../../schema/validationSchema";
 import { useApplyCareer } from "../../../hooks/useCareers";
-import { useS3Uploader } from "../../../utils/useS3Uploader";
 import { acceptedDocsExtensions } from "../../../utils/constant";
+import { useDocumentUploader } from "../../../utils/useDocumentUploader";
 
 const defaultValues = {
     fullName: "",
@@ -33,7 +33,7 @@ const defaultValues = {
 const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
     const [showThankYou, setShowThankYou] = React.useState(false);
     const { mutate: applyCareer, isPending } = useApplyCareer();
-    const { removeUploadedFileFromS3 } = useS3Uploader();
+    const { removeUploadedFile } = useDocumentUploader();
 
     const {
         control,
@@ -105,13 +105,13 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
     );
 
     const handleClose = React.useCallback(() => {
-        const resumeKey = getValues("resume");
-        if (resumeKey) {
-            removeUploadedFileFromS3(resumeKey).catch(() => {});
+        const resumePath = getValues("resume");
+        if (resumePath) {
+            removeUploadedFile(resumePath).catch(() => {});
         }
         reset(defaultValues);
         onClose();
-    }, [getValues, removeUploadedFileFromS3, reset, onClose]);
+    }, [getValues, removeUploadedFile, reset, onClose]);
 
     return (
         <>
