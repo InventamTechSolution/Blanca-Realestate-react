@@ -11,6 +11,10 @@ export default defineConfig({
   preview: {
     host: true,
     port: 3001,
+    allowedHosts: [
+      'fe.blanca.co.in',
+      '.blanca.co.in'
+    ]
   },
   build: {
     rollupOptions: {
