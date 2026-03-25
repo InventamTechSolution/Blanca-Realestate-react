@@ -19,19 +19,10 @@ const About = () => {
     const { data: aboutPageResponse } = useOtherField();
 
     useEffect(() => {
-        const handleLoad = () => {
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 800);
-        };
-
-        if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-        }
-
-        return () => window.removeEventListener('load', handleLoad);
+        // SPA route changes don't re-fire `window.load`, so relying on it can
+        // leave the preloader stuck forever (especially on rapid/double nav).
+        const t = window.setTimeout(() => setIsLoading(false), 800);
+        return () => window.clearTimeout(t);
     }, []);
 
     useEffect(() => {
