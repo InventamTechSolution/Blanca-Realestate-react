@@ -40,9 +40,9 @@ const Home = () => {
             </AnimatePresence>
             <Header />
             <main>
-                { projects.length > 0 && projects.map((project) => (
+                { projects.length > 0 && projects.map((project, index) => (
                     <MainHeroBanner
-                        key={project.id}
+                        key={project.project_project_id}
                         videoSrc={project.project_banner_image}
                         poster={project.project_image}
                         status={PROJECT_STATUS_LABELS[project.project_status] || project.project_status}

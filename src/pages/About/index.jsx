@@ -99,7 +99,7 @@ const About = () => {
                 <AboutBlueprintSection />
                 <VisionSection />
                 <MissionSection />
-                <JourneySection />
+                {/* <JourneySection /> */}
                 <TeamSlider items={teamItems} />
                 <ShowcaseSection slides={showcaseSlides} />
             </main>
