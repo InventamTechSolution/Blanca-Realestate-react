@@ -19,6 +19,7 @@ const Testimonials = () => {
   });
 
   const testimonials = useMemo(() => data?.data ?? [], [data]);
+  const shouldLoop = testimonials.length > 2;
 
   if (isLoading || error || testimonials.length === 0) {
     return null;
@@ -83,8 +84,11 @@ const Testimonials = () => {
               <Swiper
                 modules={[Pagination, Autoplay]}
                 pagination={{ clickable: true }}
-                autoplay={{ delay: 5000, disableOnInteraction: false }}
-                loop={true}
+                autoplay={
+                  shouldLoop ? { delay: 5000, disableOnInteraction: false } : false
+                }
+                loop={shouldLoop}
+                watchOverflow={true}
                 spaceBetween={18}
                 slidesPerView={1}
                 breakpoints={{
