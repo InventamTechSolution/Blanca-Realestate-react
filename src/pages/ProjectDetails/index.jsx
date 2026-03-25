@@ -21,6 +21,7 @@ import { enquirySchema } from "../../schema/validationSchema";
 import { Icon } from "@iconify/react";
 import { useContactModal } from "../../context/ContactModalContext";
 import { useLocation } from "react-router-dom";
+import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
 // const commercial1 = "/images/project-details/commercial-office-1.png";
 // const commercial2 = "/images/project-details/commercial-office-2.png";
 // const commercial3 = "/images/project-details/commercial-office-3.png";
@@ -38,6 +39,7 @@ const ProjectDetails = () => {
   const { id } = useParams();
   const location = useLocation();
   const enquiryRef = useRef(null);
+  const [showThankYou, setShowThankYou] = React.useState(false);
   const { data, isLoading, error } = useProjectById(id);
   const { mutate, isPending } = useEnquire();
 
@@ -112,11 +114,12 @@ const ProjectDetails = () => {
   const onSubmit = (data) => {
     const payload = {
       ...data,
+      phone: data.phone_number,
       project_id: project?.project_project_id,
     };
     mutate(payload, {
       onSuccess: () => {
-        alert("Enquiry sent successfully");
+        setShowThankYou(true);
         reset();
       },
       onError: () => {
@@ -494,6 +497,13 @@ const ProjectDetails = () => {
         </section>
       </main>
       <Footer />
+
+      <ThankYouModal
+        isOpen={showThankYou}
+        onClose={() => setShowThankYou(false)}
+        title="Enquiry Sent"
+        message="Thank you for your enquiry! We’ve received your details and our team will get in touch with you shortly."
+      />
     </>
   );
 };
