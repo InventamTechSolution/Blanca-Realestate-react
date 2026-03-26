@@ -3,13 +3,83 @@ import { Pagination, Autoplay } from "swiper/modules";
 import { Icon } from "@iconify/react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion as Motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "./Testimonials.css";
 
 import { useTestimonials } from "../../../hooks/useTestimonials";
+
+const AVATAR_COLORS = [
+  "#3B82F6",
+  "#8B5CF6",
+  "#EC4899",
+  "#F97316",
+  "#22C55E",
+  "#14B8A6",
+  "#06B6D4",
+  "#F59E0B",
+  "#EF4444",
+  "#6366F1",
+];
+
+const getInitial = (name) => {
+  const value = String(name ?? "").trim();
+  return value ? value.charAt(0).toUpperCase() : "?";
+};
+
+const hashString = (value) => {
+  const str = String(value ?? "");
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+};
+
+const getAvatarColor = (name) =>
+  AVATAR_COLORS[hashString(name) % AVATAR_COLORS.length];
+
+const Avatar = ({ src, name }) => {
+  const [failed, setFailed] = useState(false);
+
+  if (!src || failed) {
+    return (
+      <div
+        aria-label={name}
+        role="img"
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "50%",
+          backgroundColor: getAvatarColor(name),
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#fff",
+          fontSize: "24px",
+          fontWeight: 600,
+          textTransform: "uppercase",
+          userSelect: "none",
+        }}
+      >
+        {getInitial(name)}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={name}
+      onError={() => setFailed(true)}
+      loading="lazy"
+      decoding="async"
+    />
+  );
+};
 
 const Testimonials = () => {
   const { data, isLoading, error } = useTestimonials({
@@ -111,12 +181,9 @@ const Testimonials = () => {
 
                           {/* Avatar */}
                           <div className="testimonials-modern__avatar">
-                            <img
-                              src={
-                                testimonial.testimonial_profile_image ||
-                                "/images/testimonials/avtar-img.png"
-                              }
-                              alt={testimonial.testimonial_user_name}
+                            <Avatar
+                              src={testimonial.testimonial_profile_image}
+                              name={testimonial.testimonial_user_name}
                             />
                           </div>
 
