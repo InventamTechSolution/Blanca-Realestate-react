@@ -46,28 +46,29 @@ const JourneySection = () => {
             };
         };
 
-        const withAutoPosition = (projects) =>
-            projects.map((project, index) => ({
-                ...project,
-                position: index % 2 === 0 ? "above" : "below",
-            }));
+
 
         return list
-            .map((group) => {
+            .flatMap((group) => {
                 const year = String(group?.year ?? group?.label ?? "");
                 const category = group?.category ?? group?.category_name ?? "";
                 const projectsRaw = group?.projects ?? group?.data ?? group?.items ?? [];
-                const projects = Array.isArray(projectsRaw)
-                    ? withAutoPosition(projectsRaw.map(normalizeProject))
+                const normalizedProjects = Array.isArray(projectsRaw)
+                    ? projectsRaw.map(normalizeProject)
                     : [];
 
-                if (!year) return null;
+                if (!year || normalizedProjects.length === 0) return [];
 
-                return {
-                    year,
-                    category,
-                    projects,
-                };
+                // Chunk projects into groups of at most 2
+                const result = [];
+                for (let i = 0; i < normalizedProjects.length; i += 2) {
+                    result.push({
+                        year,
+                        category: i === 0 ? category : "", // Only show category on the first chunk of the year
+                        projects: normalizedProjects.slice(i, i + 2),
+                    });
+                }
+                return result;
             })
             .filter((g) => Boolean(g) && Array.isArray(g.projects) && g.projects.length > 0);
     }, [journeyResponse]);

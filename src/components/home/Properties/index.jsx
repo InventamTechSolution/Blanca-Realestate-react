@@ -15,7 +15,7 @@ import { useContactModal } from "../../../context/ContactModalContext";
 
 const Properties = () => {
   const navigate = useNavigate();
-  const { data } = useProjects({page: 1, limit: 50, is_active: true});
+  const { data } = useProjects({ page: 1, limit: 50, is_active: true });
 
   const projects = data?.data || [];
   const { openContactModal } = useContactModal();
@@ -138,10 +138,10 @@ const Properties = () => {
                           </Col>
                         </Row>
                         <Row className="g-0">
-                          <Col xxl={6} xl={12} lg={12} md={12}>
+                          {/* <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>From INR:</span>
                             <strong>{project.price}</strong>
-                          </Col>
+                          </Col> */}
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Status:</span>
                             <strong>{PROJECT_STATUS_LABELS[project.project_status] || project.project_status}</strong>
