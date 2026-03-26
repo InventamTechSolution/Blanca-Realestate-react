@@ -12,10 +12,55 @@ const JourneySection = () => {
     const [scrollLeft, setScrollLeft] = React.useState(0);
     const { data: journeyResponse } = useProjectByYearWithCategory();
 
+    const isCompletedStatus = (value) => {
+        if (value === undefined || value === null) return false;
+        const s = String(value).trim().toLowerCase();
+        return s === "completed" || s === "complete";
+    };
+
     const journeyData = React.useMemo(() => {
         const raw = journeyResponse;
         const groups = raw?.data ?? raw?.message?.data ?? raw;
         const list = Array.isArray(groups) ? groups : [];
+
+        const normalizeStatus = (value) => {
+            if (value === undefined || value === null) return "";
+            const s = String(value).trim();
+            if (!s) return "";
+            const lower = s.toLowerCase();
+            if (lower === "completed") return "Completed";
+            if (lower === "on-going") return "Ongoing";
+            if ( lower === "coming-soon" ) return "Upcoming";
+            return s;
+        };
+
+        const parseYearAndStatus = (group) => {
+            const rawYearLike = group?.year ?? group?.label ?? "";
+            const rawStatusLike =
+                group?.status ??
+                group?.project_status ??
+                group?.projectStatus ??
+                group?.status_name ??
+                group?.statusName ??
+                "";
+
+            const normalizedStatus = normalizeStatus(rawStatusLike);
+            const text = String(rawYearLike ?? "").trim();
+
+            // If API already provides a year field as number/string, keep it.
+            // Otherwise, try to parse patterns like "Ongoing 2026" / "Upcoming 2027".
+            const yearMatch = text.match(/\b(19|20)\d{2}\b/);
+            const year = yearMatch ? yearMatch[0] : text;
+
+            if (normalizedStatus) return { year, status: normalizedStatus };
+
+            if (yearMatch) {
+                const statusPart = text.replace(yearMatch[0], "").trim();
+                return { year, status: normalizeStatus(statusPart) };
+            }
+
+            return { year, status: "" };
+        };
 
         const normalizeProject = (project) => {
             const p = project?.project ?? project;
@@ -36,6 +81,13 @@ const JourneySection = () => {
                 ? String(rawId).trim()
                 : "";
 
+            const statusRaw =
+                p?.status ??
+                project?.status ??
+                p?.project_status ??
+                project?.project_status ??
+                "";
+
             return {
                 id,
                 title: title ?? "",
@@ -43,6 +95,7 @@ const JourneySection = () => {
                 type: type || "",
                 description: description ?? "",
                 image: image ?? "",
+                status: normalizeStatus(statusRaw),
             };
         };
 
@@ -50,7 +103,7 @@ const JourneySection = () => {
 
         return list
             .flatMap((group) => {
-                const year = String(group?.year ?? group?.label ?? "");
+                const { year, status } = parseYearAndStatus(group);
                 const category = group?.category ?? group?.category_name ?? "";
                 const projectsRaw = group?.projects ?? group?.data ?? group?.items ?? [];
                 const normalizedProjects = Array.isArray(projectsRaw)
@@ -59,14 +112,39 @@ const JourneySection = () => {
 
                 if (!year || normalizedProjects.length === 0) return [];
 
+                const groupStatusFallback =
+                    normalizeStatus(status) ||
+                    normalizeStatus(group?.status ?? group?.project_status ?? "");
+
+                // If this year contains multiple statuses (e.g. completed + on-going),
+                // render them as separate timeline groups so ribbons match the backend data.
+                const byStatus = new Map();
+                for (const p of normalizedProjects) {
+                    const s = normalizeStatus(p?.status) || groupStatusFallback || "";
+                    if (!byStatus.has(s)) byStatus.set(s, []);
+                    byStatus.get(s).push(p);
+                }
+
+                const statusGroups = Array.from(byStatus.entries()).sort(([a], [b]) => {
+                    const aCompleted = isCompletedStatus(a);
+                    const bCompleted = isCompletedStatus(b);
+                    if (aCompleted !== bCompleted) return aCompleted ? -1 : 1; // completed first
+                    return String(a || "").localeCompare(String(b || ""));
+                });
+
                 // Chunk projects into groups of at most 2
                 const result = [];
-                for (let i = 0; i < normalizedProjects.length; i += 2) {
-                    result.push({
-                        year,
-                        category: i === 0 ? category : "", // Only show category on the first chunk of the year
-                        projects: normalizedProjects.slice(i, i + 2),
-                    });
+                let categoryUsed = false;
+                for (const [statusKey, projectsForStatus] of statusGroups) {
+                    for (let i = 0; i < projectsForStatus.length; i += 2) {
+                        result.push({
+                            year,
+                            status: statusKey,
+                            category: !categoryUsed && i === 0 ? category : "", // show once per year (first chunk only)
+                            projects: projectsForStatus.slice(i, i + 2),
+                        });
+                        if (!categoryUsed) categoryUsed = true;
+                    }
                 }
                 return result;
             })
@@ -129,6 +207,13 @@ const JourneySection = () => {
         return journeyData.map((item, index) => {
             const currentOffset = cumulativeProjectCount;
             cumulativeProjectCount += item.projects?.length ?? 0;
+            const normalizedStatus =
+                item?.status && String(item.status).trim()
+                    ? String(item.status).trim()
+                    : "";
+            const showStatus =
+                normalizedStatus && !isCompletedStatus(normalizedStatus);
+            const yearLabel = showStatus ? `${normalizedStatus} ${item.year}` : item.year;
             return (
                 <div className="journey-item" key={`${keyPrefix}-${index}`}>
                     {item.category && (
@@ -177,7 +262,7 @@ const JourneySection = () => {
                     })}
 
                     <div className="year-block" style={item.yearWidth ? { width: item.yearWidth } : {}}>
-                        <span className="year-text">{item.year}</span>
+                        <span className="year-text">{yearLabel}</span>
                     </div>
                 </div>
             );
