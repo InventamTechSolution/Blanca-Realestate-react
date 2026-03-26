@@ -33,8 +33,8 @@ const JourneySection = () => {
 
             const rawId = p?.project_id || "";
             const id = rawId !== undefined && rawId !== null && String(rawId).trim() !== ""
-                    ? String(rawId).trim()
-                    : "";
+                ? String(rawId).trim()
+                : "";
 
             return {
                 id,
@@ -71,47 +71,57 @@ const JourneySection = () => {
             })
             .filter((g) => Boolean(g) && Array.isArray(g.projects) && g.projects.length > 0);
     }, [journeyResponse]);
+    const isInfiniteEnabled = journeyData.length > 1;
 
     const syncInfiniteScroll = React.useCallback(() => {
+        if (!isInfiniteEnabled) return; // ✅ prevent bug
+
         const el = scrollRef.current;
         const W = segmentWidthRef.current;
+
         if (!el || !W) return;
-        while (el.scrollLeft >= 2 * W) {
+
+        if (el.scrollLeft >= 2 * W) {
             el.scrollLeft -= W;
-        }
-        while (el.scrollLeft < W) {
+        } else if (el.scrollLeft < W) {
             el.scrollLeft += W;
         }
-    }, []);
+    }, [isInfiniteEnabled]);
 
     React.useLayoutEffect(() => {
         const seg = segmentRef.current;
         const el = scrollRef.current;
+
         if (!seg || !el) return;
 
         const measureAndInit = () => {
-            const w = seg.offsetWidth;
+            const w = seg.scrollWidth; // ✅ FIX (use scrollWidth instead of offsetWidth)
+
             if (w > 0) {
                 segmentWidthRef.current = w;
-                el.scrollLeft = w;
+
+                if (isInfiniteEnabled) {
+                    el.scrollLeft = w;
+                } else {
+                    el.scrollLeft = 0; // ✅ important
+                }
             }
         };
 
         measureAndInit();
-        const ro = new ResizeObserver(() => {
-            const w = seg.offsetWidth;
-            if (w > 0) segmentWidthRef.current = w;
-            syncInfiniteScroll();
-        });
+
+        const ro = new ResizeObserver(measureAndInit);
         ro.observe(seg);
+
         return () => ro.disconnect();
-    }, [journeyData, syncInfiniteScroll]);
+    }, [journeyData, isInfiniteEnabled]);
 
     const handleScroll = React.useCallback(() => {
         syncInfiniteScroll();
     }, [syncInfiniteScroll]);
 
-    if (!journeyData?.length) return null;
+    if (!journeyResponse) return null;
+    if (!journeyData?.length) return <div>Loading...</div>;
 
     const renderJourneyItems = (keyPrefix) => {
         let cumulativeProjectCount = 0;
@@ -221,15 +231,25 @@ const JourneySection = () => {
                 <div className="journey-content-inner">
                     <div className="timeline-track" />
                     <div className="journey-loop-wrapper">
-                        <div className="journey-loop-segment" aria-hidden="true">
-                            {renderJourneyItems('a')}
-                        </div>
-                        <div className="journey-loop-segment" ref={segmentRef}>
-                            {renderJourneyItems('b')}
-                        </div>
-                        <div className="journey-loop-segment" aria-hidden="true">
-                            {renderJourneyItems('c')}
-                        </div>
+                        {isInfiniteEnabled ? (
+                            <>
+                                <div className="journey-loop-segment" aria-hidden="true">
+                                    {renderJourneyItems('a')}
+                                </div>
+
+                                <div className="journey-loop-segment" ref={segmentRef}>
+                                    {renderJourneyItems('b')}
+                                </div>
+
+                                <div className="journey-loop-segment" aria-hidden="true">
+                                    {renderJourneyItems('c')}
+                                </div>
+                            </>
+                        ) : (
+                            <div className="journey-loop-segment" ref={segmentRef}>
+                                {renderJourneyItems('single')}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
