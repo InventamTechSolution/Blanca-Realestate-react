@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import { useProjectByYearWithCategory } from '../../../hooks/useAbout';
 import './JourneySection.css';
 
+/** Module scope so `useMemo` callbacks always close over a defined function (avoids ReferenceError). */
+const isCompletedStatus = (value) => {
+    if (value === undefined || value === null) return false;
+    const s = String(value).trim().toLowerCase();
+    return s === "completed" || s === "complete";
+};
+
 const JourneySection = () => {
     const scrollRef = React.useRef(null);
     const segmentRef = React.useRef(null);
@@ -12,10 +19,13 @@ const JourneySection = () => {
     const [scrollLeft, setScrollLeft] = React.useState(0);
     const { data: journeyResponse } = useProjectByYearWithCategory();
 
-    const isCompletedStatus = (value) => {
-        if (value === undefined || value === null) return false;
-        const s = String(value).trim().toLowerCase();
-        return s === "completed" || s === "complete";
+    /** Ribbon: only "Ongoing" / "Upcoming" show before the year; all other statuses → year only */
+    const getRibbonStatusLabel = (status) => {
+        if (status === undefined || status === null) return "";
+        const t = String(status).trim().toLowerCase();
+        if (t === "ongoing" || t === "on-going") return "Ongoing";
+        if (t === "upcoming" || t === "coming-soon") return "Upcoming";
+        return "";
     };
 
     const journeyData = React.useMemo(() => {
@@ -82,11 +92,9 @@ const JourneySection = () => {
                 : "";
 
             const statusRaw =
-                p?.status ??
-                project?.status ??
-                p?.project_status ??
-                project?.project_status ??
-                "";
+                p?.status ?? ""
+
+            const rawActive = p?.is_active || false;
 
             return {
                 id,
@@ -96,6 +104,7 @@ const JourneySection = () => {
                 description: description ?? "",
                 image: image ?? "",
                 status: normalizeStatus(statusRaw),
+                isActive: rawActive,
             };
         };
 
@@ -211,9 +220,8 @@ const JourneySection = () => {
                 item?.status && String(item.status).trim()
                     ? String(item.status).trim()
                     : "";
-            const showStatus =
-                normalizedStatus && !isCompletedStatus(normalizedStatus);
-            const yearLabel = showStatus ? `${normalizedStatus} ${item.year}` : item.year;
+            const ribbonStatus = getRibbonStatusLabel(normalizedStatus);
+            const yearLabel = ribbonStatus ? `${ribbonStatus} ${item.year}` : item.year;
             return (
                 <div className="journey-item" key={`${keyPrefix}-${index}`}>
                     {item.category && (
@@ -245,7 +253,9 @@ const JourneySection = () => {
                             </>
                         );
 
-                        return project.id ? (
+                        const canOpenDetail = Boolean(project.id) && project.isActive;
+
+                        return canOpenDetail ? (
                             <Link
                                 key={`${keyPrefix}-${index}-${pIndex}`}
                                 to={`/project/${project.id}`}

@@ -146,7 +146,8 @@ const ProjectDetails = () => {
           <Container>
             <Row className="gap-3 align-items-center">
               {/* Left Content */}
-              <Col className="wow fadeInLeft">
+              {project?.project_overview_description && (
+                <Col className="wow fadeInLeft">
                 <div className="sub-title-wrapper mb-20">
                   <span className="sub-title common-subtitle">OVERVIEW</span>
                 </div>
@@ -159,27 +160,28 @@ const ProjectDetails = () => {
                   {project?.project_overview_description}
                 </div>
 
-                                <div className="download-buttons-wrapper mt-40">
-                                    <button className="download-btn" onClick={openContactModal}>
-                                        <div className="btn-icon">
-                                            <Icon icon="ph:article-light" />
-                                        </div>
-                                        <div className="btn-text">
-                                            <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
-                                            <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
-                                        </div>
-                                    </button>
-                                    <button className="download-btn" onClick={openContactModal}>
-                                        <div className="btn-icon">
-                                            <Icon icon="ph:list-checks-light" />
-                                        </div>
-                                        <div className="btn-text">
-                                            <span className="btn-title bs-font-montserrat">FACT SHEET</span>
-                                            <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
-                                        </div>
-                                    </button>
-                                </div>
-                            </Col>
+                <div className="download-buttons-wrapper mt-40">
+                  <button className="download-btn" onClick={openContactModal}>
+                    <div className="btn-icon">
+                      <Icon icon="ph:article-light" />
+                    </div>
+                    <div className="btn-text">
+                      <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
+                      <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
+                    </div>
+                  </button>
+                  <button className="download-btn" onClick={openContactModal}>
+                    <div className="btn-icon">
+                      <Icon icon="ph:list-checks-light" />
+                    </div>
+                    <div className="btn-text">
+                      <span className="btn-title bs-font-montserrat">FACT SHEET</span>
+                      <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
+                    </div>
+                  </button>
+                </div>
+              </Col>
+              )}
 
               {/* Right Slider */}
               <Col lg={6} className="wow fadeInRight">
@@ -200,10 +202,12 @@ const ProjectDetails = () => {
             </Row>
           </Container>
         </section>
-        <InteriorExterior
+        {project?.project_interior?.length > 0 && (
+          <InteriorExterior
           interiorImages={project?.project_interior}
           exteriorImages={project?.project_exterior}
-        />
+          />
+        )}
         {project?.project_amenities?.length > 0 && (
           <Amenities amenities={project?.project_amenities} />
         )}
@@ -350,9 +354,8 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${
-                                  errors.name ? "has-error" : ""
-                                }`}
+                                className={`input-modern-group ${errors.name ? "has-error" : ""
+                                  }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -382,9 +385,8 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${
-                                  errors.email ? "has-error" : ""
-                                }`}
+                                className={`input-modern-group ${errors.email ? "has-error" : ""
+                                  }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -414,9 +416,8 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${
-                                  errors.phone_number ? "has-error" : ""
-                                }`}
+                                className={`input-modern-group ${errors.phone_number ? "has-error" : ""
+                                  }`}
                               >
                                 <Form.Control
                                   {...field}
