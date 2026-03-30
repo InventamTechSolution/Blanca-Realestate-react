@@ -60,28 +60,16 @@ const WhyChooseUs = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const renderSegments = (image, isCurrent, isNext) => {
-    const outTransform =
-      animationDirection === 1 ? "translateY(-100%)" : "translateY(100%)";
-    const inTransform =
-      animationDirection === 1 ? "translateY(100%)" : "translateY(-100%)";
-
+  const renderSegments = (image, isCurrent) => {
     const segments = [];
     for (let i = 0; i < segmentsPerSlide; i++) {
-      let transform = "translateY(0)";
-      const shouldAnimateOut = isAnimating && isCurrent;
-      const shouldAnimateIn = isAnimating && isNext && animateEnter;
-
-      // Set initial state for entering segments, then animate once animateEnter becomes true.
-      if (shouldAnimateOut) transform = outTransform;
-      else if (isAnimating && isNext && !animateEnter) transform = inTransform;
-
-      const shouldAnimate = shouldAnimateOut || shouldAnimateIn;
-      const transition = shouldAnimate
+      // If it's the current slide and we are animating, it moves out
+      const transform =
+        isAnimating && isCurrent ? "translateY(100%)" : "translateY(0)";
+      const transition = isAnimating
         ? "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1)"
         : "none";
-      const transitionDelay =
-        shouldAnimateOut ? `${i * 0.08}s` : shouldAnimateIn ? `${i * 0.08}s` : "0s";
+      const transitionDelay = isAnimating && isCurrent ? `${i * 0.08}s` : "0s";
 
       segments.push(
         <div
