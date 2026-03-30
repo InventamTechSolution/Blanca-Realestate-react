@@ -223,7 +223,7 @@
     isolation: isolate;
 
     @media (max-width: 1600px) {
-        min-height: 160px;
+        min-height: 200px;
         height: auto;
     }
 }

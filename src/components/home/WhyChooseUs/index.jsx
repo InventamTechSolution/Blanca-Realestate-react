@@ -7,8 +7,12 @@ const WhyChooseUs = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  // +1 => moving to next slide, -1 => moving to prev slide
+  const [animationDirection, setAnimationDirection] = useState(1);
+  const [animateEnter, setAnimateEnter] = useState(false);
   const sliderRef = useRef(null);
   const segmentsPerSlide = 5;
+  const touchStartRef = useRef(null);
 
   const slides = whyChooseUsData;
 
@@ -21,16 +25,26 @@ const WhyChooseUs = () => {
 
     if (targetIndex === currentIndex) return;
 
+    const goingNext =
+      targetIndex === currentIndex + 1 ||
+      (currentIndex === slides.length - 1 && targetIndex === 0);
+    setAnimationDirection(goingNext ? 1 : -1);
+
     setNextIndex(targetIndex);
     setIsAnimating(true);
+    setAnimateEnter(false);
 
     // Staggered animation duration: segmentsPerSlide * 0.08 * 1000 + 800
     const totalTime = segmentsPerSlide * 80 + 800;
+
+    // Ensure we mount "next" first, then start animating it.
+    requestAnimationFrame(() => setAnimateEnter(true));
 
     setTimeout(() => {
       setCurrentIndex(targetIndex);
       setNextIndex(null);
       setIsAnimating(false);
+      setAnimateEnter(false);
     }, totalTime);
   };
 
@@ -83,6 +97,36 @@ const WhyChooseUs = () => {
     return <div className="skewed-segments-container">{segments}</div>;
   };
 
+  const onPointerDown = (e) => {
+    if (e.pointerType !== "touch") return;
+    // Avoid intercepting swipe when user taps controls/buttons
+    const target = e.target;
+    if (target && typeof target.closest === "function") {
+      if (target.closest(".slider-controls")) return;
+    }
+    touchStartRef.current = { x: e.clientX, y: e.clientY };
+  };
+
+  const onPointerUp = (e) => {
+    if (e.pointerType !== "touch") return;
+    const start = touchStartRef.current;
+    touchStartRef.current = null;
+    if (!start) return;
+
+    const dx = e.clientX - start.x;
+    const dy = e.clientY - start.y;
+    const absX = Math.abs(dx);
+    const absY = Math.abs(dy);
+
+    // Horizontal swipe only (left/right)
+    const threshold = 40;
+    if (absX < threshold || absX < absY) return;
+
+    // dx < 0 => swipe left => go to next slide
+    if (dx < 0) goToSlide(currentIndex + 1);
+    else goToSlide(currentIndex - 1);
+  };
+
   return (
     <div className="meet-team-full-section-wrapper" id="why-choose-us">
       <section className="meet-team-area-title-sec py-0 overflow-hidden position-relative">
@@ -117,7 +161,15 @@ const WhyChooseUs = () => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <div className="skewed-slider-wrapper" ref={sliderRef}>
+              <div
+                className="skewed-slider-wrapper"
+                ref={sliderRef}
+                onPointerDown={onPointerDown}
+                onPointerUp={onPointerUp}
+                onPointerCancel={() => {
+                  touchStartRef.current = null;
+                }}
+              >
                 <div className="slider-container">
                   {slides.map((slide, index) => {
                     const isCurrent = index === currentIndex;
@@ -134,7 +186,41 @@ const WhyChooseUs = () => {
                         }}
                       >
                         {renderSegments(slide.image, isCurrent, isNext)}
-                        <div className="skewed-slide-content">
+                        <div
+                          className="skewed-slide-content"
+                          style={(() => {
+                            const outY = animationDirection === 1 ? -50 : 50;
+                            const inY = animationDirection === 1 ? 50 : -50;
+
+                            if (isAnimating && isCurrent) {
+                              return {
+                                opacity: 0,
+                                transform: `skewX(15deg) translateY(${outY}px)`,
+                                transition:
+                                  "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.4s ease",
+                              };
+                            }
+
+                            if (isAnimating && isNext) {
+                              if (!animateEnter) {
+                                return {
+                                  opacity: 0,
+                                  transform: `skewX(15deg) translateY(${inY}px)`,
+                                  transition:
+                                    "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.4s ease",
+                                };
+                              }
+                              return {
+                                opacity: 1,
+                                transform: "skewX(15deg) translateY(0)",
+                                transition:
+                                  "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.4s ease",
+                              };
+                            }
+
+                            return undefined;
+                          })()}
+                        >
                           <h3 className="meet-team-name">{slide.title}</h3>
                           <p className="meet-team-role">{slide.role}</p>
                         </div>

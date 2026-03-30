@@ -439,6 +439,9 @@
 
 /* Updated Responsive Design */
 @media (max-width: 992px) {
+    .registration-form-section {
+        padding: 60px 0 60px;
+    }
     .registration-tab-wrapper {
         flex-direction: column;
         gap: 30px;
