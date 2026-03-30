@@ -22,13 +22,12 @@ const ContactModal = () => {
   const [showThankYou, setShowThankYou] = useState(false);
   const { mutate: sendContact, isPending } = useContactUs();
 
-  const countryOptions = 
-      Country.getAllCountries().map((c) => ({
-        label: c.name,
-        value: c.isoCode.toLowerCase(),
-        isoCode: c.isoCode.toLowerCase(),
-        phoneCode: `+${c.phonecode}`,
-      }));
+  const countryOptions = Country.getAllCountries().map((c) => ({
+    label: c.name,
+    value: c.isoCode.toLowerCase(),
+    isoCode: c.isoCode.toLowerCase(),
+    phoneCode: `+${c.phonecode}`,
+  }));
 
   const {
     control,
@@ -56,7 +55,9 @@ const ContactModal = () => {
   });
 
   const onSubmit = (data) => {
-    const selectedCountry = countryOptions.find((c) => c.value === data.country);
+    const selectedCountry = countryOptions.find(
+      (c) => c.value === data.country,
+    );
     const phoneWithCountryCode = selectedCountry?.phoneCode
       ? `${selectedCountry.phoneCode}${data.phone}`
       : data.phone;
@@ -102,7 +103,10 @@ const ContactModal = () => {
             </button>
           </div>
 
-          <Form onSubmit={handleSubmit(onSubmit)} className="contact-modal-form">
+          <Form
+            onSubmit={handleSubmit(onSubmit)}
+            className="contact-modal-form"
+          >
             <Row className="g-3">
               <Col md={6}>
                 <Controller
@@ -117,7 +121,7 @@ const ContactModal = () => {
                   )}
                 />
                 {errors.firstName && (
-                  <p className="text-danger small mt-1">
+                  <p className="text-danger small mt-1 mb-1">
                     {errors.firstName.message}
                   </p>
                 )}
@@ -135,7 +139,7 @@ const ContactModal = () => {
                   )}
                 />
                 {errors.lastName && (
-                  <p className="text-danger small mt-1">
+                  <p className="text-danger small mt-1 mb-1">
                     {errors.lastName.message}
                   </p>
                 )}
@@ -154,7 +158,7 @@ const ContactModal = () => {
                   )}
                 />
                 {errors.email && (
-                  <p className="text-danger small mt-1">
+                  <p className="text-danger small mt-1 mb-1">
                     {errors.email.message}
                   </p>
                 )}
@@ -168,12 +172,14 @@ const ContactModal = () => {
                       {...field}
                       label="PHONE NUMBER"
                       selectedCountryCode={selectedCountryCode}
-                      onCountryChange={(isoCode) => setValue("country", isoCode)}
+                      onCountryChange={(isoCode) =>
+                        setValue("country", isoCode)
+                      }
                     />
                   )}
                 />
                 {errors.phone && (
-                  <p className="text-danger small mt-1">
+                  <p className="text-danger small mt-1 mb-1">
                     {errors.phone.message}
                   </p>
                 )}
@@ -192,7 +198,7 @@ const ContactModal = () => {
                           options={countryOptions}
                           value={
                             countryOptions.find(
-                              (option) => option.value === field.value
+                              (option) => option.value === field.value,
                             ) || null
                           }
                           onChange={(option) =>
@@ -205,7 +211,7 @@ const ContactModal = () => {
                   )}
                 />
                 {errors.country && (
-                  <p className="text-danger small mt-1">
+                  <p className="text-danger small mt-1 mb-1">
                     {errors.country.message}
                   </p>
                 )}
@@ -225,7 +231,7 @@ const ContactModal = () => {
                   )}
                 />
                 {errors.message && (
-                  <p className="text-danger small mt-1">
+                  <p className="text-danger small mt-1 mb-1">
                     {errors.message.message}
                   </p>
                 )}
@@ -250,7 +256,7 @@ const ContactModal = () => {
                   )}
                 />
                 {errors.privacyPolicy && (
-                  <p className="text-danger small mt-1">
+                  <p className="text-danger small mt-1 mb-1">
                     {errors.privacyPolicy.message}
                   </p>
                 )}

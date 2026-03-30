@@ -113,7 +113,7 @@ const AboutSection = () => {
         </Col>
 
         {/* Right Image */}
-        <Col md={12} lg={7}>
+        <Col md={12} lg={7} className="mt-5 mt-lg-0">
           <Row className="g-4">
             <Col xs={12} md={8}>
               <Montion.div
