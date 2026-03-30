@@ -202,16 +202,12 @@
   position: absolute;
   inset: -10px;
   background:
-    radial-gradient(
-      circle at 30% 20%,
+    radial-gradient(circle at 30% 20%,
       rgb(255 255 255 / 8%),
-      rgba(255, 255, 255, 0) 55%
-    ),
-    radial-gradient(
-      circle at 80% 80%,
+      rgba(255, 255, 255, 0) 55%),
+    radial-gradient(circle at 80% 80%,
       rgb(243 237 237 / 10%),
-      rgba(0, 0, 0, 0) 60%
-    ),
+      rgba(0, 0, 0, 0) 60%),
     radial-gradient(circle, rgb(229 237 232 / 5%), rgb(249 244 244 / 0%) 55%);
   opacity: 0.9;
   pointer-events: none;
@@ -302,7 +298,7 @@
   }
 
   .skewed-slide.active .skewed-slide-content {
-    transform: skewX(10deg) translateY(0);
+    transform: skewX(8deg) translateY(0);
   }
 
   .meet-team-name {
