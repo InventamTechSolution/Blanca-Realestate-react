@@ -106,7 +106,7 @@
 /* Responsive adjustments */
 @media (max-width: 1199px) {
   .vision-title {
-    font-size: 48px;
+    font-size: 48px !important;
   }
 
   .collage-item-1 {
@@ -132,7 +132,7 @@
 
 @media (max-width: 767px) {
   .vision-title {
-    font-size: 36px;
+    font-size: 36px !important;
   }
 
   .vision-text {
