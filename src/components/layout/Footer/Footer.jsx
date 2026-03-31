@@ -102,10 +102,10 @@ const Footer = () => {
     ];
 
     const list = categoryResponse?.data;
-    if (!Array.isArray(list) || list.length === 0) return fallback;
+    if (!Array.isArray(list) || list?.length === 0) return fallback;
 
     const mapped = list
-      .map((item) => {
+      ?.map((item) => {
         const name =
           item?.category_name ??
           item?.career_category_name ??
@@ -212,7 +212,7 @@ const Footer = () => {
                   <input
                     type="email"
                     value={subscribeEmail}
-                    onChange={(event) => setSubscribeEmail(event.target.value)}
+                    onChange={(event) => setSubscribeEmail(event?.target?.value)}
                     placeholder="Enter your email address*"
                     required
                   />
@@ -269,10 +269,10 @@ const Footer = () => {
               <div className="footer-links-column">
                 <h5 className="footer-title">Properties</h5>
                 <ul className="footer-links">
-                  {propertyCategories.map((category) => (
-                    <li key={category.slug}>
-                      <Link to={`/projects?filter=${encodeURIComponent(category.slug)}`}>
-                        {category.name}
+                  {propertyCategories?.map((category) => (
+                    <li key={category?.slug}>
+                      <Link to={`/projects?filter=${encodeURIComponent(category?.slug)}`}>
+                        {category?.name}
                       </Link>
                     </li>
                   ))}
@@ -299,9 +299,9 @@ const Footer = () => {
                     aria-hidden="true"
                   ></span>
                   <span className="footer-highlight-text">
-                    <span className="footer-highlight-title">{item.title}</span>
+                    <span className="footer-highlight-title">{item?.title}</span>
                     <span className="footer-highlight-subtitle">
-                      {item.subtitle}
+                      {item?.subtitle}
                     </span>
                   </span>
                 </li>
@@ -367,13 +367,13 @@ const Footer = () => {
               <div className="social-links">
                 {settingRecord?.setting_social_media?.map((item) => (
                   <a
-                    key={item.platform}
-                    href={item.link}
+                    key={item?.platform}
+                    href={item?.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-link"
                   >
-                    <Icon icon={`lucide:${item.platform.toLowerCase()}`} />
+                    <Icon icon={`lucide:${item?.platform?.toLowerCase()}`} />
                   </a>
                 ))}
               </div>

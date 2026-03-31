@@ -141,8 +141,8 @@ const Hero = () => {
                                 {statsData?.length > 0 && statsData?.map((item, index) => (
                                     <StatBadge
                                         key={index}
-                                        count={item.count}
-                                        text={item.field}
+                                        count={item?.count}
+                                        text={item?.field}
                                     />
                                 ))}
                             </div>

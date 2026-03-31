@@ -48,16 +48,16 @@ const IndividualForm = ({
                   <Dropdown
                     label="Real Estate Agent Type*"
                     placeholder="-- select one --"
-                    name={field.name}
+                    name={field?.name}
                     options={["Agency Registration", individualAgentTypeLabel]}
-                    value={field.value}
+                    value={field?.value}
                     onChange={(e) => field.onChange(e?.target?.value)}
                   />
                 )}
               />
               {errors?.agentType && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.agentType.message}
+                  {errors?.agentType?.message}
                 </p>
               )}
               {agentType === individualAgentTypeLabel && (
@@ -75,15 +75,15 @@ const IndividualForm = ({
                   <InputField
                     label="Name *"
                     placeholder="Enter Name"
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
+                    name={field?.name}
+                    value={field?.value}
+                    onChange={(e) => field?.onChange(e?.target?.value)}
                   />
                 )}
               />
               {errors?.fullname && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.fullname.message}
+                  {errors?.fullname?.message}
                 </p>
               )}
             </Col>
@@ -126,16 +126,16 @@ const IndividualForm = ({
                   <Dropdown
                     label="How did you hear about us? *"
                     placeholder="-- select one --"
-                    name={field.name}
+                    name={field?.name}
                     options={["Friends", "Family", "Others"]}
-                    value={field.value}
+                    value={field?.value}
                     onChange={(e) => field.onChange(e?.target?.value)}
                   />
                 )}
               />
               {errors?.heardAboutUs && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.heardAboutUs.message}
+                  {errors?.heardAboutUs?.message}
                 </p>
               )}
             </Col>
@@ -148,15 +148,15 @@ const IndividualForm = ({
                   <InputField
                     label="Name *"
                     placeholder="Enter Name"
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
+                    name={field?.name}
+                    value={field?.value}
+                    onChange={(e) => field?.onChange(e?.target?.value)}
                   />
                 )}
               />
               {errors?.referFullname && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.referFullname.message}
+                  {errors?.referFullname?.message}
                 </p>
               )}
             </Col>
@@ -171,15 +171,15 @@ const IndividualForm = ({
                   <InputField
                     label="Mobile Number *"
                     placeholder="Enter Mobile Number"
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
+                    name={field?.name}
+                    value={field?.value}
+                    onChange={(e) => field?.onChange(e?.target?.value)}
                   />
                 )}
               />
               {errors?.referPhone && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.referPhone.message}
+                  {errors?.referPhone?.message}
                 </p>
               )}
             </Col>
@@ -193,15 +193,15 @@ const IndividualForm = ({
                     type="email"
                     label="Email *"
                     placeholder="Enter Email"
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
+                    name={field?.name}
+                    value={field?.value}
+                    onChange={(e) => field?.onChange(e?.target?.value)}
                   />
                 )}
               />
               {errors?.referEmail && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.referEmail.message}
+                  {errors?.referEmail?.message}
                 </p>
               )}
             </Col>
@@ -214,15 +214,15 @@ const IndividualForm = ({
                   <TextArea
                     label="Address *"
                     placeholder="Enter Address"
-                    name={field.name}
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
+                    name={field?.name}
+                    value={field?.value}
+                    onChange={(e) => field?.onChange(e?.target?.value)}
                   />
                 )}
               />
               {errors?.referAddress && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.referAddress.message}
+                  {errors?.referAddress?.message}
                 </p>
               )}
             </Col>

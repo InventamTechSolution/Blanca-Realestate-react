@@ -35,21 +35,21 @@ const Home = () => {
             <main>
                
                 {projects.length > 0 ? (
-                    projects.map((project) => (
+                    projects?.map((project) => (
                         <MainHeroBanner
-                            key={project.project_project_id}
-                            videoSrc={project.project_banner_image}
-                            poster={project.project_image}
+                            key={project?.project_project_id}
+                            videoSrc={project?.project_banner_image}
+                            poster={project?.project_image}
                             status={
-                                PROJECT_STATUS_LABELS[project.project_status] ||
-                                project.project_status
+                                PROJECT_STATUS_LABELS[project?.project_status] ||
+                                project?.project_status
                             }
-                            title={project.project_name}
-                            location={`${project.categories?.[0]?.category_name || ''} - ${project.project_location}`}
+                            title={project?.project_name}
+                            location={`${project?.categories?.[0]?.category_name || ''} - ${project?.project_location}`}
                             overlayOpacity={project.project_banner_color}
-                            projectLink={project.project_link}
+                            projectLink={project?.project_link}
                             isHomePage={true}
-                            projectId={project.project_project_id}
+                            projectId={project?.project_project_id}
                         />
                     ))
                 ) : (

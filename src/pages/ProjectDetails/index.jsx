@@ -114,7 +114,7 @@ const ProjectDetails = () => {
   const onSubmit = (data) => {
     const payload = {
       ...data,
-      phone: data.phone_number,
+      phone: data?.phone_number,
       project_id: project?.project_project_id,
     };
     mutate(payload, {
@@ -354,7 +354,7 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors.name ? "has-error" : ""
+                                className={`input-modern-group ${errors?.name ? "has-error" : ""
                                   }`}
                               >
                                 <Form.Control
@@ -370,7 +370,7 @@ const ProjectDetails = () => {
 
                                 {errors.name && (
                                   <small className="text-danger">
-                                    {errors.name.message}
+                                    {errors?.name?.message}
                                   </small>
                                 )}
                               </div>
@@ -385,7 +385,7 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors.email ? "has-error" : ""
+                                className={`input-modern-group ${errors?.email ? "has-error" : ""
                                   }`}
                               >
                                 <Form.Control
@@ -401,7 +401,7 @@ const ProjectDetails = () => {
 
                                 {errors.email && (
                                   <small className="text-danger">
-                                    {errors.email.message}
+                                    {errors?.email?.message}
                                   </small>
                                 )}
                               </div>
@@ -416,7 +416,7 @@ const ProjectDetails = () => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors.phone_number ? "has-error" : ""
+                                className={`input-modern-group ${errors?.phone_number ? "has-error" : ""
                                   }`}
                               >
                                 <Form.Control
@@ -432,7 +432,7 @@ const ProjectDetails = () => {
 
                                 {errors.phone_number && (
                                   <small className="text-danger">
-                                    {errors.phone_number.message}
+                                    {errors?.phone_number?.message}
                                   </small>
                                 )}
                               </div>
@@ -459,9 +459,9 @@ const ProjectDetails = () => {
                                 </label>
                                 <span className="focus-border"></span>
 
-                                {errors.message && (
+                                {errors?.message && (
                                   <small className="text-danger">
-                                    {errors.message.message}
+                                    {errors?.message?.message}
                                   </small>
                                 )}
                               </div>

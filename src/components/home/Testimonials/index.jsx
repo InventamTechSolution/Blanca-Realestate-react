@@ -89,9 +89,9 @@ const Testimonials = () => {
   });
 
   const testimonials = useMemo(() => data?.data ?? [], [data]);
-  const shouldLoop = testimonials.length > 2;
+  const shouldLoop = testimonials?.length > 2;
 
-  if (isLoading || error || testimonials.length === 0) {
+  if (isLoading || error || testimonials?.length === 0) {
     return null;
   }
 
@@ -171,35 +171,35 @@ const Testimonials = () => {
                 }}
                 className="testimonials-modern__slider"
               >
-                {testimonials.map((testimonial) => {
-                  const rating = testimonial.testimonial_rating ?? 0;
+                {testimonials?.map((testimonial) => {
+                  const rating = testimonial?.testimonial_rating ?? 0;
 
                   return (
-                    <SwiperSlide key={testimonial.id}>
+                    <SwiperSlide key={testimonial?.id}>
                       <div className="testimonials-modern__card">
                         <div className="testimonials-modern__card-top">
 
                           {/* Avatar */}
                           <div className="testimonials-modern__avatar">
                             <Avatar
-                              src={testimonial.testimonial_profile_image}
-                              name={testimonial.testimonial_user_name}
+                              src={testimonial?.testimonial_profile_image}
+                              name={testimonial?.testimonial_user_name}
                             />
                           </div>
 
                           {/* User Info */}
                           <div className="testimonials-modern__info">
                             <h3 className="testimonials-modern__name">
-                              {testimonial.testimonial_user_name}
+                              {testimonial?.testimonial_user_name}
                             </h3>
 
                             <p className="testimonials-modern__role">
-                              {testimonial.testimonial_designation}
+                              {testimonial?.testimonial_designation}
                             </p>
 
                             {/* Rating */}
                             <div className="testimonials-modern__rating">
-                              {renderStars(testimonial.testimonial_rating)}
+                              {renderStars(testimonial?.testimonial_rating)}
                             </div>
                           </div>
 
@@ -209,7 +209,7 @@ const Testimonials = () => {
                         </div>
 
                         <p className="testimonials-modern__text">
-                          {testimonial.testimonial_description}
+                          {testimonial?.testimonial_description}
                         </p>
                       </div>
                     </SwiperSlide>

@@ -61,7 +61,7 @@ const About = () => {
                     image: fields?.image ?? "",
                 };
             })
-            .filter((t) => t.name || t.quote || t.image);
+            .filter((t) => t?.name || t?.quote || t?.image);
 
         const showcase = showcaseRaw
             .map((item) => {
@@ -72,7 +72,7 @@ const About = () => {
                     image: fields?.image ?? "",
                 };
             })
-            .filter((s) => s.title || s.text || s.image);
+            .filter((s) => s?.title || s?.text || s?.image);
 
         const aboutMessages = aboutUsRaw
             .flatMap((item) => {

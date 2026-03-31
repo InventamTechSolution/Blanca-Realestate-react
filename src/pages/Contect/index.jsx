@@ -91,10 +91,10 @@ const Contact = () => {
   const address = settingRecord?.setting_address || FALLBACK_CONTACT_ADDRESS;
 
   const countryOptions = Country.getAllCountries().map((c) => ({
-    label: c.name,
-    value: c.isoCode.toLowerCase(),
-    isoCode: c.isoCode.toLowerCase(),
-    phoneCode: `+${c.phonecode}`,
+    label: c?.name,
+    value: c?.isoCode.toLowerCase(),
+    isoCode: c?.isoCode.toLowerCase(),
+    phoneCode: `+${c?.phonecode}`,
   }));
 
   const {
@@ -120,21 +120,21 @@ const Contact = () => {
   const onSubmit = React.useCallback(
     (data) => {
       const selectedCountry = countryOptions.find(
-        (c) => c.value === data.country,
+        (c) => c?.value === data?.country,
       );
       const phoneWithCountryCode = selectedCountry?.phoneCode
-        ? `${selectedCountry.phoneCode}${data.phone}`
-        : data.phone;
+        ? `${selectedCountry?.phoneCode}${data?.phone}`
+        : data?.phone;
 
       const payload = {
-        first_name: data.firstName,
-        last_name: data.lastName,
-        email: data.email,
+        first_name: data?.firstName,
+        last_name: data?.lastName,
+        email: data?.email,
         phone_number: phoneWithCountryCode,
-        country: selectedCountry?.label || data.country,
-        message: data.message,
-        is_notified: !!data.newsOffers,
-        notification_mode: data.contactMode,
+        country: selectedCountry?.label || data?.country,
+        message: data?.message,
+        is_notified: !!data?.newsOffers,
+        notification_mode: data?.contactMode,
       };
 
       sendContact(payload, {
@@ -217,9 +217,9 @@ const Contact = () => {
                       </div>
                       <div className="contact-text">
                         <h5>OTHER INQUIRIES</h5>
-                        {salesPhone.map((phoneItem, index) => (
+                        {salesPhone?.map((phoneItem, index) => (
                           <p key={index}>
-                            {`${phoneItem?.number || ""} ${phoneItem?.title ? `${phoneItem.title} ` : ""}`}
+                            {`${phoneItem?.number || ""} ${phoneItem?.title ? `${phoneItem?.title} ` : ""}`}
                           </p>
                         ))}
                       </div>
@@ -346,11 +346,11 @@ const Contact = () => {
                                   options={countryOptions}
                                   value={
                                     countryOptions.find(
-                                      (option) => option.value === field.value,
+                                      (option) => option?.value === field?.value,
                                     ) || null
                                   }
                                   onChange={(option) =>
-                                    field.onChange(option ? option.value : "")
+                                    field?.onChange(option ? option?.value : "")
                                   }
                                   placeholder="-- select one --"
                                 />
@@ -376,7 +376,7 @@ const Contact = () => {
                                 { label: "PHONE", value: "phone" },
                                 { label: "EMAIL", value: "email" },
                               ]}
-                              selectedValue={field.value}
+                              selectedValue={field?.value}
                             />
                           )}
                         />
@@ -414,7 +414,7 @@ const Contact = () => {
                             <Checkbox
                               {...field}
                               label="I'd like to hear about news and offers."
-                              checked={field.value}
+                              checked={field?.value}
                             />
                           )}
                         />
@@ -437,13 +437,13 @@ const Contact = () => {
                                   <a href="/privacy-policy">Privacy Policy</a>
                                 </>
                               }
-                              checked={field.value}
+                              checked={field?.value}
                             />
                           )}
                         />
                         {errors.privacyPolicy && (
                           <p className="text-danger small mt-1 mb-1">
-                            {errors.privacyPolicy.message}
+                            {errors?.privacyPolicy?.message}
                           </p>
                         )}
                       </Col>

@@ -19,7 +19,7 @@ const Properties = () => {
 
   const projects = data?.data || [];
   const { openContactModal } = useContactModal();
-  const shouldLoop = projects.length > 2;
+  const shouldLoop = projects?.length > 2;
 
 
   return (
@@ -98,53 +98,53 @@ const Properties = () => {
             }}
             className="property-swiper"
           >
-            {projects.map((project) => (
-              <SwiperSlide key={project.project_project_id}>
+            {projects?.map((project) => (
+              <SwiperSlide key={project?.project_project_id}>
                 <div className="project-card-wrapper">
                   <Motion.div
                     className="project-card"
-                    onClick={() => navigate(`/project/${project.project_project_id}`)}
+                    onClick={() => navigate(`/project/${project?.project_project_id}`)}
                     style={{ cursor: "pointer" }}
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{
                       duration: 0.8,
-                      delay: parseFloat(project.animationDelay) || 0,
+                      delay: parseFloat(project?.animationDelay) || 0,
                     }}
                     viewport={{ once: true }}
                   >
-                    <img src={project.project_card_image} alt={project.project_name} />
+                    <img src={project?.project_card_image} alt={project?.project_name} />
                     <div className="project-card__content">
-                      <h4>{project.project_name}</h4>
+                      <h4>{project?.project_name}</h4>
                       <div className="project-card__meta">
                         <Row className="g-0">
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Location:</span>
-                            <strong>{project.project_location}</strong>
+                            <strong>{project?.project_location}</strong>
                           </Col>
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Property Type:</span>
-                            <strong>{project.categories?.map((cat) => cat.category_name).join(" & ")}</strong>
+                            <strong>{project?.categories?.map((cat) => cat?.category_name).join(" & ")}</strong>
                           </Col>
                         </Row>
                         <Row className="g-0">
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Configuration:</span>
-                            <strong>{project.project_configuration}</strong>
+                            <strong>{project?.project_configuration}</strong>
                           </Col>
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Area – Carpet:</span>
-                            <strong>{project.project_sq_ft}</strong>
+                            <strong>{project?.project_sq_ft}</strong>
                           </Col>
                         </Row>
                         <Row className="g-0">
                           {/* <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>From INR:</span>
-                            <strong>{project.price}</strong>
+                            <strong>{project?.price}</strong>
                           </Col> */}
                           <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>Status:</span>
-                            <strong>{PROJECT_STATUS_LABELS[project.project_status] || project.project_status}</strong>
+                            <strong>{PROJECT_STATUS_LABELS[project?.project_status] || project?.project_status}</strong>
                           </Col>
                         </Row>
                       </div>

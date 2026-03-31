@@ -30,7 +30,7 @@ const Registration = () => {
 
     // CHANGE: moved default values inside component so it can read `location.state?.agentType` correctly.
     const defaultValues = useMemo(() => ({
-        agentType: location.state?.agentType || INDIVIDUAL_AGENT_TYPE,
+        agentType: location?.state?.agentType || INDIVIDUAL_AGENT_TYPE,
         gstin: "",
         fullname: "",
         contactPerson: "",
@@ -50,7 +50,7 @@ const Registration = () => {
         referAddress: "",
         // newsOffers: false,
         // privacyPolicy: false
-    }), [location.state?.agentType]);
+    }), [location?.state?.agentType]);
 
     const {
         control,
@@ -86,48 +86,48 @@ const Registration = () => {
 
     useEffect(() => {
         if (location.state?.agentType) {
-            setValue("agentType", location.state.agentType, { shouldDirty: false });
+            setValue("agentType", location?.state?.agentType, { shouldDirty: false });
         }
-    }, [location.state, setValue]);
+    }, [location?.state, setValue]);
 
     const onSubmit = async (data) => {
         setSubmitError("");
 
         const agent_type =
-            data.agentType === INDIVIDUAL_AGENT_TYPE
+            data?.agentType === INDIVIDUAL_AGENT_TYPE
                 ? "individual"
-                : data.agentType === "Agency Registration"
+                : data?.agentType === "Agency Registration"
                     ? "agency"
-                    : String(data.agentType || "").toLowerCase();
+                    : String(data?.agentType || "").toLowerCase();
 
         const payload =
             agent_type === "individual"
                 ? {
-                    fullname: data.fullname || "",
+                    fullname: data?.fullname || "",
                     agent_type,
-                    phone_number: data.phone || "",
-                    email: data.email || "",
-                    country: data.country || "",
+                    phone_number: data?.phone || "",
+                    email: data?.email || "",
+                    country: data?.country || "",
                     // pincode: data.pinCode || "",
-                    address: data.address || "",
-                    source_of_acknowledgement: data.heardAboutUs || "",
-                    referral_name: data.referFullname || "",
-                    referral_contact_number: data.referPhone || "",
-                    referral_email: data.referEmail || "",
-                    referral_address: data.referAddress || "",
+                    address: data?.address || "",
+                    source_of_acknowledgement: data?.heardAboutUs || "",
+                    referral_name: data?.referFullname || "",
+                    referral_contact_number: data?.referPhone || "",
+                    referral_email: data?.referEmail || "",
+                    referral_address: data?.referAddress || "",
                 }
                 : {
-                    fullname: data.fullname || "",
+                    fullname: data?.fullname || "",
                     agent_type,
-                    phone_number: data.phone || "",
-                    email: data.email || "",
-                    country: data.country || "",
-                    pincode: data.pinCode || 0,
-                    address: data.address || "",
-                    gstin: data.gstin || "",
-                    contact_name: data.contactPerson || "",
-                    rera_number: data.reraNo || "",
-                    pan_number: data.pan || "",
+                    phone_number: data?.phone || "",
+                    email: data?.email || "",
+                    country: data?.country || "",
+                    pincode: data?.pinCode || 0,
+                    address: data?.address || "",
+                    gstin: data?.gstin || "",
+                    contact_name: data?.contactPerson || "",
+                    rera_number: data?.reraNo || "",
+                    pan_number: data?.pan || "",
                 };
 
         try {

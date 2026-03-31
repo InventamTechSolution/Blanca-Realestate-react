@@ -52,7 +52,7 @@ const Projects = () => {
 
   const apiProjects = data?.data || [];
 
-  const projects = apiProjects.map((project) => ({
+  const projects = apiProjects?.map((project) => ({
     id: project?.project_project_id,
     title: project?.project_name,
     image: project?.project_card_image,
@@ -74,10 +74,10 @@ const Projects = () => {
   useEffect(() => {
     if (filteredProjects.length > 0) {
       const isCurrentlyActiveValid = filteredProjects.some(
-        (project) => project.id === activeProjectId
+        (project) => project?.id === activeProjectId
       );
       if (!isCurrentlyActiveValid) {
-        setActiveProjectId(filteredProjects[0].id);
+        setActiveProjectId(filteredProjects[0]?.id);
       }
     } else {
       setActiveProjectId(null);
@@ -241,7 +241,7 @@ const Projects = () => {
                         <span>
                           {
                             typeOptions.find(
-                              (item) => item.value === (filter || "all"),
+                              (item) => item?.value === (filter || "all"),
                             )?.label
                           }
                         </span>
@@ -249,15 +249,15 @@ const Projects = () => {
                       </div>
 
                       <ul className="dropdown-list">
-                        {typeOptions.map((item) => (
+                        {typeOptions?.map((item) => (
                           <li
-                            key={item.value}
+                            key={item?.value}
                             className={
-                              (filter || "all") === item.value ? "selected" : ""
+                              (filter || "all") === item?.value ? "selected" : ""
                             }
-                            onClick={() => handleTypeSelect(item.value)}
+                            onClick={() => handleTypeSelect(item?.value)}
                           >
-                            {item.label}
+                            {item?.label}
                           </li>
                         ))}
                       </ul>
@@ -284,13 +284,13 @@ const Projects = () => {
                       </div>
 
                       <ul className="dropdown-list">
-                        {statusOptions.map((item) => (
+                        {statusOptions?.map((item) => (
                           <li
-                            key={item.value}
-                            className={status === item.value ? "selected" : ""}
-                            onClick={() => handleStatusSelect(item.value)}
+                            key={item?.value}
+                            className={status === item?.value ? "selected" : ""}
+                            onClick={() => handleStatusSelect(item?.value)}
                           >
-                            {item.label}
+                            {item?.label}
                           </li>
                         ))}
                       </ul>
@@ -305,19 +305,19 @@ const Projects = () => {
                         onClick={() => toggleDropdown("area")}
                       >
                         <span>
-                          {areaOptions.find((item) => item.value === area)?.label}
+                          {areaOptions?.find((item) => item?.value === area)?.label}
                         </span>
                         <i className="fas fa-chevron-down"></i>
                       </div>
 
                       <ul className="dropdown-list">
-                        {areaOptions.map((item) => (
+                        {areaOptions?.map((item) => (
                           <li
-                            key={item.value}
-                            className={area === item.value ? "selected" : ""}
-                            onClick={() => handleAreaSelect(item.value)}
+                            key={item?.value}
+                            className={area === item?.value ? "selected" : ""}
+                            onClick={() => handleAreaSelect(item?.value)}
                           >
-                            {item.label}
+                            {item?.label}
                           </li>
                         ))}
                       </ul>
@@ -362,9 +362,9 @@ const Projects = () => {
 
             {hasProjects && view === "grid" && (
               <div className="projects-grid">
-                {filteredProjects.map((project) => (
+                {filteredProjects?.map((project) => (
                   <ProjectCard
-                    key={project.id}
+                    key={project?.id}
                     project={project}
                     layout="grid"
                   />
@@ -375,11 +375,11 @@ const Projects = () => {
             {hasProjects && view === "map" && (
               <div className="map-view-container">
                 <div className="map-side-list">
-                  {filteredProjects.map((project) => (
+                  {filteredProjects?.map((project) => (
                     <div
-                      key={project.id}
-                      onClick={() => setActiveProjectId(project.id)}
-                      className={`map-project-item ${activeProjectId === project.id ? "active-project" : ""
+                      key={project?.id}
+                      onClick={() => setActiveProjectId(project?.id)}
+                      className={`map-project-item ${activeProjectId === project?.id ? "active-project" : ""
                         }`}
                     >
                       <ProjectCard project={project} layout="horizontal" />
@@ -390,16 +390,16 @@ const Projects = () => {
                   <div id="project-map-placeholder" className="h-100 w-100">
                     {filteredProjects?.map((project) => (
                       <div
-                        key={project.id}
+                        key={project?.id}
                         style={{
-                          display: activeProjectId === project.id ? "block" : "none",
+                          display: activeProjectId === project?.id ? "block" : "none",
                           height: "100%",
                           width: "100%",
                         }}
                       >
                         <iframe
-                          title={`Map for ${project.title}`}
-                          src={project.mapUrl || defaultMapUrl}
+                          title={`Map for ${project?.title}`}
+                          src={project?.mapUrl || defaultMapUrl}
                           width="100%"
                           height="100%"
                           style={{ border: 0 }}

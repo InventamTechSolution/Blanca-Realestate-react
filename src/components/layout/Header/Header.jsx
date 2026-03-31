@@ -33,21 +33,21 @@ const Header = () => {
     const groups = raw?.data ?? raw?.message?.data ?? raw;
     const list = Array.isArray(groups) ? groups : [];
 
-    const topMessageGroup = list.find(
+    const topMessageGroup = list?.find(
       (group) => String(group?.model ?? "") === "TopMessage",
     );
 
     const messages = (topMessageGroup?.data ?? [])
-      .flatMap((item) => {
+      ?.flatMap((item) => {
         const value = item?.fields?.messages ?? item?.fields?.message ?? item?.fields?.title;
         if (Array.isArray(value)) return value;
         if (typeof value === "string") return [value];
         return [];
       })
-      .map((message) => (typeof message === "string" ? message.trim() : ""))
+      .map((message) => (typeof message === "string" ? message?.trim() : ""))
       .filter(Boolean);
 
-    return messages.length ? messages : fallback;
+    return messages?.length ? messages : fallback;
   }, [otherFieldResponse]);
 
   const propertyCategories = React.useMemo(() => {
@@ -57,10 +57,10 @@ const Header = () => {
     ];
 
     const list = categoryResponse?.data;
-    if (!Array.isArray(list) || list.length === 0) return fallback;
+    if (!Array.isArray(list) || list?.length === 0) return fallback;
 
     const mapped = list
-      .map((item) => {
+      ?.map((item) => {
         const name =
           item?.category_name ??
           item?.career_category_name ??
@@ -76,14 +76,14 @@ const Header = () => {
         const normalizedName = String(name).trim();
         const normalizedSlug =
           String(slug).trim() ||
-          normalizedName.toLowerCase().replace(/\s+/g, "-");
+          normalizedName?.toLowerCase()?.replace(/\s+/g, "-");
 
         if (!normalizedName) return null;
         return { name: normalizedName, slug: normalizedSlug };
       })
       .filter(Boolean);
 
-    return mapped.length ? mapped : fallback;
+    return mapped?.length ? mapped : fallback;
   }, [categoryResponse]);
   const toggleSubmenu = (menu) => {
     setActiveSubmenu(activeSubmenu === menu ? null : menu);
@@ -216,7 +216,7 @@ const Header = () => {
               gradient={false}
             >
               <span className="header-top-marquee__content">
-                {marqueeMessages.map((message, index) => (
+                {marqueeMessages?.map((message, index) => (
                   <span className="header-top-marquee__item" key={`${message}-${index}`}>
                     <span>{message}</span>
                     <span className="header-top-sep">•</span>
@@ -351,13 +351,13 @@ const Header = () => {
                       Properties
                     </Link>
                     <ul className="header-submenu">
-                      {propertyCategories.map((category, index) => (
-                        <li key={`${category.slug}-${index}`}>
+                      {propertyCategories?.map((category, index) => (
+                        <li key={`${category?.slug}-${index}`}>
                           <Link
-                            to={`/projects?filter=${encodeURIComponent(category.slug)}`}
+                            to={`/projects?filter=${encodeURIComponent(category?.slug)}`}
                             onClick={closeMenus}
                           >
-                            {category.name}
+                            {category?.name}
                           </Link>
                         </li>
                       ))}
@@ -578,13 +578,13 @@ const Header = () => {
                                 : "none",
                           }}
                         >
-                          {propertyCategories.map((category, index) => (
-                            <li key={`${category.slug}-${index}`}>
+                          {propertyCategories?.map((category, index) => (
+                            <li key={`${category?.slug}-${index}`}>
                               <Link
-                                to={`/projects?filter=${encodeURIComponent(category.slug)}`}
+                                to={`/projects?filter=${encodeURIComponent(category?.slug)}`}
                                 onClick={closeMenus}
                               >
-                                {category.name}
+                                {category?.name}
                               </Link>
                             </li>
                           ))}

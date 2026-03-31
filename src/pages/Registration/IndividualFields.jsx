@@ -20,16 +20,16 @@ const IndividualFields = ({ control, errors, exclude = [] }) => {
                 <InputField
                   label="Name *"
                   placeholder="Enter Name"
-                  name={field.name}
-                  value={field.value}
-                  onChange={(e) => field.onChange(e.target.value)}
+                  name={field?.name}
+                  value={field?.value}
+                  onChange={(e) => field?.onChange(e?.target?.value)}
                   required
                 />
               )}
             />
             {errors?.fullname && (
               <p className="text-danger small mt-1 mb-1">
-                {errors.fullname.message}
+                {errors?.fullname?.message}
               </p>
             )}
           </Col>
@@ -44,9 +44,9 @@ const IndividualFields = ({ control, errors, exclude = [] }) => {
               <InputField
                 label="Mobile Number *"
                 placeholder="Enter Mobile Number"
-                name={field.name}
-                value={field.value}
-                onChange={(e) => field.onChange(e.target.value)}
+                name={field?.name}
+                value={field?.value}
+                onChange={(e) => field?.onChange(e?.target?.value)}
                 required
                 // extra={<Button type="button" className="otp-btn">Send OTP</Button>}
               />
@@ -54,7 +54,7 @@ const IndividualFields = ({ control, errors, exclude = [] }) => {
           />
           {errors?.phone && (
             <p className="text-danger small mt-1 mb-1">
-              {errors.phone.message}
+              {errors?.phone?.message}
             </p>
           )}
         </Col>
@@ -72,16 +72,16 @@ const IndividualFields = ({ control, errors, exclude = [] }) => {
                 type="email"
                 label="Email *"
                 placeholder="Enter Email"
-                name={field.name}
-                value={field.value}
-                onChange={(e) => field.onChange(e.target.value)}
+                name={field?.name}
+                value={field?.value}
+                onChange={(e) => field?.onChange(e?.target?.value)}
                 required
               />
             )}
           />
           {errors?.email && (
             <p className="text-danger small mt-1 mb-1">
-              {errors.email.message}
+              {errors?.email?.message}
             </p>
           )}
         </Col>
@@ -95,16 +95,16 @@ const IndividualFields = ({ control, errors, exclude = [] }) => {
               <TextArea
                 label="Address *"
                 placeholder="Enter Address"
-                name={field.name}
-                value={field.value}
-                onChange={(e) => field.onChange(e.target.value)}
+                name={field?.name}
+                value={field?.value}
+                onChange={(e) => field?.onChange(e?.target?.value)}
                 required
               />
             )}
           />
           {errors?.address && (
             <p className="text-danger small mt-1 mb-1">
-              {errors.address.message}
+              {errors?.address?.message}
             </p>
           )}
         </Col>

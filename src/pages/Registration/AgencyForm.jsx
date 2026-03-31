@@ -22,8 +22,8 @@ const AgencyForm = ({
   const countryOptions = React.useMemo(
     () =>
       Country.getAllCountries().map((country) => ({
-        label: country.name,
-        value: country.name,
+        label: country?.name,
+        value: country?.name,
       })),
     [],
   );
@@ -66,7 +66,7 @@ const AgencyForm = ({
               />
               {errors?.agentType && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.agentType.message}
+                  {errors?.agentType?.message}
                 </p>
               )}
               {agentType === individualAgentTypeLabel && (
@@ -93,7 +93,7 @@ const AgencyForm = ({
                 />
                 {errors?.gstin && (
                   <p className="text-danger small mt-1 mb-1">
-                    {errors.gstin.message}
+                    {errors?.gstin?.message}
                   </p>
                 )}
               </Col>
@@ -118,7 +118,7 @@ const AgencyForm = ({
               />
               {errors?.fullname && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.fullname.message}
+                  {errors?.fullname?.message}
                 </p>
               )}
             </Col>
@@ -138,7 +138,7 @@ const AgencyForm = ({
               />
               {errors?.contactPerson && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.contactPerson.message}
+                  {errors?.contactPerson?.message}
                 </p>
               )}
             </Col>
@@ -162,7 +162,7 @@ const AgencyForm = ({
               />
               {errors?.phone && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.phone.message}
+                  {errors?.phone?.message}
                 </p>
               )}
             </Col>
@@ -182,7 +182,7 @@ const AgencyForm = ({
               />
               {errors?.reraNo && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.reraNo.message}
+                  {errors?.reraNo?.message}
                 </p>
               )}
             </Col>
@@ -208,7 +208,7 @@ const AgencyForm = ({
               />
               {errors?.email && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.email.message}
+                  {errors?.email?.message}
                 </p>
               )}
             </Col>
@@ -228,7 +228,7 @@ const AgencyForm = ({
               />
               {errors?.pan && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.pan.message}
+                  {errors?.pan?.message}
                 </p>
               )}
             </Col>
@@ -278,11 +278,11 @@ const AgencyForm = ({
                         options={countryOptions}
                         value={
                           countryOptions.find(
-                            (option) => option.value === field.value,
+                            (option) => option?.value === field?.value,
                           ) || null
                         }
                         onChange={(option) =>
-                          field.onChange(option ? option.value : "")
+                          field?.onChange(option ? option?.value : "")
                         }
                         placeholder="-- select one --"
                         menuPortalTarget={
@@ -316,7 +316,7 @@ const AgencyForm = ({
               />
               {errors?.pinCode && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.pinCode.message}
+                  {errors?.pinCode?.message}
                 </p>
               )}
               <p className="note-text mt-2">
@@ -339,7 +339,7 @@ const AgencyForm = ({
               />
               {errors?.address && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors.address.message}
+                  {errors?.address?.message}
                 </p>
               )}
             </Col>

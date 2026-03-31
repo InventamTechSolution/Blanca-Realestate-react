@@ -18,27 +18,27 @@ const About = () => {
     const groups = raw?.data ?? raw?.message?.data ?? raw;
     const list = Array.isArray(groups) ? groups : [];
 
-    const homeModelGroup = list.find(
+    const homeModelGroup = list?.find(
       (group) => String(group?.model ?? "") === "Home",
     );
     const homeModelData = Array.isArray(homeModelGroup?.data)
-      ? homeModelGroup.data
+      ? homeModelGroup?.data
       : [];
     const firstHomeItem = homeModelData[0]?.fields ?? {};
 
     const title =
       typeof firstHomeItem?.title === "string"
-        ? firstHomeItem.title.trim()
+        ? firstHomeItem?.title.trim()
         : "";
 
     const descriptionRaw =
       typeof firstHomeItem?.description === "string"
-        ? firstHomeItem.description.trim()
+        ? firstHomeItem?.description.trim()
         : "";
 
     const media =
       typeof firstHomeItem?.image === "string"
-        ? firstHomeItem.image.trim()
+        ? firstHomeItem?.image.trim()
         : "";
 
     const hasApiContent = Boolean(title || descriptionRaw || media);
@@ -66,7 +66,7 @@ const About = () => {
       <Container>
         <Row className="about-modern__wrap align-items-center g-5">
           {/* Media Section — supports both image and video */}
-          {aboutContent.media ? (
+          {aboutContent?.media ? (
             <Col lg={6} className="about-modern__media">
               <Motion.div
                 className="video-mask-wrapper"
@@ -77,7 +77,7 @@ const About = () => {
               >
                 {isVideoMedia ? (
                   <video
-                    src={aboutContent.media}
+                    src={aboutContent?.media}
                     autoPlay
                     muted
                     loop
@@ -86,8 +86,8 @@ const About = () => {
                   />
                 ) : (
                   <img
-                    src={aboutContent.media}
-                    alt={aboutContent.title || "About us banner image"}
+                    src={aboutContent?.media}
+                    alt={aboutContent?.title || "About us banner image"}
                   />
                 )}
               </Motion.div>
@@ -96,20 +96,20 @@ const About = () => {
 
           {/* Content Section */}
           <Col
-            lg={aboutContent.media ? 6 : 12}
+            lg={aboutContent?.media ? 6 : 12}
             className="about-modern__content"
           >
-            {aboutContent.title ? (
+            {aboutContent?.title ? (
               <h2 className="about-modern__title bs-font-Smothing">
-                {aboutContent.title}
+                {aboutContent?.title}
               </h2>
             ) : null}
 
-            {aboutContent.descriptionHtml ? (
+            {aboutContent?.descriptionHtml ? (
               <div
                 className="about-modern__text about_contains_div"
                 dangerouslySetInnerHTML={{
-                  __html: aboutContent.descriptionHtml,
+                  __html: aboutContent?.descriptionHtml,
                 }}
               />
             ) : null}
