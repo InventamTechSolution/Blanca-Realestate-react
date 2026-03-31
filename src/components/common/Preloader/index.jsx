@@ -13,12 +13,7 @@ const Preloader = ({ isLoading }) => {
       transition={{ duration: 0.6, ease: "easeInOut" }}
     >
       <div className="preloader-inner">
-        <span className="dot"></span>
-        <div className="dots">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <img src="/images/logos/favicon.png" alt="Horse Loader" className="horse-loader" />
       </div>
     </Montion.div>
   );
