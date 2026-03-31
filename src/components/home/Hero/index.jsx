@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import "./Hero.css";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import StatBadge from "../../common/StatBadge";

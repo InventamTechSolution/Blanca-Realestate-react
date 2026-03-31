@@ -1,7 +1,7 @@
 .legal-hero {
     position: relative;
     padding: 100px 0 100px;
-    background-image: url('../images/background/terms-condition.png');
+    background-image: url('/images/background/terms-condition.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

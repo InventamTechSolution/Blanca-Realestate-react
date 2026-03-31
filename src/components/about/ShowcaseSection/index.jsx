@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 // import { Container } from "react-bootstrap";
-import gsap from "gsap";
+import { gsap } from "gsap";
 import "./ShowcaseSection.css";
 
 const ShowcaseSection = ({ slides = [] }) => {

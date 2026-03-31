@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { motion as Montion } from "framer-motion";
 import StatBadge from "../../common/StatBadge";
 import "./abouthero.css";
