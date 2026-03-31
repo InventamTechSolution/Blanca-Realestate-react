@@ -42,6 +42,17 @@ const hashString = (value) => {
 const getAvatarColor = (name) =>
   AVATAR_COLORS[hashString(name) % AVATAR_COLORS.length];
 
+const formatDate = (dateString) => {
+  if (!dateString) return "Mar 24, 2024";
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
+
 const Avatar = ({ src, name }) => {
   const [failed, setFailed] = useState(false);
 
@@ -197,7 +208,6 @@ const Testimonials = () => {
                               {testimonial?.testimonial_designation}
                             </p>
 
-                            {/* Rating */}
                             <div className="testimonials-modern__rating">
                               {renderStars(testimonial?.testimonial_rating)}
                             </div>
@@ -211,6 +221,10 @@ const Testimonials = () => {
                         <p className="testimonials-modern__text">
                           {testimonial?.testimonial_description}
                         </p>
+
+                        <div className="testimonials-modern__date">
+                          {formatDate(testimonial?.created_at)}
+                        </div>
                       </div>
                     </SwiperSlide>
                   );
