@@ -42,10 +42,30 @@ const hashString = (value) => {
 const getAvatarColor = (name) =>
   AVATAR_COLORS[hashString(name) % AVATAR_COLORS.length];
 
-const formatDate = (dateString) => {
-  if (!dateString) return "Mar 24, 2024";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
+const formatDate = (input, locale = "en-US") => {
+  if (!input) return "—";
+
+  let timestamp = Number(input);
+
+  if (isNaN(timestamp)) {
+    const parsed = new Date(input);
+    if (isNaN(parsed)) return "—";
+    return parsed.toLocaleDateString(locale, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+
+  if (timestamp.toString().length === 10) {
+    timestamp *= 1000;
+  }
+
+  const date = new Date(timestamp);
+
+  if (isNaN(date)) return "—";
+
+  return date.toLocaleDateString(locale, {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -223,7 +243,7 @@ const Testimonials = () => {
                         </p>
 
                         <div className="testimonials-modern__date">
-                          {formatDate(testimonial?.created_at)}
+                          {formatDate(testimonial?.testimonial_created_at)}
                         </div>
                       </div>
                     </SwiperSlide>
