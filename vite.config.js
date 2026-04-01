@@ -21,28 +21,23 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {
-
             // 🔥 Core React (separate for caching)
             if (id.includes("react")) {
               return "react-core";
             }
 
-            
             if (id.includes("gsap")) {
               return "animations-gsap";
             }
 
-            
             if (id.includes("framer-motion")) {
               return "animations-motion";
             }
 
-            
             if (id.includes("swiper")) {
               return "slider-swiper";
             }
 
-           
             if (
               id.includes("react-hook-form") ||
               id.includes("react-select") ||
@@ -51,42 +46,35 @@ export default defineConfig({
               return "forms";
             }
 
-           
             if (id.includes("react-dropzone") || id.includes("file-selector")) {
               return "file-upload";
             }
 
-           
             if (id.includes("axios")) {
               return "network";
             }
 
-           
             if (id.includes("country-state-city")) {
               return "country-data";
             }
 
-            
             if (id.includes("bootstrap")) {
               return "framework-ui";
             }
 
-           
             if (
               id.includes("jquery") ||
               id.includes("ripples") ||
-              id.includes("isotope") ||
-              id.includes("magnific-popup")
+              id.includes("isotope")
+              // id.includes("magnific-popup")
             ) {
               return "jquery-vendor";
             }
 
-            
             if (id.includes("@iconify")) {
               return "icons";
             }
 
-            
             return "vendor";
           }
         },

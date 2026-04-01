@@ -18,8 +18,8 @@ const Properties = () => {
   const { data } = useProjects({ page: 1, limit: 50, is_active: true });
 
   const projects = data?.data || [];
+
   const { openContactModal } = useContactModal();
-  const shouldLoop = projects?.length > 2;
 
 
   return (
@@ -72,12 +72,15 @@ const Properties = () => {
             modules={[Pagination, Autoplay]}
             spaceBetween={12}
             slidesPerView={2}
-            loop={shouldLoop}
+            loop={projects?.length > 1}
             watchOverflow={true}
+            speed={1000}
             pagination={{ clickable: true }}
-            autoplay={
-              shouldLoop ? { delay: 3000, disableOnInteraction: false } : false
-            }
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
             breakpoints={{
               320: {
                 slidesPerView: 1,
