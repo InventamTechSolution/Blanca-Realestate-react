@@ -10,7 +10,7 @@ const Preloader = ({ isLoading }) => {
       className="preloader"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
+      transition={{ duration: 4, ease: "easeInOut" }}
     >
       <div className="preloader-inner">
         <img src="/images/logos/favicon.png" alt="Horse Loader" className="horse-loader" />

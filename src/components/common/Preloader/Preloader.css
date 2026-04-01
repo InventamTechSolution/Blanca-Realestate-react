@@ -21,7 +21,7 @@
 .horse-loader {
     width: 200px;
     height: auto;
-    animation: horse-scale 1.5s infinite ease-in-out;
+    animation: horse-scale 5s  ease-in-out;
     filter: drop-shadow(0 0 10px rgba(197, 164, 126, 0.3));
 }
 
