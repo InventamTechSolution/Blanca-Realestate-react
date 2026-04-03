@@ -115,7 +115,7 @@ const Avatar = ({ src, name }) => {
 const Testimonials = () => {
   const { data, isLoading, error } = useTestimonials({
     page: 1,
-    limit: 10,
+    limit: 1000,
     isActive: true,
   });
 

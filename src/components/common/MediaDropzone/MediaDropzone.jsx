@@ -117,15 +117,22 @@ export default function MediaDropzone({
   });
 
   useEffect(() => {
-    if (value) {
+    if (!value) {
+      setFileName(null);
+      return;
+    }
+
+    setFileName((prev) => {
+      // If we just uploaded and already know the original filename,
+      // don't overwrite it with the backend key/UUID.
+      if (prev?.key === value && prev?.name) return prev;
+
       const name = value.split("/").pop() || "";
       const fullUrl = UPLOAD_BASE_URL
         ? `${UPLOAD_BASE_URL}/${value}`.replace(/([^:]\/)\/+/g, "$1")
         : value;
-      setFileName({ key: value, url: fullUrl, name, type: "application/pdf" });
-    } else {
-      setFileName(null);
-    }
+      return { key: value, url: fullUrl, name, type: "application/pdf" };
+    });
   }, [value]);
 
   const combinedError = localError || errorMsg;
