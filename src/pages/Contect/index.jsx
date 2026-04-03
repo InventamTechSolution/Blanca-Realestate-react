@@ -182,7 +182,7 @@ const Contact = () => {
                 >
                   <div className="title-with-border">
                     <h2 className="bs-font-playfair-display text-white">
-                      Reach Us For More Detail
+                      GET IN TOUCH WITH US
                     </h2>
                   </div>
 
@@ -198,13 +198,12 @@ const Contact = () => {
                   <div className="contact-items">
                     <div className="contact-item-new">
                       <div className="contact-icon">
-                        <i className="fa-regular fa-comment-dots"></i>
+                        <i className="fa-solid fa-envelope"></i>
                       </div>
                       <div className="contact-text">
                         <h5>Reach Us</h5>
                         <p>
                           <a href={`mailto:${reachEmail}`}>
-                            <i className="fa-regular fa-comment-dots"></i>{" "}
                             {reachEmail}
                           </a>
                         </p>
@@ -213,13 +212,13 @@ const Contact = () => {
 
                     <div className="contact-item-new">
                       <div className="contact-icon">
-                        <i className="fa-regular fa-file-lines"></i>
+                        <i className="fa-solid fa-phone" aria-hidden="true"></i>
                       </div>
                       <div className="contact-text">
                         <h5>OTHER INQUIRIES</h5>
                         {salesPhone?.map((phoneItem, index) => (
                           <p key={index}>
-                            {`${phoneItem?.number || ""} ${phoneItem?.title ? `${phoneItem?.title} ` : ""}`}
+                            {`${phoneItem?.number || ""} ( ${phoneItem?.title ? `${phoneItem?.title}` : ""} )`}
                           </p>
                         ))}
                       </div>
@@ -227,7 +226,10 @@ const Contact = () => {
 
                     <div className="contact-item-new border-0 pb-0 mb-0">
                       <div className="contact-icon">
-                        <i className="fa-regular fa-map"></i>
+                        <i
+                          className="fa-solid fa-location-dot"
+                          aria-hidden="true"
+                        ></i>
                       </div>
                       <div className="contact-text">
                         <h5>ADDRESS:</h5>
