@@ -120,6 +120,28 @@ const Testimonials = () => {
   });
 
   const testimonials = useMemo(() => data?.data ?? [], [data]);
+  const overall = useMemo(() => {
+    const apiCount = Number(data?.totalCount);
+    const count = Number.isFinite(apiCount) ? apiCount : testimonials?.length ?? 0;
+
+    if (!Array.isArray(testimonials) || testimonials.length === 0) {
+      return { count, average: 0 };
+    }
+
+    let ratedCount = 0;
+    let sum = 0;
+
+    for (const item of testimonials) {
+      const value = Number(item?.testimonial_rating);
+      if (!Number.isFinite(value)) continue;
+      if (value <= 0) continue;
+      ratedCount += 1;
+      sum += Math.min(5, Math.max(0, value));
+    }
+
+    const average = ratedCount ? sum / ratedCount : 0;
+    return { count, average };
+  }, [data?.totalCount, testimonials]);
   const shouldLoop = testimonials?.length > 2;
 
   if (isLoading || error || testimonials?.length === 0) {
@@ -128,17 +150,62 @@ const Testimonials = () => {
 
   const renderStars = (rating) => {
     const stars = [];
+    const full = Math.floor(Number(rating) || 0);
   
     for (let i = 1; i <= 5; i++) {
       stars.push(
         <Icon
           key={i}
-          icon="lucide:star"
-          color={i <= rating ? "#3b82f6" : "#ddd"}
+          icon={i <= full ? "material-symbols:star" : "material-symbols:star-outline"}
+          className={
+            i <= full
+              ? "testimonials-modern__star testimonials-modern__star--filled"
+              : "testimonials-modern__star testimonials-modern__star--empty"
+          }
         />
       );
     }
   
+    return stars;
+  };
+
+  const renderOverallStars = (average) => {
+    const stars = [];
+    const full = Math.floor(average);
+    const hasHalf = average - full >= 0.5 && full < 5;
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= full) {
+        stars.push(
+          <Icon
+            key={i}
+            icon="material-symbols:star"
+            className="testimonials-modern__star testimonials-modern__star--filled"
+          />
+        );
+        continue;
+      }
+
+      if (hasHalf && i === full + 1) {
+        stars.push(
+          <Icon
+            key={i}
+            icon="material-symbols:star-half"
+            className="testimonials-modern__star testimonials-modern__star--filled"
+          />
+        );
+        continue;
+      }
+
+      stars.push(
+        <Icon
+          key={i}
+          icon="material-symbols:star-outline"
+          className="testimonials-modern__star testimonials-modern__star--empty"
+        />
+      );
+    }
+
     return stars;
   };
 
@@ -171,6 +238,30 @@ const Testimonials = () => {
                 Navi Mumbai who trust Blanca to deliver quality construction,
                 transparent processes, and lasting real estate value.
               </p>
+
+              {overall.count > 0 && (
+                <div
+                  className="testimonials-modern__overall"
+                  aria-label={`Overall rating ${overall.average.toFixed(
+                    1
+                  )} out of 5 based on ${overall.count} reviews`}
+                >
+                  <div className="testimonials-modern__overall-score">
+                    <span className="testimonials-modern__overall-value">
+                      {overall.average.toFixed(1)}
+                    </span>
+                    <span className="testimonials-modern__overall-outof">/5</span>
+                  </div>
+
+                  <div className="testimonials-modern__overall-stars">
+                    {renderOverallStars(overall.average)}
+                  </div>
+
+                  <div className="testimonials-modern__overall-count">
+                    {overall.count} {overall.count === 1 ? "review" : "reviews"}
+                  </div>
+                </div>
+              )}
             </div>
           </Col>
 
