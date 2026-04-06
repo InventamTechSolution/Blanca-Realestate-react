@@ -1,12 +1,12 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import { useSeoSetting } from "../../../hooks/useSetting";
 import { DEFAULT_META_TITLE, DEFAULT_META_DESCRIPTION } from "../../../utils/constant";
+import { useSeoSetting } from "../../../hooks/useSeoSetting";
 
 const Seo = ({ title, description, image, url }) => {
   const { data: settings } = useSeoSetting();
 
-  const baseUrl = import.meta.env.HOME_PAGE_URL;
+  const baseUrl = import.meta.env.VITE_HOME_PAGE_URL;
 
   const metaTitle =
     title || settings?.setting_meta_title || DEFAULT_META_TITLE;
@@ -24,7 +24,7 @@ const Seo = ({ title, description, image, url }) => {
     : baseUrl;
 
   return (
-    <Helmet>
+    <Helmet prioritizeSeoTags>
       <title>{metaTitle}</title>
       <meta name="description" content={metaDescription} />
       <meta name="robots" content="index, follow" />
