@@ -915,10 +915,12 @@
         padding: 0 20px;
         width: 100%;
     }
-    .footer-highlight-subtitle{
+
+    .footer-highlight-subtitle {
         font-size: 16px;
     }
-    .footer-logo-shine-wrapper{
+
+    .footer-logo-shine-wrapper {
         display: flex;
         justify-content: center;
     }
@@ -1022,6 +1024,7 @@
 
     .footer-bottom-content {
         text-align: center;
+        justify-content: space-around;
     }
 
     .footer-social-center {
