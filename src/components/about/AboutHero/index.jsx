@@ -34,8 +34,8 @@ const HeroSection = ({ messages = [] }) => {
   const sliderMessages = React.useMemo(() => {
     const dynamicMessages = Array.isArray(messages)
       ? messages
-          .map((message) => (typeof message === "string" ? message.trim() : ""))
-          .filter(Boolean)
+        .map((message) => (typeof message === "string" ? message.trim() : ""))
+        .filter(Boolean)
       : [];
 
     const baseMessages =
@@ -250,7 +250,7 @@ const HeroSection = ({ messages = [] }) => {
                     {sliderMessages.map((text, index) => (
                       <h1
                         key={index}
-                        className="text-white bs-font-colgent-regular about-hero-title"
+                        className="text-white hero-main-title bs-font-colgent-regular about-hero-title"
                       >
                         {text}
                       </h1>

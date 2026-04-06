@@ -115,7 +115,7 @@
 .video-mask-wrapper {
     width: 100%;
     position: relative;
-    aspect-ratio: 16 / 16;
+    aspect-ratio: 16 / 13;
     display: flex;
     justify-content: center;
     align-items: center;

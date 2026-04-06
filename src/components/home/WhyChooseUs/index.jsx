@@ -195,7 +195,7 @@ const WhyChooseUs = () => {
                             if (isAnimating && isCurrent) {
                               return {
                                 opacity: 0,
-                                transform: `skewX(8deg) translateY(${outY}px)`,
+                                transform: `skewX(15deg) translateY(${outY}px)`,
                                 transition:
                                   "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.4s ease",
                               };
@@ -205,14 +205,14 @@ const WhyChooseUs = () => {
                               if (!animateEnter) {
                                 return {
                                   opacity: 0,
-                                  transform: `skewX(8deg) translateY(${inY}px)`,
+                                  transform: `skewX(15deg) translateY(${inY}px)`,
                                   transition:
                                     "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.4s ease",
                                 };
                               }
                               return {
                                 opacity: 1,
-                                transform: "skewX(8deg) translateY(0)",
+                                transform: "skewX(15deg) translateY(0)",
                                 transition:
                                   "transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.4s ease",
                               };

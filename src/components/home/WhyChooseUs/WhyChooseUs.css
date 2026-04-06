@@ -294,11 +294,11 @@
     bottom: 28%;
     left: 18%;
     max-width: 65%;
-    transform: skewX(8deg) translateY(0);
+    transform: skewX(15deg) translateY(0);
   }
 
   .skewed-slide.active .skewed-slide-content {
-    transform: skewX(8deg) translateY(0);
+    transform: skewX(15deg) translateY(0);
   }
 
   .meet-team-name {
@@ -351,11 +351,11 @@
     bottom: 28%;
     left: 22%;
     max-width: 55%;
-    transform: skewX(8deg) translateY(0);
+    transform: skewX(15deg) translateY(0);
   }
 
   .skewed-slide.active .skewed-slide-content {
-    transform: skewX(8deg) translateY(0);
+    transform: skewX(15deg) translateY(0);
   }
 
   .meet-team-name {

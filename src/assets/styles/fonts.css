@@ -186,6 +186,17 @@ h6,
         letter-spacing: -3px;
     }
 
+    .hero-main-title {
+        line-height: 1.2;
+        font-size: 72px;
+        letter-spacing: -2px;
+    }
+
+    .hero-main-subinfo {
+        line-height: 1.32;
+        font-size: 24px;
+    }
+
     h2,
     .h2 {
         line-height: 1.2;
@@ -240,6 +251,17 @@ h6,
         line-height: 1.2;
         font-size: 67px;
         letter-spacing: -3px;
+    }
+
+    .hero-main-title {
+        line-height: 1.2;
+        font-size: 62px;
+        letter-spacing: -2px;
+    }
+
+    .hero-main-subinfo {
+        line-height: 1.32;
+        font-size: 24px;
     }
 
     h2,
@@ -297,6 +319,17 @@ h6,
         letter-spacing: -3px;
     }
 
+    .hero-main-title {
+        line-height: 1.2;
+        font-size: 56px;
+        letter-spacing: -2px;
+    }
+
+    .hero-main-subinfo {
+        line-height: 1.32;
+        font-size: 22px;
+    }
+
     h2,
     .h2 {
         line-height: 1.2;
@@ -319,6 +352,17 @@ h6,
         font-size: 46px;
         letter-spacing: -2px;
         /* text-shadow: unset; */
+    }
+
+    .hero-main-title {
+        line-height: 1.2;
+        font-size: 52px;
+        letter-spacing: -2px;
+    }
+
+    .hero-main-subinfo {
+        line-height: 1.32;
+        font-size: 20px;
     }
 
     h2,
@@ -350,6 +394,17 @@ h6,
         line-height: 1.2;
         font-size: 42px;
         letter-spacing: -2px;
+    }
+
+    .hero-main-title {
+        line-height: 1.2;
+        font-size: 42px;
+        letter-spacing: -2px;
+    }
+
+    .hero-main-subinfo {
+        line-height: 1.32;
+        font-size: 18px;
     }
 
     h2,
