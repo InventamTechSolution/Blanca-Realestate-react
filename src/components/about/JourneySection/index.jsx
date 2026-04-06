@@ -208,6 +208,27 @@ const JourneySection = () => {
         syncInfiniteScroll();
     }, [syncInfiniteScroll]);
 
+    /** Smooth Auto-Scroll Logic */
+    React.useEffect(() => {
+        let animationFrameId;
+        
+        const autoMove = () => {
+            // Only auto-scroll when not dragging and infinite scroll is enabled
+            if (!isDragging && scrollRef.current && isInfiniteEnabled) {
+                // Increment scrollLeft slightly each frame (~60px per second at 60fps)
+                scrollRef.current.scrollLeft += 1.1;
+            }
+            animationFrameId = requestAnimationFrame(autoMove);
+        };
+
+        animationFrameId = requestAnimationFrame(autoMove);
+        return () => {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+        };
+    }, [isDragging, isInfiniteEnabled]);
+
     if (!journeyResponse) return null;
     if (!journeyData?.length) return <div>Loading...</div>;
 
@@ -320,8 +341,12 @@ const JourneySection = () => {
                 ref={scrollRef}
                 onScroll={handleScroll}
                 onMouseDown={handleMouseDown}
-                onMouseLeave={handleMouseLeave}
-                onMouseUp={handleMouseUp}
+                onMouseLeave={() => {
+                    handleMouseLeave();
+                }}
+                onMouseUp={() => {
+                    handleMouseUp();
+                }}
                 onMouseMove={handleMouseMove}
             >
                 <div className="journey-content-inner">
