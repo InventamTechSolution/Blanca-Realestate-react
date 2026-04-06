@@ -120,36 +120,36 @@ const Properties = () => {
                     <div className="project-card__content">
                       <h4>{project?.project_name}</h4>
                       <div className="project-card__meta">
-                        <Row className="g-0">
-                          <Col xxl={6} xl={12} lg={12} md={12}>
+                        <div className="properties-meta-detail">
+                          <div>
                             <span>Location:</span>
                             <strong>{project?.project_location}</strong>
-                          </Col>
-                          <Col xxl={6} xl={12} lg={12} md={12}>
+                          </div>
+                          <div>
                             <span>Property Type:</span>
                             <strong>{project?.categories?.map((cat) => cat?.category_name).join(" & ")}</strong>
-                          </Col>
-                        </Row>
-                        <Row className="g-0">
-                          <Col xxl={6} xl={12} lg={12} md={12}>
+                          </div>
+                        </div>
+                        <div className="properties-meta-detail">
+                          <div>
                             <span>Configuration:</span>
                             <strong>{project?.project_configuration}</strong>
-                          </Col>
-                          <Col xxl={6} xl={12} lg={12} md={12}>
+                          </div>
+                          <div>
                             <span>Area – Carpet:</span>
                             <strong>{project?.project_sq_ft}</strong>
-                          </Col>
-                        </Row>
-                        <Row className="g-0">
+                          </div>
+                        </div>
+                        <div className="properties-meta-detail">
                           {/* <Col xxl={6} xl={12} lg={12} md={12}>
                             <span>From INR:</span>
                             <strong>{project?.price}</strong>
                           </Col> */}
-                          <Col xxl={6} xl={12} lg={12} md={12}>
+                          <div>
                             <span>Status:</span>
                             <strong>{PROJECT_STATUS_LABELS[project?.project_status] || project?.project_status}</strong>
-                          </Col>
-                        </Row>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </Motion.div>

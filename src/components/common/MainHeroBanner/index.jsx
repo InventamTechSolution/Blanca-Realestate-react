@@ -20,7 +20,7 @@ const MainHeroBanner = ({
 
     const shouldShowButton = isHomePage || (!isHomePage && projectLink);
 
-    
+
     return (
         <section className="hero-area-2 black-120-bg">
             <div
@@ -70,9 +70,9 @@ const MainHeroBanner = ({
                     <div className="row align-items-center justify-content-center">
                         <div className="col-md-10 text-center">
                             <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
-                                {status && <h5 className="text-white">{status}</h5>}
-                                {title && <h1 className="text-white bs-font-colgent-regular">{title}</h1>}
-                                {location && <h5 className="text-white">{location}</h5>}
+                                {status && <h5 className="hero-main-subinfo text-white">{status}</h5>}
+                                {title && <h1 className="hero-main-title text-white bs-font-colgent-regular">{title}</h1>}
+                                {location && <h5 className="hero-main-subinfo text-white">{location}</h5>}
                             </div>
                             {shouldShowButton && (
                                 <div className="buttons mt-96">
