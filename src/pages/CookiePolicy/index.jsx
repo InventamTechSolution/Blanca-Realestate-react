@@ -7,7 +7,7 @@ import SmallHeroBanner from "../../components/common/Small-hero-banner";
 import "./cookiepolicy.css";
 import { AnimatePresence } from "framer-motion";
 import { Container } from "react-bootstrap";
-
+import Seo from '../../components/common/Seo/Seo';
 const CookiePolicy = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -29,6 +29,7 @@ const CookiePolicy = () => {
 
   return (
     <div className="cookie-policy-page">
+      <Seo />
       <AnimatePresence>
         {isLoading && <Preloader key="preloader" isLoading={isLoading} />}
       </AnimatePresence>

@@ -8,3 +8,16 @@ export const useSetting = (params) => {
   });
 };
 
+export const useSeoSetting = () => {
+  return useQuery({
+    queryKey: ["seo-setting"],
+    queryFn: () => getSetting({ offset: 0, limit: 1 }),
+
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+
+    select: (data) => data?.data?.[0] || data?.data,
+  });
+};
+

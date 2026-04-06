@@ -5,6 +5,7 @@ import SmallHeroBanner from "../../components/common/Small-hero-banner";
 import CareerBenefits from "../../components/career/CareerBenefits/CareerBenefits";
 import JobListings from "../../components/career/JobListings/JobListings";
 import "./careers.css";
+import Seo from '../../components/common/Seo/Seo';
 
 const Careers = () => {
     useEffect(() => {
@@ -13,6 +14,7 @@ const Careers = () => {
 
     return (
         <>
+            <Seo />
             <Header />
             <main className="careers-page-wrapper">
                 <SmallHeroBanner
