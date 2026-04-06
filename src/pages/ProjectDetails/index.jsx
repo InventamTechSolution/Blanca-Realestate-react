@@ -22,6 +22,7 @@ import { Icon } from "@iconify/react";
 import { useContactModal } from "../../context/ContactModalContext";
 import { useLocation } from "react-router-dom";
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
+import Seo from "../../components/common/Seo/Seo";
 // const commercial1 = "/images/project-details/commercial-office-1.png";
 // const commercial2 = "/images/project-details/commercial-office-2.png";
 // const commercial3 = "/images/project-details/commercial-office-3.png";
@@ -130,6 +131,18 @@ const ProjectDetails = () => {
 
   return (
     <>
+      <Seo
+        title={
+          project?.project_meta_title ||
+          `${project?.project_name} - Blanca Real Estate`
+        }
+        description={
+          project?.project_meta_description ||
+          project?.project_overview_description
+        }
+        image={project?.project_card_image}
+        url={`/project/${project?.project_project_id}`}
+      />
       <Header />
       <main>
         <MainHeroBanner
@@ -148,39 +161,39 @@ const ProjectDetails = () => {
               {/* Left Content */}
               {project?.project_overview_description && (
                 <Col className="wow fadeInLeft">
-                <div className="sub-title-wrapper mb-20">
-                  <span className="sub-title common-subtitle">OVERVIEW</span>
-                </div>
+                  <div className="sub-title-wrapper mb-20">
+                    <span className="sub-title common-subtitle">OVERVIEW</span>
+                  </div>
 
-                <h2 className="common-title bs-font-playfair-display text-white mb-30">
-                  {project?.project_overview_title}
-                </h2>
+                  <h2 className="common-title bs-font-playfair-display text-white mb-30">
+                    {project?.project_overview_title}
+                  </h2>
 
-                <div className="project-description-text">
-                  {project?.project_overview_description}
-                </div>
+                  <div className="project-description-text">
+                    {project?.project_overview_description}
+                  </div>
 
-                <div className="download-buttons-wrapper mt-40">
-                  <button className="download-btn" onClick={openContactModal}>
-                    <div className="btn-icon">
-                      <Icon icon="ph:article-light" />
-                    </div>
-                    <div className="btn-text">
-                      <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
-                      <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
-                    </div>
-                  </button>
-                  <button className="download-btn" onClick={openContactModal}>
-                    <div className="btn-icon">
-                      <Icon icon="ph:list-checks-light" />
-                    </div>
-                    <div className="btn-text">
-                      <span className="btn-title bs-font-montserrat">FACT SHEET</span>
-                      <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
-                    </div>
-                  </button>
-                </div>
-              </Col>
+                  <div className="download-buttons-wrapper mt-40">
+                    <button className="download-btn" onClick={openContactModal}>
+                      <div className="btn-icon">
+                        <Icon icon="ph:article-light" />
+                      </div>
+                      <div className="btn-text">
+                        <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
+                        <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
+                      </div>
+                    </button>
+                    <button className="download-btn" onClick={openContactModal}>
+                      <div className="btn-icon">
+                        <Icon icon="ph:list-checks-light" />
+                      </div>
+                      <div className="btn-text">
+                        <span className="btn-title bs-font-montserrat">FACT SHEET</span>
+                        <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
+                      </div>
+                    </button>
+                  </div>
+                </Col>
               )}
 
               {/* Right Slider */}
@@ -204,8 +217,8 @@ const ProjectDetails = () => {
         </section>
         {project?.project_interior?.length > 0 && (
           <InteriorExterior
-          interiorImages={project?.project_interior}
-          exteriorImages={project?.project_exterior}
+            interiorImages={project?.project_interior}
+            exteriorImages={project?.project_exterior}
           />
         )}
         {project?.project_amenities?.length > 0 && (

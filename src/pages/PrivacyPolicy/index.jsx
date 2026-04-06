@@ -8,7 +8,7 @@ import SmallHeroBanner from "../../components/common/Small-hero-banner";
 import "./privacypolicy.css";
 import { AnimatePresence } from "framer-motion";
 import { Container } from "react-bootstrap";
-
+import Seo from '../../components/common/Seo/Seo';
 const PrivacyPolicy = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,6 +30,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div className="privacy-policy-page">
+      <Seo />
       <AnimatePresence>
         {isLoading && <Preloader key="preloader" isLoading={isLoading} />}
       </AnimatePresence>

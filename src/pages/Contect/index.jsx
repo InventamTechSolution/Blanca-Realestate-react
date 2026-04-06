@@ -21,6 +21,7 @@ import { Country } from "country-state-city";
 import { useContactUs } from "../../hooks/useContactUs";
 import { contactSchema } from "../../schema/validationSchema";
 import { useSetting } from "../../hooks/useSetting";
+import Seo from '../../components/common/Seo/Seo';
 
 const contactBg = "/images/background/contect-us.png";
 import "./contect.css";
@@ -158,6 +159,7 @@ const Contact = () => {
 
   return (
     <div className="contact-page">
+      <Seo />
       <AnimatePresence>
         {isLoading && <Preloader key="preloader" isLoading={isLoading} />}
       </AnimatePresence>

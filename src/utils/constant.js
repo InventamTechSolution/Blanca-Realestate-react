@@ -3,6 +3,13 @@ export const BASE_API_URL = import.meta.env.VITE_API_URL;
 export const S3_BASE_URL = import.meta.env.VITE_S3_BUCKET_BASE_URL || "";
 
 export const UPLOAD_BASE_URL = BASE_API_URL || "";
+
+export const DEFAULT_META_TITLE =
+  "Blanca Real Estate - Luxury at Affordable";
+
+export const DEFAULT_META_DESCRIPTION =
+  "Blanca Real Estate: trusted real estate since 1981. Premium residential, commercial and industrial projects across Ahmedabad, Surat, Mumbai and Navi Mumbai—explore listings and enquire online.";
+
   
 
 export const acceptedDocsExtensions = {
