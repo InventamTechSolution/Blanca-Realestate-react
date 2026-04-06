@@ -218,7 +218,7 @@
 /* Luxurious Enquiry Premium Section Redesign */
 .enquiry-premium-section {
     padding: 100px 30px;
-    background-image: url('../../../public//images/background/enquiry-form-bg.jpg');
+    background-image: url('/images/background/enquiry-form-bg.jpg');
     background-size: cover;
     background-position: center;
     position: relative;

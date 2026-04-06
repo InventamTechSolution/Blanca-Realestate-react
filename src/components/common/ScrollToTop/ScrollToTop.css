@@ -23,8 +23,8 @@
     border: none;
 }
 
-.scroll-top:not([style*="display: none"]) {
-    display: flex !important;
+.scroll-top.visible {
+    display: flex;
 }
 
 .scroll-top::before {
@@ -33,6 +33,7 @@
     inset: 0;
     z-index: 0;
     -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     filter: url(#lg-dist);
     border-radius: inherit;
 }

@@ -251,7 +251,7 @@ const Header = () => {
                     </Link>
                     <ul className="header-submenu">
                       <li>
-                        <Link to="/about#about" onClick={closeMenus}>
+                        <Link to="/about" onClick={closeMenus}>
                           Legacy
                         </Link>
                       </li>
