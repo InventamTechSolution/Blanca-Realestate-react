@@ -110,8 +110,9 @@
     }
 
     .hero-stat-box {
-        max-width: 96px;
-        height: 98px;
+        max-width: 92px;
+        height: 90px;
+        padding: 9px;
     }
 }
 
@@ -126,8 +127,8 @@
     }
 
     .hero-stat-box {
-        max-width: 96px;
-        height: 98px;
+        max-width: 92px;
+        height: 92px;
     }
 }
 
