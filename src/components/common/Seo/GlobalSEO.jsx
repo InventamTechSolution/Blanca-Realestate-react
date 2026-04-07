@@ -7,6 +7,9 @@ import SEO from "./Seo";
 const GlobalSEO = () => {
   const { data } = useSeoSetting();
   const location = useLocation();
+
+  // Project details page uses its own dynamic SEO per-project.
+  if (/^\/project\/[^/]+/.test(location.pathname)) return null;
   
 
   return (

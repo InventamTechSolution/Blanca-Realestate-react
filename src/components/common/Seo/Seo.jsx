@@ -7,8 +7,20 @@ const SEO = ({ title, description, image, url }) => {
 
   const Meta_Title = title || DEFAULT_META_TITLE;
   const Meta_Description = description || DEFAULT_META_DESCRIPTION;
-  const Meta_Image = image || '/images/logos/favicon.png';
-  const Meta_Url = url ? `${baseUrl}${url}` : baseUrl;
+  const isAbsoluteUrl = (value) => /^https?:\/\//i.test(value);
+  const joinUrl = (a = "", b = "") => {
+    const left = String(a).replace(/\/+$/, "");
+    const right = String(b).replace(/^\/+/, "");
+    if (!left) return `/${right}`;
+    if (!right) return left;
+    return `${left}/${right}`;
+  };
+
+  const rawImage = image || "/images/logos/favicon.png";
+  const Meta_Image = isAbsoluteUrl(rawImage) ? rawImage : joinUrl(baseUrl, rawImage);
+
+  const rawUrl = url || "";
+  const Meta_Url = isAbsoluteUrl(rawUrl) ? rawUrl : (rawUrl ? joinUrl(baseUrl, rawUrl) : baseUrl);
 
   return ( 
     <Helmet>
