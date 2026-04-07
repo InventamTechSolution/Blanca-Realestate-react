@@ -33,7 +33,8 @@ const Registration = () => {
     const defaultValues = useMemo(() => ({
         agentType: location?.state?.agentType || INDIVIDUAL_AGENT_TYPE,
         gstin: "",
-        fullname: "",
+        firstname: "",
+        lastname: "",
         contactPerson: "",
         phone: "",
         reraNo: "",
@@ -72,8 +73,8 @@ const Registration = () => {
 
     const validateBeforeAddressTab = React.useCallback(async () => {
         const fieldsToValidate = isIndividual
-            ? ["agentType", "fullname", "phone", "email", "address"]
-            : ["agentType", "fullname", "phone", "email"];
+            ? ["agentType", "firstname", "lastname", "phone", "email", "address"]
+            : ["agentType", "firstname", "lastname", "phone", "email"];
 
         const isValid = await trigger(fieldsToValidate, { shouldFocus: true });
         if (isValid) {
@@ -104,7 +105,8 @@ const Registration = () => {
         const payload =
             agent_type === "individual"
                 ? {
-                    fullname: data?.fullname || "",
+                    firstname: data?.firstname || "",
+                    lastname: data?.lastname || "",
                     agent_type,
                     phone_number: data?.phone || "",
                     email: data?.email || "",
@@ -118,7 +120,8 @@ const Registration = () => {
                     referral_address: data?.referAddress || "",
                 }
                 : {
-                    fullname: data?.fullname || "",
+                    firstname: data?.firstname || "",
+                    lastname: data?.lastname || "",
                     agent_type,
                     phone_number: data?.phone || "",
                     email: data?.email || "",
@@ -126,7 +129,6 @@ const Registration = () => {
                     pincode: data?.pinCode || 0,
                     address: data?.address || "",
                     gstin: data?.gstin || "",
-                    contact_name: data?.contactPerson || "",
                     rera_number: data?.reraNo || "",
                     pan_number: data?.pan || "",
                 };

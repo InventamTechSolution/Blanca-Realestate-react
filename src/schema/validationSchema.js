@@ -64,10 +64,14 @@ export const jobApplySchema = yup.object().shape({
 
 export const channelPartnerSchema = yup.object().shape({
   agentType: yup.string().required("Agent type is required"),
-  fullname: yup
+  firstname: yup
     .string()
-    .required("Name is required")
-    .matches(REGEX.fullName, "Name should contain only letters and spaces"),
+    .required("First name is required")
+    .matches(REGEX.name, "First name should contain only letters"),
+  lastname: yup
+    .string()
+    .required("Last name is required")
+    .matches(REGEX.name, "Last name should contain only letters"),
   phone: yup
     .string()
     .required("Mobile number is required")

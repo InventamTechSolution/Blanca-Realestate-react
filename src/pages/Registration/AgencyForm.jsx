@@ -29,7 +29,7 @@ const AgencyForm = ({
   );
 
   const handleNextStep = React.useCallback(async () => {
-    const isValid = await trigger(["agentType", "fullname", "phone", "email"], {
+    const isValid = await trigger(["agentType", "firstname", "lastname", "phone", "email"], {
       shouldFocus: true,
     });
 
@@ -102,7 +102,7 @@ const AgencyForm = ({
           <Row className="gx-4 gy-4">
             <Col md={6}>
               <Controller
-                name="fullname"
+                name="firstname"
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
@@ -116,29 +116,31 @@ const AgencyForm = ({
                   />
                 )}
               />
-              {errors?.fullname && (
+              {errors?.firstname && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors?.fullname?.message}
+                  {errors?.firstname?.message}
                 </p>
               )}
             </Col>
             <Col md={6}>
               <Controller
-                name="contactPerson"
+                name="lastname"
                 control={control}
+                rules={{ required: true }}
                 render={({ field }) => (
                   <InputField
-                    label="Contact Person Name"
-                    placeholder="Enter Contact Person"
+                    label="Surname *"
+                    placeholder="Enter Surname"
                     name={field.name}
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    required
                   />
                 )}
               />
-              {errors?.contactPerson && (
+              {errors?.lastname && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors?.contactPerson?.message}
+                  {errors?.lastname?.message}
                 </p>
               )}
             </Col>
