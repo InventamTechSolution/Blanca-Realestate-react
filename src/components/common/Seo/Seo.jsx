@@ -3,6 +3,8 @@ import { DEFAULT_META_DESCRIPTION, DEFAULT_META_TITLE } from "../../../utils/con
 
 const SEO = ({ title, description, image, url }) => {
 
+  const baseUrl = import.meta.env.VITE_HOME_PAGE_URL;
+
   const Meta_Title = title || DEFAULT_META_TITLE;
   const Meta_Description = description || DEFAULT_META_DESCRIPTION;
   const Meta_Image = image || '/images/logos/favicon.png';
