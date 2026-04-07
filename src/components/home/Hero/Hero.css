@@ -402,8 +402,11 @@
     }
 
     .hero-expert-badge {
-        display: none;
-        /* Hide on mobile if too crowded, or adjust further */
+        position: absolute;
+        top: auto;
+        bottom: 25%;
+        right: auto;
+        left: auto;
     }
 
     .right-side-content {
