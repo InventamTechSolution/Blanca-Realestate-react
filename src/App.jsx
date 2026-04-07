@@ -20,6 +20,7 @@ import ScrollToTopOnRouteChange from "./components/common/ScrollToTopOnRouteChan
 import { ContactModalProvider } from "./context/ContactModalContext";
 import ContactModal from "./components/common/ContactModal/ContactModal";
 import CookieConsent from "./components/common/CookieConsent/CookieConsent";
+import GlobalSEO from "./components/common/Seo/GlobalSEO";
 
 function App() {
   // useEffect(() => {
@@ -30,6 +31,8 @@ function App() {
 
   return (
     <ContactModalProvider>
+      <GlobalSEO />
+      
       <ScrollToTopOnRouteChange />
       <LiquidFilters />
 

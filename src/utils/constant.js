@@ -2,6 +2,8 @@ export const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 export const S3_BASE_URL = import.meta.env.VITE_S3_BUCKET_BASE_URL || "";
 
+export const HOME_PAGE_URL = import.meta.env.VITE_HOME_PAGE_URL;
+
 export const UPLOAD_BASE_URL = BASE_API_URL || "";
 
 export const DEFAULT_META_TITLE =

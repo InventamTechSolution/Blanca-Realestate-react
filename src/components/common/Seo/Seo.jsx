@@ -1,45 +1,33 @@
-import React from "react";
 import { Helmet } from "react-helmet-async";
-import { DEFAULT_META_TITLE, DEFAULT_META_DESCRIPTION } from "../../../utils/constant";
-import { useSeoSetting } from "../../../hooks/useSeoSetting";
+import { DEFAULT_META_DESCRIPTION, DEFAULT_META_TITLE } from "../../../utils/constant";
 
-const Seo = ({ title, description, image, url }) => {
-  const { data: settings } = useSeoSetting();
+const SEO = ({ title, description, image, url }) => {
 
-  const baseUrl = import.meta.env.VITE_HOME_PAGE_URL;
+  const Meta_Title = title || DEFAULT_META_TITLE;
+  const Meta_Description = description || DEFAULT_META_DESCRIPTION;
+  const Meta_Image = image || '/images/logos/favicon.png';
+  const Meta_Url = url ? `${baseUrl}${url}` : baseUrl;
 
-  const metaTitle =
-    title || settings?.setting_meta_title || DEFAULT_META_TITLE;
+  return ( 
+    <Helmet>
+      {/* Basic SEO */}
+      <title>{Meta_Title}</title>
+      <meta name="description" content={Meta_Description} />
 
-  const metaDescription =
-    description ||
-    settings?.setting_meta_description ||
-    DEFAULT_META_DESCRIPTION;
-
-  const metaImage =
-    image || "/images/logos/favicon.png";
-
-  const canonicalUrl = url
-    ? `${baseUrl}${url}`
-    : baseUrl;
-
-  return (
-    <Helmet prioritizeSeoTags>
-      <title>{metaTitle}</title>
-      <meta name="description" content={metaDescription} />
-      <meta name="robots" content="index, follow" />
-
-      {/* Open Graph */}
+      {/* Open Graph (for sharing preview) */}
+      <meta property="og:title" content={Meta_Title} />
+      <meta property="og:description" content={Meta_Description} />
+      <meta property="og:image" content={Meta_Image} />
+      <meta property="og:url" content={Meta_Url} />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content={metaTitle} />
-      <meta property="og:description" content={metaDescription} />
-      <meta property="og:image" content={metaImage} />
-      <meta property="og:url" content={canonicalUrl} />
 
-      {/* Canonical */}
-      <link rel="canonical" href={canonicalUrl} />
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={Meta_Title} />
+      <meta name="twitter:description" content={Meta_Description} />
+      <meta name="twitter:image" content={Meta_Image} />
     </Helmet>
   );
 };
 
-export default Seo;
+export default SEO;

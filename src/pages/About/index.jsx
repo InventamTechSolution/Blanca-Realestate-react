@@ -13,7 +13,7 @@ import ShowcaseSection from "../../components/about/ShowcaseSection";
 import TeamSlider from '../../components/about/TeamSlider';
 import { AnimatePresence } from 'framer-motion';
 import { useOtherField } from "../../hooks/useOtherField";
-import Seo from '../../components/common/Seo/Seo';
+// import SEO from '../../components/common/Seo/Seo';
 
 const About = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -90,7 +90,7 @@ const About = () => {
 
     return (
         <div className="about-page">
-            <Seo />
+            {/* <SEO /> */}
             <AnimatePresence>
                 {isLoading && <Preloader key="preloader" isLoading={isLoading} />}
             </AnimatePresence>

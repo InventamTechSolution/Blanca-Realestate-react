@@ -11,7 +11,7 @@ import Preloader from "../../components/common/Preloader";
 import { AnimatePresence } from "framer-motion";
 import { useProjectLocations, useProjectsWithFilter } from "../../hooks/useProjects";
 import { useCategories } from "../../hooks/useCategories";
-import Seo from '../../components/common/Seo/Seo';
+// import SEO from '../../components/common/Seo/Seo';
 
 const Projects = () => {
   const defaultMapUrl =
@@ -210,7 +210,7 @@ const Projects = () => {
 
   return (
     <div className="projects-page">
-      <Seo />
+      {/* <SEO /> */}
       <AnimatePresence>
         {isLoading && <Preloader key="preloader" isLoading={isLoading} />}
       </AnimatePresence>

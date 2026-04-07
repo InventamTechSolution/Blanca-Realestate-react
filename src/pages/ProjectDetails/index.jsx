@@ -22,7 +22,7 @@ import { Icon } from "@iconify/react";
 import { useContactModal } from "../../context/ContactModalContext";
 import { useLocation } from "react-router-dom";
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
-import Seo from "../../components/common/Seo/Seo";
+// import SEO from "../../components/common/Seo/Seo";
 // const commercial1 = "/images/project-details/commercial-office-1.png";
 // const commercial2 = "/images/project-details/commercial-office-2.png";
 // const commercial3 = "/images/project-details/commercial-office-3.png";
@@ -131,7 +131,7 @@ const ProjectDetails = () => {
 
   return (
     <>
-      <Seo
+      <SEO
         title={
           project?.project_meta_title ||
           `${project?.project_name} - Blanca Real Estate`

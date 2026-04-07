@@ -14,7 +14,7 @@ import AgencyForm from "./AgencyForm";
 import { channelPartnerSchema } from '../../schema/validationSchema';
 import "./ragistration.css";
 import Footer from '../../components/layout/Footer/Footer';
-import Seo from '../../components/common/Seo/Seo';
+// import SEO from '../../components/common/Seo/Seo';
 
 const RegistrationBg = "/images/background/registration-bg.png";
 
@@ -149,7 +149,7 @@ const Registration = () => {
 
     return (
         <div className="registration-page">
-            <Seo />
+            {/* <SEO /> */}
             <Preloader />
             <Header />
             <main>

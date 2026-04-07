@@ -7,7 +7,7 @@ import { useProjects } from '../../hooks/useProjects';
 import { PROJECT_STATUS_LABELS } from '../../utils/constant';
 import { AnimatePresence } from 'framer-motion';
 import Preloader from '../../components/common/Preloader';
-import Seo from '../../components/common/Seo/Seo';
+// import SEO from '../../components/common/Seo/Seo';
 
 const Hero = lazy(() => import('../../components/home/Hero'));
 const About = lazy(() => import('../../components/home/About'));
@@ -28,7 +28,7 @@ const Home = () => {
 
     return (
         <div className="home-page">
-            <Seo />
+            {/* <SEO /> */}
             <AnimatePresence>
                 {isLoading && <Preloader key="preloader" isLoading={isLoading} />}
             </AnimatePresence>
