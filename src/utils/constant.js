@@ -6,13 +6,10 @@ export const HOME_PAGE_URL = import.meta.env.VITE_HOME_PAGE_URL;
 
 export const UPLOAD_BASE_URL = BASE_API_URL || "";
 
-export const DEFAULT_META_TITLE =
-  "Blanca Real Estate - Luxury at Affordable";
+export const DEFAULT_META_TITLE = "Blanca Real Estate - Luxury at Affordable";
 
 export const DEFAULT_META_DESCRIPTION =
   "Blanca Real Estate: trusted real estate since 1981. Premium residential, commercial and industrial projects across Ahmedabad, Surat, Mumbai and Navi Mumbai—explore listings and enquire online.";
-
-  
 
 export const acceptedDocsExtensions = {
   "application/pdf": [".pdf"],
@@ -23,9 +20,9 @@ export const acceptedDocsExtensions = {
 };
 
 export const PROJECT_STATUS_LABELS = {
-    "new-launches": "New Launch",
-    "coming-soon": "Coming Soon",
-    "on-going": "ONGOING",
-    "completed": "Completed",
-    "sold-out": "Sold Out",
-  };
+  "new-launches": "New Launch",
+  "coming-soon": "Coming Soon",
+  "on-going": "Ongoing",
+  "completed": "Completed",
+  "sold-out": "Sold Out",
+};
