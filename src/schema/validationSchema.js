@@ -64,14 +64,10 @@ export const jobApplySchema = yup.object().shape({
 
 export const channelPartnerSchema = yup.object().shape({
   agentType: yup.string().required("Agent type is required"),
-  firstname: yup
+  fullname: yup
     .string()
-    .required("First name is required")
-    .matches(REGEX.name, "First name should contain only letters"),
-  lastname: yup
-    .string()
-    .required("Last name is required")
-    .matches(REGEX.name, "Last name should contain only letters"),
+    .required("Name is required")
+    .matches(REGEX.fullName, "Name should contain only letters and spaces"),
   phone: yup
     .string()
     .required("Mobile number is required")
@@ -94,14 +90,16 @@ export const channelPartnerSchema = yup.object().shape({
       (value) => !value || value === "0" || /^\d{6}$/.test(value),
     ),
   gstin: yup.string().optional().matches(REGEX.gstin, "GSTIN must be a valid 15-character format (e.g., 22AAAAA0000A1Z5)"),
-  contactPerson: yup
+  agency_name: yup
     .string()
-    .optional()
-    .test(
-      "contact-person-format",
-      "Contact person name should contain only letters and spaces",
-      (value) => !value || REGEX.fullName.test(value),
-    ),
+    .when("agentType", {
+      is: "Agency Registration",
+      then: (schema) =>
+        schema
+          .required("Agency name is required")
+          .matches(REGEX.startingSpaceNotAllowed, "Please enter a valid agency name"),
+      otherwise: (schema) => schema.optional(),
+    }),
   reraNo: yup.string().optional(),
   pan: yup
     .string()

@@ -33,9 +33,8 @@ const Registration = () => {
     const defaultValues = useMemo(() => ({
         agentType: location?.state?.agentType || INDIVIDUAL_AGENT_TYPE,
         gstin: "",
-        firstname: "",
-        lastname: "",
-        contactPerson: "",
+        fullname: "",
+        agency_name: "",
         phone: "",
         reraNo: "",
         email: "",
@@ -73,8 +72,8 @@ const Registration = () => {
 
     const validateBeforeAddressTab = React.useCallback(async () => {
         const fieldsToValidate = isIndividual
-            ? ["agentType", "firstname", "lastname", "phone", "email", "address"]
-            : ["agentType", "firstname", "lastname", "phone", "email"];
+            ? ["agentType", "fullname", "phone", "email", "address"]
+            : ["agentType", "fullname", "phone", "email"];
 
         const isValid = await trigger(fieldsToValidate, { shouldFocus: true });
         if (isValid) {
@@ -105,8 +104,7 @@ const Registration = () => {
         const payload =
             agent_type === "individual"
                 ? {
-                    firstname: data?.firstname || "",
-                    lastname: data?.lastname || "",
+                    fullname: data?.fullname || "",
                     agent_type,
                     phone_number: data?.phone || "",
                     email: data?.email || "",
@@ -120,8 +118,7 @@ const Registration = () => {
                     referral_address: data?.referAddress || "",
                 }
                 : {
-                    firstname: data?.firstname || "",
-                    lastname: data?.lastname || "",
+                    fullname: data?.fullname || "",
                     agent_type,
                     phone_number: data?.phone || "",
                     email: data?.email || "",
@@ -129,6 +126,7 @@ const Registration = () => {
                     pincode: data?.pinCode || 0,
                     address: data?.address || "",
                     gstin: data?.gstin || "",
+                    agency_name: data?.agency_name || "",
                     rera_number: data?.reraNo || "",
                     pan_number: data?.pan || "",
                 };

@@ -10,10 +10,10 @@ const IndividualFields = ({ control, errors, exclude = [] }) => {
     <>
       {/* CHANGE: add a bit more spacing between inputs */}
       <Row className="gx-4 gy-3 gy-lg-4">
-        {exclude.includes("firstname") ? null : (
+        {exclude.includes("fullname") ? null : (
           <Col md={6}>
             <Controller
-              name="firstname"
+              name="fullname"
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
@@ -27,34 +27,9 @@ const IndividualFields = ({ control, errors, exclude = [] }) => {
                 />
               )}
             />
-            {errors?.firstname && (
+            {errors?.fullname && (
               <p className="text-danger small mt-1 mb-1">
-                {errors?.firstname?.message}
-              </p>
-            )}
-          </Col>
-        )}
-
-        {exclude.includes("lastname") ? null : (
-          <Col md={6}>
-            <Controller
-              name="lastname"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <InputField
-                  label="Surname *"
-                  placeholder="Enter Surname"
-                  name={field?.name}
-                  value={field?.value}
-                  onChange={(e) => field?.onChange(e?.target?.value)}
-                  required
-                />
-              )}
-            />
-            {errors?.lastname && (
-              <p className="text-danger small mt-1 mb-1">
-                {errors?.lastname?.message}
+                {errors?.fullname?.message}
               </p>
             )}
           </Col>

@@ -21,7 +21,7 @@ const IndividualForm = ({
 
   const handleNextStep = React.useCallback(async () => {
     const isValid = await trigger(
-      ["agentType", "firstname", "lastname", "phone", "email", "address"],
+      ["agentType", "fullname", "phone", "email", "address"],  
       { shouldFocus: true },
     );
 
@@ -66,57 +66,34 @@ const IndividualForm = ({
                 </p>
               )}
             </Col>
-          </Row>
-
-          <Row className="gx-4 gy-4 mb-3">
+            {/* CHANGE: moved Name field beside Real Estate Agent Type* */}
             <Col md={6}>
               <Controller
-                name="firstname"
+                name="fullname"
                 control={control}
                 render={({ field }) => (
                   <InputField
-                    label="First Name *"
-                    placeholder="Enter First Name"
+                    label="Name *"
+                    placeholder="Enter Name"
                     name={field?.name}
                     value={field?.value}
                     onChange={(e) => field?.onChange(e?.target?.value)}
                   />
                 )}
               />
-              {errors?.firstname && (
+              {errors?.fullname && (
                 <p className="text-danger small mt-1 mb-1">
-                  {errors?.firstname?.message}
-                </p>
-              )}
-            </Col>
-
-            <Col md={6}>
-              <Controller
-                name="lastname"
-                control={control}
-                render={({ field }) => (
-                  <InputField
-                    label="Surname *"
-                    placeholder="Enter Surname"
-                    name={field?.name}
-                    value={field?.value}
-                    onChange={(e) => field?.onChange(e?.target?.value)}
-                  />
-                )}
-              />
-              {errors?.lastname && (
-                <p className="text-danger small mt-1 mb-1">
-                  {errors?.lastname?.message}
+                  {errors?.fullname?.message}
                 </p>
               )}
             </Col>
           </Row>
 
-          {/* CHANGE: names are rendered above; exclude them here to avoid duplication */}
+          {/* CHANGE: name is rendered above; exclude it here to avoid duplication */}
           <IndividualFields
             control={control}
             errors={errors}
-            exclude={["firstname", "lastname"]}
+            exclude={["fullname"]}
           />
 
           <div className="tab-nav-btns mt-4 mt-lg-5">
