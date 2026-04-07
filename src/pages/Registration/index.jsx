@@ -24,6 +24,7 @@ const Registration = () => {
     const location = useLocation();
     const [activeTab, setActiveTab] = useState("personal-details");
     const [showThankYou, setShowThankYou] = useState(false);
+    const [submittedAgentType, setSubmittedAgentType] = useState("");
     const [submitError, setSubmitError] = useState("");
 
     const { mutateAsync: registerPartner, isPending: isSubmitting } =
@@ -133,6 +134,7 @@ const Registration = () => {
 
         try {
             await registerPartner(payload);
+            setSubmittedAgentType(data?.agentType);
             setShowThankYou(true);
             reset();
             setActiveTab("personal-details");
@@ -232,7 +234,11 @@ const Registration = () => {
                 isOpen={showThankYou}
                 onClose={() => setShowThankYou(false)}
                 title="Registration Successful"
-                message="Thank you for registering as a Blanca Channel Partner! Our team will review your application and get in touch with you shortly."
+                message={
+                    submittedAgentType === INDIVIDUAL_AGENT_TYPE
+                        ? "Thank you for registering as a Blanca Individual Channel Partner! Our team will review your application and get in touch with you shortly."
+                        : "Thank you for registering as a Blanca Agency Channel Partner! Our team will review your application and get in touch with you shortly."
+                }
             />
         </div>
     );
