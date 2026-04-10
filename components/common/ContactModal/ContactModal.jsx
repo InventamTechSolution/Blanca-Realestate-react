@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import { Row, Col, Form } from "react-bootstrap";
 import { useForm, Controller, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -246,9 +249,9 @@ const ContactModal = () => {
                       label={
                         <>
                           I've read and agree to the{" "}
-                          <a href="/privacy-policy" className="privacy-link">
+                          <Link href="/privacy-policy" className="privacy-link">
                             Privacy Policy
-                          </a>
+                          </Link>
                         </>
                       }
                       checked={field.value}

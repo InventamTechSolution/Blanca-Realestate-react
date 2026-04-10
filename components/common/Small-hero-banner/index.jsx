@@ -1,7 +1,6 @@
 import React from "react";
 import "./small-hero-banner.css";
 import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
 
 const SmallHeroBanner = ({

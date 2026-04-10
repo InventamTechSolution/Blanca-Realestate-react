@@ -1,23 +1,27 @@
+"use client";
+
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 
 const ScrollToTopOnRouteChange = () => {
-  const { pathname, hash } = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hash = window.location.hash;
+
     if (hash) {
-      const id = hash.replace('#', '');
+      const id = hash.replace("#", "");
       const element = document.getElementById(id);
       if (element) {
-        // Apply a small delay to ensure content is rendered, especially on route transitions
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
     } else {
       window.scrollTo(0, 0);
     }
-  }, [pathname, hash]);
+  }, [pathname]);
 
   return null;
 };
