@@ -4,7 +4,7 @@ import AppShell from "./AppShell";
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
 import GoogleAnalyticsScript from "@/components/scripts";
-import logo from '@'
+
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
