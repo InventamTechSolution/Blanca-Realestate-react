@@ -61,4 +61,4 @@ jobs:
             npm install --legacy-peer-deps
             pm2 stop blanca-website-fe || true
             pm2 delete blanca-website-fe || true
-            pm2 start npm --name "blanca-website-fe" -- run preview
+            pm2 start npm --name "blanca-website-fe" -- start
