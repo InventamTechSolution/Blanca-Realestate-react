@@ -3,7 +3,7 @@ name: Blanca-website-fe CICD Pipeline
 on:
   push:
     branches: 
-      - develop
+      - designs
 
 jobs:
   build_and_deploy:
