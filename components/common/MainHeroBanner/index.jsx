@@ -14,6 +14,8 @@ const MainHeroBanner = ({
     projectLink,
     isHomePage = false,
     projectId,
+    reraRegistrationNumber,
+    reraQrSrc,
 }) => {
 
     const redirectLink = projectLink ? projectLink : `/project/${projectId}`;
@@ -85,6 +87,29 @@ const MainHeroBanner = ({
                         </div>
                     </div>
                 </div>
+
+                {(reraRegistrationNumber || reraQrSrc) && (
+                    <div className="hero-rera-card hero-glass-card">
+                        <div className="hero-rera-qr-wrap" aria-label="RERA QR code">
+                            <img
+                                className="hero-rera-qr"
+                                src={reraQrSrc || "/images/qr-placeholder.svg"}
+                                alt="RERA QR code"
+                                loading="lazy"
+                            />
+                        </div>
+                        {reraRegistrationNumber && (
+                            <div className="hero-rera-meta">
+                                <div className="hero-rera-label bs-font-montserrat">
+                                    RERA Registration No.
+                                </div>
+                                <div className="hero-rera-value bs-font-montserrat">
+                                    {reraRegistrationNumber}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </section>
     );

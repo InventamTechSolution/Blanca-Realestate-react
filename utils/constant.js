@@ -1,5 +1,5 @@
 export const BASE_API_URL = process.env.NEXT_PUBLIC_API_URL;
-
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const S3_BASE_URL = process.env.NEXT_PUBLIC_S3_BUCKET_BASE_URL || "";
 
 export const HOME_PAGE_URL = process.env.NEXT_PUBLIC_HOME_PAGE_URL;

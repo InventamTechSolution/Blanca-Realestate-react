@@ -3,6 +3,7 @@ import Providers from "./providers";
 import AppShell from "./AppShell";
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
+import GoogleAnalyticsScript from "@/components/scripts";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -16,6 +17,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/images/logos/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/images/logos/favicon.png" type="image/png" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -27,6 +30,7 @@ export default function RootLayout({ children }) {
       <body>
         <Providers>
           <AppShell>
+            <GoogleAnalyticsScript />
             <Header />
             {children}
             <Footer />
