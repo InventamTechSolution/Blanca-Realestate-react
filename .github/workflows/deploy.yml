@@ -43,7 +43,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: "./"
-          TARGET: /root/blanaca-website-fe
+          TARGET: /root/blanca-website-fe
 
       - name: Execute Remote SSH Commands - DEV
         uses: appleboy/ssh-action@master
@@ -53,8 +53,8 @@ jobs:
           key: ${{ secrets.REMOTE_SSH_KEY }}
           port: 22
           script: |
-            cd /root/blanaca-website-fe
+            cd /root/blanca-website-fe
             npm install --legacy-peer-deps
-            pm2 stop blanaca-website-fe || true
-            pm2 delete blanaca-website-fe || true
-            pm2 start npm --name "blanaca-website-fe" -- run preview
+            pm2 stop blanca-website-fe || true
+            pm2 delete blanca-website-fe || true
+            pm2 start npm --name "blanca-website-fe" -- run preview
