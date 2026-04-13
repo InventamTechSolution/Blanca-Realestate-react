@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useSearchParams, useRouter } from "next/navigation";
+import { Icon } from "@iconify/react";
 import SmallHeroBanner from "../../components/common/Small-hero-banner";
 import "./Projects.css";
 import ThemeBtn from "../../components/common/Button/ThemeBtn";
@@ -253,7 +254,7 @@ const Projects = () => {
                             )?.label
                           }
                         </span>
-                        <i className="fas fa-chevron-down"></i>
+                        <Icon icon="lucide:chevron-down" />
                       </div>
 
                       <ul className="dropdown-list">
@@ -288,7 +289,7 @@ const Projects = () => {
                             )?.label
                           }
                         </span>
-                        <i className="fas fa-chevron-down"></i>
+                        <Icon icon="lucide:chevron-down" />
                       </div>
 
                       <ul className="dropdown-list">
@@ -315,7 +316,7 @@ const Projects = () => {
                         <span>
                           {areaOptions?.find((item) => item?.value === area)?.label}
                         </span>
-                        <i className="fas fa-chevron-down"></i>
+                        <Icon icon="lucide:chevron-down" />
                       </div>
 
                       <ul className="dropdown-list">

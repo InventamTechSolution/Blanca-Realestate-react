@@ -160,7 +160,7 @@ const ProjectDetails = ({ project }) => {
                       </div>
                       <div className="btn-text">
                         <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
-                        <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
+                        <span className="btn-subtitle">DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} /></span>
                       </div>
                     </button>
                     <button className="download-btn" onClick={openContactModal}>
@@ -169,7 +169,7 @@ const ProjectDetails = ({ project }) => {
                       </div>
                       <div className="btn-text">
                         <span className="btn-title bs-font-montserrat">FACT SHEET</span>
-                        <span className="btn-subtitle">DOWNLOAD <i className="fas fa-arrow-down"></i></span>
+                        <span className="btn-subtitle">DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} /></span>
                       </div>
                     </button>
                   </div>
@@ -270,7 +270,7 @@ const ProjectDetails = ({ project }) => {
                   <div className="consultation-features">
                     <div className="c-feature-item">
                       <div className="icon-circle">
-                        <i className="fas fa-user-tie"></i>
+                        <Icon icon="lucide:user-check" />
                       </div>
                       <div className="text">
                         <h5>Private Viewing</h5>
@@ -282,7 +282,7 @@ const ProjectDetails = ({ project }) => {
 
                     <div className="c-feature-item">
                       <div className="icon-circle">
-                        <i className="fas fa-chart-line"></i>
+                        <Icon icon="lucide:trending-up" />
                       </div>
                       <div className="text">
                         <h5>Investment Analysis</h5>
@@ -294,7 +294,7 @@ const ProjectDetails = ({ project }) => {
 
                     <div className="c-feature-item">
                       <div className="icon-circle">
-                        <i className="fas fa-chess-knight"></i>
+                        <Icon icon="lucide:shield" />
                       </div>
                       <div className="text">
                         <h5>Expert Strategy</h5>
@@ -307,7 +307,7 @@ const ProjectDetails = ({ project }) => {
 
                     <div className="c-feature-item">
                       <div className="icon-circle">
-                        <i className="fas fa-headset"></i>
+                        <Icon icon="lucide:headphones" />
                       </div>
                       <div className="text">
                         <h5>End-to-End Support</h5>
@@ -479,7 +479,7 @@ const ProjectDetails = ({ project }) => {
 
                     <div className="enquiry-security-note mt-30 text-center">
                       <p>
-                        <i className="fas fa-shield-alt me-2"></i>
+                        <Icon icon="lucide:lock" className="me-2" />
                         Your data is protected by industry-standard encryption.
                       </p>
                     </div>

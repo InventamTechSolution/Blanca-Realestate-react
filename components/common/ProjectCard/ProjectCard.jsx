@@ -18,7 +18,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
         <div className="horiz-content">
           <h5>{project.title}</h5>
           <p className="horiz-meta">
-            <i className="fas fa-map-marker-alt"></i> {project.location}
+            <Icon icon="lucide:map-pin" style={{ marginRight: '4px' }} /> {project.location}
           </p>
           <p className="horiz-desc">
             {project.propertyType} | {project.configuration}
@@ -35,7 +35,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               <div className="download-text">
                 <span className="title">PROJECT BROCHURE</span>
                 <span className="action">
-                  DOWNLOAD <i className="fas fa-arrow-down"></i>
+                  DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} />
                 </span>
               </div>
             </div>
@@ -50,7 +50,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               <div className="download-text">
                 <span className="title">FACT SHEET</span>
                 <span className="action">
-                  DOWNLOAD <i className="fas fa-arrow-down"></i>
+                  DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} />
                 </span>
               </div>
             </div>
@@ -106,7 +106,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             <div className="download-text">
               <span className="title">PROJECT BROCHURE</span>
               <span className="action">
-                DOWNLOAD <i className="fas fa-arrow-down"></i>
+                DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} />
               </span>
             </div>
           </div>
@@ -121,7 +121,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             <div className="download-text">
               <span className="title">FACT SHEET</span>
               <span className="action">
-                DOWNLOAD <i className="fas fa-arrow-down"></i>
+                DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} />
               </span>
             </div>
           </div>

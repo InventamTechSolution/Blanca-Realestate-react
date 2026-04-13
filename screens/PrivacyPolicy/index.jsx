@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { Icon } from "@iconify/react";
 import Preloader from "../../components/common/Preloader";
 import ScrollToTop from "../../components/common/ScrollToTop";
 import SmallHeroBanner from "../../components/common/Small-hero-banner";
@@ -242,21 +243,21 @@ const PrivacyPolicy = () => {
 
                 <ul className="contact-icon-list">
                   <li>
-                    <i className="far fa-envelope"></i>{" "}
+                    <Icon icon="lucide:mail" style={{ marginRight: '6px' }} />{" "}
                     <a href="mailto:reachus.blanca@gmail.com">
                       reachus.blanca@gmail.com
                     </a>
                   </li>
 
                   <li>
-                    <i className="fas fa-globe"></i>{" "}
+                    <Icon icon="lucide:globe" style={{ marginRight: '6px' }} />{" "}
                     <a href="https://blanca.co.in" target="_blank" rel="noreferrer">
                       https://blanca.co.in
                     </a>
                   </li>
 
                   <li>
-                    <i className="fas fa-map-marker-alt"></i>{" "}
+                    <Icon icon="lucide:map-pin" style={{ marginRight: '6px' }} />{" "}
                     <a
                       href="https://www.google.com/maps/search/?api=1&query=Greenland+CHS+16+Plot+20+Sector+40+Nerul+Seawood+Navi+Mumbai+400706"
                       target="_blank"

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { Icon } from '@iconify/react';
 import './JourneySection.css';
 
 /** Module scope so `useMemo` callbacks always close over a defined function (avoids ReferenceError). */
@@ -266,8 +267,8 @@ const JourneySection = ({ journeyResponse }) => {
                                 )}
                                 <h3 className="project-title">{project.title}</h3>
                                 <div className="project-meta">
-                                    <i className="fas fa-map-marker-alt"></i> {project.location}
-                                    <i className={`fas ${project.type === 'Residential' ? 'fa-building' : 'fa-industry'}`}></i>{' '}
+                                    <Icon icon="lucide:map-pin" className="journey-meta-icon" /> {project.location}
+                                    <Icon icon={project.type === 'Residential' ? 'lucide:building-2' : 'lucide:factory'} className="journey-meta-icon" />{' '}
                                     {project.type}
                                 </div>
                                 {project.description && <p className="project-description">{project.description}</p>}

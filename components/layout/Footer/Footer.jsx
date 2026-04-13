@@ -380,17 +380,32 @@ const Footer = () => {
             {/* Social Links */}
             <div className="footer-social-center">
               <div className="social-links">
-                {settingRecord?.setting_social_media?.map((item) => (
-                  <a
-                    key={item?.platform}
-                    href={item?.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link"
-                  >
-                    <Icon icon={`lucide:${item?.platform?.toLowerCase()}`} />
-                  </a>
-                ))}
+                {settingRecord?.setting_social_media?.map((item) => {
+                  const platform = item?.platform?.toLowerCase();
+                  const iconMap = {
+                    instagram: "mdi:instagram",
+                    facebook: "mdi:facebook",
+                    twitter: "mdi:twitter",
+                    youtube: "mdi:youtube",
+                    linkedin: "mdi:linkedin",
+                    whatsapp: "mdi:whatsapp",
+                    pinterest: "mdi:pinterest",
+                    tiktok: "ic:baseline-tiktok",
+                    x: "ri:twitter-x-fill",
+                  };
+                  const iconName = iconMap[platform] || `mdi:${platform}`;
+                  return (
+                    <a
+                      key={item?.platform}
+                      href={item?.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-link"
+                    >
+                      <Icon icon={iconName} />
+                    </a>
+                  );
+                })}
               </div>
             </div>
 

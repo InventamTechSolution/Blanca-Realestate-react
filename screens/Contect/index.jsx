@@ -19,6 +19,7 @@ import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
 import Select from "react-select";
 import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
 import { Country } from "country-state-city";
+import { Icon } from "@iconify/react";
 import { useContactUs } from "../../hooks/useContactUs";
 import { contactSchema } from "../../schema/validationSchema";
 // import SEO from '../../components/common/Seo/Seo';
@@ -198,7 +199,7 @@ const Contact = ({ settingResponse }) => {
                   <div className="contact-items">
                     <div className="contact-item-new">
                       <div className="contact-icon">
-                        <i className="fa-solid fa-envelope"></i>
+                        <Icon icon="lucide:mail" />
                       </div>
                       <div className="contact-text">
                         <h5>Reach Us</h5>
@@ -212,7 +213,7 @@ const Contact = ({ settingResponse }) => {
 
                     <div className="contact-item-new">
                       <div className="contact-icon">
-                        <i className="fa-solid fa-phone" aria-hidden="true"></i>
+                        <Icon icon="lucide:phone" aria-hidden="true" />
                       </div>
                       <div className="contact-text">
                         <h5>OTHER INQUIRIES</h5>
@@ -226,10 +227,7 @@ const Contact = ({ settingResponse }) => {
 
                     <div className="contact-item-new border-0 pb-0 mb-0">
                       <div className="contact-icon">
-                        <i
-                          className="fa-solid fa-location-dot"
-                          aria-hidden="true"
-                        ></i>
+                        <Icon icon="lucide:map-pin" aria-hidden="true" />
                       </div>
                       <div className="contact-text">
                         <h5>ADDRESS:</h5>

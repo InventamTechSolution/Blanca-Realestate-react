@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Carousel, Button } from "react-bootstrap";
+import { Icon } from "@iconify/react";
 import "./InteriorExterior.css";
 
 const InteriorExterior = ({ interiorImages, exteriorImages }) => {
@@ -67,7 +68,7 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                                         )
                                     }
                                 >
-                                    <i className="fas fa-arrow-left"></i>
+                                    <Icon icon="lucide:arrow-left" />
                                 </Button>
 
                                 <Button
@@ -78,7 +79,7 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                                         )
                                     }
                                 >
-                                    <i className="fas fa-arrow-right"></i>
+                                    <Icon icon="lucide:arrow-right" />
                                 </Button>
                             </div>
 
@@ -152,7 +153,7 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                                         )
                                     }
                                 >
-                                    <i className="fas fa-arrow-left"></i>
+                                    <Icon icon="lucide:arrow-left" />
                                 </Button>
 
                                 <Button
@@ -163,7 +164,7 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                                         )
                                     }
                                 >
-                                    <i className="fas fa-arrow-right"></i>
+                                    <Icon icon="lucide:arrow-right" />
                                 </Button>
                             </div>
 

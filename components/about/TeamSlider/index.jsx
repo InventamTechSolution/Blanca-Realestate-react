@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Icon } from "@iconify/react";
 import "./TeamSlider.css";
 
 const TeamSlider = ({ items }) => {
@@ -118,7 +119,7 @@ const TeamSlider = ({ items }) => {
                                     aria-label="Previous member"
                                     disabled={animState !== "idle"}
                                 >
-                                    <i className="fas fa-arrow-left"></i>
+                                    <Icon icon="lucide:arrow-left" />
                                 </button>
 
                                 <button
@@ -127,7 +128,7 @@ const TeamSlider = ({ items }) => {
                                     aria-label="Next member"
                                     disabled={animState !== "idle"}
                                 >
-                                    <i className="fas fa-arrow-right"></i>
+                                    <Icon icon="lucide:arrow-right" />
                                 </button>
                             </div>
                         </div>

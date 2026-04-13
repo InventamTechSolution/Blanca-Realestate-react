@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { motion as Montion } from "framer-motion";
+import { Icon } from "@iconify/react";
 import StatBadge from "../../common/StatBadge";
 import "./abouthero.css";
 
@@ -265,7 +266,7 @@ const HeroSection = ({ messages = [], settingResponse }) => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 1 }}
               >
-                <i className="fas fa-chevron-down"></i>
+                <Icon icon="lucide:chevron-down" />
               </Montion.a>
             </div>
           </div>

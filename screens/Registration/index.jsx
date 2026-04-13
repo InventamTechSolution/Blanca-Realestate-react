@@ -13,6 +13,7 @@ import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
 import IndividualForm from "./IndividualForm";
 import AgencyForm from "./AgencyForm";
 import { channelPartnerSchema } from '../../schema/validationSchema';
+import { Icon } from '@iconify/react';
 import "./ragistration.css";
 // import SEO from '../../components/common/Seo/Seo';
 
@@ -168,7 +169,7 @@ const Registration = () => {
                                     onClick={() => setActiveTab("personal-details")}
                                 >
                                     <div className="tab-icon">
-                                        <i className="fas fa-user"></i>
+                                        <Icon icon="lucide:user" />
                                     </div>
                                     <div className="tab-text">
                                         <span className="tab-title">Personal Details</span>
@@ -182,7 +183,7 @@ const Registration = () => {
                                     onClick={validateBeforeAddressTab}
                                 >
                                     <div className="tab-icon">
-                                        <i className="fas fa-map-marker-alt"></i>
+                                        <Icon icon="lucide:map-pin" />
                                     </div>
                                     <div className="tab-text">
                                         {/* CHANGE: Individual sidebar shows "Refer" instead of "Address". */}

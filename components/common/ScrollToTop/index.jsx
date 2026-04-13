@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import { Icon } from '@iconify/react';
 import './ScrollToTop.css';
 
 const ScrollToTop = () => {
@@ -31,7 +32,7 @@ const ScrollToTop = () => {
             onClick={scrollToTop}
             title="Go to Top"
         >
-            <i className="fa fa-angle-up"></i>
+            <Icon icon="lucide:chevron-up" />
         </div>
         // <button className="scroll-top scroll-to-target" data-target="html">
         //     <span className="fas fa-angle-double-up"></span>

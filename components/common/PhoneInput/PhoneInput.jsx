@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Form } from "react-bootstrap";
+import { Icon } from "@iconify/react";
 import Field from "../Field/Field";
 import "../InputField/Input.css";
 import "./PhoneInput.css";
@@ -85,7 +86,7 @@ const PhoneInput = ({
                         alt={`${selectedCountry.name} Flag`}
                         className="selected-flag"
                     />
-                    <i className="fa-solid fa-angle-down"></i>
+                    <Icon icon="lucide:chevron-down" className="country-chevron" />
 
                     <ul className={`country-dropdown ${showDropdown ? "show" : ""}`}>
                         {countries.map((country) => (

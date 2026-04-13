@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { Icon } from "@iconify/react";
 import "./CookieConsent.css";
 
 const CookieConsent = () => {
@@ -34,7 +35,7 @@ const CookieConsent = () => {
       <div className="cookie-consent-banner wow fadeInUp" data-wow-delay="0.1s">
         <div className="cookie-content">
           <div className="cookie-icon">
-            <i className="fas fa-cookie-bite"></i>
+            <Icon icon="fluent-emoji-flat:cookie" className="cookie-bite-icon" />
           </div>
           <div className="cookie-text">
             <h3>Cookie Policy</h3>

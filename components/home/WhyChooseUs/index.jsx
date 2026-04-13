@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./WhyChooseUs.css";
 import { whyChooseUsData } from "../../../data/whyChooseUsData";
 import { motion as Montion } from "framer-motion";
+import { Icon } from "@iconify/react";
 
 const WhyChooseUs = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -249,13 +250,13 @@ const WhyChooseUs = () => {
                       className="prev-slide"
                       onClick={() => goToSlide(currentIndex - 1)}
                     >
-                      <i className="fa-solid fa-arrow-left-long"></i>
+                      <Icon icon="lucide:arrow-left" />
                     </button>
                     <button
                       className="next-slide"
                       onClick={() => goToSlide(currentIndex + 1)}
                     >
-                      <i className="fa-solid fa-arrow-right-long"></i>
+                      <Icon icon="lucide:arrow-right" />
                     </button>
                   </div>
                 </div>
