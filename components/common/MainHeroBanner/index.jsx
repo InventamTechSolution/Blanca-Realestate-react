@@ -96,7 +96,7 @@ const MainHeroBanner = ({
           </div>
         </div>
 
-        <div className="hero-rera-card hero-glass-card">
+        {(reraQrSrc || reraRegistrationNumber) && <div className="hero-rera-card hero-glass-card">
           {reraQrSrc && (
             <div className="hero-rera-qr-wrap" aria-label="RERA QR code">
               <img
@@ -118,6 +118,7 @@ const MainHeroBanner = ({
             </div>
           )}
         </div>
+        }
       </div>
     </section>
   );
