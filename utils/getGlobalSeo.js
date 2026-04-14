@@ -2,7 +2,6 @@ import { getSetting } from "@/services/settingService";
 import {
   DEFAULT_META_DESCRIPTION,
   DEFAULT_META_TITLE,
-  HOME_PAGE_URL,
   BASE_API_URL,
   WEBSITE_MAIN_LOGO,
 } from "@/utils/constant";
@@ -13,7 +12,7 @@ export async function getGlobalSeo() {
 
   const LOGO_URL = WEBSITE_MAIN_LOGO.startsWith("http")
     ? WEBSITE_MAIN_LOGO
-    : `${HOME_PAGE_URL}/uploads/images/blanca-logo.png`;
+    : `${BASE_API_URL}/uploads/images/blanca-logo.png`;
 
     
     const res = await fetch(
