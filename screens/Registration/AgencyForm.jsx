@@ -29,9 +29,12 @@ const AgencyForm = ({
   );
 
   const handleNextStep = React.useCallback(async () => {
-    const isValid = await trigger(["agentType", "fullname", "phone", "email"], {
-      shouldFocus: true,
-    });
+    const isValid = await trigger(
+      ["agentType", "agency_name", "fullname", "phone", "email"],
+      {
+        shouldFocus: true,
+      },
+    );
 
     if (isValid) {
       setActiveTab("address-details");
@@ -106,7 +109,7 @@ const AgencyForm = ({
                 control={control}
                 render={({ field }) => (
                   <InputField
-                    label="Agency Name"
+                    label="Agency Name *"
                     placeholder="Enter Agency Name"
                     name={field.name}
                     value={field.value}

@@ -75,7 +75,7 @@ const Registration = () => {
     const validateBeforeAddressTab = React.useCallback(async () => {
         const fieldsToValidate = isIndividual
             ? ["agentType", "fullname", "phone", "email", "address"]
-            : ["agentType", "fullname", "phone", "email"];
+            : ["agentType", "agency_name", "fullname", "phone", "email"];
 
         const isValid = await trigger(fieldsToValidate, { shouldFocus: true });
         if (isValid) {
