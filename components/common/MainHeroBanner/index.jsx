@@ -1,118 +1,126 @@
 import React from "react";
 import ThemeBtn from "../Button/ThemeBtn";
-import './MainHeroBanner.css'
+import "./MainHeroBanner.css";
 
 const MainHeroBanner = ({
-    videoSrc,
-    poster,
-    status,
-    title,
-    location,
-    buttonText = "View More",
-    buttonTo = "/projects",
-    overlayOpacity,
-    projectLink,
-    isHomePage = false,
-    projectId,
-    reraRegistrationNumber,
-    reraQrSrc,
+  videoSrc,
+  poster,
+  status,
+  title,
+  location,
+  buttonText = "View More",
+  buttonTo = "/projects",
+  overlayOpacity,
+  projectLink,
+  isHomePage = false,
+  projectId,
+  reraRegistrationNumber,
+  reraQrSrc,
 }) => {
+  const redirectLink = projectLink ? projectLink : `/project/${projectId}`;
 
-    const redirectLink = projectLink ? projectLink : `/project/${projectId}`;
+  const shouldShowButton = isHomePage || (!isHomePage && projectLink);
 
-    const shouldShowButton = isHomePage || (!isHomePage && projectLink);
+  return (
+    <section className="hero-area-2 black-120-bg">
+      <div
+        className="hero-2-item justify-content-center"
+        style={{ position: "relative", overflow: "hidden" }}
+      >
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={poster}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+          }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+          {poster && (
+            <img
+              src={poster}
+              alt={title}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          )}
+        </video>
 
+        <div
+          className="video-overlay"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: overlayOpacity,
+            zIndex: 1,
+          }}
+        ></div>
 
-    return (
-        <section className="hero-area-2 black-120-bg">
-            <div
-                className="hero-2-item justify-content-center"
-                style={{ position: "relative", overflow: "hidden" }}
-            >
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    poster={poster}
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        zIndex: 0,
-                    }}
-                >
-                    <source src={videoSrc} type="video/mp4" />
-                    {poster && (
-                        <img
-                            src={poster}
-                            alt={title}
-                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                        />
-                    )}
-                </video>
-
-                <div
-                    className="video-overlay"
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: overlayOpacity,
-                        zIndex: 1,
-                    }}
-                ></div>
-
-                <div className="container-fluid" style={{ position: "relative", zIndex: 2 }}>
-                    <div className="row align-items-center justify-content-center">
-                        <div className="col-md-10 text-center">
-                            <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
-                                {status && <h5 className="hero-main-subinfo text-white">{status}</h5>}
-                                {title && <h1 className="hero-main-title text-white bs-font-colgent-regular">{title}</h1>}
-                                {location && <h5 className="hero-main-subinfo text-white">{location}</h5>}
-                            </div>
-                            {shouldShowButton && (
-                                <div className="buttons mt-96">
-                                    <ThemeBtn to={redirectLink} className="bs-font-montserrat">
-                                        {buttonText}
-                                    </ThemeBtn>
-                                </div>
-                            )}
-
-                        </div>
-                    </div>
-                </div>
-
-                {(reraRegistrationNumber || reraQrSrc) && (
-                    <div className="hero-rera-card hero-glass-card">
-                        <div className="hero-rera-qr-wrap" aria-label="RERA QR code">
-                            <img
-                                className="hero-rera-qr"
-                                src={reraQrSrc || "/images/qr-placeholder.svg"}
-                                alt="RERA QR code"
-                                loading="lazy"
-                            />
-                        </div>
-                        {reraRegistrationNumber && (
-                            <div className="hero-rera-meta">
-                                <div className="hero-rera-label bs-font-montserrat">
-                                    RERA Registration No.
-                                </div>
-                                <div className="hero-rera-value bs-font-montserrat">
-                                    {reraRegistrationNumber}
-                                </div>
-                            </div>
-                        )}
-                    </div>
+        <div
+          className="container-fluid"
+          style={{ position: "relative", zIndex: 2 }}
+        >
+          <div className="row align-items-center justify-content-center">
+            <div className="col-md-10 text-center">
+              <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
+                {status && (
+                  <h5 className="hero-main-subinfo text-white">{status}</h5>
                 )}
+                {title && (
+                  <h1 className="hero-main-title text-white bs-font-colgent-regular">
+                    {title}
+                  </h1>
+                )}
+                {location && (
+                  <h5 className="hero-main-subinfo text-white">{location}</h5>
+                )}
+              </div>
+              {shouldShowButton && (
+                <div className="buttons mt-96">
+                  <ThemeBtn to={redirectLink} className="bs-font-montserrat">
+                    {buttonText}
+                  </ThemeBtn>
+                </div>
+              )}
             </div>
-        </section>
-    );
+          </div>
+        </div>
+
+        <div className="hero-rera-card hero-glass-card">
+          {reraQrSrc && (
+            <div className="hero-rera-qr-wrap" aria-label="RERA QR code">
+              <img
+                className="hero-rera-qr"
+                src={reraQrSrc || ""}
+                alt="RERA QR code"
+                loading="lazy"
+              />
+            </div>
+          )}
+          {reraRegistrationNumber && (
+            <div className="hero-rera-meta">
+              <div className="hero-rera-label bs-font-montserrat">
+                RERA Registration No.
+              </div>
+              <div className="hero-rera-value bs-font-montserrat">
+                {reraRegistrationNumber}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default MainHeroBanner;

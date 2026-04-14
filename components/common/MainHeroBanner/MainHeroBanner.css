@@ -245,6 +245,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 12px;
 }
 
 .hero-rera-qr {
@@ -255,18 +256,19 @@
 }
 
 .hero-rera-meta {
-    margin-top: 12px;
     text-align: center;
 }
 
 .hero-rera-label {
     font-size: 12px;
+    line-height: normal;
     letter-spacing: 0.4px;
     opacity: 0.75;
 }
 
 .hero-rera-value {
-    margin-top: 4px;
+    margin-top: 6px;
+    line-height: normal;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.3px;
