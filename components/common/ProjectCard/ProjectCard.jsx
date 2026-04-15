@@ -98,8 +98,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
         <ThankYouModal
           isOpen={showUnavailable}
           onClose={() => setShowUnavailable(false)}
-          title="Project Unavailable"
-          message="This project is currently unavailable. Please contact us and we’ll help you with the best available options."
+          title="Project Sold Out"
+          message="Sorry, you're a bit late this project is sold out. However, we have other exciting projects available for you to explore and invest in."
           buttonText="Done"
         />
       </>
