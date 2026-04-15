@@ -7,7 +7,7 @@ import JobListings from "../../components/career/JobListings/JobListings";
 import "./careers.css";
 // import SEO from '../../components/common/Seo/Seo';
 
-const Careers = ({ categoryData }) => {
+const Careers = ({ categoryData, initialCareersData }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -21,7 +21,10 @@ const Careers = ({ categoryData }) => {
                     description=""
                     image="/images/background/career-bg.jpg" // Using an existing standard background
                 />
-                <JobListings categoryData={categoryData} />
+                <JobListings
+                    categoryData={categoryData}
+                    initialCareersData={initialCareersData}
+                />
                 <CareerBenefits />
             </main>
         </>

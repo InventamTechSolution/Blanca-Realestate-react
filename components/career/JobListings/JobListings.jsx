@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import "./JobListings.css";
 import { Container } from "react-bootstrap";
 import { Icon } from "@iconify/react";
@@ -12,12 +12,74 @@ import Dropdown from "../../common/Dropdown/Dropdown";
 // 🔹 CHANGE: import API hooks
 import { useCareerCategories } from "../../../hooks/useCareers";
 
-const JobListings = ({ categoryData }) => {
+const toPositiveInt = (value) => {
+    const n = Number(value);
+    if (!Number.isFinite(n) || n < 1) return null;
+    return Math.floor(n);
+};
+
+/** Read total pages from various API response shapes */
+const getTotalPagesFromResponse = (payload, itemsPerPage) => {
+    if (!payload || typeof payload !== "object") return null;
+
+    const meta =
+        payload.meta ??
+        payload.Meta ??
+        payload.pagination ??
+        payload.paginationMeta ??
+        {};
+
+    const explicit =
+        meta.totalPages ??
+        meta.lastPage ??
+        meta.pageCount ??
+        meta.total_page ??
+        meta.total_pages ??
+        payload.totalPages ??
+        payload.lastPage ??
+        payload.pageCount;
+
+    const explicitPages = toPositiveInt(explicit);
+    if (explicitPages) return explicitPages;
+
+    const totalItemsRaw =
+        meta.total ??
+        meta.totalItems ??
+        meta.itemCount ??
+        meta.count ??
+        meta.total_count ??
+        meta.total_records ??
+        payload.total ??
+        payload.totalCount;
+
+    const totalItems = Number(totalItemsRaw);
+    const perPageRaw =
+        meta.perPage ??
+        meta.per_page ??
+        meta.limit ??
+        meta.pageSize ??
+        meta.page_size ??
+        itemsPerPage;
+    const perPage = Number(perPageRaw);
+    const pageSize =
+        Number.isFinite(perPage) && perPage > 0 ? perPage : itemsPerPage;
+
+    if (Number.isFinite(totalItems) && totalItems >= 0) {
+        return Math.max(1, Math.ceil(totalItems / pageSize));
+    }
+
+    return null;
+};
+
+const JobListings = ({ categoryData, initialCareersData }) => {
     // 🔹 CHANGE: default value for API filtering
     const [activeTab, setActiveTab] = useState("all");
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 4;
+
+    const jobsSectionRef = useRef(null);
+    const skipScrollOnMount = useRef(true);
 
     // Modal State
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,14 +89,23 @@ const JobListings = ({ categoryData }) => {
     // 🔹 CHANGE: fetch categories for dropdown
 
     const categoryList = categoryData?.data
-    
+
     // 🔹 CHANGE: fetch careers list
-    const { data: careerData, isLoading } = useCareerCategories({
+    const careerQueryParams = {
         page: currentPage,
         limit: itemsPerPage,
         is_parent: false,
         category_id: activeTab === "all" ? undefined : activeTab,
-    });
+    };
+
+    const { data: careerData, isLoading } = useCareerCategories(
+        careerQueryParams,
+        initialCareersData &&
+            currentPage === 1 &&
+            activeTab === "all"
+            ? { initialData: initialCareersData }
+            : {}
+    );
 
     // 🔹 CHANGE: prepare dropdown options
     const categories = [
@@ -48,8 +119,58 @@ const JobListings = ({ categoryData }) => {
     // 🔹 CHANGE: jobs now come from API
     const jobs = careerData?.data || [];
 
-    // 🔹 CHANGE: total pages from API
-    const totalPages = careerData?.meta?.totalPages || 1;
+    // Total pages from API; extend when API omits totals but flags "next" or sends a full page with no meta
+    const totalPages = useMemo(() => {
+        const fromApi = getTotalPagesFromResponse(careerData, itemsPerPage);
+        const base = fromApi ?? 1;
+        const rawMeta =
+            careerData?.meta ?? careerData?.pagination ?? {};
+        const hasNext =
+            rawMeta.hasNextPage === true ||
+            rawMeta.has_next_page === true ||
+            rawMeta.hasMore === true;
+        const likelyMoreOnServer =
+            !isLoading &&
+            jobs.length === itemsPerPage &&
+            (fromApi === null || hasNext)
+                ? 1
+                : 0;
+        return Math.max(base, currentPage + likelyMoreOnServer);
+    }, [careerData, itemsPerPage, isLoading, jobs.length, currentPage]);
+
+    const visiblePageItems = useMemo(() => {
+        const last = totalPages;
+        const current = currentPage;
+        if (last <= 7) {
+            return Array.from({ length: last }, (_, i) => ({ type: "page", value: i + 1 }));
+        }
+        const items = [];
+        const left = Math.max(2, current - 1);
+        const right = Math.min(last - 1, current + 1);
+
+        items.push({ type: "page", value: 1 });
+        if (left > 2) {
+            items.push({ type: "ellipsis", key: "start" });
+        }
+        for (let i = left; i <= right; i++) {
+            items.push({ type: "page", value: i });
+        }
+        if (right < last - 1) {
+            items.push({ type: "ellipsis", key: "end" });
+        }
+        if (last > 1) {
+            items.push({ type: "page", value: last });
+        }
+        return items;
+    }, [currentPage, totalPages]);
+
+    useEffect(() => {
+        if (skipScrollOnMount.current) {
+            skipScrollOnMount.current = false;
+            return;
+        }
+        jobsSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, [currentPage]);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -118,7 +239,7 @@ const JobListings = ({ categoryData }) => {
                     </Montion.div>
                 </div>
 
-                <div className="jobs-container">
+                <div className="jobs-container" ref={jobsSectionRef}>
 
                     {/* 🔹 CHANGE: loading state */}
                     {isLoading && <p className="text-center">Loading jobs...</p>}
@@ -210,42 +331,46 @@ const JobListings = ({ categoryData }) => {
                     </AnimatePresence>
                 </div>
 
-                {/* 🔹 CHANGE: pagination from API */}
+                {/* Pagination: avoid whileInView+opacity:0 (can stay invisible). Show when API or full page implies multiple pages. */}
                 {totalPages > 1 && (
-                    <Montion.div
-                        className="jobs-pagination d-flex justify-content-center align-items-center gap-3 mt-60"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                    >
-
+                    <div className="jobs-pagination d-flex justify-content-center align-items-center gap-3 mt-60">
                         <button
+                            type="button"
                             className={`pagination-btn ${currentPage === 1 ? "disabled" : ""
                                 }`}
                             onClick={() =>
                                 currentPage > 1 && paginate(currentPage - 1)
                             }
                             disabled={currentPage === 1}
+                            aria-label="Previous page"
                         >
                             <Icon icon="lucide:chevron-left" />
                         </button>
 
-                        <div className="page-numbers d-flex gap-2">
+                        <div className="page-numbers d-flex gap-2 align-items-center flex-wrap justify-content-center">
 
-                            {[...Array(totalPages)].map((_, i) => (
-                                <button
-                                    key={i + 1}
-                                    className={`page-number ${currentPage === i + 1 ? "active" : ""
-                                        }`}
-                                    onClick={() => paginate(i + 1)}
-                                >
-                                    {i + 1}
-                                </button>
-                            ))}
+                            {visiblePageItems.map((item) =>
+                                item.type === "ellipsis" ? (
+                                    <span key={item.key} className="page-ellipsis" aria-hidden>
+                                        …
+                                    </span>
+                                ) : (
+                                    <button
+                                        key={item.value}
+                                        type="button"
+                                        className={`page-number ${currentPage === item.value ? "active" : ""
+                                            }`}
+                                        onClick={() => paginate(item.value)}
+                                    >
+                                        {item.value}
+                                    </button>
+                                )
+                            )}
 
                         </div>
 
                         <button
+                            type="button"
                             className={`pagination-btn ${currentPage === totalPages
                                 ? "disabled"
                                 : ""
@@ -255,11 +380,12 @@ const JobListings = ({ categoryData }) => {
                                 paginate(currentPage + 1)
                             }
                             disabled={currentPage === totalPages}
+                            aria-label="Next page"
                         >
                             <Icon icon="lucide:chevron-right" />
                         </button>
 
-                    </Montion.div>
+                    </div>
                 )}
             </Container>
 

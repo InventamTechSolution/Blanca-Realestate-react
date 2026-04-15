@@ -45,12 +45,26 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Page() {
-  const categoryData = await getCareerCategories({
-    page: 1,
-    limit: 10,
-    is_parent: true,
-});
+const CAREERS_PAGE_SIZE = 4;
 
-  return <Careers categoryData={categoryData} />;
+export default async function Page() {
+  const [categoryData, careersFirstPage] = await Promise.all([
+    getCareerCategories({
+      page: 1,
+      limit: 10,
+      is_parent: true,
+    }),
+    getCareerCategories({
+      page: 1,
+      limit: CAREERS_PAGE_SIZE,
+      is_parent: false,
+    }),
+  ]);
+
+  return (
+    <Careers
+      categoryData={categoryData}
+      initialCareersData={careersFirstPage}
+    />
+  );
 }

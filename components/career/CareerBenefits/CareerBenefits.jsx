@@ -3,7 +3,6 @@ import "./CareerBenefits.css";
 import { Container, Row, Col } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { motion as Motion } from "framer-motion";
-// import { benefits } from "../../../data/jobsData";
 
 const benefits = [
     {
@@ -30,18 +29,6 @@ const benefits = [
         description:
             "Work in a professional, technology-driven environment that enhances efficiency, innovation, and excellence in real estate development.",
     },
-    // {
-    //     icon: "lucide:award",
-    //     title: "Recognition",
-    //     description:
-    //         "Regular performance rewards and celebrations of our team's achievements and milestones.",
-    // },
-    // {
-    //     icon: "lucide:coffee",
-    //     title: "Modern Workspace",
-    //     description:
-    //         "State-of-the-art office facilities designed for collaboration, creativity, and comfort.",
-    // },
 ];
 
 const CareerBenefits = () => {
@@ -49,18 +36,14 @@ const CareerBenefits = () => {
         <section className="career-benefits-section py-80">
             <Container>
                 <div className="section-title mb-60">
-                    <Motion.span
-                        className="common-subtitle mb-15"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        Why Join Us
-                    </Motion.span>
+                    <div className="main-title-badge">
+                        <span className="sub-title common-subtitle">Why Join Us</span>
+                    </div>
                     <Motion.h2
-                        initial={{ opacity: 0, y: 20 }}
+                        className="common-title bs-font-playfair-display"
+                        initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
                         viewport={{ once: true }}
                     >
                         Experience a Premium Work Culture
@@ -78,7 +61,7 @@ const CareerBenefits = () => {
                                 viewport={{ once: true }}
                             >
                                 <div className="benefit-icon-title-part">
-                                    <div className="benefit-icon-wrapper mb-25">
+                                    <div className="benefit-icon-wrapper">
                                         <Icon icon={benefit.icon} className="benefit-icon" />
                                     </div>
                                     <h3 className="benefit-title mb-15">{benefit.title}</h3>
