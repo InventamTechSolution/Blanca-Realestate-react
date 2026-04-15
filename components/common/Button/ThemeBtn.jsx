@@ -17,7 +17,12 @@ const ThemeBtn = ({
 
   if (dest) {
     return (
-      <Link href={dest} className={combinedClasses} {...props}>
+      <Link
+        href={dest}
+        onClick={onClick}
+        className={combinedClasses}
+        {...props}
+      >
         <span>{children}</span>
       </Link>
     );

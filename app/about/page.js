@@ -53,7 +53,6 @@ export default async function Page() {
     getSetting(),
     getProjectByYearWithCategory(),
   ]);
-  console.dir(journeyResponse, { depth: null });
 
   return (
     <About
