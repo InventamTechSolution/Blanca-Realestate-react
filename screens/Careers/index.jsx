@@ -5,30 +5,29 @@ import SmallHeroBanner from "../../components/common/Small-hero-banner";
 import CareerBenefits from "../../components/career/CareerBenefits/CareerBenefits";
 import JobListings from "../../components/career/JobListings/JobListings";
 import "./careers.css";
-// import SEO from '../../components/common/Seo/Seo';
 
-const Careers = ({ categoryData, initialCareersData }) => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+const Careers = ({ categoryData, initialCareersData, initialPage }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    return (
-        <>
-            {/* <SEO /> */}
-            <main className="careers-page-wrapper">
-                <SmallHeroBanner
-                    title="Career Opportunities"
-                    description=""
-                    image="/images/background/career-bg.jpg" // Using an existing standard background
-                />
-                <JobListings
-                    categoryData={categoryData}
-                    initialCareersData={initialCareersData}
-                />
-                <CareerBenefits />
-            </main>
-        </>
-    );
+  return (
+    <main className="careers-page-wrapper">
+      <SmallHeroBanner
+        title="Career Opportunities"
+        description=""
+        image="/images/background/career-bg.jpg"
+      />
+
+      <JobListings
+        categoryData={categoryData}
+        initialCareersData={initialCareersData}
+        initialPage={initialPage}
+      />
+
+      <CareerBenefits />
+    </main>
+  );
 };
 
 export default Careers;

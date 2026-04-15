@@ -6,21 +6,19 @@ import { getGlobalSeo } from "@/utils/getGlobalSeo";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+const CAREERS_PAGE_SIZE = 4;
+
 export async function generateMetadata() {
   const BASE_URL = HOME_PAGE_URL;
-
   const { title, description, LOGO_URL } = await getGlobalSeo();
 
   return {
     metadataBase: new URL(BASE_URL),
-
     title: `Careers | ${title}`,
     description,
-
     alternates: {
       canonical: `${BASE_URL}/careers`,
     },
-
     openGraph: {
       type: "website",
       url: `${BASE_URL}/careers`,
@@ -35,27 +33,20 @@ export async function generateMetadata() {
         },
       ],
     },
-
-    twitter: {
-      card: "summary_large_image",
-      title: `Careers | ${title}`,
-      description,
-      images: [LOGO_URL],
-    },
   };
 }
 
-const CAREERS_PAGE_SIZE = 4;
+export default async function Page({ searchParams }) {
+  const page = Number(searchParams?.page) || 1;
 
-export default async function Page() {
-  const [categoryData, careersFirstPage] = await Promise.all([
+  const [categoryData, careersData] = await Promise.all([
     getCareerCategories({
-      page: 1,
+      offset: 0,
       limit: 10,
       is_parent: true,
     }),
     getCareerCategories({
-      page: 1,
+      offset: page,
       limit: CAREERS_PAGE_SIZE,
       is_parent: false,
     }),
@@ -64,7 +55,8 @@ export default async function Page() {
   return (
     <Careers
       categoryData={categoryData}
-      initialCareersData={careersFirstPage}
+      initialCareersData={careersData}
+      initialPage={page}
     />
   );
 }
