@@ -116,7 +116,10 @@ const Properties = () => {
                     }}
                     viewport={{ once: true }}
                   >
-                    <img src={project?.project_card_image} alt={project?.project_name} />
+                    <img
+                      src={project?.project_card_image?.trim?.() || undefined}
+                      alt={project?.project_name}
+                    />
                     <div className="project-card__content">
                       <h4>{project?.project_name}</h4>
                       <div className="project-card__meta">

@@ -37,7 +37,8 @@ export async function generateMetadata() {
 }
 
 export default async function Page({ searchParams }) {
-  const page = Number(searchParams?.page) || 1;
+  const resolvedSearchParams = await searchParams;
+  const page = Number(resolvedSearchParams?.page) || 1;
 
   const [categoryData, careersData] = await Promise.all([
     getCareerCategories({

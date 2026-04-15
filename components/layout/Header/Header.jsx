@@ -97,6 +97,34 @@ const Header = () => {
     setMobileMenuOpen(false);
   };
 
+  // Close mobile menu on scroll gestures (common UX on mobile)
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    // Avoid closing immediately from tiny layout shifts
+    let lastY = typeof window !== "undefined" ? window.scrollY : 0;
+
+    const maybeCloseOnScroll = () => {
+      const y = window.scrollY;
+      if (Math.abs(y - lastY) > 6) {
+        closeMenus();
+      }
+      lastY = y;
+    };
+
+    const closeOnIntent = () => closeMenus();
+
+    window.addEventListener("scroll", maybeCloseOnScroll, { passive: true });
+    window.addEventListener("wheel", closeOnIntent, { passive: true });
+    window.addEventListener("touchmove", closeOnIntent, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", maybeCloseOnScroll);
+      window.removeEventListener("wheel", closeOnIntent);
+      window.removeEventListener("touchmove", closeOnIntent);
+    };
+  }, [mobileMenuOpen]);
+
   const handleNavClick = (e, path, menuKey) => {
     e.preventDefault();
 
