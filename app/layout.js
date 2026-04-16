@@ -28,7 +28,6 @@ export default function RootLayout({ children }) {
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-          integrity="sha512-SnH5WK+bZxgPHs44uWIX+SH6ePHmJuPs4VpS1oRQwuPvhH7SyAaVSXvE+Wf3AA4hIqJCEflq1oiM/O17AvJA=="
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
