@@ -18,7 +18,7 @@ import * as yup from "yup";
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
 import Select from "react-select";
 import PhoneInput from "../../components/common/PhoneInput/PhoneInput";
-import { Country } from "country-state-city";
+import { getNormalizedCountries } from "@/utils/countryCache";
 import { Icon } from "@iconify/react";
 import { useContactUs } from "../../hooks/useContactUs";
 import { contactSchema } from "../../schema/validationSchema";
@@ -95,12 +95,16 @@ const Contact = ({ settingResponse }) => {
 
   const address = settingRecord?.setting_address || FALLBACK_CONTACT_ADDRESS;
 
-  const countryOptions = Country.getAllCountries().map((c) => ({
-    label: c?.name,
-    value: c?.isoCode.toLowerCase(),
-    isoCode: c?.isoCode.toLowerCase(),
-    phoneCode: `+${c?.phonecode}`,
-  }));
+  const countryOptions = React.useMemo(
+    () =>
+      getNormalizedCountries().map((c) => ({
+        label: c.name,
+        value: c.isoCode,
+        isoCode: c.isoCode,
+        phoneCode: c.phoneCode,
+      })),
+    [],
+  );
 
   const {
     control,

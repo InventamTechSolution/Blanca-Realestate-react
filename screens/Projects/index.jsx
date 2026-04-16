@@ -78,6 +78,10 @@ const Projects = () => {
 
   const filteredProjects = projects;
   const hasProjects = filteredProjects.length > 0;
+  const activeProject = React.useMemo(
+    () => filteredProjects?.find((p) => p?.id === activeProjectId) || null,
+    [filteredProjects, activeProjectId],
+  );
 
   useEffect(() => {
     if (filteredProjects.length > 0) {
@@ -396,28 +400,21 @@ const Projects = () => {
                 </div>
                 <div className="map-side-view">
                   <div id="project-map-placeholder" className="h-100 w-100">
-                    {filteredProjects?.map((project) => (
-                      <div
-                        key={project?.id}
-                        style={{
-                          display: activeProjectId === project?.id ? "block" : "none",
-                          height: "100%",
-                          width: "100%",
-                        }}
-                      >
+                    {activeProject && (
+                      <div style={{ height: "100%", width: "100%" }}>
                         <iframe
-                          title={`Map for ${project?.title}`}
-                          src={project?.mapUrl || defaultMapUrl}
+                          title={`Map for ${activeProject?.title}`}
+                          src={activeProject?.mapUrl || defaultMapUrl}
                           width="100%"
                           height="100%"
                           style={{ border: 0 }}
                           allowFullScreen=""
-                          loading="eager"
+                          loading="lazy"
                           referrerPolicy="no-referrer-when-downgrade"
                         ></iframe>
                       </div>
-                    ))}
-                    {!activeProjectId && (
+                    )}
+                    {!activeProject && (
                       <div className="d-flex align-items-center justify-content-center h-100 bg-dark text-white">
                         Select a project to view on map
                       </div>

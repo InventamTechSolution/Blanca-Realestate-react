@@ -13,7 +13,6 @@ import Checkbox from "../Checkbox/Checkbox";
 import ThankYouModal from "../ThankYouModal/ThankYouModal";
 import Field from "../Field/Field";
 import { useContactModal } from "../../../context/ContactModalContext";
-import { Country } from "country-state-city";
 import Select from "react-select";
 import { useContactUs } from "../../../hooks/useContactUs";
 import { contactModalSchema } from "../../../schema/validationSchema";
@@ -22,6 +21,7 @@ import "@/components/common/contact-country-select.css";
 import { contactCountrySelectStyles } from "@/components/common/contactCountrySelectConfig";
 import { useCountrySelectMenuPortal } from "@/components/common/useCountrySelectMenuPortal";
 import ThemeButton from "../../common/Button/ThemeBtn";
+import { getNormalizedCountries } from "@/utils/countryCache";
 
 const ContactModal = () => {
   const countryMenuPortal = useCountrySelectMenuPortal();
@@ -29,12 +29,16 @@ const ContactModal = () => {
   const [showThankYou, setShowThankYou] = useState(false);
   const { mutate: sendContact, isPending } = useContactUs();
 
-  const countryOptions = Country.getAllCountries().map((c) => ({
-    label: c.name,
-    value: c.isoCode.toLowerCase(),
-    isoCode: c.isoCode.toLowerCase(),
-    phoneCode: `+${c.phonecode}`,
-  }));
+  const countryOptions = React.useMemo(
+    () =>
+      getNormalizedCountries().map((c) => ({
+        label: c.name,
+        value: c.isoCode,
+        isoCode: c.isoCode,
+        phoneCode: c.phoneCode,
+      })),
+    [],
+  );
 
   const {
     control,

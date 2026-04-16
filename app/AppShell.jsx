@@ -1,21 +1,60 @@
 "use client";
 
-import LiquidFilters from "@/components/common/LiquidFilters";
-import FloatingContactButtons from "@/components/common/FloatingContactButtons/FloatingContactButtons";
-import { ContactModalProvider } from "@/context/ContactModalContext";
-import ContactModal from "@/components/common/ContactModal/ContactModal";
-import CookieConsent from "@/components/common/CookieConsent/CookieConsent";
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import {
+  ContactModalProvider,
+  useContactModal,
+} from "@/context/ContactModalContext";
 import ScrollToTopOnRouteChange from "@/components/common/ScrollToTopOnRouteChange";
+
+const LiquidFilters = dynamic(() => import("@/components/common/LiquidFilters"));
+const FloatingContactButtons = dynamic(
+  () =>
+    import(
+      "@/components/common/FloatingContactButtons/FloatingContactButtons"
+    ),
+);
+const CookieConsent = dynamic(
+  () => import("@/components/common/CookieConsent/CookieConsent"),
+);
+
+const ContactModal = dynamic(
+  () => import("@/components/common/ContactModal/ContactModal"),
+  { ssr: false },
+);
+
+function AppShellInner({ children }) {
+  const { isOpen } = useContactModal();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return (
+    <>
+      <ScrollToTopOnRouteChange />
+
+      {mounted && (
+        <>
+          <LiquidFilters />
+          <FloatingContactButtons />
+          <CookieConsent />
+        </>
+      )}
+
+      {isOpen ? <ContactModal /> : null}
+
+      {children}
+    </>
+  );
+}
 
 export default function AppShell({ children }) {
   return (
     <ContactModalProvider>
-      <ScrollToTopOnRouteChange />
-      <LiquidFilters />
-      <FloatingContactButtons />
-      <ContactModal />
-      <CookieConsent />
-      {children}
+      <AppShellInner>{children}</AppShellInner>
     </ContactModalProvider>
   );
 }

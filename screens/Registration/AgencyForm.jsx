@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
-import { Country } from "country-state-city";
+import { getNormalizedCountries } from "@/utils/countryCache";
 import { contactCountrySelectStyles } from "../../components/common/contactCountrySelectConfig";
 import { useCountrySelectMenuPortal } from "../../components/common/useCountrySelectMenuPortal";
 import InputField from "../../components/common/InputField/InputField";
@@ -24,7 +24,7 @@ const AgencyForm = ({
   const countryMenuPortal = useCountrySelectMenuPortal();
   const countryOptions = React.useMemo(
     () =>
-      Country.getAllCountries().map((country) => ({
+      getNormalizedCountries().map((country) => ({
         label: country?.name,
         value: country?.name,
       })),

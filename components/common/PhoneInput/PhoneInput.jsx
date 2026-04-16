@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import Field from "../Field/Field";
 import "../InputField/Input.css";
 import "./PhoneInput.css";
-import { Country } from "country-state-city";
+import { getNormalizedCountries } from "@/utils/countryCache";
 
 const PhoneInput = ({
     label,
@@ -20,11 +20,11 @@ const PhoneInput = ({
     const [showDropdown, setShowDropdown] = useState(false);
     const countries = useMemo(
         () =>
-            Country.getAllCountries().map((c) => ({
+            getNormalizedCountries().map((c) => ({
                 name: c.name,
-                isoCode: c.isoCode.toLowerCase(),
-                flag: `https://flagcdn.com/w20/${c.isoCode.toLowerCase()}.png`,
-                code: `+${c.phonecode}`,
+                isoCode: c.isoCode,
+                flag: c.flagSmall,
+                code: c.phoneCode,
             })),
         []
     );
