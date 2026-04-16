@@ -146,10 +146,8 @@ const Hero = () => {
                   fontWeight="500"
                   letterSpacing="1"
                 >
-                  <textPath href="#circlePath">
-                    {`\u00A0•\u00A0 SINCE ${FOUNDING_YEAR} \u00A0•\u00A0 YEARS OF EXPERTISE \u00A0`.repeat(
-                      3,
-                    )}
+                  <textPath href="#circlePath" textLength="232" lengthAdjust="spacing">
+                    {`\u00A0•\u00A0 SINCE ${FOUNDING_YEAR} \u00A0•\u00A0 YEARS OF EXPERTISE \u00A0`}
                   </textPath>
                 </text>
               </svg>
