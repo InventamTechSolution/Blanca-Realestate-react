@@ -3,6 +3,8 @@ import { Row, Col, Button } from "react-bootstrap";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
 import { Country } from "country-state-city";
+import { contactCountrySelectStyles } from "../../components/common/contactCountrySelectConfig";
+import { useCountrySelectMenuPortal } from "../../components/common/useCountrySelectMenuPortal";
 import InputField from "../../components/common/InputField/InputField";
 import TextArea from "../../components/common/TextArea/TextArea";
 import Dropdown from "../../components/common/Dropdown/Dropdown";
@@ -19,6 +21,7 @@ const AgencyForm = ({
   isSubmitting,
   submitError,
 }) => {
+  const countryMenuPortal = useCountrySelectMenuPortal();
   const countryOptions = React.useMemo(
     () =>
       Country.getAllCountries().map((country) => ({
@@ -276,8 +279,11 @@ const AgencyForm = ({
                     <div className="glass-input-wrapper overflow-visible">
                       <Select
                         {...field}
-                        className="registration-country-select"
-                        classNamePrefix="registration-country-select"
+                        instanceId="agency-registration-country-select"
+                        className="contact-country-select"
+                        classNamePrefix="contact-country-select"
+                        styles={contactCountrySelectStyles}
+                        menuPortalTarget={countryMenuPortal}
                         options={countryOptions}
                         value={
                           countryOptions.find(
@@ -288,10 +294,6 @@ const AgencyForm = ({
                           field?.onChange(option ? option?.value : "")
                         }
                         placeholder="-- select one --"
-                        menuPortalTarget={
-                          typeof window !== "undefined" ? document.body : null
-                        }
-                        menuPosition="fixed"
                       />
                     </div>
                   </Field>

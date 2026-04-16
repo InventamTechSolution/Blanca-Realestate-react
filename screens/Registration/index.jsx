@@ -14,6 +14,7 @@ import IndividualForm from "./IndividualForm";
 import AgencyForm from "./AgencyForm";
 import { channelPartnerSchema } from '../../schema/validationSchema';
 import { Icon } from '@iconify/react';
+import "../../components/common/contact-country-select.css";
 import "./ragistration.css";
 // import SEO from '../../components/common/Seo/Seo';
 

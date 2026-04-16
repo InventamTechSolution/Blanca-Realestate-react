@@ -22,10 +22,13 @@ import { Country } from "country-state-city";
 import { Icon } from "@iconify/react";
 import { useContactUs } from "../../hooks/useContactUs";
 import { contactSchema } from "../../schema/validationSchema";
+import "../../components/common/contact-country-select.css";
+import "./contect.css";
+import { contactCountrySelectStyles } from "../../components/common/contactCountrySelectConfig";
+import { useCountrySelectMenuPortal } from "../../components/common/useCountrySelectMenuPortal";
 // import SEO from '../../components/common/Seo/Seo';
 
 const contactBg = "/images/background/contect-us.png";
-import "./contect.css";
 
 const defaultValues = {
   firstName: "",
@@ -50,6 +53,7 @@ const FALLBACK_CONTACT_ADDRESS =
 const Contact = ({ settingResponse }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showThankYou, setShowThankYou] = useState(false);
+  const countryMenuPortal = useCountrySelectMenuPortal();
   const { mutate: sendContact, isPending } = useContactUs();
 
   const settingRecord = useMemo(() => {
@@ -344,6 +348,8 @@ const Contact = ({ settingResponse }) => {
                                   instanceId="contact-country-select"
                                   className="contact-country-select"
                                   classNamePrefix="contact-country-select"
+                                  styles={contactCountrySelectStyles}
+                                  menuPortalTarget={countryMenuPortal}
                                   options={countryOptions}
                                   value={
                                     countryOptions.find(

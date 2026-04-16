@@ -134,6 +134,21 @@
     z-index: 2;
 }
 
+.hero-main-title {
+    font-size: clamp(32px, 8vw, 72px);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    font-weight: 400;
+}
+
+.hero-main-subinfo {
+    font-size: clamp(14px, 2vw, 18px);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 12px;
+}
+
 .hero-area-2 .slick-dots:after {
     content: '';
     position: absolute;
@@ -196,16 +211,15 @@
     bottom: 40px;
     z-index: 3;
     width: 220px;
-    border-radius: 18px;
-    padding: 14px;
-    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
     color: var(--lg-text);
-    border: 1px solid var(--lg-highlight);
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease,
-        border-color 0.2s ease, backdrop-filter 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
     overflow: hidden;
     isolation: isolate;
 }
@@ -231,7 +245,7 @@
     z-index: 1;
 }
 
-.hero-rera-card.hero-glass-card > * {
+.hero-rera-card.hero-glass-card>* {
     position: relative;
     z-index: 2;
 }
@@ -281,13 +295,11 @@
     box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25), 0 0 26px rgba(0, 0, 0, 0.12);
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .hero-rera-card.hero-glass-card {
-        right: 12px;
-        bottom: 12px;
+        right: 30px;
+        bottom: 30px;
         width: 190px;
-        padding: 12px;
-        border-radius: 16px;
     }
 
     .hero-rera-qr {
@@ -296,11 +308,80 @@
     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 768px) {
+    .hero-area-2 .container-fluid .row>div {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-top: 80px;
+        padding-bottom: 120px;
+    }
+
     .hero-rera-card.hero-glass-card {
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        width: min(92vw, 320px);
+        right: 20px;
+        bottom: 24px;
+        width: 160px;
+        padding: 12px;
+        border-radius: 16px;
+    }
+
+    .hero-rera-qr-wrap {
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+
+    .hero-rera-qr {
+        width: 100px;
+        height: 100px;
+    }
+
+    .hero-rera-label {
+        font-size: 10px;
+    }
+
+    .hero-rera-value {
+        font-size: 11px;
+    }
+
+    .hero-area-2 .rotate.phone,
+    .hero-area-2 .rotate.follow {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .container-fluid {
+        padding: 0 20px;
+    }
+
+    .hero-rera-card.hero-glass-card {
+        right: 12px;
+        bottom: 12px;
+        left: auto;
+        transform: none;
+        width: 150px;
+        padding: 10px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-rera-qr {
+        width: 80px;
+        height: 80px;
+    }
+
+    .hero-rera-qr-wrap {
+        padding: 6px;
+        margin-bottom: 6px;
+    }
+
+    .hero-rera-value {
+        margin-top: 4px;
+    }
+
+    .hero-area-2 .buttons {
+        margin-bottom: 60px;
     }
 }

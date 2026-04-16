@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Row, Col, Form } from "react-bootstrap";
 import { useForm, Controller, useWatch } from "react-hook-form";
@@ -18,9 +18,13 @@ import Select from "react-select";
 import { useContactUs } from "../../../hooks/useContactUs";
 import { contactModalSchema } from "../../../schema/validationSchema";
 import "./ContactModal.css";
+import "@/components/common/contact-country-select.css";
+import { contactCountrySelectStyles } from "@/components/common/contactCountrySelectConfig";
+import { useCountrySelectMenuPortal } from "@/components/common/useCountrySelectMenuPortal";
 import ThemeButton from "../../common/Button/ThemeBtn";
 
 const ContactModal = () => {
+  const countryMenuPortal = useCountrySelectMenuPortal();
   const { isOpen, closeContactModal } = useContactModal();
   const [showThankYou, setShowThankYou] = useState(false);
   const { mutate: sendContact, isPending } = useContactUs();
@@ -196,8 +200,11 @@ const ContactModal = () => {
                       <div className="glass-input-wrapper overflow-visible">
                         <Select
                           {...field}
+                          instanceId="contact-modal-country-select"
                           className="contact-country-select"
                           classNamePrefix="contact-country-select"
+                          styles={contactCountrySelectStyles}
+                          menuPortalTarget={countryMenuPortal}
                           options={countryOptions}
                           value={
                             countryOptions.find(
