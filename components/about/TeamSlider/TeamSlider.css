@@ -280,9 +280,16 @@
     }
 
     .team-member-img-wrap {
-        flex: 0 0 350px;
-        height: 350px;
+        flex: none;
+        width: min(420px, 100%);
+        aspect-ratio: 4 / 5;
+        height: auto;
         border-radius: 40px;
+    }
+
+    .team-member-img-wrap img {
+        object-fit: contain;
+        background: rgba(0, 0, 0, 0.35);
     }
 
     .team-side-preview {
@@ -313,9 +320,16 @@
     }
 
     .team-member-img-wrap {
-        flex: 0 0 280px;
-        height: 280px;
+        flex: none;
+        width: min(360px, 100%);
+        aspect-ratio: 4 / 5;
+        height: auto;
         border-radius: 30px;
+    }
+
+    .team-member-img-wrap img {
+        object-fit: contain;
+        background: rgba(0, 0, 0, 0.35);
     }
 
     .team-side-preview {
