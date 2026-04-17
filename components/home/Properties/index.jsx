@@ -56,10 +56,6 @@ const Properties = () => {
                 Your Next Address Awaits – <br /> Discover Blanca's Signature Creations
               </h2>
 
-              <h4 className="common-title bs-font-playfair-display">
-                Bring Discover Blanca's Signature Creations
-              </h4>
-
               <p className="about-modern__text">
                 Discover premium residential/commercial developments by Blanca
                 in Mumbai and Navi Mumbai, where contemporary design blends
