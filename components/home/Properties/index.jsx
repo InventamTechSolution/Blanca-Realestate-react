@@ -41,7 +41,7 @@ const Properties = () => {
       <section className="homeproject-area py-128" id="our-projects">
         <Row className="projects-shell align-items-center g-4">
           {/* Left Intro Section */}
-          <Col lg={5} className="projects-intro">
+          <Col lg={4} className="projects-intro">
             <Motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -53,8 +53,12 @@ const Properties = () => {
               </div>
 
               <h2 className="common-title bs-font-playfair-display">
-                Your Next Address Awaits – Discover Blanca's Signature Creations
+                Your Next Address Awaits – <br /> Discover Blanca's Signature Creations
               </h2>
+
+              <h4 className="common-title bs-font-playfair-display">
+                Bring Discover Blanca's Signature Creations
+              </h4>
 
               <p className="about-modern__text">
                 Discover premium residential/commercial developments by Blanca
@@ -86,7 +90,7 @@ const Properties = () => {
           </Col>
 
           {/* Project Cards */}
-          <Col lg={7} className="projects-strip">
+          <Col lg={8} className="projects-strip">
             <Swiper
               modules={[Pagination, Autoplay]}
               spaceBetween={12}
