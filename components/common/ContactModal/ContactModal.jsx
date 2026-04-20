@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Row, Col, Form } from "react-bootstrap";
 import { useForm, Controller, useWatch } from "react-hook-form";
@@ -25,7 +25,7 @@ import { getNormalizedCountries } from "@/utils/countryCache";
 
 const ContactModal = () => {
   const countryMenuPortal = useCountrySelectMenuPortal();
-  const { isOpen, closeContactModal } = useContactModal();
+  const { isOpen, closeContactModal, modalData } = useContactModal();
   const [showThankYou, setShowThankYou] = useState(false);
   const { mutate: sendContact, isPending } = useContactUs();
 
@@ -59,6 +59,22 @@ const ContactModal = () => {
     },
   });
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const nextDefaults = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      country: "ae",
+      message: modalData?.prefillMessage || "",
+      privacyPolicy: false,
+    };
+
+    reset(nextDefaults);
+  }, [isOpen, modalData, reset]);
+
   const selectedCountryCode = useWatch({
     control,
     name: "country",
@@ -76,6 +92,7 @@ const ContactModal = () => {
     const payload = {
       first_name: data.firstName,
       last_name: data.lastName,
+      country: selectedCountry?.label || data.country || null,
       email: data.email,
       phone_number: phoneWithCountryCode,
       message: data.message,
@@ -107,12 +124,16 @@ const ContactModal = () => {
           <div className="modal-header-custom">
             <div className="title-with-blue-bar">
               <span className="blue-bar"></span>
-              <h2>Contact Us</h2>
+              <h2>{modalData?.title || "Contact Us"}</h2>
             </div>
             <button className="close-btn" onClick={closeContactModal}>
               <Icon icon="material-symbols:close" />
             </button>
           </div>
+
+          {modalData?.description ? (
+            <p className="contact-modal-description">{modalData.description}</p>
+          ) : null}
 
           <Form
             onSubmit={handleSubmit(onSubmit)}

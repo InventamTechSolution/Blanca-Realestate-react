@@ -5,12 +5,10 @@ import { useContactModal } from "../../../context/ContactModalContext";
 import "./ProjectCard.css";
 import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 import { useRouter } from "next/navigation";
-import ThankYouModal from "../ThankYouModal/ThankYouModal";
 
 const ProjectCard = ({ project, layout = "grid" }) => {
   const { openContactModal } = useContactModal();
   const router = useRouter();
-  const [showUnavailable, setShowUnavailable] = React.useState(false);
   if (!project) return null;
 
   const reraDisplay = project?.reraNumber ?? "";
@@ -21,7 +19,13 @@ const ProjectCard = ({ project, layout = "grid" }) => {
 
     // Requirement: if `project_is_soldout` is false, show popup instead.
     if (project?.project_is_soldout === false) {
-      setShowUnavailable(true);
+      openContactModal({
+        title: "Project Sold Out",
+        description:
+          "Sorry, you’re a bit late—this project is now sold out. However, we have several other exciting projects available for you to explore and invest in. Please fill in your details below, and our sales representative will get in touch with you shortly.",
+        type: "Sold Out",
+        project: project.title,
+      });
       return;
     }
 
@@ -102,14 +106,6 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             </ThemeBtn>
           </div>
         </div>
-
-        <ThankYouModal
-          isOpen={showUnavailable}
-          onClose={() => setShowUnavailable(false)}
-          title="Project Sold Out"
-          message="Sorry, you're a bit late this project is sold out. However, we have other exciting projects available for you to explore and invest in."
-          buttonText="Done"
-        />
       </>
     );
   }
@@ -210,14 +206,6 @@ const ProjectCard = ({ project, layout = "grid" }) => {
           </div>
         </div>
       </div>
-
-      <ThankYouModal
-        isOpen={showUnavailable}
-        onClose={() => setShowUnavailable(false)}
-        title="Project Sold Out"
-        message="Sorry, you're a bit late this project is sold out. However, we have other exciting projects available for you to explore and invest in."
-        buttonText="Done"
-      />
     </>
   );
 };

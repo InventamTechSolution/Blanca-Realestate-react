@@ -3,7 +3,7 @@ import ThemeBtn from "../Button/ThemeBtn";
 import HeroReraQrSection from "../HeroReraQrSection/HeroReraQrSection";
 import "./MainHeroBanner.css";
 import { useRouter } from "next/navigation";
-import ThankYouModal from "../ThankYouModal/ThankYouModal";
+import { useContactModal } from "../../../context/ContactModalContext";
 
 const MainHeroBanner = ({
   videoSrc,
@@ -22,7 +22,7 @@ const MainHeroBanner = ({
   reraQrSrc,
 }) => {
   const router = useRouter();
-  const [showUnavailable, setShowUnavailable] = React.useState(false);
+  const { openContactModal } = useContactModal();
 
   const redirectLink = projectLink ? projectLink : `/project/${projectId}`;
 
@@ -42,7 +42,13 @@ const MainHeroBanner = ({
       e?.preventDefault?.();
 
       if (soldoutFlag === false) {
-        setShowUnavailable(true);
+        openContactModal({
+          title: "Project Sold Out",
+          description:
+            "Sorry, you’re a bit late—this project is now sold out. However, we have several other exciting projects available for you to explore and invest in. Please fill in your details below, and our sales representative will get in touch with you shortly.",
+          type: "Sold Out",
+          project: title,
+        });
         return;
       }
 
@@ -155,17 +161,6 @@ const MainHeroBanner = ({
           )}
         </div>
       </section>
-
-      <ThankYouModal
-        isOpen={showUnavailable}
-        onClose={() => {
-          setShowUnavailable(false);
-          router.push("/projects");
-        }}
-        title="Project Sold Out"
-        message="Sorry, you're a bit late this project is sold out. However, we have other exciting projects available for you to explore and invest in."
-        buttonText="Done"
-      />
     </>
   );
 };
