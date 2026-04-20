@@ -1,5 +1,18 @@
 import { useState } from "react";
-import { removeDocument, uploadDocument } from "../services/documentUploadService";
+import {
+  removeDocument,
+  uploadDocument,
+} from "../services/documentUploadService";
+
+/** Store API-relative paths like `uploads/documents/...` (not `src/common/...` URLs). */
+const normalizeStoredUploadPath = (raw) => {
+  if (!raw || typeof raw !== "string") return "";
+  let p = raw.trim().replace(/^\/+/, "");
+  if (p.startsWith("src/common/")) {
+    p = p.slice("src/common/".length);
+  }
+  return p;
+};
 
 export const useDocumentUploader = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -8,8 +21,8 @@ export const useDocumentUploader = () => {
     setIsLoading(true);
     try {
       const response = await uploadDocument(file);
-      const uploadedPath = response?.data?.url || response?.data?.path || "";
-      return uploadedPath;
+      const fromApi = response?.data?.path ?? "";
+      return normalizeStoredUploadPath(fromApi);
     } catch (error) {
       console.error("Failed to upload document:", error);
       return "";
@@ -39,4 +52,3 @@ export const useDocumentUploader = () => {
     isLoading,
   };
 };
-
