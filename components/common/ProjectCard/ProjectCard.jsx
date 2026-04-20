@@ -13,6 +13,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
   const [showUnavailable, setShowUnavailable] = React.useState(false);
   if (!project) return null;
 
+  const reraDisplay = project?.reraNumber ?? "";
+
   const handleViewDetails = (e) => {
     e?.preventDefault?.();
     e?.stopPropagation?.();
@@ -42,6 +44,12 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             <p className="horiz-desc">
               {project.propertyType} | {project.configuration}
             </p>
+            {reraDisplay ? (
+              <p className="horiz-rera">
+                <span className="horiz-rera-label">RERA Registration No:</span>{" "}
+                <strong>{reraDisplay}</strong>
+              </p>
+            ) : null}
             <div className="project-download-options-horizontal">
               <div
                 className="download-link brochure"
@@ -136,6 +144,12 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               <span>Area – Carpet:</span>
               <strong>{project.area}</strong>
             </div>
+            {reraDisplay ? (
+              <div className="info-item info-item-rera-span">
+                <span>RERA Registration No:</span>
+                <strong>{reraDisplay}</strong>
+              </div>
+            ) : null}
           </div>
 
           <div className="project-download-options-horizontal">

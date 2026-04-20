@@ -70,6 +70,7 @@ const Projects = () => {
       project?.propertyType,
     configuration: project?.project_configuration,
     area: project?.project_sq_ft,
+    reraNumber: project?.project_rera_number,
     status: project?.project_status,
     project_is_soldout: project?.project_is_soldout,
     animationDelay: project?.animationDelay || "0.2s",

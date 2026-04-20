@@ -50,6 +50,29 @@
     color: var(--black-30);
 }
 
+.project-overview-rera {
+    margin-top: 24px;
+    margin-bottom: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--black-30);
+}
+
+.project-overview-rera__label {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.project-overview-rera__value {
+    color: #fff;
+    font-weight: 600;
+}
+
 .download-buttons-wrapper {
     display: flex;
     gap: 36px;

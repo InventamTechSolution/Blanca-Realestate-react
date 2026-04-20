@@ -155,14 +155,33 @@ const ProjectDetails = ({ project }) => {
                     {project?.project_overview_description}
                   </div>
 
+                  {project?.project_rera_number && (
+                    <p className="project-overview-rera bs-font-montserrat">
+                      <span className="project-overview-rera__label">
+                        RERA Registration No:
+                      </span>
+                      <span className="project-overview-rera__value">
+                        {project.project_rera_number}
+                      </span>
+                    </p>
+                  )}
+
                   <div className="download-buttons-wrapper mt-40">
                     <button className="download-btn" onClick={openContactModal}>
                       <div className="btn-icon">
                         <Icon icon="ph:article-light" />
                       </div>
                       <div className="btn-text">
-                        <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
-                        <span className="btn-subtitle">DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} /></span>
+                        <span className="btn-title bs-font-montserrat">
+                          PROJECT BROCHURE
+                        </span>
+                        <span className="btn-subtitle">
+                          DOWNLOAD{" "}
+                          <Icon
+                            icon="lucide:arrow-down"
+                            style={{ marginLeft: "4px" }}
+                          />
+                        </span>
                       </div>
                     </button>
                     <button className="download-btn" onClick={openContactModal}>
@@ -170,8 +189,16 @@ const ProjectDetails = ({ project }) => {
                         <Icon icon="ph:list-checks-light" />
                       </div>
                       <div className="btn-text">
-                        <span className="btn-title bs-font-montserrat">FACT SHEET</span>
-                        <span className="btn-subtitle">DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} /></span>
+                        <span className="btn-title bs-font-montserrat">
+                          FACT SHEET
+                        </span>
+                        <span className="btn-subtitle">
+                          DOWNLOAD{" "}
+                          <Icon
+                            icon="lucide:arrow-down"
+                            style={{ marginLeft: "4px" }}
+                          />
+                        </span>
                       </div>
                     </button>
                   </div>
@@ -349,8 +376,9 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors?.name ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors?.name ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -380,8 +408,9 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors?.email ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors?.email ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -411,8 +440,9 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors?.phone_number ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors?.phone_number ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}

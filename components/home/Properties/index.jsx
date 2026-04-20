@@ -53,7 +53,8 @@ const Properties = () => {
               </div>
 
               <h2 className="common-title bs-font-playfair-display">
-                Your Next Address Awaits – <br /> Discover Blanca's Signature Creations
+                Your Next Address Awaits – <br /> Discover Blanca's Signature
+                Creations
               </h2>
 
               <p className="about-modern__text">
@@ -179,6 +180,12 @@ const Properties = () => {
                                 ] || project?.project_status}
                               </strong>
                             </div>
+                            {project?.project_rera_number && (
+                              <div>
+                                <span>RERA Registration No:</span>
+                                <strong>{project?.project_rera_number}</strong>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
