@@ -1,5 +1,6 @@
 import React from "react";
 import ThemeBtn from "../Button/ThemeBtn";
+import HeroReraQrSection from "../HeroReraQrSection/HeroReraQrSection";
 import "./MainHeroBanner.css";
 import { useRouter } from "next/navigation";
 import ThankYouModal from "../ThankYouModal/ThankYouModal";
@@ -121,6 +122,14 @@ const MainHeroBanner = ({
                     <h5 className="hero-main-subinfo text-white">{location}</h5>
                   )}
                 </div>
+                {(reraQrSrc || reraRegistrationNumber) && (
+                  <div className="d-lg-none hero-rera-mobile-wrap">
+                    <HeroReraQrSection
+                      reraQrSrc={reraQrSrc}
+                      reraRegistrationNumber={reraRegistrationNumber}
+                    />
+                  </div>
+                )}
                 {shouldShowButton && (
                   <div className="buttons mt-96">
                     <ThemeBtn
@@ -137,27 +146,11 @@ const MainHeroBanner = ({
           </div>
 
           {(reraQrSrc || reraRegistrationNumber) && (
-            <div className="hero-rera-card hero-glass-card">
-              {reraQrSrc && (
-                <div className="hero-rera-qr-wrap" aria-label="RERA QR code">
-                  <img
-                    className="hero-rera-qr"
-                    src={reraQrSrc || ""}
-                    alt="RERA QR code"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              {reraRegistrationNumber && (
-                <div className="hero-rera-meta">
-                  <div className="hero-rera-label bs-font-montserrat">
-                    RERA Registration No.
-                  </div>
-                  <div className="hero-rera-value bs-font-montserrat">
-                    {reraRegistrationNumber}
-                  </div>
-                </div>
-              )}
+            <div className="d-none d-lg-block hero-rera-desktop-wrap">
+              <HeroReraQrSection
+                reraQrSrc={reraQrSrc}
+                reraRegistrationNumber={reraRegistrationNumber}
+              />
             </div>
           )}
         </div>

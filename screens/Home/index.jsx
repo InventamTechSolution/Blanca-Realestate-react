@@ -47,6 +47,8 @@ const Home = ({ projectsResponse }) => {
               isHomePage={true}
               projectId={project?.project_project_id}
               projectIsSoldout={project?.project_is_soldout}
+              reraRegistrationNumber={project?.project_rera_number}
+              reraQrSrc={project?.project_qr_code}
             />
           ))
         ) : (
