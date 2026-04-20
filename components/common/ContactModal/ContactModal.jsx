@@ -10,7 +10,6 @@ import Modal from "../Modal/Modal";
 import InputField from "../InputField/InputField";
 import PhoneInput from "../PhoneInput/PhoneInput";
 import Checkbox from "../Checkbox/Checkbox";
-import ThankYouModal from "../ThankYouModal/ThankYouModal";
 import Field from "../Field/Field";
 import { useContactModal } from "../../../context/ContactModalContext";
 import Select from "react-select";
@@ -25,9 +24,74 @@ import { getNormalizedCountries } from "@/utils/countryCache";
 
 const ContactModal = () => {
   const countryMenuPortal = useCountrySelectMenuPortal();
-  const { isOpen, closeContactModal, modalData } = useContactModal();
-  const [showThankYou, setShowThankYou] = useState(false);
+  const { isOpen, closeContactModal, modalData, openThankYouModal } =
+    useContactModal();
   const { mutate: sendContact, isPending } = useContactUs();
+
+  const downloadWithFilename = async (url, filename) => {
+    try {
+      const res = await fetch(url, { mode: "cors" });
+      if (!res.ok) throw new Error("download_failed");
+      const blob = await res.blob();
+      const objectUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = objectUrl;
+      a.download = filename || "download";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(objectUrl);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const getThankYouContent = ({ type, hasDownload }) => {
+    const normalizedType = String(type || "").toLowerCase();
+
+    if (normalizedType.includes("brochure")) {
+      return hasDownload
+        ? {
+            title: "Brochure Download",
+            message:
+              "Thank you for contacting us. Your brochure download will begin shortly, and our representative will reach out to you soon.",
+          }
+        : {
+            title: "Brochure Request Received",
+            message:
+              "Thank you for contacting us. Our representative will reach out to you shortly and share the project brochure with you.",
+          };
+    }
+
+    if (normalizedType.includes("fact")) {
+      return hasDownload
+        ? {
+            title: "Fact Sheet Download",
+            message:
+              "Thank you for contacting us. Your fact sheet download will begin shortly, and our representative will reach out to you soon.",
+          }
+        : {
+            title: "Fact Sheet Request Received",
+            message:
+              "Thank you for contacting us. Our representative will reach out to you shortly and share the fact sheet with you.",
+          };
+    }
+
+    if (normalizedType.includes("sold")) {
+      return {
+        title: "Thank You",
+        message:
+          "Thank you for reaching out! We’ve received your details and a Blanca representative will get in touch with you shortly to help you explore other available projects.",
+      };
+    }
+
+    return {
+      title: "Thank You",
+      message:
+        "Thank you for reaching out! We’ve received your details and a Blanca representative will get in touch with you shortly to discuss your requirements.",
+    };
+  };
 
   const countryOptions = React.useMemo(
     () =>
@@ -101,10 +165,27 @@ const ContactModal = () => {
     };
 
     sendContact(payload, {
-      onSuccess: () => {
-        setShowThankYou(true);
+      onSuccess: async () => {
+        const downloadUrl = modalData?.downloadUrl;
+        const downloadFilename = modalData?.downloadFilename;
+        const cleanedUrl =
+          typeof downloadUrl === "string" ? downloadUrl.trim() : "";
+
+        if (!cleanedUrl) {
+          openThankYouModal(
+            getThankYouContent({
+              type: modalData?.type,
+              hasDownload: false,
+            }),
+          );
+        }
         closeContactModal();
         reset();
+
+        if (cleanedUrl) {
+          const ok = await downloadWithFilename(cleanedUrl, downloadFilename);
+          if (!ok) window.open(cleanedUrl, "_blank", "noopener,noreferrer");
+        }
       },
       onError: () => {
         alert("Something went wrong. Please try again.");
@@ -306,12 +387,6 @@ const ContactModal = () => {
           </Form>
         </div>
       </Modal>
-
-      <ThankYouModal
-        isOpen={showThankYou}
-        onClose={() => setShowThankYou(false)}
-        message="Thank you for reaching out! We’ve received your details and a Blanca representative will get in touch with you shortly to discuss your requirements."
-      />
     </>
   );
 };

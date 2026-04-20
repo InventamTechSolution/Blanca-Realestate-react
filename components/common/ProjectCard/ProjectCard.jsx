@@ -30,26 +30,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
     return match?.[1] ? `.${match[1].toLowerCase()}` : "";
   };
 
-  const downloadWithFilename = async (url, filename) => {
-    try {
-      const res = await fetch(url, { mode: "cors" });
-      if (!res.ok) throw new Error("download_failed");
-      const blob = await res.blob();
-      const objectUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = objectUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(objectUrl);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
-  const openAssetOrContact = async (e, { type, url }) => {
+  const openAssetOrContact = (e, { type, url }) => {
     e?.preventDefault?.();
     e?.stopPropagation?.();
     const cleanedUrl = typeof url === "string" ? url.trim() : "";
@@ -57,8 +38,16 @@ const ProjectCard = ({ project, layout = "grid" }) => {
       const projectName = project?.title || project?.project_name || "project";
       const base = `${slugifyFilePart(projectName)}-${slugifyFilePart(type)}`;
       const filename = `${base}${getExtensionFromUrl(cleanedUrl) || ".pdf"}`;
-      const ok = await downloadWithFilename(cleanedUrl, filename);
-      if (!ok) window.open(cleanedUrl, "_blank", "noopener,noreferrer");
+
+      openContactModal({
+        title: `Download ${type}`,
+        description:
+          "Please fill in your details below to download the document. Our sales representative will also get in touch with you shortly.",
+        type,
+        project: project?.title,
+        downloadUrl: cleanedUrl,
+        downloadFilename: filename,
+      });
       return;
     }
     openContactModal({ type, project: project.title });
