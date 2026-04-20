@@ -12,6 +12,57 @@ const ProjectCard = ({ project, layout = "grid" }) => {
   if (!project) return null;
 
   const reraDisplay = project?.reraNumber ?? "";
+  const brochureUrl = project?.project_brochure || "";
+  const factSheetUrl = project?.project_fact_sheet || "";
+
+  const slugifyFilePart = (value) =>
+    String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/['"]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "file";
+
+  const getExtensionFromUrl = (value) => {
+    if (!value) return "";
+    const withoutQuery = String(value).split(/[?#]/)[0];
+    const match = withoutQuery.match(/\.([a-z0-9]+)$/i);
+    return match?.[1] ? `.${match[1].toLowerCase()}` : "";
+  };
+
+  const downloadWithFilename = async (url, filename) => {
+    try {
+      const res = await fetch(url, { mode: "cors" });
+      if (!res.ok) throw new Error("download_failed");
+      const blob = await res.blob();
+      const objectUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = objectUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(objectUrl);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const openAssetOrContact = async (e, { type, url }) => {
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
+    const cleanedUrl = typeof url === "string" ? url.trim() : "";
+    if (cleanedUrl) {
+      const projectName = project?.title || project?.project_name || "project";
+      const base = `${slugifyFilePart(projectName)}-${slugifyFilePart(type)}`;
+      const filename = `${base}${getExtensionFromUrl(cleanedUrl) || ".pdf"}`;
+      const ok = await downloadWithFilename(cleanedUrl, filename);
+      if (!ok) window.open(cleanedUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+    openContactModal({ type, project: project.title });
+  };
 
   const handleViewDetails = (e) => {
     e?.preventDefault?.();
@@ -57,8 +108,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             <div className="project-download-options-horizontal">
               <div
                 className="download-link brochure"
-                onClick={() =>
-                  openContactModal({ type: "Brochure", project: project.title })
+                onClick={(e) =>
+                  openAssetOrContact(e, { type: "Brochure", url: brochureUrl })
                 }
                 role="button"
               >
@@ -78,10 +129,10 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               </div>
               <div
                 className="download-link fact-sheet"
-                onClick={() =>
-                  openContactModal({
+                onClick={(e) =>
+                  openAssetOrContact(e, {
                     type: "Fact Sheet",
-                    project: project.title,
+                    url: factSheetUrl,
                   })
                 }
                 role="button"
@@ -151,8 +202,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
           <div className="project-download-options-horizontal">
             <div
               className="download-link brochure"
-              onClick={() =>
-                openContactModal({ type: "Brochure", project: project.title })
+              onClick={(e) =>
+                openAssetOrContact(e, { type: "Brochure", url: brochureUrl })
               }
               role="button"
             >
@@ -172,8 +223,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             </div>
             <div
               className="download-link fact-sheet"
-              onClick={() =>
-                openContactModal({ type: "Fact Sheet", project: project.title })
+              onClick={(e) =>
+                openAssetOrContact(e, { type: "Fact Sheet", url: factSheetUrl })
               }
               role="button"
             >

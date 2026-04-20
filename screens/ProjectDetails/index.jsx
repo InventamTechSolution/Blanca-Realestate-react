@@ -38,6 +38,55 @@ const ProjectDetails = ({ project }) => {
   const enquiryRef = useRef(null);
   const [showThankYou, setShowThankYou] = React.useState(false);
   const { mutate, isPending } = useEnquire();
+  const brochureUrl = project?.project_brochure || "";
+  const factSheetUrl = project?.project_fact_sheet || "";
+
+  const slugifyFilePart = (value) =>
+    String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/['"]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "file";
+
+  const getExtensionFromUrl = (value) => {
+    if (!value) return "";
+    const withoutQuery = String(value).split(/[?#]/)[0];
+    const match = withoutQuery.match(/\.([a-z0-9]+)$/i);
+    return match?.[1] ? `.${match[1].toLowerCase()}` : "";
+  };
+
+  const downloadWithFilename = async (url, filename) => {
+    try {
+      const res = await fetch(url, { mode: "cors" });
+      if (!res.ok) throw new Error("download_failed");
+      const blob = await res.blob();
+      const objectUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = objectUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(objectUrl);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const openAssetOrContact = async ({ type, url }) => {
+    const cleanedUrl = typeof url === "string" ? url.trim() : "";
+    if (cleanedUrl) {
+      const projectName = project?.project_name || "project";
+      const base = `${slugifyFilePart(projectName)}-${slugifyFilePart(type)}`;
+      const filename = `${base}${getExtensionFromUrl(cleanedUrl) || ".pdf"}`;
+      const ok = await downloadWithFilename(cleanedUrl, filename);
+      if (!ok) window.open(cleanedUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+    openContactModal({ type, project: project?.project_name });
+  };
 
   const {
     control,
@@ -167,7 +216,15 @@ const ProjectDetails = ({ project }) => {
                   )}
 
                   <div className="download-buttons-wrapper mt-40">
-                    <button className="download-btn" onClick={openContactModal}>
+                    <button
+                      className="download-btn"
+                      onClick={() =>
+                        openAssetOrContact({
+                          type: "Brochure",
+                          url: brochureUrl,
+                        })
+                      }
+                    >
                       <div className="btn-icon">
                         <Icon icon="ph:article-light" />
                       </div>
@@ -184,7 +241,15 @@ const ProjectDetails = ({ project }) => {
                         </span>
                       </div>
                     </button>
-                    <button className="download-btn" onClick={openContactModal}>
+                    <button
+                      className="download-btn"
+                      onClick={() =>
+                        openAssetOrContact({
+                          type: "Fact Sheet",
+                          url: factSheetUrl,
+                        })
+                      }
+                    >
                       <div className="btn-icon">
                         <Icon icon="ph:list-checks-light" />
                       </div>
