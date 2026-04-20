@@ -259,19 +259,16 @@ const Footer = () => {
             {/* Footer Links */}
             <div className="footer-section footer-links-group">
               <div className="footer-links-column">
-                <h5 className="footer-title">About Us</h5>
+                <h5 className="footer-title">
+                  <Link
+                    href="/about"
+                    className="footer-title-link"
+                    onClick={() => setActiveHash("")}
+                  >
+                    About Us
+                  </Link>
+                </h5>
                 <ul className="footer-links">
-                  <li>
-                    <Link
-                      href="/about"
-                      className={
-                        pathname === "/about" && !hash ? "is-active" : undefined
-                      }
-                      onClick={() => setActiveHash("")}
-                    >
-                      About Us
-                    </Link>
-                  </li>
                   <li>
                     <Link
                       href="/about#showcase-section"
@@ -283,6 +280,20 @@ const Footer = () => {
                       onClick={() => setActiveHash("#showcase-section")}
                     >
                       Value
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/about#about-vision-section-four"
+                      className={
+                        pathname === "/about" &&
+                        hash === "#about-vision-section-four"
+                          ? "is-active"
+                          : undefined
+                      }
+                      onClick={() => setActiveHash("#about-vision-section-four")}
+                    >
+                      Our Vision
                     </Link>
                   </li>
                   <li>
@@ -301,20 +312,6 @@ const Footer = () => {
                   </li>
                   <li>
                     <Link
-                      href="/about#about-vision-section-four"
-                      className={
-                        pathname === "/about" &&
-                        hash === "#about-vision-section-four"
-                          ? "is-active"
-                          : undefined
-                      }
-                      onClick={() => setActiveHash("#about-vision-section-four")}
-                    >
-                      Vision
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
                       href="/about#journey"
                       className={
                         pathname === "/about" && hash === "#journey"
@@ -323,7 +320,7 @@ const Footer = () => {
                       }
                       onClick={() => setActiveHash("#journey")}
                     >
-                      Journey
+                      Journey of Innovation
                     </Link>
                   </li>
                   <li>
@@ -336,13 +333,16 @@ const Footer = () => {
                 <h5 className="footer-title">Communities</h5>
                 <ul className="footer-links">
                   <li>
-                    <Link href="/projects">New Launches</Link>
+                    <Link href="/projects?status=new-launches">New Launches</Link>
                   </li>
                   <li>
-                    <Link href="/projects">Coming Soon</Link>
+                    <Link href="/projects?status=coming-soon">Coming Soon</Link>
                   </li>
                   <li>
-                    <Link href="/projects">Ongoing Projects</Link>
+                    <Link href="/projects?status=on-going">Ongoing Projects</Link>
+                  </li>
+                  <li>
+                    <Link href="/projects?status=completed">Completed</Link>
                   </li>
                 </ul>
               </div>

@@ -407,6 +407,16 @@
     letter-spacing: 1px;
 }
 
+.footer-title-link {
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.footer-title-link:hover {
+    color: var(--primary-color);
+}
+
 .light-mode .footer-title {
     color: #fff;
 }

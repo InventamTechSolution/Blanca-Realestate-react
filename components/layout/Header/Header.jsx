@@ -546,9 +546,6 @@ const Header = () => {
                           onClick={(e) => {
                             e.preventDefault();
                             toggleSubmenu("mobile-communities");
-                            document
-                              .querySelector("/projects")
-                              ?.scrollIntoView({ behavior: "smooth" });
                           }}
                         >
                           Communities
@@ -562,22 +559,34 @@ const Header = () => {
                           }}
                         >
                           <li>
-                            <Link href="/projects" onClick={closeMenus}>
+                            <Link
+                              href="/projects?status=new-launches"
+                              onClick={closeMenus}
+                            >
                               New Launches
                             </Link>
                           </li>
                           <li>
-                            <Link href="/projects" onClick={closeMenus}>
+                            <Link
+                              href="/projects?status=coming-soon"
+                              onClick={closeMenus}
+                            >
                               Coming Soon
                             </Link>
                           </li>
                           <li>
-                            <Link href="/projects" onClick={closeMenus}>
+                            <Link
+                              href="/projects?status=on-going"
+                              onClick={closeMenus}
+                            >
                               Ongoing Projects
                             </Link>
                           </li>
                           <li>
-                            <Link href="/projects" onClick={closeMenus}>
+                            <Link
+                              href="/projects?status=completed"
+                              onClick={closeMenus}
+                            >
                               Completed
                             </Link>
                           </li>
