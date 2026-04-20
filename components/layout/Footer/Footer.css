@@ -199,7 +199,7 @@
 
 /* Footer Intro */
 .footer-intro {
-    max-width: 420px;
+    max-width: 480px;
 }
 
 .footer-heading {
@@ -268,7 +268,7 @@
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;
-    max-width: 420px;
+    /* max-width: 450px; */
 
     @media screen and (min-width:1600px) {
         margin-bottom: 30px;
@@ -464,6 +464,11 @@
     transition: all 0.3s ease;
     display: block;
     /* padding: 8px 120px; */
+}
+
+.footer-links a.is-active {
+    color: var(--primary-color);
+    padding-left: 8px;
 }
 
 .footer-links a:hover {
