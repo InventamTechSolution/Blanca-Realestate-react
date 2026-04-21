@@ -7,6 +7,7 @@ import {
   useContactModal,
 } from "@/context/ContactModalContext";
 import ScrollToTopOnRouteChange from "@/components/common/ScrollToTopOnRouteChange";
+import { usePathname } from "next/navigation";
 
 const LiquidFilters = dynamic(() => import("@/components/common/LiquidFilters"));
 const FloatingContactButtons = dynamic(
@@ -30,13 +31,25 @@ const ThankYouModal = dynamic(
 );
 
 function AppShellInner({ children }) {
-  const { isOpen, isThankYouOpen, closeThankYouModal, thankYouContent } =
-    useContactModal();
+  const {
+    isOpen,
+    closeContactModal,
+    isThankYouOpen,
+    closeThankYouModal,
+    thankYouContent,
+  } = useContactModal();
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    closeContactModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <>

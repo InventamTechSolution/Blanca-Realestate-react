@@ -362,7 +362,14 @@ const ContactModal = () => {
                       label={
                         <>
                           I've read and agree to the{" "}
-                          <Link href="/privacy-policy" className="privacy-link">
+                          <Link
+                            href="/privacy-policy"
+                            className="privacy-link"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              closeContactModal();
+                            }}
+                          >
                             Privacy Policy
                           </Link>
                         </>
