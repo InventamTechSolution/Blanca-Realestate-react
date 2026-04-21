@@ -311,6 +311,8 @@ const ContactModal = () => {
                           classNamePrefix="contact-country-select"
                           styles={contactCountrySelectStyles}
                           menuPortalTarget={countryMenuPortal}
+                          menuPosition="fixed"
+                          menuShouldScrollIntoView={false}
                           options={countryOptions}
                           value={
                             countryOptions.find(

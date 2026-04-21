@@ -217,7 +217,7 @@ const Contact = ({ settingResponse }) => {
                         <Icon icon="lucide:mail" />
                       </div>
                       <div className="contact-text">
-                        <h5>Reach Us</h5>
+                        <h5>REACH US:</h5>
                         <p>
                           <a href={`mailto:${reachEmail}`}>{reachEmail}</a>
                         </p>
@@ -229,7 +229,7 @@ const Contact = ({ settingResponse }) => {
                         <Icon icon="lucide:phone" aria-hidden="true" />
                       </div>
                       <div className="contact-text">
-                        <h5>OTHER INQUIRIES</h5>
+                        <h5>OTHER INQUIRIES:</h5>
                         {salesPhone?.map((phoneItem, index) => (
                           <p key={index}>
                             <a href={toTelHref(phoneItem?.number)}>
@@ -362,6 +362,8 @@ const Contact = ({ settingResponse }) => {
                                   classNamePrefix="contact-country-select"
                                   styles={contactCountrySelectStyles}
                                   menuPortalTarget={countryMenuPortal}
+                                  menuPosition="fixed"
+                                  menuShouldScrollIntoView={false}
                                   options={countryOptions}
                                   value={
                                     countryOptions.find(
