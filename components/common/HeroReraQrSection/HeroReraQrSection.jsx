@@ -1,0 +1,35 @@
+import React from "react";
+import "./HeroReraQrSection.css";
+
+const HeroReraQrSection = ({
+  reraQrSrc,
+  reraRegistrationNumber,
+  label = "RERA Registration No.",
+}) => {
+  if (!reraQrSrc && !reraRegistrationNumber) return null;
+
+  return (
+    <div className="hero-rera-card hero-glass-card">
+      {reraQrSrc && (
+        <div className="hero-rera-qr-wrap" aria-label="RERA QR code">
+          <img
+            className="hero-rera-qr"
+            src={reraQrSrc}
+            alt="RERA QR code"
+            loading="lazy"
+          />
+        </div>
+      )}
+      {reraRegistrationNumber && (
+        <div className="hero-rera-meta">
+          <div className="hero-rera-label bs-font-montserrat">{label}</div>
+          <div className="hero-rera-value bs-font-montserrat">
+            {reraRegistrationNumber}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default HeroReraQrSection;

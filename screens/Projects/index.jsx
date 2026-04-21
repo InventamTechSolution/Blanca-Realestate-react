@@ -70,8 +70,11 @@ const Projects = () => {
       project?.propertyType,
     configuration: project?.project_configuration,
     area: project?.project_sq_ft,
+    reraNumber: project?.project_rera_number,
     status: project?.project_status,
     project_is_soldout: project?.project_is_soldout,
+    project_brochure: project?.project_brochure,
+    project_fact_sheet: project?.project_fact_sheet,
     animationDelay: project?.animationDelay || "0.2s",
     mapUrl: project?.project_map_link,
   }));

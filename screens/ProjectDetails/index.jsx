@@ -38,6 +38,43 @@ const ProjectDetails = ({ project }) => {
   const enquiryRef = useRef(null);
   const [showThankYou, setShowThankYou] = React.useState(false);
   const { mutate, isPending } = useEnquire();
+  const brochureUrl = project?.project_brochure || "";
+  const factSheetUrl = project?.project_fact_sheet || "";
+
+  const slugifyFilePart = (value) =>
+    String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/['"]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "file";
+
+  const getExtensionFromUrl = (value) => {
+    if (!value) return "";
+    const withoutQuery = String(value).split(/[?#]/)[0];
+    const match = withoutQuery.match(/\.([a-z0-9]+)$/i);
+    return match?.[1] ? `.${match[1].toLowerCase()}` : "";
+  };
+
+  const openAssetOrContact = ({ type, url }) => {
+    const cleanedUrl = typeof url === "string" ? url.trim() : "";
+    if (cleanedUrl) {
+      const projectName = project?.project_name || "project";
+      const base = `${slugifyFilePart(projectName)}-${slugifyFilePart(type)}`;
+      const filename = `${base}${getExtensionFromUrl(cleanedUrl) || ".pdf"}`;
+      openContactModal({
+        title: `Download ${type}`,
+        description:
+          "Please fill in your details below to download the document. Our sales representative will also get in touch with you shortly.",
+        type,
+        project: project?.project_name,
+        downloadUrl: cleanedUrl,
+        downloadFilename: filename,
+      });
+      return;
+    }
+    openContactModal({ type, project: project?.project_name });
+  };
 
   const {
     control,
@@ -155,23 +192,66 @@ const ProjectDetails = ({ project }) => {
                     {project?.project_overview_description}
                   </div>
 
+                  {project?.project_rera_number && (
+                    <p className="project-overview-rera bs-font-montserrat">
+                      <span className="project-overview-rera__label">
+                        RERA Registration No:
+                      </span>
+                      <span className="project-overview-rera__value">
+                        {project.project_rera_number}
+                      </span>
+                    </p>
+                  )}
+
                   <div className="download-buttons-wrapper mt-40">
-                    <button className="download-btn" onClick={openContactModal}>
+                    <button
+                      className="download-btn"
+                      onClick={() =>
+                        openAssetOrContact({
+                          type: "Brochure",
+                          url: brochureUrl,
+                        })
+                      }
+                    >
                       <div className="btn-icon">
                         <Icon icon="ph:article-light" />
                       </div>
                       <div className="btn-text">
-                        <span className="btn-title bs-font-montserrat">PROJECT BROCHURE</span>
-                        <span className="btn-subtitle">DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} /></span>
+                        <span className="btn-title bs-font-montserrat">
+                          PROJECT BROCHURE
+                        </span>
+                        <span className="btn-subtitle">
+                          DOWNLOAD{" "}
+                          <Icon
+                            icon="lucide:arrow-down"
+                            style={{ marginLeft: "4px" }}
+                          />
+                        </span>
                       </div>
                     </button>
-                    <button className="download-btn" onClick={openContactModal}>
+                    <button
+                      className="download-btn"
+                      onClick={() =>
+                        openAssetOrContact({
+                          type: "Fact Sheet",
+                          url: factSheetUrl,
+                        })
+                      }
+                    >
                       <div className="btn-icon">
                         <Icon icon="ph:list-checks-light" />
                       </div>
                       <div className="btn-text">
-                        <span className="btn-title bs-font-montserrat">FACT SHEET</span>
-                        <span className="btn-subtitle">DOWNLOAD <Icon icon="lucide:arrow-down" style={{ marginLeft: '4px' }} /></span>
+                        <span className="btn-title bs-font-montserrat">
+                          FACT SHEET
+                        </span>
+                        <span className="btn-subtitle">
+                          DOWNLOAD{" "}
+                          <Icon
+                            icon="lucide:arrow-down"
+                            style={{ marginLeft: "4px" }}
+                          />
+                        </span>
                       </div>
                     </button>
                   </div>
@@ -349,8 +429,9 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors?.name ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors?.name ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -380,8 +461,9 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors?.email ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors?.email ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -411,8 +493,9 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${errors?.phone_number ? "has-error" : ""
-                                  }`}
+                                className={`input-modern-group ${
+                                  errors?.phone_number ? "has-error" : ""
+                                }`}
                               >
                                 <Form.Control
                                   {...field}

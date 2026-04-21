@@ -24,8 +24,14 @@ const ContactModal = dynamic(
   { ssr: false },
 );
 
+const ThankYouModal = dynamic(
+  () => import("@/components/common/ThankYouModal/ThankYouModal"),
+  { ssr: false },
+);
+
 function AppShellInner({ children }) {
-  const { isOpen } = useContactModal();
+  const { isOpen, isThankYouOpen, closeThankYouModal, thankYouContent } =
+    useContactModal();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -45,6 +51,13 @@ function AppShellInner({ children }) {
       )}
 
       {isOpen ? <ContactModal /> : null}
+
+      <ThankYouModal
+        isOpen={isThankYouOpen}
+        onClose={closeThankYouModal}
+        title={thankYouContent?.title}
+        message={thankYouContent?.message}
+      />
 
       {children}
     </>

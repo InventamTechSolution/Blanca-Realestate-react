@@ -39,6 +39,12 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.contact-modal-description {
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0 0 18px;
+    line-height: 1.6;
+}
+
 .title-with-blue-bar {
     display: flex;
     align-items: center;

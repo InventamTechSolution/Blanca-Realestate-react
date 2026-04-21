@@ -5,13 +5,53 @@ import { useContactModal } from "../../../context/ContactModalContext";
 import "./ProjectCard.css";
 import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 import { useRouter } from "next/navigation";
-import ThankYouModal from "../ThankYouModal/ThankYouModal";
 
 const ProjectCard = ({ project, layout = "grid" }) => {
   const { openContactModal } = useContactModal();
   const router = useRouter();
-  const [showUnavailable, setShowUnavailable] = React.useState(false);
   if (!project) return null;
+
+  const reraDisplay = project?.reraNumber ?? "";
+  const brochureUrl = project?.project_brochure || "";
+  const factSheetUrl = project?.project_fact_sheet || "";
+
+  const slugifyFilePart = (value) =>
+    String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/['"]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "file";
+
+  const getExtensionFromUrl = (value) => {
+    if (!value) return "";
+    const withoutQuery = String(value).split(/[?#]/)[0];
+    const match = withoutQuery.match(/\.([a-z0-9]+)$/i);
+    return match?.[1] ? `.${match[1].toLowerCase()}` : "";
+  };
+
+  const openAssetOrContact = (e, { type, url }) => {
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
+    const cleanedUrl = typeof url === "string" ? url.trim() : "";
+    if (cleanedUrl) {
+      const projectName = project?.title || project?.project_name || "project";
+      const base = `${slugifyFilePart(projectName)}-${slugifyFilePart(type)}`;
+      const filename = `${base}${getExtensionFromUrl(cleanedUrl) || ".pdf"}`;
+
+      openContactModal({
+        title: `Download ${type}`,
+        description:
+          "Please fill in your details below to download the document. Our sales representative will also get in touch with you shortly.",
+        type,
+        project: project?.title,
+        downloadUrl: cleanedUrl,
+        downloadFilename: filename,
+      });
+      return;
+    }
+    openContactModal({ type, project: project.title });
+  };
 
   const handleViewDetails = (e) => {
     e?.preventDefault?.();
@@ -19,7 +59,13 @@ const ProjectCard = ({ project, layout = "grid" }) => {
 
     // Requirement: if `project_is_soldout` is false, show popup instead.
     if (project?.project_is_soldout === false) {
-      setShowUnavailable(true);
+      openContactModal({
+        title: "Project Sold Out",
+        description:
+          "Sorry, you’re a bit late—this project is now sold out. However, we have several other exciting projects available for you to explore and invest in. Please fill in your details below, and our sales representative will get in touch with you shortly.",
+        type: "Sold Out",
+        project: project.title,
+      });
       return;
     }
 
@@ -42,11 +88,17 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             <p className="horiz-desc">
               {project.propertyType} | {project.configuration}
             </p>
+            {reraDisplay ? (
+              <p className="horiz-rera">
+                <span className="horiz-rera-label">RERA Registration No:</span>{" "}
+                <strong>{reraDisplay}</strong>
+              </p>
+            ) : null}
             <div className="project-download-options-horizontal">
               <div
                 className="download-link brochure"
-                onClick={() =>
-                  openContactModal({ type: "Brochure", project: project.title })
+                onClick={(e) =>
+                  openAssetOrContact(e, { type: "Brochure", url: brochureUrl })
                 }
                 role="button"
               >
@@ -66,10 +118,10 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               </div>
               <div
                 className="download-link fact-sheet"
-                onClick={() =>
-                  openContactModal({
+                onClick={(e) =>
+                  openAssetOrContact(e, {
                     type: "Fact Sheet",
-                    project: project.title,
+                    url: factSheetUrl,
                   })
                 }
                 role="button"
@@ -94,14 +146,6 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             </ThemeBtn>
           </div>
         </div>
-
-        <ThankYouModal
-          isOpen={showUnavailable}
-          onClose={() => setShowUnavailable(false)}
-          title="Project Sold Out"
-          message="Sorry, you're a bit late this project is sold out. However, we have other exciting projects available for you to explore and invest in."
-          buttonText="Done"
-        />
       </>
     );
   }
@@ -136,13 +180,19 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               <span>Area – Carpet:</span>
               <strong>{project.area}</strong>
             </div>
+            {reraDisplay ? (
+              <div className="info-item info-item-rera-span">
+                <span>RERA Registration No:</span>
+                <strong>{reraDisplay}</strong>
+              </div>
+            ) : null}
           </div>
 
           <div className="project-download-options-horizontal">
             <div
               className="download-link brochure"
-              onClick={() =>
-                openContactModal({ type: "Brochure", project: project.title })
+              onClick={(e) =>
+                openAssetOrContact(e, { type: "Brochure", url: brochureUrl })
               }
               role="button"
             >
@@ -162,8 +212,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             </div>
             <div
               className="download-link fact-sheet"
-              onClick={() =>
-                openContactModal({ type: "Fact Sheet", project: project.title })
+              onClick={(e) =>
+                openAssetOrContact(e, { type: "Fact Sheet", url: factSheetUrl })
               }
               role="button"
             >
@@ -196,14 +246,6 @@ const ProjectCard = ({ project, layout = "grid" }) => {
           </div>
         </div>
       </div>
-
-      <ThankYouModal
-        isOpen={showUnavailable}
-        onClose={() => setShowUnavailable(false)}
-        title="Project Sold Out"
-        message="Sorry, you're a bit late this project is sold out. However, we have other exciting projects available for you to explore and invest in."
-        buttonText="Done"
-      />
     </>
   );
 };

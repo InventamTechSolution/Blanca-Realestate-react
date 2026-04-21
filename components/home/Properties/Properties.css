@@ -91,8 +91,15 @@
     display: block;
     flex: 1;
     min-width: 0;
+    max-width: 100%;
     padding-bottom: 0;
     overflow: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.homeproject-area .projects-strip::-webkit-scrollbar {
+    display: none;
 }
 
 /* .homeproject-area .projects-strip .slick-track {
@@ -102,17 +109,48 @@
 
 .homeproject-area .property-swiper {
     padding-bottom: 40px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-
-.homeproject-area .projects-strip::-webkit-scrollbar {
-    height: 6px;
+.homeproject-area .property-swiper::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
-.homeproject-area .projects-strip::-webkit-scrollbar-thumb {
-    background: rgba(208, 71, 19, 0.4);
-    border-radius: 8px;
+.homeproject-area .projects-strip .swiper.swiper-horizontal {
+    overflow: hidden !important;
+    max-width: 100%;
 }
+
+/* Equal-height cards in a row: stretch slides to the tallest, fill with flex (no clipping). */
+.homeproject-area .property-swiper .swiper-wrapper {
+    align-items: stretch;
+}
+
+.homeproject-area .property-swiper .swiper-slide {
+    height: auto;
+    display: flex;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.homeproject-area .property-swiper .swiper-slide > .project-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    min-height: 100%;
+}
+
 
 .homeproject-area .project-card-wrapper {
     /* padding-right: 30px; */
@@ -123,9 +161,13 @@
 
 .homeproject-area .project-card {
     position: relative;
-    display: block;
-    /* height: 500px;
-  width: 100%; */
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 100%;
+    border-radius: 24px;
+    overflow: hidden;
     margin-right: 0;
     /* color: var(--lg-text);
   backdrop-filter: blur(4px);
@@ -166,11 +208,11 @@
 
 .homeproject-area .project-card img {
     width: 100%;
-    height: 240px;
-    /* Fixed height to allow content below */
+    height: 300px;
+    flex-shrink: 0;
     object-fit: cover;
     display: block;
-    border-radius: 24px 24px 0 0;
+    border-radius: 0;
 }
 
 
@@ -208,9 +250,8 @@
 }
 
 .homeproject-area .project-card__content {
-    padding: 20px 20px 20px 20px;
-    background: #ffffff0f;
-    border-radius: 0 0 24px 24px;
+    padding: 24px 24px 28px 24px;
+    border-radius: 0;
     color: var(--lg-text);
     background: rgba(255, 255, 255, 0.03);
     /* border: 1px solid var(--lg-highlight); */
@@ -221,18 +262,24 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
 
-    @media (max-width: 1600px) {
-        min-height: 200px;
-        height: auto;
-    }
+.homeproject-area .project-card__content::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
 }
 
 
 .homeproject-area .project-card__content::before {
     content: "";
     position: absolute;
-    inset: -10px;
+    inset: 0;
     background: radial-gradient(circle at 30% 20%, rgb(255 255 255 / 8%), rgba(255, 255, 255, 0) 55%), radial-gradient(circle at 80% 80%, rgb(243 237 237 / 10%), rgba(0, 0, 0, 0) 60%), radial-gradient(circle, rgb(229 237 232 / 5%), rgb(249 244 244 / 0%) 55%);
     opacity: 0.5;
     pointer-events: none;
@@ -262,11 +309,14 @@
 }
 
 .homeproject-area .project-card__content h4 {
-    margin-bottom: 12px;
-    font-size: 20px;
+    margin-bottom: 16px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: 0px;
     color: var(--white);
+    line-height: 1.25;
+    position: relative;
+    z-index: 2;
 }
 
 .project-buttons-div {
@@ -279,29 +329,34 @@
 .homeproject-area .project-card__meta {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 6px;
     font-size: 13px;
     color: rgba(255, 255, 255, 0.8);
+    flex: 1 1 auto;
+    position: relative;
+    z-index: 2;
+    overflow: visible;
 }
 
 .homeproject-area .project-card__meta .properties-meta-detail {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 5px;
+    gap: 8px;
 }
 
 .homeproject-area .project-card__meta .properties-meta-detail span {
-    display: inline-block;
+    display: inline;
     font-size: 13px;
     color: rgba(255, 255, 255, 0.6);
-    margin-right: 4px;
-    line-height: 1;
+    margin-right: 6px;
+    line-height: 1.45;
 }
 
 .homeproject-area .project-card__meta .properties-meta-detail strong {
     font-weight: 600;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.45;
 }
 
 .homeproject-area .project-card__content p {
@@ -320,17 +375,6 @@
 
 
 
-@media only screen and (min-width: 1200px) {
-    .homeproject-area .projects-strip:hover .project-card {
-        flex-grow: 0.9;
-    }
-
-    .homeproject-area .projects-strip:hover .project-card:hover,
-    .homeproject-area .projects-strip:hover .project-card:focus-visible {
-        flex-grow: 1.3;
-    }
-}
-
 @media only screen and (min-width: 1600px) {
     .homeproject-area .project-card__meta .properties-meta-detail {
         grid-template-columns: 1fr 1fr;
@@ -340,17 +384,16 @@
 
 @media only screen and (max-width: 1199px) {
     .homeproject-area .projects-strip {
-        overflow-x: auto;
-        padding-bottom: 8px;
-        scroll-snap-type: x mandatory;
+        overflow: hidden;
+        padding-bottom: 0;
     }
 
     .homeproject-area .project-card {
-        flex: 0 0 260px;
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100%;
         height: auto;
-        /* allow content to define height */
-        min-height: 380px;
-        scroll-snap-align: start;
+        min-height: 460px;
     }
 }
 
@@ -384,9 +427,11 @@
     }
 
     .homeproject-area .project-card {
-        flex-basis: 280px;
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100%;
         height: auto;
-        min-height: 380px;
+        min-height: 460px;
     }
 
     .homeproject-area {

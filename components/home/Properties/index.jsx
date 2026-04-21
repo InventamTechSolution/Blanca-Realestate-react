@@ -11,13 +11,11 @@ import { motion as Motion } from "framer-motion";
 import { useProjects } from "../../../hooks/useProjects";
 import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 import { useContactModal } from "../../../context/ContactModalContext";
-import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
 import React from "react";
 
 const Properties = () => {
   const router = useRouter();
   const { data } = useProjects({ page: 1, limit: 50, is_active: true });
-  const [showUnavailable, setShowUnavailable] = React.useState(false);
 
   const projects = data?.data || [];
 
@@ -29,7 +27,13 @@ const Properties = () => {
 
     // Requirement: if soldout is false, show popup instead of navigating.
     if (isSoldoutFlag === false) {
-      setShowUnavailable(true);
+      openContactModal({
+        title: "Project Sold Out",
+        description:
+          "Sorry, you’re a bit late—this project is now sold out. However, we have several other exciting projects available for you to explore and invest in. Please fill in your details below, and our sales representative will get in touch with you shortly.",
+        type: "Sold Out",
+        project: project?.project_name,
+      });
       return;
     }
 
@@ -53,7 +57,8 @@ const Properties = () => {
               </div>
 
               <h2 className="common-title bs-font-playfair-display">
-                Your Next Address Awaits – <br /> Discover Blanca's Signature Creations
+                Your Next Address Awaits – <br /> Discover Blanca's Signature
+                Creations
               </h2>
 
               <p className="about-modern__text">
@@ -179,6 +184,12 @@ const Properties = () => {
                                 ] || project?.project_status}
                               </strong>
                             </div>
+                            {project?.project_rera_number && (
+                              <div>
+                                <span>RERA Registration No:</span>
+                                <strong>{project?.project_rera_number}</strong>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -190,17 +201,6 @@ const Properties = () => {
           </Col>
         </Row>
       </section>
-
-      <ThankYouModal
-        isOpen={showUnavailable}
-        onClose={() => {
-          setShowUnavailable(false);
-          router.push("/projects");
-        }}
-        title="Project Sold Out"
-        message="Sorry, you're a bit late this project is sold out. However, we have other exciting projects available for you to explore and invest in."
-        buttonText="Done"
-      />
     </>
   );
 };

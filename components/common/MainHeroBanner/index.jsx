@@ -1,8 +1,9 @@
 import React from "react";
 import ThemeBtn from "../Button/ThemeBtn";
+import HeroReraQrSection from "../HeroReraQrSection/HeroReraQrSection";
 import "./MainHeroBanner.css";
 import { useRouter } from "next/navigation";
-import ThankYouModal from "../ThankYouModal/ThankYouModal";
+import { useContactModal } from "../../../context/ContactModalContext";
 
 const MainHeroBanner = ({
   videoSrc,
@@ -21,7 +22,7 @@ const MainHeroBanner = ({
   reraQrSrc,
 }) => {
   const router = useRouter();
-  const [showUnavailable, setShowUnavailable] = React.useState(false);
+  const { openContactModal } = useContactModal();
 
   const redirectLink = projectLink ? projectLink : `/project/${projectId}`;
 
@@ -41,7 +42,13 @@ const MainHeroBanner = ({
       e?.preventDefault?.();
 
       if (soldoutFlag === false) {
-        setShowUnavailable(true);
+        openContactModal({
+          title: "Project Sold Out",
+          description:
+            "Sorry, you’re a bit late—this project is now sold out. However, we have several other exciting projects available for you to explore and invest in. Please fill in your details below, and our sales representative will get in touch with you shortly.",
+          type: "Sold Out",
+          project: title,
+        });
         return;
       }
 
@@ -121,6 +128,14 @@ const MainHeroBanner = ({
                     <h5 className="hero-main-subinfo text-white">{location}</h5>
                   )}
                 </div>
+                {(reraQrSrc || reraRegistrationNumber) && (
+                  <div className="d-lg-none hero-rera-mobile-wrap">
+                    <HeroReraQrSection
+                      reraQrSrc={reraQrSrc}
+                      reraRegistrationNumber={reraRegistrationNumber}
+                    />
+                  </div>
+                )}
                 {shouldShowButton && (
                   <div className="buttons mt-96">
                     <ThemeBtn
@@ -137,42 +152,15 @@ const MainHeroBanner = ({
           </div>
 
           {(reraQrSrc || reraRegistrationNumber) && (
-            <div className="hero-rera-card hero-glass-card">
-              {reraQrSrc && (
-                <div className="hero-rera-qr-wrap" aria-label="RERA QR code">
-                  <img
-                    className="hero-rera-qr"
-                    src={reraQrSrc || ""}
-                    alt="RERA QR code"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              {reraRegistrationNumber && (
-                <div className="hero-rera-meta">
-                  <div className="hero-rera-label bs-font-montserrat">
-                    RERA Registration No.
-                  </div>
-                  <div className="hero-rera-value bs-font-montserrat">
-                    {reraRegistrationNumber}
-                  </div>
-                </div>
-              )}
+            <div className="d-none d-lg-block hero-rera-desktop-wrap">
+              <HeroReraQrSection
+                reraQrSrc={reraQrSrc}
+                reraRegistrationNumber={reraRegistrationNumber}
+              />
             </div>
           )}
         </div>
       </section>
-
-      <ThankYouModal
-        isOpen={showUnavailable}
-        onClose={() => {
-          setShowUnavailable(false);
-          router.push("/projects");
-        }}
-        title="Project Sold Out"
-        message="Sorry, you're a bit late this project is sold out. However, we have other exciting projects available for you to explore and invest in."
-        buttonText="Done"
-      />
     </>
   );
 };

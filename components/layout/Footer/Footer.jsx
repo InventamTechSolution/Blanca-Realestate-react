@@ -8,12 +8,15 @@ import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
 import { useSetting } from "../../../hooks/useSetting";
 import { useCategories } from "../../../hooks/useCategories";
 import { useContactUs } from "../../../hooks/useContactUs";
+import { usePathname } from "next/navigation";
 import "./Footer.css";
 
 const logo = "/images/logos/blanca-logo.png";
 
 const Footer = () => {
   const footerRef = React.useRef(null);
+  const pathname = usePathname();
+  const [hash, setHash] = React.useState("");
   const [showThankYou, setShowThankYou] = React.useState(false);
   const [subscribeEmail, setSubscribeEmail] = React.useState("");
   const { data: settingResponse } = useSetting({ show_on_home_page: true });
@@ -113,10 +116,7 @@ const Footer = () => {
           item?.title ??
           "";
         const slug =
-          item?.category_slug ??
-          item?.career_category_slug ??
-          item?.slug ??
-          "";
+          item?.category_slug ?? item?.career_category_slug ?? item?.slug ?? "";
 
         const normalizedName = String(name).trim();
         const normalizedSlug =
@@ -183,6 +183,20 @@ const Footer = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const updateHash = () => setHash(window.location.hash || "");
+    updateHash();
+
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, [pathname]);
+
+  const setActiveHash = React.useCallback((nextHash) => {
+    setHash(nextHash || "");
+  }, []);
+
   const handleSubscribe = (e) => {
     e.preventDefault();
     const email = String(subscribeEmail || "").trim();
@@ -214,8 +228,9 @@ const Footer = () => {
                 Let's Work Together
               </h2>
               <p className="footer-description">
-                Dream home or smart investment connect with blanca today and
-                start building your future in mumbai & navi mumbai.
+                Find your dream home or smart investment with Blanca, a leading
+                real estate developer in Navi Mumbai. Explore premium
+                residential & commercial properties in Mumbai.
               </p>
 
               <div className="footer-stay-updated">
@@ -224,7 +239,9 @@ const Footer = () => {
                   <input
                     type="email"
                     value={subscribeEmail}
-                    onChange={(event) => setSubscribeEmail(event?.target?.value)}
+                    onChange={(event) =>
+                      setSubscribeEmail(event?.target?.value)
+                    }
                     placeholder="Enter your email address*"
                     required
                   />
@@ -242,23 +259,69 @@ const Footer = () => {
             {/* Footer Links */}
             <div className="footer-section footer-links-group">
               <div className="footer-links-column">
-                <h5 className="footer-title">About Us</h5>
+                <h5 className="footer-title">
+                  <Link
+                    href="/about"
+                    className="footer-title-link"
+                    onClick={() => setActiveHash("")}
+                  >
+                    About Us
+                  </Link>
+                </h5>
                 <ul className="footer-links">
                   <li>
-                    <Link href="/about#showcase-section">Value</Link>
+                    <Link
+                      href="/about#showcase-section"
+                      className={
+                        pathname === "/about" && hash === "#showcase-section"
+                          ? "is-active"
+                          : undefined
+                      }
+                      onClick={() => setActiveHash("#showcase-section")}
+                    >
+                      Value
+                    </Link>
                   </li>
                   <li>
-                    <Link href="/about#about-vision-section-four">
+                    <Link
+                      href="/about#about-vision-section-four"
+                      className={
+                        pathname === "/about" &&
+                        hash === "#about-vision-section-four"
+                          ? "is-active"
+                          : undefined
+                      }
+                      onClick={() => setActiveHash("#about-vision-section-four")}
+                    >
                       Our Vision
                     </Link>
                   </li>
                   <li>
-                    <Link href="/about#about-mission-section-four">
+                    <Link
+                      href="/about#about-mission-section-four"
+                      className={
+                        pathname === "/about" &&
+                        hash === "#about-mission-section-four"
+                          ? "is-active"
+                          : undefined
+                      }
+                      onClick={() => setActiveHash("#about-mission-section-four")}
+                    >
                       Our Mission
                     </Link>
                   </li>
                   <li>
-                    <Link href="/about">Journey of Innovation</Link>
+                    <Link
+                      href="/about#journey"
+                      className={
+                        pathname === "/about" && hash === "#journey"
+                          ? "is-active"
+                          : undefined
+                      }
+                      onClick={() => setActiveHash("#journey")}
+                    >
+                      Journey of Innovation
+                    </Link>
                   </li>
                   <li>
                     <Link href="/contact">Contact Us</Link>
@@ -270,13 +333,16 @@ const Footer = () => {
                 <h5 className="footer-title">Communities</h5>
                 <ul className="footer-links">
                   <li>
-                    <Link href="/projects">New Launches</Link>
+                    <Link href="/projects?status=new-launches">New Launches</Link>
                   </li>
                   <li>
-                    <Link href="/projects">Coming Soon</Link>
+                    <Link href="/projects?status=coming-soon">Coming Soon</Link>
                   </li>
                   <li>
-                    <Link href="/projects">Ongoing Projects</Link>
+                    <Link href="/projects?status=on-going">Ongoing Projects</Link>
+                  </li>
+                  <li>
+                    <Link href="/projects?status=completed">Completed</Link>
                   </li>
                 </ul>
               </div>
@@ -286,7 +352,9 @@ const Footer = () => {
                 <ul className="footer-links">
                   {propertyCategories?.map((category) => (
                     <li key={category?.slug}>
-                      <Link href={`/projects?filter=${encodeURIComponent(category?.slug)}`}>
+                      <Link
+                        href={`/projects?filter=${encodeURIComponent(category?.slug)}`}
+                      >
                         {category?.name}
                       </Link>
                     </li>
@@ -314,7 +382,9 @@ const Footer = () => {
                     aria-hidden="true"
                   ></span>
                   <span className="footer-highlight-text">
-                    <span className="footer-highlight-title">{item?.title}</span>
+                    <span className="footer-highlight-title">
+                      {item?.title}
+                    </span>
                     <span className="footer-highlight-subtitle">
                       {item?.subtitle}
                     </span>
