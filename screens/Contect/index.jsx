@@ -56,6 +56,13 @@ const Contact = ({ settingResponse }) => {
   const countryMenuPortal = useCountrySelectMenuPortal();
   const { mutate: sendContact, isPending } = useContactUs();
 
+  const toTelHref = React.useCallback((value) => {
+    if (!value) return "";
+    const trimmed = String(value).trim();
+    const normalized = trimmed.replace(/[^\d+]/g, "");
+    return normalized ? `tel:${normalized}` : "";
+  }, []);
+
   const settingRecord = useMemo(() => {
     return settingResponse?.data?.[0] || null;
   }, [settingResponse]);
@@ -212,9 +219,7 @@ const Contact = ({ settingResponse }) => {
                       <div className="contact-text">
                         <h5>Reach Us</h5>
                         <p>
-                          <a href={`mailto:${reachEmail}`}>
-                            {reachEmail}
-                          </a>
+                          <a href={`mailto:${reachEmail}`}>{reachEmail}</a>
                         </p>
                       </div>
                     </div>
@@ -227,7 +232,10 @@ const Contact = ({ settingResponse }) => {
                         <h5>OTHER INQUIRIES</h5>
                         {salesPhone?.map((phoneItem, index) => (
                           <p key={index}>
-                            {`${phoneItem?.number || ""} ( ${phoneItem?.title ? `${phoneItem?.title}` : ""} )`}
+                            <a href={toTelHref(phoneItem?.number)}>
+                              {phoneItem?.number || ""}
+                            </a>{" "}
+                            ( {phoneItem?.title ? `${phoneItem?.title}` : ""} )
                           </p>
                         ))}
                       </div>
@@ -357,13 +365,14 @@ const Contact = ({ settingResponse }) => {
                                   options={countryOptions}
                                   value={
                                     countryOptions.find(
-                                      (option) => option?.value === field?.value,
+                                      (option) =>
+                                        option?.value === field?.value,
                                     ) || null
                                   }
                                   onChange={(option) =>
                                     field?.onChange(option ? option?.value : "")
                                   }
-                                  placeholder="-- select one --"
+                                  placeholder="-- SELECT ONE --"
                                 />
                               </div>
                             </Field>
@@ -445,7 +454,9 @@ const Contact = ({ settingResponse }) => {
                               label={
                                 <>
                                   I've read and agree to the{" "}
-                                  <Link href="/privacy-policy">Privacy Policy</Link>
+                                  <Link href="/privacy-policy">
+                                    Privacy Policy
+                                  </Link>
                                 </>
                               }
                               checked={field?.value}

@@ -320,7 +320,7 @@ const ContactModal = () => {
                           onChange={(option) =>
                             field.onChange(option ? option.value : "")
                           }
-                          placeholder="-- select one --"
+                          placeholder="-- SELECT ONE --"
                         />
                       </div>
                     </Field>

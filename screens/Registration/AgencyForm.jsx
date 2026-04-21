@@ -62,7 +62,7 @@ const AgencyForm = ({
                 render={({ field }) => (
                   <Dropdown
                     label="Real Estate Agent Type*"
-                    placeholder="-- select one --"
+                    placeholder="-- SELECT ONE --"
                     name={field.name}
                     options={["Agency Registration", individualAgentTypeLabel]}
                     value={field.value}
@@ -293,7 +293,7 @@ const AgencyForm = ({
                         onChange={(option) =>
                           field?.onChange(option ? option?.value : "")
                         }
-                        placeholder="-- select one --"
+                        placeholder="-- SELECT ONE --"
                       />
                     </div>
                   </Field>
