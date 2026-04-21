@@ -1,5 +1,8 @@
 import Home from "@/screens/Home";
 import { getProjects } from "@/services/projectService";
+import { getSetting } from "@/services/settingService";
+import { getOtherField } from "@/services/otherFieldService";
+import { getTestimonials } from "@/services/testimonialService";
 import { HOME_PAGE_URL } from "@/utils/constant";
 import { getGlobalSeo } from "@/utils/getGlobalSeo";
 
@@ -47,13 +50,38 @@ export async function generateMetadata() {
 
 
 export default async function Page() {
-  const projectsResponse = await getProjects({
-    page: 1,
-    limit: 5,
-    sort_column: "project_home_sequence",
-    sort_order: "asc",
-    show_on_home_page: true,
-  });
+  const results = await Promise.allSettled([
+    getProjects({
+      page: 1,
+      limit: 5,
+      sort_column: "project_home_sequence",
+      sort_order: "asc",
+      show_on_home_page: true,
+    }),
+    getSetting(),
+    getOtherField(),
+    getProjects({ page: 1, limit: 50, is_active: true }),
+    getTestimonials({ page: 1, limit: 1000, isActive: true }),
+  ]);
 
-  return <Home projectsResponse={projectsResponse} />;
+  const getValue = (idx, fallback) => {
+    const res = results[idx];
+    return res?.status === "fulfilled" ? res.value : fallback;
+  };
+
+  const projectsResponse = getValue(0, { data: [] });
+  const settingResponse = getValue(1, null);
+  const otherFieldResponse = getValue(2, null);
+  const projectsListResponse = getValue(3, { data: [] });
+  const testimonialsResponse = getValue(4, { data: [] });
+
+  return (
+    <Home
+      projectsResponse={projectsResponse}
+      settingResponse={settingResponse}
+      otherFieldResponse={otherFieldResponse}
+      projectsListResponse={projectsListResponse}
+      testimonialsResponse={testimonialsResponse}
+    />
+  );
 }
