@@ -7,31 +7,35 @@ import {
   sendEnquiry,
 } from "../services/projectService";
 
-export const useProjects = (params) => {
+export const useProjects = (params, queryOptions) => {
   return useQuery({
     queryKey: ["projects", params],
     queryFn: () => getProjects(params),
+    ...(queryOptions || {}),
   });
 };
 
-export const useProjectById = (id) => {
+export const useProjectById = (id, queryOptions) => {
   return useQuery({
     queryKey: ["project", id],
     queryFn: () => getProjectById(id),
+    ...(queryOptions || {}),
   });
 };
 
-export const useProjectsWithFilter = (params) => {
+export const useProjectsWithFilter = (params, queryOptions) => {
   return useQuery({
     queryKey: ["projects-filter", params],
     queryFn: () => getProjectsWithFilter(params),
+    ...(queryOptions || {}),
   });
 };
 
-export const useProjectLocations = () => {
+export const useProjectLocations = (queryOptions) => {
   return useQuery({
     queryKey: ["project-locations"],
     queryFn: getProjectLocations,
+    ...(queryOptions || {}),
   });
 };
 

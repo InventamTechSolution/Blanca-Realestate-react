@@ -5,13 +5,17 @@ import ThemeBtn from "../../common/Button/ThemeBtn";
 import { motion as Motion } from "framer-motion";
 import { useOtherField } from "../../../hooks/useOtherField";
 
-const About = () => {
+const About = ({ initialOtherFieldResponse }) => {
   const {
     data: homeAboutResponse,
     isPending,
     isError,
     isSuccess,
-  } = useOtherField();
+  } = useOtherField({
+    enabled: !initialOtherFieldResponse,
+    initialData: initialOtherFieldResponse,
+    staleTime: 60_000,
+  });
 
   const aboutContent = React.useMemo(() => {
     const raw = homeAboutResponse;

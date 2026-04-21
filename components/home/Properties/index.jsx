@@ -13,9 +13,14 @@ import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 import { useContactModal } from "../../../context/ContactModalContext";
 import React from "react";
 
-const Properties = () => {
+const Properties = ({ initialProjectsResponse }) => {
   const router = useRouter();
-  const { data } = useProjects({ page: 1, limit: 50, is_active: true });
+  const queryParams = { page: 1, limit: 50, is_active: true };
+  const { data } = useProjects(queryParams, {
+    enabled: !initialProjectsResponse,
+    initialData: initialProjectsResponse,
+    staleTime: 60_000,
+  });
 
   const projects = data?.data || [];
 

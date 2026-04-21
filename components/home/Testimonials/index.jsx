@@ -112,11 +112,16 @@ const Avatar = ({ src, name }) => {
   );
 };
 
-const Testimonials = () => {
-  const { data, isLoading, error } = useTestimonials({
+const Testimonials = ({ initialTestimonialsResponse }) => {
+  const queryParams = {
     page: 1,
     limit: 1000,
     isActive: true,
+  };
+  const { data, isLoading, error } = useTestimonials(queryParams, {
+    enabled: !initialTestimonialsResponse,
+    initialData: initialTestimonialsResponse,
+    staleTime: 60_000,
   });
 
   const testimonials = useMemo(() => data?.data ?? [], [data]);

@@ -1,30 +1,23 @@
 "use client";
 
 import React from "react";
-import dynamic from "next/dynamic";
 
 import ScrollToTop from "../../components/common/ScrollToTop";
 import MainHeroBanner from "../../components/common/MainHeroBanner";
 import { PROJECT_STATUS_LABELS } from "../../utils/constant";
+import Hero from "../../components/home/Hero";
+import About from "../../components/home/About";
+import Properties from "../../components/home/Properties";
+import WhyChooseUs from "../../components/home/WhyChooseUs";
+import Testimonials from "../../components/home/Testimonials";
 
-const Hero = dynamic(() => import("../../components/home/Hero"), {
-  ssr: false,
-});
-const About = dynamic(() => import("../../components/home/About"), {
-  ssr: false,
-});
-const Properties = dynamic(() => import("../../components/home/Properties"), {
-  ssr: false,
-});
-const Testimonials = dynamic(
-  () => import("../../components/home/Testimonials"),
-  { ssr: false },
-);
-const WhyChooseUs = dynamic(() => import("../../components/home/WhyChooseUs"), {
-  ssr: false,
-});
-
-const Home = ({ projectsResponse }) => {
+const Home = ({
+  projectsResponse,
+  settingResponse,
+  otherFieldResponse,
+  projectsListResponse,
+  testimonialsResponse,
+}) => {
   const projects = projectsResponse?.data || [];
 
   return (
@@ -55,11 +48,11 @@ const Home = ({ projectsResponse }) => {
           <div style={{ height: "100vh", background: "#111" }} />
         )}
 
-        <Hero />
-        <About />
-        <Properties />
+        <Hero initialSettingResponse={settingResponse} />
+        <About initialOtherFieldResponse={otherFieldResponse} />
+        <Properties initialProjectsResponse={projectsListResponse} />
         <WhyChooseUs />
-        <Testimonials />
+        <Testimonials initialTestimonialsResponse={testimonialsResponse} />
       </main>
 
       <ScrollToTop />

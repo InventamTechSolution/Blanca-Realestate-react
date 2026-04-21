@@ -18,8 +18,12 @@ export const employeeVideo = "/videos/employee-video.mp4";
 
 const FOUNDING_YEAR = 1981;
 
-const Hero = () => {
-  const { data: settingResponse } = useSetting();
+const Hero = ({ initialSettingResponse }) => {
+  const { data: settingResponse } = useSetting(undefined, {
+    enabled: !initialSettingResponse,
+    initialData: initialSettingResponse,
+    staleTime: 60_000,
+  });
   const yearsOfExpertise = new Date().getFullYear() - FOUNDING_YEAR;
 
   const statsData = React.useMemo(() => {
