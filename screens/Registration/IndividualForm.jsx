@@ -21,7 +21,7 @@ const IndividualForm = ({
 
   const handleNextStep = React.useCallback(async () => {
     const isValid = await trigger(
-      ["agentType", "fullname", "phone", "email", "address"],  
+      ["agentType", "fullname", "phone", "email", "address"],
       { shouldFocus: true },
     );
 
@@ -47,7 +47,7 @@ const IndividualForm = ({
                 render={({ field }) => (
                   <Dropdown
                     label="Real Estate Agent Type*"
-                    placeholder="-- select one --"
+                    placeholder="-- SELECT ONE --"
                     name={field?.name}
                     options={["Agency Registration", individualAgentTypeLabel]}
                     value={field?.value}
@@ -125,7 +125,7 @@ const IndividualForm = ({
                 render={({ field }) => (
                   <Dropdown
                     label="How did you hear about us? *"
-                    placeholder="-- select one --"
+                    placeholder="-- SELECT ONE --"
                     name={field?.name}
                     options={["Friends", "Family", "Others"]}
                     value={field?.value}
