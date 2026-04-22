@@ -322,6 +322,11 @@ const Header = () => {
                           Leadership
                         </Link>
                       </li>
+                      <li>
+                        <Link href="/blog" onClick={closeMenus}>
+                          Blog
+                        </Link>
+                      </li>
                     </ul>
                   </li>
 
@@ -527,6 +532,11 @@ const Header = () => {
                           <li>
                             <Link href="/about#leadership" onClick={closeMenus}>
                               Leadership
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/blog" onClick={closeMenus}>
+                              Blog
                             </Link>
                           </li>
                         </ul>

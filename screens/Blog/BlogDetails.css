@@ -1,0 +1,236 @@
+.blog-details {
+  background: rgba(19, 20, 18, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 60px 0 30px;
+}
+
+.blog-details-row {
+  align-items: flex-start;
+}
+
+.blog-share-col {
+  position: relative;
+}
+
+.blog-article-inner {
+  max-width: 760px;
+  padding-top: 10px;
+}
+
+.blog-article-h3 {
+  margin: 18px 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lg-text);
+  letter-spacing: 0px;
+}
+
+.blog-article-h4 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--lg-text);
+  letter-spacing: 0px;
+}
+
+.blog-article-media {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.blog-article-media img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  display: block;
+}
+
+.blog-share-card {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--lg-highlight);
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 18px 18px 16px;
+  position: sticky;
+  top: 120px;
+}
+
+.blog-share-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--lg-text);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.blog-share-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.blog-share-icon {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: var(--lg-text);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.blog-share-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.blog-share-icon:hover {
+  color: var(--primary-color);
+}
+
+.related-blogs {
+  background: rgba(19, 20, 18, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 44px 0 80px;
+}
+
+.related-blogs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.related-blogs-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.related-blogs-title-bar {
+  width: 2px;
+  height: 22px;
+  background: var(--primary-color);
+  display: inline-block;
+}
+
+.related-blogs-title h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0px;
+  text-transform: none;
+  color: var(--lg-text);
+  font-weight: 600;
+}
+
+.related-blogs-cta {
+  padding: 14px 24px !important;
+  min-height: unset !important;
+  line-height: 1 !important;
+}
+
+.related-card {
+  background: transparent;
+}
+
+.related-card-media {
+  display: block;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.related-card-media img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.related-card-media:hover img {
+  transform: scale(1.03);
+}
+
+.related-card-body {
+  padding: 12px 0 0;
+}
+
+.related-card-date {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--black-30);
+  letter-spacing: 0px;
+  text-transform: none;
+  margin-bottom: 6px;
+}
+
+.related-card-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: none;
+  color: var(--lg-text);
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.related-card-title:hover {
+  color: var(--primary-color);
+}
+
+.related-card-excerpt {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--black-30);
+}
+
+.related-card-more {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  text-transform: none;
+  color: var(--lg-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.related-card-more:hover {
+  color: var(--primary-color);
+}
+
+.related-blogs-back {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+@media (max-width: 991px) {
+  .blog-article-inner {
+    max-width: 100%;
+  }
+
+  .blog-share-card {
+    margin-top: 20px;
+    position: static;
+  }
+
+  .blog-article-media img {
+    height: 260px;
+  }
+
+  .related-card-media img {
+    height: 200px;
+  }
+}
+
