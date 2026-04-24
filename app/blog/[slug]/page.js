@@ -6,9 +6,10 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
+
+  const { slug } = await params;
   const BASE_URL = HOME_PAGE_URL;
   const { title, description, LOGO_URL } = await getGlobalSeo();
-  const slug = params?.slug ? String(params.slug) : "";
 
   return {
     metadataBase: new URL(BASE_URL),
@@ -44,7 +45,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function Page({ params }) {
-  return <BlogDetails slug={params?.slug} />;
+export default async function Page({ params }) {
+  const { slug } = await params;
+  return <BlogDetails slug={slug} />;
 }
 

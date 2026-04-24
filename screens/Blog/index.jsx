@@ -5,130 +5,101 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import SmallHeroBanner from "../../components/common/Small-hero-banner";
 import ThemeBtn from "../../components/common/Button/ThemeBtn";
+import Preloader from "../../components/common/Preloader";
+import { useBlogs } from "../../hooks/useBlog";
 import "./Blog.css";
 
 const BLOG_BG = "/images/background/career-bg.jpg";
 
-const POSTS = [
-  {
-    id: "meydan-horizon-vs-dubai-islands",
-    title:
-      "Meydan Horizon vs. Dubai Islands: Which community fits your lifestyle?",
-    excerpt:
-      "Explore Meydan Horizon vs. Dubai Islands and compare central connectivity, property pricing, and long‑term potential with Imtiaz Developments.",
-    image: "/images/background/project-listing-bg.png",
-  },
-  {
-    id: "dubai-golden-visa-guide",
-    title:
-      "Dubai Golden Visa guide for property investors - check eligibility, requirements and benefits",
-    excerpt:
-      "Secure your 10‑year Dubai Golden Visa through competitive property options. Discover the process, requirements, and benefits.",
-    image: "/images/background/slider-1.png",
-  },
-  {
-    id: "buying-property-pros-cons",
-    title: "Buying property in Dubai: pros and cons revealed",
-    excerpt:
-      "Thinking about investing in Dubai? Discover the key pros, common pitfalls, and what to consider before you buy.",
-    image: "/images/background/slider-2.png",
-  },
-  {
-    id: "uae-us-visa-update",
-    title: "UAE & US travel/visa updates: what buyers should know",
-    excerpt:
-      "Stay up to date with practical travel and visa notes that impact investor timelines and planning.",
-    image: "/images/background/review2.png",
-  },
-  {
-    id: "smart-investment-checklist",
-    title: "Smart investment checklist for first‑time buyers in Dubai",
-    excerpt:
-      "A quick checklist to help you evaluate developers, communities, documentation, and return potential.",
-    image: "/images/background/about-top-bg.jpg",
-  },
-  {
-    id: "rera-explained",
-    title: "RERA explained: confidence in every transaction",
-    excerpt:
-      "A simple overview of RERA and why it matters for transparency, escrow safety, and investor confidence.",
-    image: "/images/background/privacy-policy.png",
-  },
-];
-
-const PER_PAGE = 2;
+const PER_PAGE = 6;
 
 export default function Blog() {
   const [page, setPage] = React.useState(1);
 
-  const totalPages = Math.max(1, Math.ceil(POSTS.length / PER_PAGE));
-  const safePage = Math.min(Math.max(1, page), totalPages);
-  const start = (safePage - 1) * PER_PAGE;
-  const visiblePosts = POSTS.slice(start, start + PER_PAGE);
+  const { data, isLoading } = useBlogs({
+    offset: page,
+    limit: PER_PAGE,
+  });
 
-  React.useEffect(() => {
-    if (page !== safePage) setPage(safePage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [safePage]);
+  const apiBlogs = data?.data || [];
+  const totalRecords = data?.totalCount || 0;
+  const totalPages = Math.ceil(totalRecords / PER_PAGE);
 
   return (
     <div className="blog-page">
+      {isLoading && <Preloader isLoading={isLoading} />}
       <main>
         <SmallHeroBanner title="Our Blogs" image={BLOG_BG} />
 
         <section className="blog-listing">
           <Container>
             <div className="blog-listing-inner">
-              {visiblePosts.map((post, index) => {
-                const isImageLeft = index % 2 === 0;
+              {apiBlogs.length > 0
+                ? apiBlogs.map((post, index) => {
+                    const isImageLeft = index % 2 === 0;
 
-                const ImageCol = (
-                  <Col lg={7} className="blog-card-media">
-                    <div className="blog-card-media-inner">
-                      <img src={post.image} alt={post.title} />
-                      <div className="blog-card-vs">VS</div>
-                    </div>
-                  </Col>
-                );
+                    const ImageCol = (
+                      <Col lg={7} className="blog-card-media">
+                        <div className="blog-card-media-inner">
+                          <img
+                            src={
+                              post.blog_card_image ||
+                              "/images/background/project-listing-bg.png"
+                            }
+                            alt={post.blog_title}
+                          />
+                          {/* <div className="blog-card-vs">VS</div> */}
+                        </div>
+                      </Col>
+                    );
 
-                const ContentCol = (
-                  <Col lg={5} className="blog-card-content">
-                    <div className="blog-card-content-inner">
-                      <h3 className="blog-card-title bs-font-playfair-display text-white">
-                        {post.title}
-                      </h3>
-                      <div className="project-description-text blog-card-excerpt">
-                        {post.excerpt}
-                      </div>
-                      <ThemeBtn
-                        to={`/blog/${post.id}`}
-                        className="blog-learn-more"
+                    const ContentCol = (
+                      <Col lg={5} className="blog-card-content">
+                        <div className="blog-card-content-inner">
+                          <h3 className="blog-card-title bs-font-playfair-display text-white">
+                            {post.blog_title}
+                          </h3>
+                          <div className="project-description-text blog-card-excerpt line-clamp-2">
+                            {post.blog_description}
+                          </div>
+                          {/* <div
+                          className="project-description-text blog-card-excerpt"
+                          dangerouslySetInnerHTML={{ __html: post.blog_short_description }}
+                        /> */}
+                          <ThemeBtn
+                            to={`/blog/${post.blog_slug}`}
+                            className="blog-learn-more"
+                          >
+                            Learn more
+                          </ThemeBtn>
+                        </div>
+                      </Col>
+                    );
+
+                    return (
+                      <Row
+                        key={post.blog_id || `blog-${index}`}
+                        className={`blog-card-row ${isImageLeft ? "is-image-left" : "is-image-right"}`}
                       >
-                        Learn more
-                      </ThemeBtn>
+                        {isImageLeft ? (
+                          <>
+                            {ImageCol}
+                            {ContentCol}
+                          </>
+                        ) : (
+                          <>
+                            {ContentCol}
+                            {ImageCol}
+                          </>
+                        )}
+                      </Row>
+                    );
+                  })
+                : !isLoading && (
+                    <div className="text-center py-5">
+                      <h3 className="text-white">No blogs found.</h3>
                     </div>
-                  </Col>
-                );
-
-                return (
-                  <Row
-                    key={post.id}
-                    className={`blog-card-row ${isImageLeft ? "is-image-left" : "is-image-right"}`}
-                  >
-                    {isImageLeft ? (
-                      <>
-                        {ImageCol}
-                        {ContentCol}
-                      </>
-                    ) : (
-                      <>
-                        {ContentCol}
-                        {ImageCol}
-                      </>
-                    )}
-                  </Row>
-                );
-              })}
+                  )}
 
               {totalPages > 1 && (
                 <nav
@@ -137,9 +108,9 @@ export default function Blog() {
                 >
                   <button
                     type="button"
-                    className={`pagination-btn ${safePage === 1 ? "disabled" : ""}`}
-                    onClick={() => safePage > 1 && setPage(safePage - 1)}
-                    disabled={safePage === 1}
+                    className={`pagination-btn ${page === 1 ? "disabled" : ""}`}
+                    onClick={() => page > 1 && setPage(page - 1)}
+                    disabled={page === 1}
                     aria-label="Previous page"
                   >
                     <Icon icon="lucide:chevron-left" />
@@ -148,7 +119,7 @@ export default function Blog() {
                   <div className="page-numbers d-flex gap-2 align-items-center flex-wrap justify-content-center">
                     {Array.from({ length: totalPages }, (_, idx) => {
                       const p = idx + 1;
-                      const active = p === safePage;
+                      const active = p === page;
                       return (
                         <button
                           key={p}
@@ -165,11 +136,9 @@ export default function Blog() {
 
                   <button
                     type="button"
-                    className={`pagination-btn ${safePage === totalPages ? "disabled" : ""}`}
-                    onClick={() =>
-                      safePage < totalPages && setPage(safePage + 1)
-                    }
-                    disabled={safePage === totalPages}
+                    className={`pagination-btn ${page === totalPages ? "disabled" : ""}`}
+                    onClick={() => page < totalPages && setPage(page + 1)}
+                    disabled={page === totalPages}
                     aria-label="Next page"
                   >
                     <Icon icon="lucide:chevron-right" />

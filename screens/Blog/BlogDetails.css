@@ -17,6 +17,11 @@
   padding-top: 10px;
 }
 
+.blog-overview {
+  margin-bottom: 30px !important;
+  white-space: pre-line;
+}
+
 .blog-article-h3 {
   margin: 18px 0 8px;
   font-size: 14px;
@@ -139,6 +144,16 @@
 
 .related-card {
   background: transparent;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.related-card-body {
+  padding: 12px 0 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .related-card-media {
@@ -188,10 +203,11 @@
 }
 
 .related-card-excerpt {
-  margin: 0 0 10px;
+  margin: 0 0 20px;
   font-size: 14px;
   line-height: 1.6;
   color: var(--black-30);
+  min-height: 44px; /* Approximate height for 2 lines */
 }
 
 .related-card-more {
@@ -233,4 +249,3 @@
     height: 200px;
   }
 }
-
