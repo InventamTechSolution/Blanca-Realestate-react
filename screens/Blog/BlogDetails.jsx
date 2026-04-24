@@ -15,7 +15,7 @@ const BLOG_BG = "/images/background/career-bg.jpg";
 
 export default function BlogDetails({ slug }) {
   const router = useRouter();
-  
+
   const { data: blogResponse, isLoading: isBlogLoading } = useBlogBySlug(slug);
   const blog = blogResponse?.data;
 
@@ -23,7 +23,9 @@ export default function BlogDetails({ slug }) {
     limit: 6,
     // is_active: true,
   });
-  const related = (relatedResponse?.data || []).filter(item => item.blog_slug !== slug);
+  const related = (relatedResponse?.data || []).filter(
+    (item) => item.blog_slug !== slug,
+  );
 
   const isLoading = isBlogLoading || isRelatedLoading;
 
@@ -67,7 +69,7 @@ export default function BlogDetails({ slug }) {
       <main>
         <SmallHeroBanner
           title={blog?.blog_title || "Blog"}
-          image={BLOG_BG}
+          image={blog?.blog_banner_image || BLOG_BG}
         />
 
         <section className="blog-details">
@@ -79,19 +81,18 @@ export default function BlogDetails({ slug }) {
                     {blog?.blog_overview}
                   </div>
 
-                  <div 
+                  <div
                     className="project-description-text"
-                    dangerouslySetInnerHTML={{ __html: blog?.blog_content_html }}
+                    dangerouslySetInnerHTML={{
+                      __html: blog?.blog_content_html,
+                    }}
                   />
 
-                  {blog?.blog_banner_image && (
+                  {/* {blog?.blog_banner_image && (
                     <div className="blog-article-media mt-40">
-                      <img
-                        src={blog.blog_banner_image}
-                        alt={blog.blog_title}
-                      />
+                      <img src={blog.blog_banner_image} alt={blog.blog_title} />
                     </div>
-                  )}
+                  )} */}
                 </div>
               </Col>
 
@@ -145,7 +146,12 @@ export default function BlogDetails({ slug }) {
 
               <Row className="related-blogs-grid">
                 {related.map((item, index) => (
-                  <Col key={item.blog_id || `related-${index}`} lg={4} md={6} className="mb-4">
+                  <Col
+                    key={item.blog_id || `related-${index}`}
+                    lg={4}
+                    md={6}
+                    className="mb-4"
+                  >
                     <div className="related-card">
                       <Link
                         href={`/blog/${item.blog_slug}`}
@@ -156,11 +162,14 @@ export default function BlogDetails({ slug }) {
 
                       <div className="related-card-body">
                         <div className="related-card-date">
-                          {new Date(item.blog_published_at).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
+                          {new Date(item.blog_published_at).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            },
+                          )}
                         </div>
                         <Link
                           href={`/blog/${item.blog_slug}`}
@@ -199,4 +208,3 @@ export default function BlogDetails({ slug }) {
     </div>
   );
 }
-
