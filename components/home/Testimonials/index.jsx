@@ -72,7 +72,6 @@ const formatDate = (input, locale = "en-US") => {
   });
 };
 
-
 const Avatar = ({ src, name }) => {
   const [failed, setFailed] = useState(false);
 
@@ -127,7 +126,9 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
   const testimonials = useMemo(() => data?.data ?? [], [data]);
   const overall = useMemo(() => {
     const apiCount = Number(data?.totalCount);
-    const count = Number.isFinite(apiCount) ? apiCount : testimonials?.length ?? 0;
+    const count = Number.isFinite(apiCount)
+      ? apiCount
+      : (testimonials?.length ?? 0);
 
     if (!Array.isArray(testimonials) || testimonials.length === 0) {
       return { count, average: 0 };
@@ -156,21 +157,25 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
   const renderStars = (rating) => {
     const stars = [];
     const full = Math.floor(Number(rating) || 0);
-  
+
     for (let i = 1; i <= 5; i++) {
       stars.push(
         <Icon
           key={i}
-          icon={i <= full ? "material-symbols:star" : "material-symbols:star-outline"}
+          icon={
+            i <= full
+              ? "material-symbols:star"
+              : "material-symbols:star-outline"
+          }
           className={
             i <= full
               ? "testimonials-modern__star testimonials-modern__star--filled"
               : "testimonials-modern__star testimonials-modern__star--empty"
           }
-        />
+        />,
       );
     }
-  
+
     return stars;
   };
 
@@ -186,7 +191,7 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
             key={i}
             icon="material-symbols:star"
             className="testimonials-modern__star testimonials-modern__star--filled"
-          />
+          />,
         );
         continue;
       }
@@ -197,7 +202,7 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
             key={i}
             icon="material-symbols:star-half"
             className="testimonials-modern__star testimonials-modern__star--filled"
-          />
+          />,
         );
         continue;
       }
@@ -207,7 +212,7 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
           key={i}
           icon="material-symbols:star-outline"
           className="testimonials-modern__star testimonials-modern__star--empty"
-        />
+        />,
       );
     }
 
@@ -218,14 +223,11 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
     <section className="reviews2-area">
       <Container>
         <Row className="align-items-center g-4">
-
           {/* Section Title */}
           <Col lg={3}>
             <div className="section-title testimonials-modern__content mb-32">
               <div className="main-title-badge">
-                <span className="sub-title common-subtitle">
-                  Testimonials
-                </span>
+                <span className="sub-title common-subtitle">Testimonials</span>
               </div>
 
               <Motion.h2
@@ -239,23 +241,27 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
               </Motion.h2>
 
               <p className="testimonials-modern__text">
-                Real stories from end-users and investors across Mumbai and
-                Navi Mumbai who trust Blanca to deliver quality construction,
-                transparent processes, and lasting real estate value.
+                Real stories and testimonials from homeowners and investors
+                across Mumbai and Navi Mumbai who trust Blanca, a leading real
+                estate developer, for quality construction, transparent
+                processes, timely delivery, and high-value property investment
+                with lasting real estate value.
               </p>
 
               {overall.count > 0 && (
                 <div
                   className="testimonials-modern__overall"
                   aria-label={`Overall rating ${overall.average.toFixed(
-                    1
+                    1,
                   )} out of 5 based on ${overall.count} reviews`}
                 >
                   <div className="testimonials-modern__overall-score">
                     <span className="testimonials-modern__overall-value">
                       {overall.average.toFixed(1)}
                     </span>
-                    <span className="testimonials-modern__overall-outof">/5</span>
+                    <span className="testimonials-modern__overall-outof">
+                      /5
+                    </span>
                   </div>
 
                   <div className="testimonials-modern__overall-stars">
@@ -282,7 +288,9 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
                 modules={[Pagination, Autoplay]}
                 pagination={{ clickable: true }}
                 autoplay={
-                  shouldLoop ? { delay: 5000, disableOnInteraction: false } : false
+                  shouldLoop
+                    ? { delay: 5000, disableOnInteraction: false }
+                    : false
                 }
                 loop={shouldLoop}
                 watchOverflow={true}
@@ -305,7 +313,6 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
                     <SwiperSlide key={testimonial?.id}>
                       <div className="testimonials-modern__card">
                         <div className="testimonials-modern__card-top">
-
                           {/* Avatar */}
                           <div className="testimonials-modern__avatar">
                             <Avatar

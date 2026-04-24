@@ -67,16 +67,19 @@ const Properties = ({ initialProjectsResponse }) => {
               </h2>
 
               <p className="about-modern__text">
-                Discover premium residential/commercial developments by Blanca
-                in Mumbai and Navi Mumbai, where contemporary design blends
-                seamlessly with everyday comfort and accessible luxury.
+                Discover premium residential and commercial projects in Navi
+                Mumbai and Mumbai by Blanca, a trusted real estate developer.
+                Explore luxury apartments, modern office spaces, and
+                high-visibility retail shops offering high-value real estate
+                investment opportunities.
               </p>
 
               <p className="about-modern__text">
-                Each property is thoughtfully planned to support your evolving
-                lifestyle, long term aspirations, and future growth{" "}
+                Designed for modern living, seamless connectivity, future
+                growth, and long-term returns, each development features
+                thoughtfully planned spaces{" "}
                 <span className="bs-font-Marjorie-italic">
-                  creating addresses that offer both value and pride of
+                  that deliver comfort, accessibility, and a lasting pride of
                   ownership.
                 </span>
               </p>
