@@ -8,10 +8,8 @@ export const getProjects = async (params) => {
 export const getProjectBySlug = async (slug) => {
   try {
     const { data } = await axiosInstance.get(`/project/slug/${slug}`);
-    console.log("🚀 ~ getProjectBySlug ~ data:", data);
     return data;
   } catch (error) {
-    console.log("🚀 ~ getProjectBySlug ~ error:", error);
     return null;
   }
 };
