@@ -31,7 +31,9 @@ const MainHeroBanner = ({
 
   const redirectLink = projectLink
     ? formatExternalLink(projectLink)
-    : `/project/${projectId}`;
+    : isHomePage
+      ? `/project/${projectId}?is_home=true`
+      : `/project/${projectId}`;
 
   const shouldShowButton = isHomePage || (!isHomePage && projectLink);
 
@@ -63,7 +65,7 @@ const MainHeroBanner = ({
         return;
       }
 
-      router.push(`/project/${projectId}`);
+      router.push(`/project/${projectId}?is_home=true`);
       return;
     }
 

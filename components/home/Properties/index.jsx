@@ -27,11 +27,10 @@ const Properties = ({ initialProjectsResponse }) => {
   const { openContactModal } = useContactModal();
 
   const handleOpenProject = (project) => {
-    const isSoldoutFlag =
-      project?.project_is_soldout ?? project?.is_soldout ?? null;
+    const isSoldoutFlag = project?.status === "sold-out";
 
     // Requirement: if soldout is false, show popup instead of navigating.
-    if (isSoldoutFlag === false) {
+    if (isSoldoutFlag) {
       openContactModal({
         title: "Project Sold Out",
         description:
@@ -42,7 +41,7 @@ const Properties = ({ initialProjectsResponse }) => {
       return;
     }
 
-    router.push(`/project/${project?.project_slug}`);
+    router.push(`/project/${project?.project_slug}?is_home=true`);
   };
 
   return (

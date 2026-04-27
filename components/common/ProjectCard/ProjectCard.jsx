@@ -58,7 +58,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
     e?.stopPropagation?.();
 
     // Requirement: if `project_is_soldout` is false, show popup instead.
-    if (project?.project_is_soldout === false) {
+    if (project?.status === "sold-out") {
       openContactModal({
         title: "Project Sold Out",
         description:

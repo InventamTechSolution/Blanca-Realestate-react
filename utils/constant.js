@@ -6,7 +6,8 @@ export const HOME_PAGE_URL = process.env.NEXT_PUBLIC_HOME_PAGE_URL;
 
 export const UPLOAD_BASE_URL = BASE_API_URL || "";
 
-export const WEBSITE_MAIN_LOGO = "https://be.blanca.co.in/uploads/images/blanca-logo.png";
+export const WEBSITE_MAIN_LOGO =
+  "https://be.blanca.co.in/uploads/images/blanca-logo.png";
 
 export const DEFAULT_META_TITLE = "Blanca Real Estate - Luxury at Affordable";
 
@@ -25,6 +26,6 @@ export const PROJECT_STATUS_LABELS = {
   "new-launches": "New Launch",
   "coming-soon": "Coming Soon",
   "on-going": "Ongoing",
-  completed: "Completed",
   "sold-out": "Sold Out",
+  // completed: "Completed",
 };

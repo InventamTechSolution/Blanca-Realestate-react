@@ -291,7 +291,9 @@ const Footer = () => {
                           ? "is-active"
                           : undefined
                       }
-                      onClick={() => setActiveHash("#about-vision-section-four")}
+                      onClick={() =>
+                        setActiveHash("#about-vision-section-four")
+                      }
                     >
                       Our Vision
                     </Link>
@@ -305,7 +307,9 @@ const Footer = () => {
                           ? "is-active"
                           : undefined
                       }
-                      onClick={() => setActiveHash("#about-mission-section-four")}
+                      onClick={() =>
+                        setActiveHash("#about-mission-section-four")
+                      }
                     >
                       Our Mission
                     </Link>
@@ -333,16 +337,20 @@ const Footer = () => {
                 <h5 className="footer-title">Communities</h5>
                 <ul className="footer-links">
                   <li>
-                    <Link href="/projects?status=new-launches">New Launches</Link>
+                    <Link href="/projects?status=new-launches">
+                      New Launches
+                    </Link>
                   </li>
                   <li>
                     <Link href="/projects?status=coming-soon">Coming Soon</Link>
                   </li>
                   <li>
-                    <Link href="/projects?status=on-going">Ongoing Projects</Link>
+                    <Link href="/projects?status=on-going">
+                      Ongoing Projects
+                    </Link>
                   </li>
                   <li>
-                    <Link href="/projects?status=completed">Completed</Link>
+                    <Link href="/projects?status=sold-out">Sold Out</Link>
                   </li>
                 </ul>
               </div>
