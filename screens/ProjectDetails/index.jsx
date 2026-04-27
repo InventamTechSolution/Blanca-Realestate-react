@@ -170,6 +170,7 @@ const ProjectDetails = ({ project }) => {
           title={project?.project_name}
           location={`${project?.categories?.[0]?.category_name} - ${project?.project_location}`}
           projectLink={project?.project_link}
+          projectId={project?.project_slug}
           reraRegistrationNumber={project?.project_rera_number}
           reraQrSrc={project?.project_qr_code}
         />

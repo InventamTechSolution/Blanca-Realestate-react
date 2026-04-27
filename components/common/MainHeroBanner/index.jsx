@@ -24,7 +24,14 @@ const MainHeroBanner = ({
   const router = useRouter();
   const { openContactModal } = useContactModal();
 
-  const redirectLink = projectLink ? projectLink : `/project/${projectId}`;
+  const formatExternalLink = (url) => {
+    if (!url) return "";
+    return url.startsWith("http") ? url : `https://${url}`;
+  };
+
+  const redirectLink = projectLink
+    ? formatExternalLink(projectLink)
+    : `/project/${projectId}`;
 
   const shouldShowButton = isHomePage || (!isHomePage && projectLink);
 
@@ -36,8 +43,12 @@ const MainHeroBanner = ({
         : projectIsSoldout;
 
   const handleViewMore = (e) => {
-    // If this is the homepage hero button, enforce the same soldout validation
-    // used in `components/home/Properties`.
+    // If there's a projectLink, we allow the default behavior (opening in a new tab via target="_blank")
+    if (projectLink) {
+      return;
+    }
+
+    // If this is the homepage hero button and no projectLink, enforce soldout validation
     if (isHomePage) {
       e?.preventDefault?.();
 
@@ -56,8 +67,8 @@ const MainHeroBanner = ({
       return;
     }
 
-    // For non-home usage, keep existing link behavior.
-    if (!projectLink && redirectLink) {
+    // For non-home usage (e.g. project detail page), if there's no projectLink but redirectLink exists
+    if (redirectLink) {
       e?.preventDefault?.();
       router.push(redirectLink);
     }
@@ -142,6 +153,8 @@ const MainHeroBanner = ({
                       to={redirectLink}
                       onClick={handleViewMore}
                       className="bs-font-montserrat"
+                      target={projectLink ? "_blank" : undefined}
+                      rel={projectLink ? "noopener noreferrer" : undefined}
                     >
                       {buttonText}
                     </ThemeBtn>
