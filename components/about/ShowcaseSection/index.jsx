@@ -4,6 +4,7 @@ import {
   useMemo,
   useRef,
   useState,
+  useCallback,
 } from "react";
 // import { Container } from "react-bootstrap";
 import { gsap } from "gsap";
@@ -25,15 +26,94 @@ const ShowcaseSection = ({ slides = [] }) => {
     );
   }, [slides]);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % validSlides.length);
-  };
+  }, [validSlides.length]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentIndex((prev) =>
       (prev - 1 + validSlides.length) % validSlides.length,
     );
+  }, [validSlides.length]);
+
+  const isLocked = useRef(false);
+  const touchStartY = useRef(0);
+
+  const lockScrolling = () => {
+    isLocked.current = true;
+    setTimeout(() => {
+      isLocked.current = false;
+    }, 800); // Cooldown for smooth transitions
   };
+
+  useEffect(() => {
+    if (validSlides.length <= 1) return;
+
+    const handleWheel = (e) => {
+      if (isLocked.current) return;
+
+      const { deltaY } = e;
+      if (Math.abs(deltaY) < 30) return;
+
+      if (deltaY > 0) {
+        // Scrolling down
+        if (currentIndex < validSlides.length - 1) {
+          e.preventDefault();
+          nextSlide();
+          lockScrolling();
+        }
+      } else {
+        // Scrolling up
+        if (currentIndex > 0) {
+          e.preventDefault();
+          prevSlide();
+          lockScrolling();
+        }
+      }
+    };
+
+    const handleTouchStart = (e) => {
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e) => {
+      if (isLocked.current) return;
+
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartY.current - touchEndY;
+
+      if (Math.abs(deltaY) < 50) return;
+
+      if (deltaY > 0) {
+        // Swipe up (scroll down)
+        if (currentIndex < validSlides.length - 1) {
+          nextSlide();
+          lockScrolling();
+        }
+      } else {
+        // Swipe down (scroll up)
+        if (currentIndex > 0) {
+          prevSlide();
+          lockScrolling();
+        }
+      }
+    };
+
+    const section = sectionRef.current;
+    if (section) {
+      section.addEventListener("wheel", handleWheel, { passive: false });
+      section.addEventListener("touchstart", handleTouchStart, { passive: true });
+      section.addEventListener("touchend", handleTouchEnd, { passive: true });
+    }
+
+    return () => {
+      if (section) {
+        section.removeEventListener("wheel", handleWheel);
+        section.removeEventListener("touchstart", handleTouchStart);
+        section.removeEventListener("touchend", handleTouchEnd);
+      }
+    };
+  }, [currentIndex, validSlides.length, nextSlide, prevSlide]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
