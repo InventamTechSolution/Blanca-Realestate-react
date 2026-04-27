@@ -194,7 +194,7 @@ const Properties = ({ initialProjectsResponse }) => {
                             </div>
                             {project?.project_rera_number && (
                               <div>
-                                <span>RERA Registration No:</span>
+                                <span>RERA:</span>
                                 <strong>{project?.project_rera_number}</strong>
                               </div>
                             )}
