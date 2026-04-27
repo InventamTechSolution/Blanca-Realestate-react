@@ -80,7 +80,7 @@ const JobApplyModal = ({ isOpen, onClose, job, categories }) => {
     async (data) => {
       const payload = {
         career_category_id: data.position,
-        fullname: data.fullName,
+        fullname: data.fullName?.trim(),
         email: data.email,
         phone_number: data.phoneNumber,
         current_ctc: data.currentCtc,

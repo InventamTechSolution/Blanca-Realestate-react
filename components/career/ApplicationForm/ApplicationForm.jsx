@@ -35,6 +35,10 @@ const ApplicationForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const submittedData = {
+            ...formData,
+            fullName: formData.fullName.trim()
+        };
         // Add submission logic here
         setShowThankYou(true);
     };

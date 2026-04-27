@@ -3,7 +3,7 @@ import { REGEX } from "../utils/regex";
 
 export const enquirySchema = yup.object().shape({
   project_id: yup.string().nullable(),
-  name: yup.string().required("Full name is required").matches(REGEX.fullName, "Full name should contain only letters and spaces"),
+  name: yup.string().required("Full name is required").trim().matches(REGEX.fullName, "Full name should contain only letters and spaces"),
   email: yup
     .string()
     .required("Email is required")
@@ -19,8 +19,8 @@ export const enquirySchema = yup.object().shape({
 });
 
 export const contactSchema = yup.object().shape({
-  firstName: yup.string().required("First name is required").matches(REGEX.name, "First name should contain only letters"),
-  lastName: yup.string().required("Last name is required").matches(REGEX.name, "Last name should contain only letters"),
+  firstName: yup.string().required("First name is required").trim().matches(REGEX.name, "First name should contain only letters"),
+  lastName: yup.string().required("Last name is required").trim().matches(REGEX.name, "Last name should contain only letters"),
   email: yup.string().required("Email is required").matches(REGEX.email, "Please enter a valid email"),
   phone: yup.string().required("Phone number is required").matches(REGEX.phone, "Please enter a valid phone number"),
   country: yup.string().required("Country is required"),
@@ -31,8 +31,8 @@ export const contactSchema = yup.object().shape({
 });
 
 export const contactModalSchema = yup.object().shape({
-  firstName: yup.string().required("First name is required").matches(REGEX.name, "First name should contain only letters"),
-  lastName: yup.string().required("Last name is required").matches(REGEX.name, "Last name should contain only letters"),
+  firstName: yup.string().required("First name is required").trim().matches(REGEX.name, "First name should contain only letters"),
+  lastName: yup.string().required("Last name is required").trim().matches(REGEX.name, "Last name should contain only letters"),
   email: yup.string().required("Email is required").matches(REGEX.email, "Please enter a valid email"),
   phone: yup.string().required("Phone number is required").matches(REGEX.phone, "Please enter a valid phone number"),
   country: yup.string().required("Country is required"),
@@ -41,7 +41,7 @@ export const contactModalSchema = yup.object().shape({
 });
 
 export const jobApplySchema = yup.object().shape({
-  fullName: yup.string().required("Full name is required").matches(REGEX.fullName, "Full name should contain only letters and spaces"),
+  fullName: yup.string().required("Full name is required").trim().matches(REGEX.fullName, "Full name should contain only letters and spaces"),
   email: yup.string().required("Email is required").matches(REGEX.email, "Please enter a valid email"),
   phoneNumber: yup.string().required("Phone number is required").matches(REGEX.phone, "Please enter a valid phone number"),
   position: yup.string().required("Please select a position"),
@@ -67,6 +67,7 @@ export const channelPartnerSchema = yup.object().shape({
   fullname: yup
     .string()
     .required("Name is required")
+    .trim()
     .matches(REGEX.fullName, "Name should contain only letters and spaces"),
   phone: yup
     .string()
@@ -120,6 +121,7 @@ export const channelPartnerSchema = yup.object().shape({
       then: (schema) =>
         schema
           .required("Name is required")
+          .trim()
           .matches(REGEX.fullName, "Name should contain only letters and spaces"),
       otherwise: (schema) => schema.nullable(),
     }),
