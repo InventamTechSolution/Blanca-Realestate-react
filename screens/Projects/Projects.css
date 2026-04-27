@@ -564,13 +564,32 @@
 /* Responsive */
 @media screen and (max-width: 991px) {
     .map-view-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        /* Fixed height for the map view section on mobile */
+        overflow: hidden;
         grid-template-columns: 1fr;
-        height: auto;
+        border-radius: 16px;
+        margin-top: 20px;
     }
 
     .map-side-view {
-        height: 400px;
+        height: 290px;
+        min-height: 290px;
+        width: 100%;
+        position: relative;
         order: -1;
+        z-index: 10;
+        flex-shrink: 0;
+        border-bottom: 1px solid var(--lg-highlight);
+    }
+
+    .map-side-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+        height: 100%;
     }
 
     .filter-row {
