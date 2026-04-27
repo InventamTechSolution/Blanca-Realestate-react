@@ -321,14 +321,12 @@
     left: -100%;
     width: 55%;
     height: 140%;
-    background: linear-gradient(
-        105deg,
-        rgba(255, 255, 255, 0)    0%,
-        rgba(255, 255, 255, 0.08) 30%,
-        rgba(255, 255, 255, 0.45) 50%,
-        rgba(255, 255, 255, 0.08) 70%,
-        rgba(255, 255, 255, 0)    100%
-    );
+    background: linear-gradient(105deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.08) 30%,
+            rgba(255, 255, 255, 0.45) 50%,
+            rgba(255, 255, 255, 0.08) 70%,
+            rgba(255, 255, 255, 0) 100%);
     z-index: 2;
     pointer-events: none;
     animation: logo-shine 2.5s ease-in-out infinite;
@@ -340,16 +338,20 @@
         left: -100%;
         opacity: 0;
     }
+
     5% {
         opacity: 1;
     }
+
     50% {
         left: 160%;
         opacity: 1;
     }
+
     51% {
         opacity: 0;
     }
+
     100% {
         left: 160%;
         opacity: 0;
@@ -794,7 +796,7 @@ header form.search-form button>* {
 
 @media only screen and (min-width: 320px) and (max-width: 767px) {
     .main-menu .mobile-logo {
-        max-width: 160px;
+        max-width: 130px;
     }
 }
 

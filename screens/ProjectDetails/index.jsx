@@ -296,7 +296,7 @@ const ProjectDetails = ({ project }) => {
               </div>
 
               <h2 className="common-title bs-font-playfair-display text-white mb-20">
-                living at a prime address
+                Living at a prime address
               </h2>
 
               <p className="text-white opacity-50">
