@@ -69,7 +69,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
       return;
     }
 
-    router.push(`/project/${project.id}`);
+    router.push(`/project/${project.slug}`);
   };
 
   if (layout === "horizontal") {
@@ -238,7 +238,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               View Details
             </ThemeBtn>
             <ThemeBtn
-              to={`/project/${project.id}#enquiry`}
+              to={`/project/${project.slug}#enquiry`}
               className="view-details-btn"
             >
               Enquireies

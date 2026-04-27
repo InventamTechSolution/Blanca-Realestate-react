@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   getProjects,
-  getProjectById,
+  getProjectBySlug,
   getProjectsWithFilter,
   getProjectLocations,
   sendEnquiry,
@@ -15,10 +15,10 @@ export const useProjects = (params, queryOptions) => {
   });
 };
 
-export const useProjectById = (id, queryOptions) => {
+export const useProjectBySlug = (slug, queryOptions) => {
   return useQuery({
-    queryKey: ["project", id],
-    queryFn: () => getProjectById(id),
+    queryKey: ["project", slug],
+    queryFn: () => getProjectBySlug(slug),
     ...(queryOptions || {}),
   });
 };

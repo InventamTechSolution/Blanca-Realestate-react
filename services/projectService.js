@@ -5,9 +5,8 @@ export const getProjects = async (params) => {
   return data;
 };
 
-
-export const getProjectById = async (id) => {
-  const { data } = await axiosInstance.get(`/project/${id}`);
+export const getProjectBySlug = async (slug) => {
+  const { data } = await axiosInstance.get(`/project/slug/${slug}`);
   return data;
 };
 
@@ -21,8 +20,7 @@ export const getProjectsWithFilter = async ({
   const body = {
     search: "",
     filter: {
-      category_slug:
-        category && category !== "all" ? [category] : [],
+      category_slug: category && category !== "all" ? [category] : [],
       location: location && location !== "all" ? location : undefined,
       is_active: true,
       status: status && status !== "all" ? status : undefined,
@@ -35,7 +33,7 @@ export const getProjectsWithFilter = async ({
 
   const { data } = await axiosInstance.post(
     "/project/get_projects_with_filter",
-    body
+    body,
   );
 
   return data;
@@ -45,7 +43,6 @@ export const getProjectLocations = async () => {
   const { data } = await axiosInstance.get("/project/location/listing");
   return data;
 };
-
 
 export const sendEnquiry = async (payload) => {
   const { data } = await axiosInstance.post("/enquire", payload);

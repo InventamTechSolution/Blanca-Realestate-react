@@ -1,6 +1,6 @@
 import ProjectDetails from "@/screens/ProjectDetails";
 import { getSetting } from "@/services/settingService";
-import { getProjectById } from "@/services/projectService";
+import { getProjectBySlug } from "@/services/projectService";
 import {
   DEFAULT_META_DESCRIPTION,
   DEFAULT_META_TITLE,
@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
-  const { id } = await params;
+  const { slug } = await params;
   const BASE_URL = HOME_PAGE_URL;
 
   let fallbackTitle = DEFAULT_META_TITLE;
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }) {
   }
 
   try {
-    const projectResponse = await getProjectById(id);
+    const projectResponse = await getProjectBySlug(slug);
     const project = projectResponse?.data || null;
 
     const title =
@@ -76,12 +76,12 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params }) {
-  const { id } = await params;
-  
-  const projectResponse = await getProjectById(id);
+  const { slug } = await params;
+
+  const projectResponse = await getProjectBySlug(slug);
   const project = projectResponse?.data || null;
 
-  if(!projectResponse?.data) {
+  if (!projectResponse?.data) {
     return "Project not found";
   }
 
