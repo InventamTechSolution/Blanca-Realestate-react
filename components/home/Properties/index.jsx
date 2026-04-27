@@ -42,7 +42,7 @@ const Properties = ({ initialProjectsResponse }) => {
       return;
     }
 
-    router.push(`/project/${project?.project_project_id}`);
+    router.push(`/project/${project?.project_slug}`);
   };
 
   return (
@@ -134,7 +134,7 @@ const Properties = ({ initialProjectsResponse }) => {
               className="property-swiper"
             >
               {projects?.map((project) => (
-                <SwiperSlide key={project?.project_project_id}>
+                <SwiperSlide key={project?.project_slug}>
                   <div className="project-card-wrapper">
                     <Motion.div
                       className="project-card"
