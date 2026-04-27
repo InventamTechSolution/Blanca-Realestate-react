@@ -6,8 +6,12 @@ export const getProjects = async (params) => {
 };
 
 export const getProjectBySlug = async (slug) => {
-  const { data } = await axiosInstance.get(`/project/slug/${slug}`);
-  return data;
+  try {
+    const { data } = await axiosInstance.get(`/project/slug/${slug}`);
+    return data;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const getProjectsWithFilter = async ({

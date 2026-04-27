@@ -7,6 +7,7 @@ import {
   HOME_PAGE_URL,
   WEBSITE_MAIN_LOGO,
 } from "@/utils/constant";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -55,7 +56,7 @@ export async function generateMetadata({ params }) {
         description,
         images,
         type: "website",
-        url: `${BASE_URL}/project/${id}`,
+        url: `${BASE_URL}/project/${slug}`,
       },
       twitter: {
         card: "summary_large_image",
@@ -64,7 +65,7 @@ export async function generateMetadata({ params }) {
         images,
       },
       alternates: {
-        canonical: `${BASE_URL}/project/${id}`,
+        canonical: `${BASE_URL}/project/${slug}`,
       },
     };
   } catch {
@@ -82,7 +83,7 @@ export default async function Page({ params }) {
   const project = projectResponse?.data || null;
 
   if (!projectResponse?.data) {
-    return "Project not found";
+    notFound();
   }
 
   return <ProjectDetails project={project} />;
