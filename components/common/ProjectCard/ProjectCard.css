@@ -134,6 +134,11 @@
     font-size: 15px;
     color: #fff;
     font-weight: 500;
+    white-space: normal;
+    display: block;
+    width: 100%;
+    width: 160px;
+    word-wrap: break-word;
 }
 
 .project-info-list .info-item-rera-span {
