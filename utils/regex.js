@@ -6,5 +6,6 @@ export const REGEX = {
     startingSpaceNotAllowed: /^(?!\s)/,
     gstin: /^(?!\s)(|[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}Z[A-Z0-9]{1})$/,
     pancard: /^(?!\s)(|[A-Z]{5}[0-9]{4}[A-Z]{1})$/,
+    ctc: /^(?:[1-9]\d{0,8}|1000000000)$/,
   };
   
