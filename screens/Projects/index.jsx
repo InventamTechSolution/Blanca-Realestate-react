@@ -10,7 +10,10 @@ import ThemeBtn from "../../components/common/Button/ThemeBtn";
 import ProjectCard from "../../components/common/ProjectCard/ProjectCard";
 import Preloader from "../../components/common/Preloader";
 import { AnimatePresence } from "framer-motion";
-import { useProjectLocations, useProjectsWithFilter } from "../../hooks/useProjects";
+import {
+  useProjectLocations,
+  useProjectsWithFilter,
+} from "../../hooks/useProjects";
 import { useCategories } from "../../hooks/useCategories";
 // import SEO from '../../components/common/Seo/Seo';
 
@@ -45,7 +48,6 @@ const Projects = () => {
   //   return matchesType && matchesStatus;
   // });
 
-
   const { data: locationData } = useProjectLocations();
   const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
 
@@ -61,6 +63,7 @@ const Projects = () => {
 
   const projects = apiProjects?.map((project) => ({
     id: project?.project_project_id,
+    slug: project?.project_slug,
     title: project?.project_name,
     image: project?.project_card_image,
     href: `/project/${project?.project_project_id}`,
@@ -89,7 +92,7 @@ const Projects = () => {
   useEffect(() => {
     if (filteredProjects.length > 0) {
       const isCurrentlyActiveValid = filteredProjects.some(
-        (project) => project?.id === activeProjectId
+        (project) => project?.id === activeProjectId,
       );
       if (!isCurrentlyActiveValid) {
         setActiveProjectId(filteredProjects[0]?.id);
@@ -124,28 +127,28 @@ const Projects = () => {
     const list = categoryResponse?.data;
     const categoryOptions = Array.isArray(list)
       ? list
-        .map((item) => {
-          const label =
-            item?.category_name ??
-            item?.career_category_name ??
-            item?.name ??
-            item?.title ??
-            "";
-          const slug =
-            item?.category_slug ??
-            item?.career_category_slug ??
-            item?.slug ??
-            "";
+          .map((item) => {
+            const label =
+              item?.category_name ??
+              item?.career_category_name ??
+              item?.name ??
+              item?.title ??
+              "";
+            const slug =
+              item?.category_slug ??
+              item?.career_category_slug ??
+              item?.slug ??
+              "";
 
-          const normalizedLabel = String(label).trim();
-          const normalizedValue =
-            String(slug).trim() ||
-            normalizedLabel.toLowerCase().replace(/\s+/g, "-");
+            const normalizedLabel = String(label).trim();
+            const normalizedValue =
+              String(slug).trim() ||
+              normalizedLabel.toLowerCase().replace(/\s+/g, "-");
 
-          if (!normalizedLabel) return null;
-          return { label: normalizedLabel, value: normalizedValue };
-        })
-        .filter(Boolean)
+            if (!normalizedLabel) return null;
+            return { label: normalizedLabel, value: normalizedValue };
+          })
+          .filter(Boolean)
       : [];
 
     return [
@@ -166,12 +169,18 @@ const Projects = () => {
 
   const apiLocations = locationData?.data;
   const locationList = Array.isArray(apiLocations) ? apiLocations : [];
-  const areaOptions = React.useMemo(() => [
-    { label: "All Areas", value: "all" },
-    ...(isMounted
-      ? locationList.map((loc) => ({ label: String(loc), value: String(loc) }))
-      : []),
-  ], [locationList, isMounted]);
+  const areaOptions = React.useMemo(
+    () => [
+      { label: "All Areas", value: "all" },
+      ...(isMounted
+        ? locationList.map((loc) => ({
+            label: String(loc),
+            value: String(loc),
+          }))
+        : []),
+    ],
+    [locationList, isMounted],
+  );
 
   // Handle click outside to close dropdowns
   useEffect(() => {
@@ -270,7 +279,9 @@ const Projects = () => {
                           <li
                             key={item?.value}
                             className={
-                              (filter || "all") === item?.value ? "selected" : ""
+                              (filter || "all") === item?.value
+                                ? "selected"
+                                : ""
                             }
                             onClick={() => handleTypeSelect(item?.value)}
                           >
@@ -322,7 +333,10 @@ const Projects = () => {
                         onClick={() => toggleDropdown("area")}
                       >
                         <span>
-                          {areaOptions?.find((item) => item?.value === area)?.label}
+                          {
+                            areaOptions?.find((item) => item?.value === area)
+                              ?.label
+                          }
                         </span>
                         <Icon icon="lucide:chevron-down" />
                       </div>
@@ -344,16 +358,18 @@ const Projects = () => {
                   {/* ================= View Toggle ================= */}
                   <div className="view-toggles">
                     <ThemeBtn
-                      className={`view-toggle-btn ${view === "grid" ? "active" : ""
-                        }`}
+                      className={`view-toggle-btn ${
+                        view === "grid" ? "active" : ""
+                      }`}
                       onClick={() => setView("grid")}
                     >
                       GRID VIEW
                     </ThemeBtn>
 
                     <ThemeBtn
-                      className={`view-toggle-btn ${view === "map" ? "active" : ""
-                        }`}
+                      className={`view-toggle-btn ${
+                        view === "map" ? "active" : ""
+                      }`}
                       onClick={() => setView("map")}
                     >
                       MAP VIEW
@@ -394,8 +410,9 @@ const Projects = () => {
                     <div
                       key={project?.id}
                       onClick={() => setActiveProjectId(project?.id)}
-                      className={`map-project-item ${activeProjectId === project?.id ? "active-project" : ""
-                        }`}
+                      className={`map-project-item ${
+                        activeProjectId === project?.id ? "active-project" : ""
+                      }`}
                     >
                       <ProjectCard project={project} layout="horizontal" />
                     </div>

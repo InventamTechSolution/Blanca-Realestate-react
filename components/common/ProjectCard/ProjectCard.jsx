@@ -69,7 +69,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
       return;
     }
 
-    router.push(`/project/${project.id}`);
+    router.push(`/project/${project.slug}`);
   };
 
   if (layout === "horizontal") {
@@ -77,7 +77,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
       <>
         <div className="project-card-horizontal">
           <div className="horiz-img-wrapper">
-            <img src={project.image} alt={project.title} />
+            <img src={project.image || null} alt={project.title} />
           </div>
           <div className="horiz-content">
             <h5>{project.title}</h5>
@@ -154,7 +154,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
     <>
       <div className="project-card-item wow fadeInUp">
         <div className="project-img-wrapper">
-          <img src={project.image} alt={project.title} />
+          <img src={project.image || null} alt={project.title} />
           <div
             className={`project-status-badge status-${project.status?.toLowerCase().replace(/\s+/g, "-")}`}
           >
@@ -238,7 +238,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               View Details
             </ThemeBtn>
             <ThemeBtn
-              to={`/project/${project.id}#enquiry`}
+              to={`/project/${project.slug}#enquiry`}
               className="view-details-btn"
             >
               Enquireies

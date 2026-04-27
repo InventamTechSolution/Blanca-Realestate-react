@@ -4,7 +4,7 @@ import "./HeroReraQrSection.css";
 const HeroReraQrSection = ({
   reraQrSrc,
   reraRegistrationNumber,
-  label = "RERA Registration No.",
+  label = "RERA:",
 }) => {
   if (!reraQrSrc && !reraRegistrationNumber) return null;
 

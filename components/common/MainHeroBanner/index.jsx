@@ -75,7 +75,7 @@ const MainHeroBanner = ({
             muted
             loop
             playsInline
-            poster={poster}
+            poster={poster || null}
             style={{
               position: "absolute",
               top: 0,
@@ -86,10 +86,10 @@ const MainHeroBanner = ({
               zIndex: 0,
             }}
           >
-            <source src={videoSrc} type="video/mp4" />
+            <source src={videoSrc || null} type="video/mp4" />
             {poster && (
               <img
-                src={poster}
+                src={poster || null}
                 alt={title}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />

@@ -107,7 +107,7 @@ const Registration = () => {
         const payload =
             agent_type === "individual"
                 ? {
-                    fullname: data?.fullname || "",
+                    fullname: data?.fullname?.trim() || "",
                     agent_type,
                     phone_number: data?.phone || "",
                     email: data?.email || "",
@@ -121,7 +121,7 @@ const Registration = () => {
                     referral_address: data?.referAddress || "",
                 }
                 : {
-                    fullname: data?.fullname || "",
+                    fullname: data?.fullname?.trim() || "",
                     agent_type,
                     phone_number: data?.phone || "",
                     email: data?.email || "",
