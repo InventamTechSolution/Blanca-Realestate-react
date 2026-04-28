@@ -72,7 +72,6 @@ export default async function Page() {
   const settingResponse = getValue(1, null);
   const otherFieldResponse = getValue(2, null);
   const projectsListResponse = getValue(3, { data: [] });
-  console.log("🚀 ~ Page ~ projectsListResponse:", projectsListResponse);
   const testimonialsResponse = getValue(4, { data: [] });
 
   return (
