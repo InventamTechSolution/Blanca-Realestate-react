@@ -1,5 +1,5 @@
 import Home from "@/screens/Home";
-import { getProjects } from "@/services/projectService";
+import { getProjects, getProjectsWithFilter } from "@/services/projectService";
 import { getSetting } from "@/services/settingService";
 import { getOtherField } from "@/services/otherFieldService";
 import { getTestimonials } from "@/services/testimonialService";
@@ -48,7 +48,6 @@ export async function generateMetadata() {
   };
 }
 
-
 export default async function Page() {
   const results = await Promise.allSettled([
     getProjects({
@@ -60,7 +59,7 @@ export default async function Page() {
     }),
     getSetting(),
     getOtherField(),
-    getProjects({ page: 1, limit: 50, is_active: true }),
+    getProjectsWithFilter({ page: 1, limit: 50, is_active: true }),
     getTestimonials({ page: 1, limit: 1000, isActive: true }),
   ]);
 
@@ -73,6 +72,7 @@ export default async function Page() {
   const settingResponse = getValue(1, null);
   const otherFieldResponse = getValue(2, null);
   const projectsListResponse = getValue(3, { data: [] });
+  console.log("🚀 ~ Page ~ projectsListResponse:", projectsListResponse);
   const testimonialsResponse = getValue(4, { data: [] });
 
   return (
