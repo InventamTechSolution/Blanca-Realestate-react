@@ -179,6 +179,13 @@
     }
 }
 
+/* Tablet / iPad (1024×1280, 1024×1366): reduce large vertical padding */
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+    .legal-content-area {
+        padding: 70px 0;
+    }
+}
+
 .point-list-datainfo {
     display: flex;
     flex-direction: column;
@@ -232,18 +239,21 @@
     line-height: 1.5;
 }
 
-.contact-icon-list li i {
-    color: var(--primary-color);
-    width: 20px;
-    font-size: 18px;
-    text-align: center;
+.contact-icon-list .contact-icon {
+    color: #fff;
     flex-shrink: 0;
-    margin-top: 3px;
+    margin-top: 2px; /* align with first text line */
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .contact-icon-list li a {
     color: var(--black-30);
     transition: color 0.3s ease;
+    display: inline-block;
 }
 
 .contact-icon-list li a:hover {
