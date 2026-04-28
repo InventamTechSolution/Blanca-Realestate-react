@@ -170,7 +170,7 @@ const ProjectDetails = ({ project }) => {
           title={project?.project_name}
           location={`${project?.categories?.[0]?.category_name} - ${project?.project_location}`}
           projectLink={project?.project_link}
-          projectId={project?.project_slug}
+          projectSlug={project?.project_slug}
           reraRegistrationNumber={project?.project_rera_number}
           reraQrSrc={project?.project_qr_code}
         />
@@ -209,56 +209,60 @@ const ProjectDetails = ({ project }) => {
                     )}
 
                     <div className="download-buttons-wrapper mt-40">
-                      <button
-                        className="download-btn"
-                        onClick={() =>
-                          openAssetOrContact({
-                            type: "Brochure",
-                            url: brochureUrl,
-                          })
-                        }
-                      >
-                        <div className="btn-icon">
-                          <Icon icon="ph:article-light" />
-                        </div>
-                        <div className="btn-text">
-                          <span className="btn-title bs-font-montserrat">
-                            PROJECT BROCHURE
-                          </span>
-                          <span className="btn-subtitle">
-                            DOWNLOAD{" "}
-                            <Icon
-                              icon="lucide:arrow-down"
-                              style={{ marginLeft: "4px" }}
-                            />
-                          </span>
-                        </div>
-                      </button>
-                      <button
-                        className="download-btn"
-                        onClick={() =>
-                          openAssetOrContact({
-                            type: "Fact Sheet",
-                            url: factSheetUrl,
-                          })
-                        }
-                      >
-                        <div className="btn-icon">
-                          <Icon icon="ph:list-checks-light" />
-                        </div>
-                        <div className="btn-text">
-                          <span className="btn-title bs-font-montserrat">
-                            FACT SHEET
-                          </span>
-                          <span className="btn-subtitle">
-                            DOWNLOAD{" "}
-                            <Icon
-                              icon="lucide:arrow-down"
-                              style={{ marginLeft: "4px" }}
-                            />
-                          </span>
-                        </div>
-                      </button>
+                      {brochureUrl && (
+                        <button
+                          className="download-btn"
+                          onClick={() =>
+                            openAssetOrContact({
+                              type: "Brochure",
+                              url: brochureUrl,
+                            })
+                          }
+                        >
+                          <div className="btn-icon">
+                            <Icon icon="ph:article-light" />
+                          </div>
+                          <div className="btn-text">
+                            <span className="btn-title bs-font-montserrat">
+                              PROJECT BROCHURE
+                            </span>
+                            <span className="btn-subtitle">
+                              DOWNLOAD{" "}
+                              <Icon
+                                icon="lucide:arrow-down"
+                                style={{ marginLeft: "4px" }}
+                              />
+                            </span>
+                          </div>
+                        </button>
+                      )}
+                      {factSheetUrl && (
+                        <button
+                          className="download-btn"
+                          onClick={() =>
+                            openAssetOrContact({
+                              type: "Fact Sheet",
+                              url: factSheetUrl,
+                            })
+                          }
+                        >
+                          <div className="btn-icon">
+                            <Icon icon="ph:list-checks-light" />
+                          </div>
+                          <div className="btn-text">
+                            <span className="btn-title bs-font-montserrat">
+                              FACT SHEET
+                            </span>
+                            <span className="btn-subtitle">
+                              DOWNLOAD{" "}
+                              <Icon
+                                icon="lucide:arrow-down"
+                                style={{ marginLeft: "4px" }}
+                              />
+                            </span>
+                          </div>
+                        </button>
+                      )}
                     </div>
                   </Col>
                 )}

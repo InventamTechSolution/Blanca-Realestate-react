@@ -38,7 +38,7 @@ const Home = ({
               overlayOpacity={project.project_banner_color}
               projectLink={project?.project_link}
               isHomePage={true}
-              projectId={project?.project_slug}
+              projectSlug={project?.project_slug}
               projectIsSoldout={project?.project_is_soldout}
               reraRegistrationNumber={project?.project_rera_number}
               reraQrSrc={project?.project_qr_code}
@@ -52,7 +52,10 @@ const Home = ({
         <About initialOtherFieldResponse={otherFieldResponse} />
         <Properties initialProjectsResponse={projectsListResponse} />
         <WhyChooseUs />
-        <Testimonials initialTestimonialsResponse={testimonialsResponse} />
+        <Testimonials
+          initialTestimonialsResponse={testimonialsResponse}
+          settingResponse={settingResponse}
+        />
       </main>
 
       <ScrollToTop />

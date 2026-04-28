@@ -27,7 +27,7 @@ const Properties = ({ initialProjectsResponse }) => {
   const { openContactModal } = useContactModal();
 
   const handleOpenProject = (project) => {
-    const isSoldoutFlag = project?.status === "sold-out";
+    const isSoldoutFlag = project?.project_status === "sold-out";
 
     // Requirement: if soldout is false, show popup instead of navigating.
     if (isSoldoutFlag) {

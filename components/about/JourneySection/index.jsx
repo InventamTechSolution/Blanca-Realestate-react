@@ -3,6 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
+import { useContactModal } from "../../../context/ContactModalContext";
 import "./JourneySection.css";
 
 /** Module scope so `useMemo` callbacks always close over a defined function (avoids ReferenceError). */
@@ -13,6 +15,8 @@ const isCompletedStatus = (value) => {
 };
 
 const JourneySection = ({ journeyResponse }) => {
+  const router = useRouter();
+  const { openContactModal } = useContactModal();
   const scrollRef = React.useRef(null);
   const segmentRef = React.useRef(null);
   const segmentWidthRef = React.useRef(0);
@@ -39,7 +43,6 @@ const JourneySection = ({ journeyResponse }) => {
       const s = String(value).trim();
       if (!s) return "";
       const lower = s.toLowerCase();
-      if (lower === "completed") return "Completed";
       if (lower === "on-going") return "Ongoing";
       if (lower === "coming-soon") return "Upcoming";
       return s;
@@ -76,6 +79,7 @@ const JourneySection = ({ journeyResponse }) => {
     const normalizeProject = (project) => {
       const p = project?.project ?? project;
       const title = p?.name || "";
+      const slug = p?.slug || "";
       const location = p?.location || "";
       const description = p?.description || "";
       // Set 'type' to the first category_name if available, else empty string
@@ -94,7 +98,6 @@ const JourneySection = ({ journeyResponse }) => {
           : "";
 
       const statusRaw = p?.status ?? "";
-
       const rawActive = p?.is_active || false;
 
       return {
@@ -104,6 +107,7 @@ const JourneySection = ({ journeyResponse }) => {
         type: type || "",
         description: description ?? "",
         image: image ?? "",
+        slug: slug ?? "",
         status: normalizeStatus(statusRaw),
         isActive: rawActive,
       };
@@ -234,6 +238,25 @@ const JourneySection = ({ journeyResponse }) => {
   if (!journeyResponse) return null;
   if (!journeyData?.length) return null;
 
+  const handleProjectClick = (e, project) => {
+    console.log("🚀 ~ handleProjectClick ~ project:", project);
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
+
+    if (project?.status === "sold-out") {
+      openContactModal({
+        title: "Project Sold Out",
+        description:
+          "Sorry, you’re a bit late—this project is now sold out. However, we have several other exciting projects available for you to explore and invest in. Please fill in your details below, and our sales representative will get in touch with you shortly.",
+        type: "Sold Out",
+        project: project.title,
+      });
+      return;
+    }
+
+    router.push(`/project/${project.slug}?is_home=true`);
+  };
+
   const renderJourneyItems = (keyPrefix) => {
     let cumulativeProjectCount = 0;
     return journeyData.map((item, index) => {
@@ -295,12 +318,11 @@ const JourneySection = ({ journeyResponse }) => {
               </>
             );
 
-            const canOpenDetail = Boolean(project.id) && project.isActive;
-
-            return canOpenDetail ? (
+            return project.slug ? (
               <Link
                 key={`${keyPrefix}-${index}-${pIndex}`}
-                href={`/project/${project.id}`}
+                href={`/project/${project.slug}?is_home=true`}
+                onClick={(e) => handleProjectClick(e, project)}
                 className={cardClass}
                 onMouseDown={(e) => e.stopPropagation()}
               >

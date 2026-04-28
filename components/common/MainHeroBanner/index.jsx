@@ -16,7 +16,7 @@ const MainHeroBanner = ({
   overlayOpacity,
   projectLink,
   isHomePage = false,
-  projectId,
+  projectSlug,
   projectIsSoldout,
   reraRegistrationNumber,
   reraQrSrc,
@@ -32,17 +32,12 @@ const MainHeroBanner = ({
   const redirectLink = projectLink
     ? formatExternalLink(projectLink)
     : isHomePage
-      ? `/project/${projectId}?is_home=true`
-      : `/project/${projectId}`;
+      ? `/project/${projectSlug}?is_home=true`
+      : `/project/${projectSlug}`;
 
   const shouldShowButton = isHomePage || (!isHomePage && projectLink);
 
-  const soldoutFlag =
-    projectIsSoldout === "false"
-      ? false
-      : projectIsSoldout === "true"
-        ? true
-        : projectIsSoldout;
+  const soldoutFlag = status === "Sold Out";
 
   const handleViewMore = (e) => {
     // If there's a projectLink, we allow the default behavior (opening in a new tab via target="_blank")
@@ -54,7 +49,7 @@ const MainHeroBanner = ({
     if (isHomePage) {
       e?.preventDefault?.();
 
-      if (soldoutFlag === false) {
+      if (soldoutFlag === true) {
         openContactModal({
           title: "Project Sold Out",
           description:
@@ -65,7 +60,7 @@ const MainHeroBanner = ({
         return;
       }
 
-      router.push(`/project/${projectId}?is_home=true`);
+      router.push(`/project/${projectSlug}?is_home=true`);
       return;
     }
 
