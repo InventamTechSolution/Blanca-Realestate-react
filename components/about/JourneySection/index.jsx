@@ -239,7 +239,6 @@ const JourneySection = ({ journeyResponse }) => {
   if (!journeyData?.length) return null;
 
   const handleProjectClick = (e, project) => {
-    console.log("🚀 ~ handleProjectClick ~ project:", project);
     e?.preventDefault?.();
     e?.stopPropagation?.();
 
