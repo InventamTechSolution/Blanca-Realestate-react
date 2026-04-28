@@ -800,6 +800,62 @@ header form.search-form button>* {
     }
 }
 
+/* Extra-small devices (e.g. 360x568): prevent logo/toggle overlap */
+@media only screen and (max-width: 420px) {
+    .glass-header .header-upper {
+        /* slightly tighter vertical rhythm on very small screens */
+        padding-top: 8px;
+    }
+
+    .glass-header .header-inner {
+        padding: 6px 10px;
+    }
+
+    .main-menu .navbar-header {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 6px 0;
+    }
+
+    .main-menu .mobile-logo {
+        max-width: 110px;
+        flex: 0 1 auto;
+    }
+
+    .main-menu .mobile-logo img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .main-menu .navbar-header .navbar-toggle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .main-menu .navbar-header .navbar-toggle .icon-bar {
+        width: 20px;
+    }
+
+    .header-top {
+        padding: 8px 0;
+    }
+
+    .header-top .header-top-text {
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+
+    .header-top .header-top-sep {
+        margin: 0 14px;
+    }
+
+    .header-top+.main-header .header-upper {
+        top: 34px;
+    }
+}
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .main-menu .collapse {
         overflow: auto;
@@ -1455,6 +1511,6 @@ header form.search-form button>* {
 
     .header-container {
         margin: 0 auto;
-        padding: 0 0px;
+        padding: 0 12px;
     }
 }

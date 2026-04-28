@@ -243,21 +243,21 @@ const PrivacyPolicy = () => {
 
                 <ul className="contact-icon-list">
                   <li>
-                    <Icon icon="lucide:mail" style={{ marginRight: '6px' }} />{" "}
+                    <Icon icon="lucide:mail" className="contact-icon" />
                     <a href="mailto:reachus.blanca@gmail.com">
                       reachus.blanca@gmail.com
                     </a>
                   </li>
 
                   <li>
-                    <Icon icon="lucide:globe" style={{ marginRight: '6px' }} />{" "}
+                    <Icon icon="lucide:globe" className="contact-icon" />
                     <a href="https://blanca.co.in" target="_blank" rel="noreferrer">
                       https://blanca.co.in
                     </a>
                   </li>
 
                   <li>
-                    <Icon icon="lucide:map-pin" style={{ marginRight: '6px' }} />{" "}
+                    <Icon icon="lucide:map-pin" className="contact-icon" />
                     <a
                       href="https://www.google.com/maps/search/?api=1&query=Greenland+CHS+16+Plot+20+Sector+40+Nerul+Seawood+Navi+Mumbai+400706"
                       target="_blank"

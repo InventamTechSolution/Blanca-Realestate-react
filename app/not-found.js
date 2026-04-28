@@ -31,7 +31,7 @@ export default function NotFound() {
               </div>
             </div>
 
-            <p className="blanca-notfound__hint mt-4 text-center">
+            <p className="blanca-notfound__hint text-center">
               Error code: <span className="blanca-notfound__code">404</span> ·
               If you typed the URL, double-check the spelling.
             </p>

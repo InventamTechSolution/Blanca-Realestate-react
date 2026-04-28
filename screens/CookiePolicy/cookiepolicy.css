@@ -104,3 +104,10 @@
         padding: 60px 0;
     }
 }
+
+/* Tablet / iPad (1024×1280, 1024×1366): reduce large vertical padding */
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+    .cookie-policy-page .legal-content-area {
+        padding: 70px 0;
+    }
+}

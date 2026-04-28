@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./Modal.css";
 
 let scrollLockCount = 0;
-let lockedScrollY = 0;
 let previousBodyStyles = null;
 let previousHtmlOverflow = null;
+let previousHtmlScrollBehavior = null;
 
 function lockScroll() {
     if (typeof document === "undefined") return;
@@ -25,8 +25,10 @@ function lockScroll() {
             paddingRight: body.style.paddingRight,
         };
         previousHtmlOverflow = html.style.overflow;
+        previousHtmlScrollBehavior = html.style.scrollBehavior;
 
-        lockedScrollY = window.scrollY || window.pageYOffset || 0;
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        body.dataset.modalScrollY = String(scrollY);
 
         const scrollbarWidth = window.innerWidth - html.clientWidth;
         if (scrollbarWidth > 0) {
@@ -37,7 +39,7 @@ function lockScroll() {
         html.style.overflow = "hidden";
         body.style.overflow = "hidden";
         body.style.position = "fixed";
-        body.style.top = `-${lockedScrollY}px`;
+        body.style.top = `-${scrollY}px`;
         body.style.left = "0";
         body.style.right = "0";
         body.style.width = "100%";
@@ -54,6 +56,17 @@ function unlockScroll() {
 
     const body = document.body;
     const html = document.documentElement;
+
+    const restoreScrollY = (() => {
+        const fromDataset = body.dataset.modalScrollY;
+        if (fromDataset != null && fromDataset !== "") {
+            const n = Number(fromDataset);
+            if (Number.isFinite(n)) return n;
+        }
+        const top = body.style.top || "0";
+        const parsed = parseInt(top, 10);
+        return Number.isFinite(parsed) ? Math.abs(parsed) : 0;
+    })();
 
     if (previousBodyStyles) {
         body.style.overflow = previousBodyStyles.overflow;
@@ -77,7 +90,18 @@ function unlockScroll() {
     previousBodyStyles = null;
     previousHtmlOverflow = null;
 
-    window.scrollTo(0, lockedScrollY);
+    delete body.dataset.modalScrollY;
+
+    // Prevent global `scroll-behavior: smooth` from animating restoration.
+    const prevScrollBehavior = previousHtmlScrollBehavior ?? "";
+    previousHtmlScrollBehavior = null;
+    html.style.scrollBehavior = "auto";
+
+    // Defer until after styles are applied to avoid visual jump.
+    window.requestAnimationFrame(() => {
+        window.scrollTo(0, restoreScrollY);
+        html.style.scrollBehavior = prevScrollBehavior;
+    });
 }
 
 const Modal = ({

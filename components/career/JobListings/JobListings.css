@@ -264,3 +264,38 @@
         margin-top: 20px;
     }
 }
+
+@media (max-width: 575px) {
+    .job-section-header {
+        font-size: 16px;
+    }
+
+    .job-category {
+        font-size: 11px;
+        letter-spacing: 0.8px;
+    }
+
+    .job-title {
+        font-size: 20px;
+        line-height: 1.2;
+    }
+
+    .job-description {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .responsibilities-title {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .responsibility-item {
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .check-icon {
+        font-size: 16px;
+    }
+}

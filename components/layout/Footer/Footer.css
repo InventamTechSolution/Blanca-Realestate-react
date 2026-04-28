@@ -1062,3 +1062,28 @@
         align-items: center;
     }
 }
+
+/* Tablet / iPad (1024×1280, 1024×1366): remove excess bottom space */
+@media screen and (min-width: 1024px) and (max-width: 1366px) {
+    .modern-footer {
+        min-height: auto;
+        align-items: flex-start;
+        background-attachment: scroll;
+    }
+
+    .footer-container {
+        min-height: auto;
+    }
+
+    .footer-content {
+        margin-bottom: 24px;
+    }
+
+    .footer-social-container-sec {
+        margin-bottom: 16px;
+    }
+
+    .footer-bottom {
+        margin-bottom: 0;
+    }
+}

@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 0;
+  padding: 140px 0 48px;
   position: relative;
   overflow: hidden;
 }
@@ -11,7 +11,7 @@
 @media (max-width: 768px) {
   .blanca-notfound {
     min-height: 100vh;
-    padding: 28px 0;
+    padding: 70px 0 28px;
   }
 }
 
