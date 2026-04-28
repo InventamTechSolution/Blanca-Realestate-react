@@ -163,7 +163,7 @@ const Projects = () => {
     { label: "New Launches", value: "new-launches" },
     { label: "Coming Soon", value: "coming-soon" },
     { label: "Ongoing Projects", value: "on-going" },
-    { label: "Completed", value: "completed" },
+    // { label: "Completed", value: "completed" },
     { label: "Sold Out", value: "sold-out" },
   ];
 

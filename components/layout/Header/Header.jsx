@@ -42,7 +42,10 @@ const Header = () => {
 
     const messages = (topMessageGroup?.data ?? [])
       ?.flatMap((item) => {
-        const value = item?.fields?.messages ?? item?.fields?.message ?? item?.fields?.title;
+        const value =
+          item?.fields?.messages ??
+          item?.fields?.message ??
+          item?.fields?.title;
         if (Array.isArray(value)) return value;
         if (typeof value === "string") return [value];
         return [];
@@ -71,10 +74,7 @@ const Header = () => {
           item?.title ??
           "";
         const slug =
-          item?.category_slug ??
-          item?.career_category_slug ??
-          item?.slug ??
-          "";
+          item?.category_slug ?? item?.career_category_slug ?? item?.slug ?? "";
 
         const normalizedName = String(name).trim();
         const normalizedSlug =
@@ -248,7 +248,10 @@ const Header = () => {
             >
               <span className="header-top-marquee__content">
                 {marqueeMessages?.map((message, index) => (
-                  <span className="header-top-marquee__item" key={`${message}-${index}`}>
+                  <span
+                    className="header-top-marquee__item"
+                    key={`${message}-${index}`}
+                  >
                     <span>{message}</span>
                     <span className="header-top-sep">•</span>
                   </span>
@@ -267,7 +270,6 @@ const Header = () => {
         <div className="header-upper">
           <div className="header-container clearfix">
             <div className="header-inner rel d-flex align-items-center gap-4 justify-content-between">
-
               {/* Left Navigation */}
               <div className="header-desktop-nav header-nav-left">
                 <ul className="header-links">
@@ -287,7 +289,10 @@ const Header = () => {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/about#showcase-section" onClick={closeMenus}>
+                        <Link
+                          href="/about#showcase-section"
+                          onClick={closeMenus}
+                        >
                           Value
                         </Link>
                       </li>
@@ -335,7 +340,9 @@ const Header = () => {
                   >
                     <a
                       href="/projects"
-                      onClick={(e) => handleNavClick(e, "/projects", "communities")}
+                      onClick={(e) =>
+                        handleNavClick(e, "/projects", "communities")
+                      }
                     >
                       Communities
                     </a>
@@ -366,10 +373,10 @@ const Header = () => {
                       </li>
                       <li>
                         <Link
-                          href="/projects?status=completed"
+                          href="/projects?status=sold-out"
                           onClick={closeMenus}
                         >
-                          Completed
+                          Sold Out
                         </Link>
                       </li>
                     </ul>
@@ -594,10 +601,10 @@ const Header = () => {
                           </li>
                           <li>
                             <Link
-                              href="/projects?status=completed"
+                              href="/projects?status=sold-out"
                               onClick={closeMenus}
                             >
-                              Completed
+                              Sold Out
                             </Link>
                           </li>
                         </ul>

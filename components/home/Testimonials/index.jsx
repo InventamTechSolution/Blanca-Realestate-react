@@ -111,7 +111,7 @@ const Avatar = ({ src, name }) => {
   );
 };
 
-const Testimonials = ({ initialTestimonialsResponse }) => {
+const Testimonials = ({ initialTestimonialsResponse, settingResponse }) => {
   const queryParams = {
     page: 1,
     limit: 1000,
@@ -125,29 +125,26 @@ const Testimonials = ({ initialTestimonialsResponse }) => {
 
   const testimonials = useMemo(() => data?.data ?? [], [data]);
   const overall = useMemo(() => {
+    // We want to display the rating directly from settings (no computed average).
+    const settingsRating = Number(settingResponse?.review?.fields?.review);
     const apiCount = Number(data?.totalCount);
+
     const count = Number.isFinite(apiCount)
       ? apiCount
       : (testimonials?.length ?? 0);
 
     if (!Array.isArray(testimonials) || testimonials.length === 0) {
-      return { count, average: 0 };
+      return {
+        count,
+        average: Number.isFinite(settingsRating) ? settingsRating : 0,
+      };
     }
 
-    let ratedCount = 0;
-    let sum = 0;
-
-    for (const item of testimonials) {
-      const value = Number(item?.testimonial_rating);
-      if (!Number.isFinite(value)) continue;
-      if (value <= 0) continue;
-      ratedCount += 1;
-      sum += Math.min(5, Math.max(0, value));
-    }
-
-    const average = ratedCount ? sum / ratedCount : 0;
-    return { count, average };
-  }, [data?.totalCount, testimonials]);
+    return {
+      count,
+      average: Number.isFinite(settingsRating) ? settingsRating : 0,
+    };
+  }, [data?.totalCount, settingResponse?.review?.fields?.review, testimonials]);
   const shouldLoop = testimonials?.length > 2;
 
   if (isLoading || error || testimonials?.length === 0) {

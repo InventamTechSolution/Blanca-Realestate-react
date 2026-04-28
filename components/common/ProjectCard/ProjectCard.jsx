@@ -58,7 +58,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
     e?.stopPropagation?.();
 
     // Requirement: if `project_is_soldout` is false, show popup instead.
-    if (project?.project_is_soldout === false) {
+    if (project?.status === "sold-out") {
       openContactModal({
         title: "Project Sold Out",
         description:
@@ -70,6 +70,24 @@ const ProjectCard = ({ project, layout = "grid" }) => {
     }
 
     router.push(`/project/${project.slug}`);
+  };
+
+  const handleEnquiry = (e) => {
+    e?.preventDefault?.();
+    e?.stopPropagation?.();
+
+    if (project?.status === "sold-out") {
+      openContactModal({
+        title: "Project Sold Out",
+        description:
+          "Sorry, you’re a bit late—this project is now sold out. However, we have several other exciting projects available for you to explore and invest in. Please fill in your details below, and our sales representative will get in touch with you shortly.",
+        type: "Sold Out",
+        project: project.title,
+      });
+      return;
+    }
+
+    router.push(`/project/${project.slug}#enquiry`);
   };
 
   if (layout === "horizontal") {
@@ -189,48 +207,55 @@ const ProjectCard = ({ project, layout = "grid" }) => {
           </div>
 
           <div className="project-download-options-horizontal">
-            <div
-              className="download-link brochure"
-              onClick={(e) =>
-                openAssetOrContact(e, { type: "Brochure", url: brochureUrl })
-              }
-              role="button"
-            >
-              <div className="download-icon">
-                <Icon icon="solar:document-text-outline" />
+            {brochureUrl && (
+              <div
+                className="download-link brochure"
+                onClick={(e) =>
+                  openAssetOrContact(e, { type: "Brochure", url: brochureUrl })
+                }
+                role="button"
+              >
+                <div className="download-icon">
+                  <Icon icon="solar:document-text-outline" />
+                </div>
+                <div className="download-text">
+                  <span className="title">PROJECT BROCHURE</span>
+                  <span className="action">
+                    DOWNLOAD{" "}
+                    <Icon
+                      icon="lucide:arrow-down"
+                      style={{ marginLeft: "4px" }}
+                    />
+                  </span>
+                </div>
               </div>
-              <div className="download-text">
-                <span className="title">PROJECT BROCHURE</span>
-                <span className="action">
-                  DOWNLOAD{" "}
-                  <Icon
-                    icon="lucide:arrow-down"
-                    style={{ marginLeft: "4px" }}
-                  />
-                </span>
+            )}
+            {factSheetUrl && (
+              <div
+                className="download-link fact-sheet"
+                onClick={(e) =>
+                  openAssetOrContact(e, {
+                    type: "Fact Sheet",
+                    url: factSheetUrl,
+                  })
+                }
+                role="button"
+              >
+                <div className="download-icon">
+                  <Icon icon="solar:bill-list-outline" />
+                </div>
+                <div className="download-text">
+                  <span className="title">FACT SHEET</span>
+                  <span className="action">
+                    DOWNLOAD{" "}
+                    <Icon
+                      icon="lucide:arrow-down"
+                      style={{ marginLeft: "4px" }}
+                    />
+                  </span>
+                </div>
               </div>
-            </div>
-            <div
-              className="download-link fact-sheet"
-              onClick={(e) =>
-                openAssetOrContact(e, { type: "Fact Sheet", url: factSheetUrl })
-              }
-              role="button"
-            >
-              <div className="download-icon">
-                <Icon icon="solar:bill-list-outline" />
-              </div>
-              <div className="download-text">
-                <span className="title">FACT SHEET</span>
-                <span className="action">
-                  DOWNLOAD{" "}
-                  <Icon
-                    icon="lucide:arrow-down"
-                    style={{ marginLeft: "4px" }}
-                  />
-                </span>
-              </div>
-            </div>
+            )}
           </div>
 
           <div className="project-card-button-section">
@@ -238,7 +263,8 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               View Details
             </ThemeBtn>
             <ThemeBtn
-              to={`/project/${project.slug}#enquiry`}
+              // to={`/project/${project.slug}#enquiry`}
+              onClick={handleEnquiry}
               className="view-details-btn"
             >
               Enquireies
