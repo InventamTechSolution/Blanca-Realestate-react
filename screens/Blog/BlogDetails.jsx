@@ -9,6 +9,10 @@ import SmallHeroBanner from "../../components/common/Small-hero-banner";
 import ThemeBtn from "../../components/common/Button/ThemeBtn";
 import Preloader from "../../components/common/Preloader";
 import { useBlogBySlug, useBlogs } from "../../hooks/useBlog";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import "./BlogDetails.css";
 
 const BLOG_BG = "/images/background/career-bg.jpg";
@@ -144,62 +148,78 @@ export default function BlogDetails({ slug }) {
                 </ThemeBtn>
               </div>
 
-              <Row className="related-blogs-grid">
-                {related.map((item, index) => (
-                  <Col
-                    key={item.blog_id || `related-${index}`}
-                    lg={4}
-                    md={6}
-                    className="mb-4"
-                  >
-                    <div className="related-card">
-                      <Link
-                        href={`/blog/${item.blog_slug}`}
-                        className="related-card-media"
-                      >
-                        <img src={item.blog_card_image} alt={item.blog_title} />
-                      </Link>
+              <div className="related-blogs-slider-wrap">
+                <Swiper
+                  modules={[Navigation]}
+                  spaceBetween={30}
+                  slidesPerView={1}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 1.2,
+                      spaceBetween: 20,
+                    },
+                    576: {
+                      slidesPerView: 1.5,
+                      spaceBetween: 20,
+                    },
+                    768: {
+                      slidesPerView: 2,
+                      spaceBetween: 30,
+                    },
+                    1024: {
+                      slidesPerView: 3,
+                      spaceBetween: 30,
+                    },
+                  }}
+                  className="related-blogs-swiper"
+                >
+                  {related.map((item, index) => (
+                    <SwiperSlide key={item.blog_id || `related-${index}`}>
+                      <div className="related-card">
+                        <Link
+                          href={`/blog/${item.blog_slug}`}
+                          className="related-card-media"
+                        >
+                          <img
+                            src={item.blog_card_image}
+                            alt={item.blog_title}
+                          />
+                        </Link>
 
-                      <div className="related-card-body">
-                        <div className="related-card-date">
-                          {new Date(item.blog_published_at).toLocaleDateString(
-                            "en-US",
-                            {
+                        <div className="related-card-body">
+                          <div className="related-card-date">
+                            {new Date(
+                              item.blog_published_at,
+                            ).toLocaleDateString("en-US", {
                               year: "numeric",
                               month: "long",
                               day: "numeric",
-                            },
-                          )}
-                        </div>
-                        <Link
-                          href={`/blog/${item.blog_slug}`}
-                          className="related-card-title line-clamp-1"
-                        >
-                          {item.blog_title}
-                        </Link>
-                        <div className="project-description-text related-card-excerpt line-clamp-2">
-                          {item?.blog_description}
-                        </div>
+                            })}
+                          </div>
+                          <Link
+                            href={`/blog/${item.blog_slug}`}
+                            className="related-card-title line-clamp-1"
+                          >
+                            {item.blog_title}
+                          </Link>
+                          <div className="project-description-text related-card-excerpt line-clamp-2">
+                            {item?.blog_description}
+                          </div>
 
-                        <Link
-                          href={`/blog/${item.blog_slug}`}
-                          className="related-card-more"
-                        >
-                          Read more{" "}
-                          <span aria-hidden>
-                            <Icon icon="mdi:arrow-right" />
-                          </span>
-                        </Link>
+                          <Link
+                            href={`/blog/${item.blog_slug}`}
+                            className="related-card-more"
+                          >
+                            READ MORE{" "}
+                            <span aria-hidden>
+                              <Icon icon="mdi:arrow-right" />
+                            </span>
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-
-              <div className="related-blogs-back">
-                <ThemeBtn onClick={() => router.push("/blog")}>
-                  Back to blogs
-                </ThemeBtn>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
             </Container>
           </section>
