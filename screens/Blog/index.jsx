@@ -39,7 +39,7 @@ export default function Blog() {
                     const isImageLeft = index % 2 === 0;
 
                     const ImageCol = (
-                      <Col lg={7} className="blog-card-media">
+                      <Col lg={7} md={7} className="blog-card-media">
                         <div className="blog-card-media-inner">
                           <img
                             src={
@@ -54,7 +54,7 @@ export default function Blog() {
                     );
 
                     const ContentCol = (
-                      <Col lg={5} className="blog-card-content">
+                      <Col lg={5} md={5} className="blog-card-content">
                         <div className="blog-card-content-inner">
                           <h3 className="blog-card-title bs-font-playfair-display text-white">
                             {post.blog_title}
@@ -81,17 +81,8 @@ export default function Blog() {
                         key={post.blog_id || `blog-${index}`}
                         className={`blog-card-row ${isImageLeft ? "is-image-left" : "is-image-right"}`}
                       >
-                        {isImageLeft ? (
-                          <>
-                            {ImageCol}
-                            {ContentCol}
-                          </>
-                        ) : (
-                          <>
-                            {ContentCol}
-                            {ImageCol}
-                          </>
-                        )}
+                        {ContentCol}
+                        {ImageCol}
                       </Row>
                     );
                   })
