@@ -22,6 +22,22 @@
   white-space: pre-line;
 }
 
+.project-description-text ul,
+.project-description-text ol {
+  padding-left: 30px;
+  margin-bottom: 20px;
+}
+
+.project-description-text ul li {
+  list-style: disc;
+  margin-bottom: 8px;
+}
+
+.project-description-text ol li {
+  list-style: decimal;
+  margin-bottom: 8px;
+}
+
 .blog-article-h3 {
   margin: 18px 0 8px;
   font-size: 14px;
