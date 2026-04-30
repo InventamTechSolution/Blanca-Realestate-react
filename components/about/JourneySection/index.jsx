@@ -372,6 +372,25 @@ const JourneySection = ({ journeyResponse }) => {
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    if (!scrollRef.current) return;
+    setStartX(e.touches[0].pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    if (!scrollRef.current) return;
+    const x = e.touches[0].pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   return (
     <section className="journey-innovation-section" id="journey">
       <div className="container-fluid">
@@ -390,13 +409,13 @@ const JourneySection = ({ journeyResponse }) => {
         ref={scrollRef}
         onScroll={handleScroll}
         onMouseDown={handleMouseDown}
-        onMouseLeave={() => {
-          handleMouseLeave();
-        }}
-        onMouseUp={() => {
-          handleMouseUp();
-        }}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
+        onTouchMove={handleTouchMove}
       >
         <div className="journey-content-inner">
           <div className="timeline-track" />

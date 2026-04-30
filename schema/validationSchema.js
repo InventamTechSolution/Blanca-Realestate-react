@@ -116,7 +116,7 @@ export const jobApplySchema = yup.object().shape({
   experience: yup
     .string()
     .required("Experience is required")
-    .matches(/^\d+(\.\d+)?$/, "Please enter valid experience in years"),
+    .matches(/^\d{1,2}(\.\d+)?$/, "Please enter valid experience (0 to 99 years)"),
   joiningPreference: yup.string().required("Please select joining preference"),
   resume: yup.string().required("Resume is required"),
   description: yup
