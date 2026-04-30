@@ -104,7 +104,7 @@
   z-index: 200;
   pointer-events: none;
   user-select: none;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -319,13 +319,12 @@
   .nav-arrow {
     width: 36px;
     height: 36px;
-    background: transparent;
-    border: none;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .nav-arrow:hover {
-    transform: none;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.6);
     color: #fff;
   }
 }
