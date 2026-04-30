@@ -229,7 +229,7 @@ const HeroSection = ({ messages = [], settingResponse }) => {
             </div>
 
             {/* Center Content */}
-            <div className="text-center">
+            <div className="col-12 col-lg-10 col-xl-8 mx-auto text-center">
               <Montion.div
                 className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column"
                 initial={{ opacity: 0, y: 30 }}
@@ -237,10 +237,23 @@ const HeroSection = ({ messages = [], settingResponse }) => {
                 transition={{ duration: 1, delay: 0.3 }}
               >
                 <div className="vertical-text-slider">
+                  {/* Hidden grid to calculate max height based on wrapped text */}
+                  <div style={{ display: "grid", visibility: "hidden", pointerEvents: "none" }}>
+                    {sliderMessages.map((text, index) => (
+                      <h1
+                        key={`hidden-${index}`}
+                        className="hero-main-title bs-font-colgent-regular about-hero-title"
+                        style={{ gridArea: "1 / 1", whiteSpace: "normal", margin: 0, padding: 0 }}
+                      >
+                        {text}
+                      </h1>
+                    ))}
+                  </div>
+
                   <div
                     className="slider-wrapper"
                     style={{
-                      transform: `translateY(-${(activeSlide * 100) / sliderMessages.length}%)`,
+                      transform: `translateY(-${activeSlide * 100}%)`,
                       transition: isLoopReset
                         ? "none"
                         : "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
