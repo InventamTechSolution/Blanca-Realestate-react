@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Slider from "react-slick";
 import { motion as Montion } from "framer-motion";

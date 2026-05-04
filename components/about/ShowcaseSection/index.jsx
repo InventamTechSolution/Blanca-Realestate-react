@@ -1,6 +1,7 @@
+"use client";
+
 import {
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -50,7 +51,7 @@ const ShowcaseSection = ({ slides = [] }) => {
   }, [currentIndex, validSlides.length]);
 
   // ScrollTrigger for pinning and index control
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (validSlides.length <= 1) return;
 
     const ctx = gsap.context(() => {
@@ -79,7 +80,7 @@ const ShowcaseSection = ({ slides = [] }) => {
     return () => ctx.revert();
   }, [validSlides.length]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       const teamSlides = slidesRef.current.filter((el) => el !== null);
       if (!containerRef.current || teamSlides.length === 0) return;
@@ -123,6 +124,31 @@ const ShowcaseSection = ({ slides = [] }) => {
     return () => ctx.revert();
   }, [currentIndex, validSlides.length]);
 
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
   useEffect(() => {
     if (validSlides.length === 0) return;
     setCurrentIndex((i) => (i >= validSlides.length ? 0 : i));
@@ -148,7 +174,13 @@ const ShowcaseSection = ({ slides = [] }) => {
         </div>
       </div>
       {/* <Container> */}
-      <div className="team-slides-container" ref={containerRef}>
+      <div 
+        className="team-slides-container" 
+        ref={containerRef}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         {validSlides.map((slide, index) => (
           <div
             key={index}
