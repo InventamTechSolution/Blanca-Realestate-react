@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import "./TeamSlider.css";
@@ -66,6 +68,31 @@ const TeamSlider = ({ items }) => {
         return "";
     };
 
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
+
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe) {
+            handleNext();
+        } else if (isRightSwipe) {
+            handlePrev();
+        }
+    };
+
     if (!data?.length) return null;
 
     return (
@@ -84,7 +111,12 @@ const TeamSlider = ({ items }) => {
             </div>
 
             <div className="container">
-                <div className="team-slider-main">
+                <div 
+                    className="team-slider-main"
+                    onTouchStart={onTouchStart}
+                    onTouchMove={onTouchMove}
+                    onTouchEnd={onTouchEnd}
+                >
 
                     {/* Left Preview */}
                     <div className="team-side-preview preview-left">
