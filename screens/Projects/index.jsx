@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, notFound } from "next/navigation";
 import { Icon } from "@iconify/react";
 import SmallHeroBanner from "../../components/common/Small-hero-banner";
 import "./Projects.css";
@@ -51,13 +51,20 @@ const Projects = () => {
   const { data: locationData } = useProjectLocations();
   const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
 
-  const { data, isLoading } = useProjectsWithFilter({
+  const { data, isLoading, isError, error } = useProjectsWithFilter({
     page: 1,
     limit: 10,
     category: filter || "all",
     status: status,
     location: area,
   });
+
+  if (isError) {
+    const status = error?.response?.status;
+    if (status === 404 || status === 400) {
+      notFound();
+    }
+  }
 
   const apiProjects = data?.data || [];
 
@@ -211,6 +218,16 @@ const Projects = () => {
     setActiveDropdown(null);
   };
 
+  // Handle invalid filter slug
+  useEffect(() => {
+    if (isMounted && categoryResponse && filter && filter !== "all") {
+      const isValid = typeOptions.some((opt) => opt.value === filter);
+      if (!isValid) {
+        handleTypeSelect("all");
+      }
+    }
+  }, [filter, typeOptions, isMounted, categoryResponse]);
+
   const handleStatusSelect = (value) => {
     setStatus(value);
     const params = new URLSearchParams();
@@ -265,11 +282,9 @@ const Projects = () => {
                         onClick={() => toggleDropdown("type")}
                       >
                         <span>
-                          {
-                            typeOptions.find(
-                              (item) => item?.value === (filter || "all"),
-                            )?.label
-                          }
+                          {typeOptions.find(
+                            (item) => item?.value === (filter || "all"),
+                          )?.label || "All Projects"}
                         </span>
                         <Icon icon="lucide:chevron-down" />
                       </div>
