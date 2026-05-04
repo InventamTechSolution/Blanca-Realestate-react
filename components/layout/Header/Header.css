@@ -29,6 +29,12 @@
     padding: 12px 0 16px 0;
 }
 
+@media only screen and (max-width: 320px) {
+    .glass-header .header-upper {
+        padding: 8px 0 8px 0;
+    }
+}
+
 .glass-header .header-inner {
     position: relative;
     padding: 0px 12px;
@@ -670,6 +676,12 @@ a.light-btn.header-contact-btn:hover,
     z-index: 6;
 }
 
+@media only screen and (max-width: 320px) {
+    .header-top {
+        padding: 6px 0;
+    }
+}
+
 .header-top .header-top-text {
     color: var(--black-10);
     font-size: 12px;
@@ -707,6 +719,12 @@ a.light-btn.header-contact-btn:hover,
 
 .header-top+.main-header .header-upper {
     top: 40px;
+}
+
+@media only screen and (max-width: 320px) {
+    .header-top+.main-header .header-upper {
+        top: 28px;
+    }
 }
 
 .header-top+.main-header.fixed-header .header-upper {
@@ -797,6 +815,15 @@ header form.search-form button>* {
 @media only screen and (min-width: 320px) and (max-width: 767px) {
     .main-menu .mobile-logo {
         max-width: 130px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .main-menu .mobile-logo {
+        max-width: 110px;
+    }
+    .navbar-toggle {
+        margin-top: 4px;
     }
 }
 

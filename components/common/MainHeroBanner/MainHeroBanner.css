@@ -211,6 +211,25 @@
     }
 }
 
+@media only screen and (max-width: 320px), (max-height: 600px) and (max-width: 768px) {
+    .hero-area-2 .container-fluid .row>div {
+        padding-top: 85px;
+        padding-bottom: 60px;
+    }
+
+    .hero-main-title {
+        margin-bottom: 12px;
+    }
+
+    .hero-main-subinfo {
+        margin-bottom: 8px;
+    }
+
+    .hero-area-2 .buttons.mt-96 {
+        margin-top: 24px !important;
+    }
+}
+
 @media only screen and (max-width: 480px) {
     .container-fluid {
         padding: 0 20px;

@@ -45,6 +45,15 @@
     margin-bottom: 0;
 }
 
+@media only screen and (max-width: 320px), (max-height: 600px) {
+    .hero-rera-mobile-wrap {
+        margin-top: 10px;
+    }
+    .hero-rera-mobile-wrap .hero-rera-card.hero-glass-card {
+        margin-bottom: 10px;
+    }
+}
+
 .hero-rera-mobile-wrap .hero-rera-card.hero-glass-card {
     position: relative;
     top: auto;
@@ -209,5 +218,15 @@
 
     .hero-rera-mobile-wrap .hero-rera-value {
         font-size: 8px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .hero-rera-mobile-wrap .hero-rera-card.hero-glass-card {
+        margin-bottom: 12px;
+    }
+    .hero-rera-mobile-wrap .hero-rera-qr {
+        width: 70px;
+        height: 70px;
     }
 }
