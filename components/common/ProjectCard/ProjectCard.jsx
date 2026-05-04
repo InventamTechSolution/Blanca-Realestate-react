@@ -113,51 +113,55 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               </p>
             ) : null}
             <div className="project-download-options-horizontal">
-              <div
-                className="download-link brochure"
-                onClick={(e) =>
-                  openAssetOrContact(e, { type: "Brochure", url: brochureUrl })
-                }
-                role="button"
-              >
-                <div className="download-icon">
-                  <Icon icon="solar:document-text-outline" />
+              {brochureUrl && (
+                <div
+                  className="download-link brochure"
+                  onClick={(e) =>
+                    openAssetOrContact(e, { type: "Brochure", url: brochureUrl })
+                  }
+                  role="button"
+                >
+                  <div className="download-icon">
+                    <Icon icon="solar:document-text-outline" />
+                  </div>
+                  <div className="download-text">
+                    <span className="title">PROJECT BROCHURE</span>
+                    <span className="action">
+                      DOWNLOAD{" "}
+                      <Icon
+                        icon="lucide:arrow-down"
+                        style={{ marginLeft: "4px" }}
+                      />
+                    </span>
+                  </div>
                 </div>
-                <div className="download-text">
-                  <span className="title">PROJECT BROCHURE</span>
-                  <span className="action">
-                    DOWNLOAD{" "}
-                    <Icon
-                      icon="lucide:arrow-down"
-                      style={{ marginLeft: "4px" }}
-                    />
-                  </span>
+              )}
+              {factSheetUrl && (
+                <div
+                  className="download-link fact-sheet"
+                  onClick={(e) =>
+                    openAssetOrContact(e, {
+                      type: "Fact Sheet",
+                      url: factSheetUrl,
+                    })
+                  }
+                  role="button"
+                >
+                  <div className="download-icon">
+                    <Icon icon="solar:bill-list-outline" />
+                  </div>
+                  <div className="download-text">
+                    <span className="title">FACT SHEET</span>
+                    <span className="action">
+                      DOWNLOAD{" "}
+                      <Icon
+                        icon="lucide:arrow-down"
+                        style={{ marginLeft: "4px" }}
+                      />
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div
-                className="download-link fact-sheet"
-                onClick={(e) =>
-                  openAssetOrContact(e, {
-                    type: "Fact Sheet",
-                    url: factSheetUrl,
-                  })
-                }
-                role="button"
-              >
-                <div className="download-icon">
-                  <Icon icon="solar:bill-list-outline" />
-                </div>
-                <div className="download-text">
-                  <span className="title">FACT SHEET</span>
-                  <span className="action">
-                    DOWNLOAD{" "}
-                    <Icon
-                      icon="lucide:arrow-down"
-                      style={{ marginLeft: "4px" }}
-                    />
-                  </span>
-                </div>
-              </div>
+              )}
             </div>
             <ThemeBtn onClick={handleViewDetails} className="read-more-link">
               Read More
