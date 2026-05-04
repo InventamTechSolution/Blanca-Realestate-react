@@ -82,6 +82,9 @@ export default function BlogDetails({ slug }) {
               <Col lg={8} className="blog-article">
                 <div className="blog-article-inner">
                   <div className="project-description-text blog-overview mb-50">
+                    {blog?.blog_description}
+                  </div>
+                  <div className="project-description-text blog-overview mb-50">
                     {blog?.blog_overview}
                   </div>
 
