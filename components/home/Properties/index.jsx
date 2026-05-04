@@ -61,8 +61,7 @@ const Properties = ({ initialProjectsResponse }) => {
               </div>
 
               <h2 className="common-title bs-font-playfair-display">
-                Your Next Address Awaits – <br /> Discover Blanca's Signature
-                Creations
+                Your Next Address Awaits – <br /> Discover Blanca's Creations
               </h2>
 
               <p className="about-modern__text">
