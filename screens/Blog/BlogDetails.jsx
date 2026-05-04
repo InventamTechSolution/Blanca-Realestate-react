@@ -189,7 +189,7 @@ export default function BlogDetails({ slug }) {
                         <div className="related-card-body">
                           <div className="related-card-date">
                             {new Date(
-                              item.blog_published_at,
+                              item.blog_published_at * 1000,
                             ).toLocaleDateString("en-US", {
                               year: "numeric",
                               month: "long",
