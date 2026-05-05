@@ -151,7 +151,7 @@ const Properties = ({ initialProjectsResponse }) => {
                         alt={project?.project_name}
                       />
                       <div className="project-card__content">
-                        <h4>{project?.project_name}</h4>
+                        <p className="project-name-home-listing">{project?.project_name}</p>
                         <div className="project-card__meta">
                           <div className="properties-meta-detail">
                             <div>

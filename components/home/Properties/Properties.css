@@ -142,7 +142,7 @@
     overflow: hidden;
 }
 
-.homeproject-area .property-swiper .swiper-slide > .project-card-wrapper {
+.homeproject-area .property-swiper .swiper-slide>.project-card-wrapper {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
@@ -308,7 +308,7 @@
     font-size: 14px;
 }
 
-.homeproject-area .project-card__content h4 {
+.homeproject-area .project-card__content .project-name-home-listing {
     margin-bottom: 16px;
     font-size: 22px;
     font-weight: 700;

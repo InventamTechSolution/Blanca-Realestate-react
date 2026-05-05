@@ -461,6 +461,7 @@ const Header = () => {
                     <button
                       type="button"
                       className="navbar-toggle"
+                      aria-label="Toggle navigation menu"
                       onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                       <span className="icon-bar"></span>

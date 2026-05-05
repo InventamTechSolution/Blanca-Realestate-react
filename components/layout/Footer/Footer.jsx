@@ -334,7 +334,7 @@ const Footer = () => {
               </div>
 
               <div className="footer-links-column">
-                <h5 className="footer-title">Communities</h5>
+                <p className="footer-title">Communities</p>
                 <ul className="footer-links">
                   <li>
                     <Link href="/projects?status=new-launches">
@@ -356,7 +356,7 @@ const Footer = () => {
               </div>
 
               <div className="footer-links-column">
-                <h5 className="footer-title">Properties</h5>
+                <p className="footer-title">Properties</p>
                 <ul className="footer-links">
                   {propertyCategories?.map((category) => (
                     <li key={category?.slug}>
