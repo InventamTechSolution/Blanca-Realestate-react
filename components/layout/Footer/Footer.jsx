@@ -418,7 +418,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="footer-section footer-contact-card">
-            <h5 className="footer-title">Get In Touch</h5>
+            <p className="footer-title">Get In Touch</p>
             <ul className="footer-contact">
               <li className="contact-item">
                 <Icon icon="lucide:globe" className="contact-icon" />
