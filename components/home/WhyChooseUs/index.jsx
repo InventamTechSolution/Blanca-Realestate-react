@@ -248,12 +248,14 @@ const WhyChooseUs = () => {
                   <div className="skewed-slide-buttons">
                     <button
                       className="prev-slide"
+                      aria-label="Previous slide"
                       onClick={() => goToSlide(currentIndex - 1)}
                     >
                       <Icon icon="lucide:arrow-left" />
                     </button>
                     <button
                       className="next-slide"
+                      aria-label="Next slide"
                       onClick={() => goToSlide(currentIndex + 1)}
                     >
                       <Icon icon="lucide:arrow-right" />
