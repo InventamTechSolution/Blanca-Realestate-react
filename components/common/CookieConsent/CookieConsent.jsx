@@ -42,7 +42,7 @@ const CookieConsent = () => {
             <p>
               We use cookies to enhance your experience. By continuing to visit
               this site you agree to our use of cookies.{" "}
-              <Link href="/cookie-policy" aria-label="Learn more about our Cookie Policy">Learn more</Link>
+              <Link href="/cookie-policy" aria-label="View Blanca Cookie Policy">View Blanca Cookie Policy</Link>
             </p>
           </div>
         </div>

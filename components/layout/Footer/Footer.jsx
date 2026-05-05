@@ -259,7 +259,7 @@ const Footer = () => {
             {/* Footer Links */}
             <div className="footer-section footer-links-group">
               <div className="footer-links-column">
-                <h5 className="footer-title">
+                <p className="footer-title">
                   <Link
                     href="/about"
                     className="footer-title-link"
@@ -267,7 +267,7 @@ const Footer = () => {
                   >
                     About Us
                   </Link>
-                </h5>
+                </p>
                 <ul className="footer-links">
                   <li>
                     <Link
@@ -287,7 +287,7 @@ const Footer = () => {
                       href="/about#about-vision-section-four"
                       className={
                         pathname === "/about" &&
-                        hash === "#about-vision-section-four"
+                          hash === "#about-vision-section-four"
                           ? "is-active"
                           : undefined
                       }
@@ -303,7 +303,7 @@ const Footer = () => {
                       href="/about#about-mission-section-four"
                       className={
                         pathname === "/about" &&
-                        hash === "#about-mission-section-four"
+                          hash === "#about-mission-section-four"
                           ? "is-active"
                           : undefined
                       }
@@ -478,6 +478,7 @@ const Footer = () => {
                       href={item?.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Visit our ${item?.platform} profile`}
                       className="social-link"
                     >
                       <Icon icon={iconName} />

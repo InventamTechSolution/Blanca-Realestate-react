@@ -125,7 +125,7 @@ const MainHeroBanner = ({
               <div className="col-md-10 text-center">
                 <div className="hero-content flex-grow-1 d-flex align-items-center justify-content-center flex-column">
                   {status && (
-                    <h5 className="hero-main-subinfo text-white">{status}</h5>
+                    <p className="hero-main-subinfo text-white">{status}</p>
                   )}
                   {title && (
                     <h1 className="hero-main-title text-white bs-font-colgent-regular">
@@ -133,7 +133,7 @@ const MainHeroBanner = ({
                     </h1>
                   )}
                   {location && (
-                    <h5 className="hero-main-subinfo text-white">{location}</h5>
+                    <p className="hero-main-subinfo text-white">{location}</p>
                   )}
                 </div>
                 {(reraQrSrc || reraRegistrationNumber) && (
