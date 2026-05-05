@@ -16,7 +16,7 @@ const FloatingContactButtons = () => {
         if (Array.isArray(candidate)) return candidate[0] || null;
         return candidate || null;
     }, [settingResponse]);
-    
+
     const phone = settingRecord?.setting_contact_number?.[0]?.number || "+91 7021913284"
 
     const normalizedDigits = String(phone).replace(/[^\d]/g, "");
@@ -31,7 +31,8 @@ const FloatingContactButtons = () => {
                 aria-label="WhatsApp">
                 <Icon icon="ri:whatsapp-line" />
             </a>
-            <a
+            <button
+                type="button"
                 className="fab-item fab-inquiry"
                 onClick={(e) => {
                     e.preventDefault();
@@ -40,7 +41,7 @@ const FloatingContactButtons = () => {
                 aria-label="Inquiry"
             >
                 <Icon icon="lucide:mail" />
-            </a>
+            </button>
         </div>
     );
 };

@@ -414,7 +414,7 @@
 
     .hero-expert-badge {
         position: absolute;
-        top: auto;
+        top: 60%;
         bottom: 30%;
         right: auto;
         left: auto;
