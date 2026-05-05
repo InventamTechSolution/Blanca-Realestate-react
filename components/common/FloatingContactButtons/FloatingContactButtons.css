@@ -24,6 +24,8 @@
     padding: 0px 30px;
     border-radius: 999px;
     border: 1px solid var(--lg-highlight);
+    background: transparent;
+    cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s, border-color 0.2s, backdrop-filter 0.4s;
     overflow: hidden;
 }
