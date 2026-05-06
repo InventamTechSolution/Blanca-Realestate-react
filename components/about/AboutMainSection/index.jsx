@@ -1,7 +1,10 @@
 "use client";
 
 import React from "react";
-import Slider from "react-slick";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 import { motion as Montion } from "framer-motion";
 import "./aboutdetailmain.css";
 const aboutdetailImg1 = "/images/intro/architect-preparing-image.png";
@@ -9,20 +12,6 @@ const aboutdetailImg2 = "/images/intro/architect-bulding-2.png";
 import { Row, Col, Container } from "react-bootstrap";
 
 const AboutSection = () => {
-  const sliderSettings = {
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: true,
-    fade: false,
-    speed: 1000,
-    cssEase: "ease-in-out",
-    pauseOnHover: true,
-    rtl: false,
-  };
   return (
     <section className="about-page-section-main" id="about">
       <div className="top-section-spacing">
@@ -76,41 +65,55 @@ const AboutSection = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Slider {...sliderSettings} className="about-details-slider">
-              <div className="about-detail-item">
-                <h5>A Proven Legacy</h5>
-                <p className="mb-20 text-white-50">
-                  We led the strategic expansion into the Navi Mumbai and Mumbai
-                  real estate markets, strengthening our presence as a premium
-                  and affordable real estate developer while consistently
-                  delivering high-quality residential and commercial properties
-                  defined by innovation, long-term value, and superior design.
-                </p>
-              </div>
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              spaceBetween={0}
+              slidesPerView={1}
+              autoplay={{ delay: 4000, disableOnInteraction: false }}
+              pagination={{ clickable: true }}
+              loop={true}
+              className="about-details-swiper"
+            >
+              <SwiperSlide>
+                <div className="about-detail-item">
+                  <h5>A Proven Legacy</h5>
+                  <p className="mb-20 text-white-50">
+                    We led the strategic expansion into the Navi Mumbai and Mumbai
+                    real estate markets, strengthening our presence as a premium
+                    and affordable real estate developer while consistently
+                    delivering high-quality residential and commercial properties
+                    defined by innovation, long-term value, and superior design.
+                  </p>
+                </div>
+              </SwiperSlide>
 
-              <div className="about-detail-item">
-                <h5>Our Commitment</h5>
-                <p className="mb-20 text-white-50">
-                  We have a proven track record of completing and delivering
-                  RERA-compliant projects within 2 years, often well ahead of
-                  RERA timelines by up to 3 years, depending on the scale of
-                  development-offering buyers and investors greater confidence,
-                  transparency, and peace of mind.
-                </p>
-              </div>
+              <SwiperSlide>
+                <div className="about-detail-item">
+                  <h5>Our Commitment</h5>
+                  <p className="mb-20 text-white-50">
+                    We have a proven track record of completing and delivering
+                    RERA-compliant projects within 2 years, often well ahead of
+                    RERA timelines by up to 3 years, depending on the scale of
+                    development—offering buyers and investors greater confidence,
+                    transparency, and peace of mind.
+                  </p>
+                </div>
+              </SwiperSlide>
 
-              <div className="about-detail-item">
-                <h5>A Strong Foundation</h5>
-                <p className="mb-20 text-white-50">
-                  With over four decades of experience in luxury and premium
-                  real estate, we have built more than just properties. We have
-                  created trusted communities, enduring relationships, and a
-                  reputation as one of the dependable real estate developers in
-                  Navi Mumbai and Mumbai, consistently delivering excellence
-                  across every residential and commercial project.
-                </p>
-              </div>
-            </Slider>
+              <SwiperSlide>
+                <div className="about-detail-item">
+                  <h5>A Strong Foundation</h5>
+                  <p className="mb-20 text-white-50">
+                    With over four decades of experience in luxury and premium
+                    real estate, we have built more than just properties. We have
+                    created trusted communities, enduring relationships, and a
+                    reputation as one of the dependable real estate developers in
+                    Navi Mumbai and Mumbai, consistently delivering excellence
+                    across every residential and commercial project.
+                  </p>
+                </div>
+              </SwiperSlide>
+            </Swiper>
           </Montion.div>
         </Col>
 

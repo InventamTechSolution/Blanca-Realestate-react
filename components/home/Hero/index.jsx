@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { gsap } from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+// GSAP and ScrollTrigger will be imported dynamically inside useEffect
 import "./Hero.css";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import StatBadge from "../../common/StatBadge";
 import { useSetting } from "../../../hooks/useSetting";
 // import MainHeroBanner from "../../common/MainHeroBanner";
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+
 
 // Video paths
 export const bannerVideo1 = "/videos/blanca-long-video.mp4";
@@ -31,59 +29,68 @@ const Hero = ({ initialSettingResponse }) => {
   }, [settingResponse]);
 
   useEffect(() => {
-    // ## Counter Logic using GSAP ScrollTrigger
-    const counters = document.querySelectorAll(".badge-year, .stat-number");
+    let ctx;
+    const initGsap = async () => {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
 
-    counters.forEach((counter) => {
-      const countTo = parseInt(counter.getAttribute("data-count"), 10);
+      ctx = gsap.context(() => {
+        // ## Counter Logic using GSAP ScrollTrigger
+        const counters = document.querySelectorAll(".badge-year, .stat-number");
 
-      gsap.fromTo(
-        counter,
-        { textContent: 0 },
-        {
-          textContent: countTo,
-          duration: 2,
-          ease: "power1.out",
-          snap: { textContent: 1 },
-          scrollTrigger: {
-            trigger: counter,
-            start: "top 90%",
-            once: true,
-            onUpdate: (self) => {
-              // Ensuring integer display during animation
-              counter.textContent = Math.floor(counter.textContent);
+        counters.forEach((counter) => {
+          const countTo = parseInt(counter.getAttribute("data-count"), 10);
+
+          gsap.fromTo(
+            counter,
+            { textContent: 0 },
+            {
+              textContent: countTo,
+              duration: 2,
+              ease: "power1.out",
+              snap: { textContent: 1 },
+              scrollTrigger: {
+                trigger: counter,
+                start: "top 90%",
+                once: true,
+                onUpdate: (self) => {
+                  // Ensuring integer display during animation
+                  counter.textContent = Math.floor(counter.textContent);
+                },
+              },
+              onComplete: () => {
+                counter.textContent = countTo;
+              },
             },
-          },
-          onComplete: () => {
-            counter.textContent = countTo;
-          },
-        },
-      );
-    });
+          );
+        });
 
-    // ## Before and After Slider Logic
-    const handleSliderInput = (e, imgContainer) => {
-      imgContainer.style.setProperty("--position", `${e.target.value}%`);
+        // ## Before and After Slider Logic
+        const handleSliderInput = (e, imgContainer) => {
+          imgContainer.style.setProperty("--position", `${e.target.value}%`);
+        };
+
+        const pro02Images = document.querySelectorAll("[class*='pro-02-images-']");
+        pro02Images.forEach((imgContainer) => {
+          const match = imgContainer.className.match(/pro-02-images-(\d+)/);
+          if (match) {
+            const index = match[1];
+            const slider = document.querySelector(`.buttonslider${index}`);
+            if (slider) {
+              slider.addEventListener("input", (e) =>
+                handleSliderInput(e, imgContainer),
+              );
+            }
+          }
+        });
+      });
     };
 
-    const pro02Images = document.querySelectorAll("[class*='pro-02-images-']");
-    pro02Images.forEach((imgContainer) => {
-      // Extract the index from the class name (e.g., pro-02-images-1)
-      const match = imgContainer.className.match(/pro-02-images-(\d+)/);
-      if (match) {
-        const index = match[1];
-        const slider = document.querySelector(`.buttonslider${index}`);
-        if (slider) {
-          slider.addEventListener("input", (e) =>
-            handleSliderInput(e, imgContainer),
-          );
-        }
-      }
-    });
+    initGsap();
 
-    // Cleanup
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      if (ctx) ctx.revert();
     };
   }, [statsData, yearsOfExpertise]);
 

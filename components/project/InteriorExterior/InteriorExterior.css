@@ -152,6 +152,7 @@
 
 .thumb-slide {
     flex: 1;
+    max-width: calc(25% - 9px);
     cursor: pointer;
     transition: all 0.3s ease;
     border-radius: 4px;

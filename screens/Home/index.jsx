@@ -6,9 +6,8 @@ import dynamic from "next/dynamic";
 import ScrollToTop from "../../components/common/ScrollToTop";
 import MainHeroBanner from "../../components/common/MainHeroBanner";
 import { PROJECT_STATUS_LABELS } from "../../utils/constant";
-import Hero from "../../components/home/Hero";
-import About from "../../components/home/About";
-
+const Hero = dynamic(() => import("../../components/home/Hero"));
+const About = dynamic(() => import("../../components/home/About"));
 const Properties = dynamic(() => import("../../components/home/Properties"));
 const WhyChooseUs = dynamic(() => import("../../components/home/WhyChooseUs"));
 const Testimonials = dynamic(() => import("../../components/home/Testimonials"));

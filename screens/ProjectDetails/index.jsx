@@ -4,9 +4,11 @@ import React, { useEffect, useRef } from "react";
 import "./ProjectDetails.css";
 import MainHeroBanner from "../../components/common/MainHeroBanner";
 import { Container, Row, Col, Form } from "react-bootstrap";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import InteriorExterior from "../../components/project/InteriorExterior/InteriorExterior";
 import Amenities from "../../components/project/Amenities";
 import ThemeBtn from "../../components/common/Button/ThemeBtn";
@@ -95,19 +97,7 @@ const ProjectDetails = ({ project }) => {
     return () => window.clearTimeout(t);
   }, []);
 
-  const settings = {
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: true,
-    fade: true,
-    speed: 1000,
-    cssEase: "ease-in-out",
-    pauseOnHover: true,
-  };
+  // Swiper settings are handled in the component props
 
   const onSubmit = (data) => {
     const payload = {
@@ -238,17 +228,25 @@ const ProjectDetails = ({ project }) => {
                   {project?.project_overview_image?.length > 0 && (
                     <Col lg={6} className="wow fadeInRight">
                       <div className="overview-slider">
-                        <Slider {...settings}>
-                          {project?.project_overview_image?.map((item) => (
-                            <div key={item}>
+                        <Swiper
+                          modules={[Autoplay, Pagination]}
+                          spaceBetween={0}
+                          slidesPerView={1}
+                          autoplay={{ delay: 2000, disableOnInteraction: false }}
+                          pagination={{ clickable: true }}
+                          loop={true}
+                          className="overview-swiper"
+                        >
+                          {project?.project_overview_image?.map((item, index) => (
+                            <SwiperSlide key={index}>
                               <img
                                 className="d-block w-100 rounded"
                                 src={item}
-                                alt={item}
+                                alt={`Overview ${index}`}
                               />
-                            </div>
+                            </SwiperSlide>
                           ))}
-                        </Slider>
+                        </Swiper>
                       </div>
                     </Col>
                   )}

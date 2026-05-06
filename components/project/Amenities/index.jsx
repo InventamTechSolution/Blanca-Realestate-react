@@ -14,7 +14,7 @@ const Amenities = ({ amenities }) => {
                         <div className="lux-amenities-section">
 
                             {/* Heading */}
-                            <motion.div 
+                            <motion.div
                                 className="amenities-heading text-center mb-60"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +38,7 @@ const Amenities = ({ amenities }) => {
                             </motion.div>
 
                             {/* Amenities Content */}
-                            <motion.div 
+                            <motion.div
                                 className="lux-amenities-container"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}

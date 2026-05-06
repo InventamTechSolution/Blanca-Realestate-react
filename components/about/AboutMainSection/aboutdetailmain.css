@@ -60,31 +60,31 @@
     border-radius: 0px;
 }
 
-.about-details-slider .slick-dots {
+.about-details-swiper {
+    padding-bottom: 40px;
+}
+
+.about-details-swiper .swiper-pagination {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
+    bottom: 0 !important;
+    position: relative;
     margin-top: 30px;
-    padding: 0;
-    list-style: none;
 }
 
-.about-details-slider .slick-dots li {
+.about-details-swiper .swiper-pagination-bullet {
     width: 10px;
     height: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2) !important;
+    opacity: 1 !important;
+    margin: 0 !important;
     transition: all 0.3s ease;
 }
 
-.about-details-slider .slick-dots li.slick-active {
-    background: #fff;
+.about-details-swiper .swiper-pagination-bullet-active {
+    background: #fff !important;
     transform: scale(1.2);
-}
-
-.about-details-slider .slick-dots li button {
-    display: none;
 }
 
 /* Responseive Styles */
