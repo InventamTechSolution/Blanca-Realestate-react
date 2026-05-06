@@ -2,22 +2,9 @@ import React, { useState } from "react";
 import { Container, Row, Col, Carousel, Button } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import "./InteriorExterior.css";
+import { motion } from "framer-motion";
 
 const InteriorExterior = ({ interiorImages, exteriorImages }) => {
-    // const interiorImages = [
-    //     "/images/interior/item-1.png",
-    //     "/images/interior/item-2.png",
-    //     "/images/interior/item-3.png",
-    //     "/images/interior/item-4.png",
-    // ];
-
-    // const exteriorImages = [
-    //     "/images/Exterior/item-1.png",
-    //     "/images/Exterior/item-2.png",
-    //     "/images/Exterior/item-3.png",
-    //     "/images/Exterior/item-4.png",
-    // ];
-
     const [interiorIndex, setInteriorIndex] = useState(0);
     const [exteriorIndex, setExteriorIndex] = useState(0);
 
@@ -27,9 +14,12 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                 <Row className="g-4">
                     {/* ================= INTERIOR ================= */}
                     <Col lg={6}>
-                        <div
-                            className="gallery-main-slider-wrap wow fadeInUp"
-                        // style={{ paddingRight: "15px" }}
+                        <motion.div
+                            className="gallery-main-slider-wrap"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            viewport={{ once: true }}
                         >
                             <div className="gallery-column-header">
                                 <h3 className="gallery-title">INTERIOR</h3>
@@ -49,9 +39,9 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                                     <Carousel.Item key={index}>
                                         <img
                                             className="d-block w-100"
-                                            src={img}
-                                            alt={`Interior View ${index + 1}`}
-                                        />
+                                                src={img}
+                                                alt={`Interior View ${index + 1}`}
+                                            />
                                     </Carousel.Item>
                                 ))}
                             </Carousel>
@@ -107,14 +97,17 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </Col>
 
                     {/* ================= EXTERIOR ================= */}
                     <Col lg={6}>
-                        <div
-                            className="gallery-main-slider-wrap wow fadeInUp"
-                        // style={{ paddingLeft: "15px" }}
+                        <motion.div
+                            className="gallery-main-slider-wrap"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            viewport={{ once: true }}
                         >
                             <div className="gallery-column-header">
                                 <h3 className="gallery-title">EXTERIOR</h3>
@@ -134,9 +127,9 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                                     <Carousel.Item key={index}>
                                         <img
                                             className="d-block w-100"
-                                            src={img}
-                                            alt={`Exterior View ${index + 1}`}
-                                        />
+                                                src={img}
+                                                alt={`Exterior View ${index + 1}`}
+                                            />
                                     </Carousel.Item>
                                 ))}
                             </Carousel>
@@ -192,7 +185,7 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </Col>
                 </Row>
             </Container>

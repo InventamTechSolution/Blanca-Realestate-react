@@ -4,6 +4,15 @@ import AppShell from "./AppShell";
 import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
 import GoogleAnalyticsScript from "@/components/scripts";
+import {
+  inter,
+  montserrat,
+  playfairDisplay,
+  colgentRegular,
+  smothing,
+  marjorieRegular,
+  marjorieItalic,
+} from "./fonts";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -23,15 +32,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-      </head>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${montserrat.variable} ${playfairDisplay.variable} ${colgentRegular.variable} ${smothing.variable} ${marjorieRegular.variable} ${marjorieItalic.variable}`}
+    >
+      <head />
       <body>
         <Providers>
           <AppShell>

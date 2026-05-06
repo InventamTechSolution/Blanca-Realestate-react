@@ -28,9 +28,10 @@
 /* Carousel Adjustments */
 .carousel-item img {
     width: 100%;
-    aspect-ratio: 16/11;
+    aspect-ratio: 16/10;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 8px;
+    height: auto;
 }
 
 /* Indicators (Dots) Styling */
@@ -138,7 +139,7 @@
 /* Thumbnails */
 .gallery-thumb-slider-wrap {
     position: absolute;
-    bottom: 18px;
+    bottom: 24px;
     left: 24px;
     right: 24px;
     z-index: 25;
@@ -189,7 +190,8 @@
     }
 
     .carousel-item img {
-        height: 350px;
+        aspect-ratio: 16/10;
+        height: auto;
     }
 }
 
@@ -214,7 +216,8 @@
     }
 
     .carousel-item img {
-        height: 250px;
+        aspect-ratio: 16/10;
+        height: auto;
     }
 
     .gallery-main-slider-wrap .carousel-indicators {

@@ -248,6 +248,19 @@
     }
 }
 
+@media(max-width: 1200px) {
+    .about-modern__title {
+        font-size: 52px;
+    }
+
+    .about-modern__text {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+    }
+}
+
 @media (min-width: 320px) and (max-width: 767px) {
     .about-modern__wrap.g-5 {
         --bs-gutter-x: 0;

@@ -1,15 +1,17 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 
 import ScrollToTop from "../../components/common/ScrollToTop";
 import MainHeroBanner from "../../components/common/MainHeroBanner";
 import { PROJECT_STATUS_LABELS } from "../../utils/constant";
 import Hero from "../../components/home/Hero";
 import About from "../../components/home/About";
-import Properties from "../../components/home/Properties";
-import WhyChooseUs from "../../components/home/WhyChooseUs";
-import Testimonials from "../../components/home/Testimonials";
+
+const Properties = dynamic(() => import("../../components/home/Properties"));
+const WhyChooseUs = dynamic(() => import("../../components/home/WhyChooseUs"));
+const Testimonials = dynamic(() => import("../../components/home/Testimonials"));
 
 const Home = ({
   projectsResponse,

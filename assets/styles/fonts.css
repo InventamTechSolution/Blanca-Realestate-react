@@ -1,49 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
-
-@font-face {
-    font-family: 'Colgent Regular';
-    src: url('../fonts/Colgent Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Smothing';
-    src: url('../fonts/Smothing.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Marjorie-regular';
-    src: url('../fonts/Marjorie-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Marjorie-italic';
-    src: url('../fonts/Marjorie-Italic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-/*******************************************************/
-/******************* ## Bootstrap Variables ******************/
-/*******************************************************/
 :root {
-    --bs-font-colgent-regular: "Colgent Regular", serif;
-    --bs-font-playfair-display: "Playfair Display", serif;
-    --bs-font-montserrat: "Montserrat", sans-serif;
-    --bs-font-inter: "Inter", sans-serif;
-    --bs-font-Smothing: "Smothing", serif;
-    --bs-font-Beauty-Story: "Beauty Story", serif;
-    --bs-font-Marjorie-regular: "Marjorie-regular", serif;
-    --bs-font-Marjorie-italic: "Marjorie-italic", serif;
+    --bs-font-colgent-regular: var(--font-colgent), serif;
+    --bs-font-playfair-display: var(--font-playfair), serif;
+    --bs-font-montserrat: var(--font-montserrat), sans-serif;
+    --bs-font-inter: var(--font-inter), sans-serif;
+    --bs-font-Smothing: var(--font-smothing), serif;
+    --bs-font-Marjorie-regular: var(--font-marjorie-regular), serif;
+    --bs-font-Marjorie-italic: var(--font-marjorie-italic), serif;
 }
 
 /* Utility classes for fonts */

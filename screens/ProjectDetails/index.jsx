@@ -21,9 +21,6 @@ import { enquirySchema } from "../../schema/validationSchema";
 import { Icon } from "@iconify/react";
 import { useContactModal } from "../../context/ContactModalContext";
 import ThankYouModal from "../../components/common/ThankYouModal/ThankYouModal";
-// const commercial1 = "/images/project-details/commercial-office-1.png";
-// const commercial2 = "/images/project-details/commercial-office-2.png";
-// const commercial3 = "/images/project-details/commercial-office-3.png";
 
 const defaultValues = {
   project_id: "",
@@ -98,36 +95,6 @@ const ProjectDetails = ({ project }) => {
     return () => window.clearTimeout(t);
   }, []);
 
-  // if (isLoading) {
-  //   return (
-  //     <AnimatePresence>
-  //       <Preloader key="preloader" isLoading={isLoading} />
-  //     </AnimatePresence>
-  //   );
-  // }
-
-  // if (error) {
-  //   return <p>Something went wrong</p>;
-  // }
-
-  //   const overviewData = [
-  //     {
-  //       id: 1,
-  //       image: commercial1,
-  //       alt: "Blanca Ekaiva Office 1",
-  //     },
-  //     {
-  //       id: 2,
-  //       image: commercial2,
-  //       alt: "Blanca Ekaiva Office 2",
-  //     },
-  //     {
-  //       id: 3,
-  //       image: commercial3,
-  //       alt: "Blanca Ekaiva Office 3",
-  //     },
-  //   ];
-
   const settings = {
     infinite: true,
     autoplay: true,
@@ -177,118 +144,118 @@ const ProjectDetails = ({ project }) => {
 
         {(project?.project_overview_description ||
           project?.project_overview_image?.length > 0) && (
-          <section className="project-about-section">
-            <Container>
-              <Row className="gap-3 align-items-center">
-                {/* Left Content */}
-                {project?.project_overview_description && (
-                  <Col className="wow fadeInLeft">
-                    <div className="sub-title-wrapper mb-20">
-                      <span className="sub-title common-subtitle">
-                        OVERVIEW
-                      </span>
-                    </div>
-
-                    <h2 className="common-title bs-font-playfair-display text-white mb-30">
-                      {project?.project_overview_title}
-                    </h2>
-
-                    <div className="project-description-text">
-                      {project?.project_overview_description}
-                    </div>
-
-                    {project?.project_rera_number && (
-                      <p className="project-overview-rera bs-font-montserrat">
-                        <span className="project-overview-rera__label">
-                          RERA:
+            <section className="project-about-section">
+              <Container>
+                <Row className="gap-3 align-items-center">
+                  {/* Left Content */}
+                  {project?.project_overview_description && (
+                    <Col className="wow fadeInLeft">
+                      <div className="sub-title-wrapper mb-20">
+                        <span className="sub-title common-subtitle">
+                          OVERVIEW
                         </span>
-                        <span className="project-overview-rera__value">
-                          {project.project_rera_number}
-                        </span>
-                      </p>
-                    )}
+                      </div>
 
-                    <div className="download-buttons-wrapper mt-40">
-                      {brochureUrl && (
-                        <button
-                          className="download-btn"
-                          onClick={() =>
-                            openAssetOrContact({
-                              type: "Brochure",
-                              url: brochureUrl,
-                            })
-                          }
-                        >
-                          <div className="btn-icon">
-                            <Icon icon="ph:article-light" />
-                          </div>
-                          <div className="btn-text">
-                            <span className="btn-title bs-font-montserrat">
-                              PROJECT BROCHURE
-                            </span>
-                            <span className="btn-subtitle">
-                              DOWNLOAD{" "}
-                              <Icon
-                                icon="lucide:arrow-down"
-                                style={{ marginLeft: "4px" }}
-                              />
-                            </span>
-                          </div>
-                        </button>
-                      )}
-                      {factSheetUrl && (
-                        <button
-                          className="download-btn"
-                          onClick={() =>
-                            openAssetOrContact({
-                              type: "Fact Sheet",
-                              url: factSheetUrl,
-                            })
-                          }
-                        >
-                          <div className="btn-icon">
-                            <Icon icon="ph:list-checks-light" />
-                          </div>
-                          <div className="btn-text">
-                            <span className="btn-title bs-font-montserrat">
-                              FACT SHEET
-                            </span>
-                            <span className="btn-subtitle">
-                              DOWNLOAD{" "}
-                              <Icon
-                                icon="lucide:arrow-down"
-                                style={{ marginLeft: "4px" }}
-                              />
-                            </span>
-                          </div>
-                        </button>
-                      )}
-                    </div>
-                  </Col>
-                )}
+                      <h2 className="common-title bs-font-playfair-display text-white mb-30">
+                        {project?.project_overview_title}
+                      </h2>
 
-                {/* Right Slider */}
-                {project?.project_overview_image?.length > 0 && (
-                  <Col lg={6} className="wow fadeInRight">
-                    <div className="overview-slider">
-                      <Slider {...settings}>
-                        {project?.project_overview_image?.map((item) => (
-                          <div key={item}>
-                            <img
-                              className="d-block w-100 rounded"
-                              src={item}
-                              alt={item}
-                            />
-                          </div>
-                        ))}
-                      </Slider>
-                    </div>
-                  </Col>
-                )}
-              </Row>
-            </Container>
-          </section>
-        )}
+                      <div className="project-description-text">
+                        {project?.project_overview_description}
+                      </div>
+
+                      {project?.project_rera_number && (
+                        <p className="project-overview-rera bs-font-montserrat">
+                          <span className="project-overview-rera__label">
+                            RERA:
+                          </span>
+                          <span className="project-overview-rera__value">
+                            {project.project_rera_number}
+                          </span>
+                        </p>
+                      )}
+
+                      <div className="download-buttons-wrapper mt-40">
+                        {brochureUrl && (
+                          <button
+                            className="download-btn"
+                            onClick={() =>
+                              openAssetOrContact({
+                                type: "Brochure",
+                                url: brochureUrl,
+                              })
+                            }
+                          >
+                            <div className="btn-icon">
+                              <Icon icon="ph:article-light" />
+                            </div>
+                            <div className="btn-text">
+                              <span className="btn-title bs-font-montserrat">
+                                PROJECT BROCHURE
+                              </span>
+                              <span className="btn-subtitle">
+                                DOWNLOAD{" "}
+                                <Icon
+                                  icon="lucide:arrow-down"
+                                  style={{ marginLeft: "4px" }}
+                                />
+                              </span>
+                            </div>
+                          </button>
+                        )}
+                        {factSheetUrl && (
+                          <button
+                            className="download-btn"
+                            onClick={() =>
+                              openAssetOrContact({
+                                type: "Fact Sheet",
+                                url: factSheetUrl,
+                              })
+                            }
+                          >
+                            <div className="btn-icon">
+                              <Icon icon="ph:list-checks-light" />
+                            </div>
+                            <div className="btn-text">
+                              <span className="btn-title bs-font-montserrat">
+                                FACT SHEET
+                              </span>
+                              <span className="btn-subtitle">
+                                DOWNLOAD{" "}
+                                <Icon
+                                  icon="lucide:arrow-down"
+                                  style={{ marginLeft: "4px" }}
+                                />
+                              </span>
+                            </div>
+                          </button>
+                        )}
+                      </div>
+                    </Col>
+                  )}
+
+                  {/* Right Slider */}
+                  {project?.project_overview_image?.length > 0 && (
+                    <Col lg={6} className="wow fadeInRight">
+                      <div className="overview-slider">
+                        <Slider {...settings}>
+                          {project?.project_overview_image?.map((item) => (
+                            <div key={item}>
+                              <img
+                                className="d-block w-100 rounded"
+                                src={item}
+                                alt={item}
+                              />
+                            </div>
+                          ))}
+                        </Slider>
+                      </div>
+                    </Col>
+                  )}
+                </Row>
+              </Container>
+            </section>
+          )}
         {project?.project_interior?.length > 0 && (
           <InteriorExterior
             interiorImages={project?.project_interior}
@@ -441,9 +408,8 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${
-                                  errors?.name ? "has-error" : ""
-                                }`}
+                                className={`input-modern-group ${errors?.name ? "has-error" : ""
+                                  }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -473,9 +439,8 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${
-                                  errors?.email ? "has-error" : ""
-                                }`}
+                                className={`input-modern-group ${errors?.email ? "has-error" : ""
+                                  }`}
                               >
                                 <Form.Control
                                   {...field}
@@ -505,9 +470,8 @@ const ProjectDetails = ({ project }) => {
                             control={control}
                             render={({ field }) => (
                               <div
-                                className={`input-modern-group ${
-                                  errors?.phone_number ? "has-error" : ""
-                                }`}
+                                className={`input-modern-group ${errors?.phone_number ? "has-error" : ""
+                                  }`}
                               >
                                 <Form.Control
                                   {...field}

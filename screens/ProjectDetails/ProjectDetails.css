@@ -3,7 +3,10 @@
     padding: 100px 0;
 }
 
-.overview-slider .overview-slide img {
+.overview-slider img {
+    width: 100%;
+    aspect-ratio: 16/10;
+    object-fit: cover;
     border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }

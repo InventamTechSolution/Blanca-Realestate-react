@@ -5,6 +5,7 @@ import { useContactModal } from "../../../context/ContactModalContext";
 import "./ProjectCard.css";
 import { PROJECT_STATUS_LABELS } from "../../../utils/constant";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 const ProjectCard = ({ project, layout = "grid" }) => {
   const { openContactModal } = useContactModal();
@@ -174,7 +175,13 @@ const ProjectCard = ({ project, layout = "grid" }) => {
 
   return (
     <>
-      <div className="project-card-item wow fadeInUp">
+      <motion.div
+        className="project-card-item"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
         <div className="project-img-wrapper">
           <img src={project.image || null} alt={project.title} />
           <div
@@ -266,16 +273,12 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             <ThemeBtn onClick={handleViewDetails} className="view-details-btn">
               View Details
             </ThemeBtn>
-            <ThemeBtn
-              // to={`/project/${project.slug}#enquiry`}
-              onClick={handleEnquiry}
-              className="view-details-btn"
-            >
+            <ThemeBtn onClick={handleEnquiry} className="view-details-btn">
               Enquireies
             </ThemeBtn>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

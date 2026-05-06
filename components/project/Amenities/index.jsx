@@ -1,57 +1,9 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./Amenities.css";
+import { motion } from "framer-motion";
 
 const Amenities = ({ amenities }) => {
-
-    // const amenitiesImages = [
-    //     "/images/amenities/amenity-1.png",
-    //     "/images/amenities/amenity-2.png",
-    //     "/images/amenities/amenity-3.png",
-    //     "/images/amenities/amenity-4.png",
-    //     "/images/amenities/amenity-5.png",
-    //     "/images/amenities/amenity-6.png",
-    // ];
-
-    // const amenities = [
-    //     {
-    //         id: 1,
-    //         title: "Swimming Pool",
-    //         desc: "Luxurious infinity pool with stunning views",
-    //         img: amenitiesImages[0],
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "Fitness Center",
-    //         desc: "State-of-the-art gym with modern equipment",
-    //         img: amenitiesImages[1],
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "Parking Space",
-    //         desc: "Secure covered parking for residents",
-    //         img: amenitiesImages[2],
-    //     },
-    //     {
-    //         id: 4,
-    //         title: "Siting Pavilion",
-    //         desc: "Pavilion with beautiful views and seating area",
-    //         img: amenitiesImages[3],
-    //     },
-    //     {
-    //         id: 5,
-    //         title: "Jogging Track",
-    //         desc: "Jogging Track with fitness equipment",
-    //         img: amenitiesImages[4],
-    //     },
-    //     {
-    //         id: 6,
-    //         title: "Club House",
-    //         desc: "Club House with all games and amenities",
-    //         img: amenitiesImages[5],
-    //     },
-    // ];
-
     const [activeAmenity, setActiveAmenity] = useState(amenities[0]);
 
     return (
@@ -62,7 +14,13 @@ const Amenities = ({ amenities }) => {
                         <div className="lux-amenities-section">
 
                             {/* Heading */}
-                            <div className="amenities-heading text-center mb-60 wow fadeInUp delay-0-3s">
+                            <motion.div 
+                                className="amenities-heading text-center mb-60"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                                viewport={{ once: true }}
+                            >
                                 <div className="sub-title-wrapper mb-20 d-inline-block">
                                     <span className="sub-title common-subtitle">
                                         AMENITIES
@@ -77,10 +35,16 @@ const Amenities = ({ amenities }) => {
                                     Where luxury is not just seen it’s felt in every
                                     experience.
                                 </p>
-                            </div>
+                            </motion.div>
 
                             {/* Amenities Content */}
-                            <div className="lux-amenities-container wow fadeInUp delay-0-4s">
+                            <motion.div 
+                                className="lux-amenities-container"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
+                                viewport={{ once: true }}
+                            >
                                 <Row className="g-0 align-items-stretch">
 
                                     {/* Left List */}
@@ -134,7 +98,7 @@ const Amenities = ({ amenities }) => {
                                     </Col>
 
                                 </Row>
-                            </div>
+                            </motion.div>
 
                         </div>
                     </Col>
