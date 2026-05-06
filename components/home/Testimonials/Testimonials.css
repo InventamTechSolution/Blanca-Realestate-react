@@ -223,6 +223,29 @@
     color: rgba(245, 245, 245, 0.35);
 }
 
+.testimonials-modern__star-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.testimonials-modern__star-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+.testimonials-modern__star-fill .testimonials-modern__star {
+    min-width: 1em;
+    color: #f59e0b;
+}
+
 .testimonials-modern__quote {
     margin-left: auto;
     width: 48px;

@@ -125,26 +125,16 @@ const Testimonials = ({ initialTestimonialsResponse, settingResponse }) => {
 
   const testimonials = useMemo(() => data?.data ?? [], [data]);
   const overall = useMemo(() => {
-    // We want to display the rating directly from settings (no computed average).
-    const settingsRating = Number(settingResponse?.review?.fields?.review);
-    const apiCount = Number(data?.totalCount);
-
-    const count = Number.isFinite(apiCount)
-      ? apiCount
-      : (testimonials?.length ?? 0);
-
-    if (!Array.isArray(testimonials) || testimonials.length === 0) {
-      return {
-        count,
-        average: Number.isFinite(settingsRating) ? settingsRating : 0,
-      };
-    }
+    // Take the direct rating value from settings.
+    const settingsRating = Number(
+      settingResponse?.data?.[0]?.setting_testimonial_rating ??
+        settingResponse?.review?.fields?.review,
+    );
 
     return {
-      count,
-      average: Number.isFinite(settingsRating) ? settingsRating : 0,
+      rating: Number.isFinite(settingsRating) ? settingsRating : 0,
     };
-  }, [data?.totalCount, settingResponse?.review?.fields?.review, testimonials]);
+  }, [settingResponse]);
   const shouldLoop = testimonials?.length > 2;
 
   if (isLoading || error || testimonials?.length === 0) {
@@ -153,68 +143,40 @@ const Testimonials = ({ initialTestimonialsResponse, settingResponse }) => {
 
   const renderStars = (rating) => {
     const stars = [];
-    const full = Math.floor(Number(rating) || 0);
+    const val = Number(rating) || 0;
 
     for (let i = 1; i <= 5; i++) {
+      let fill = 0;
+      if (val >= i) {
+        fill = 1;
+      } else if (val > i - 1) {
+        fill = val - (i - 1);
+      }
+
       stars.push(
-        <Icon
-          key={i}
-          icon={
-            i <= full
-              ? "material-symbols:star"
-              : "material-symbols:star-outline"
-          }
-          className={
-            i <= full
-              ? "testimonials-modern__star testimonials-modern__star--filled"
-              : "testimonials-modern__star testimonials-modern__star--empty"
-          }
-        />,
+        <div key={i} className="testimonials-modern__star-wrapper">
+          <Icon
+            icon="material-symbols:star-outline"
+            className="testimonials-modern__star testimonials-modern__star--empty"
+          />
+          {fill > 0 && (
+            <div
+              className="testimonials-modern__star-fill"
+              style={{ width: `${(fill * 100).toFixed(0)}%` }}
+            >
+              <Icon
+                icon="material-symbols:star"
+                className="testimonials-modern__star testimonials-modern__star--filled"
+              />
+            </div>
+          )}
+        </div>,
       );
     }
 
     return stars;
   };
 
-  const renderOverallStars = (average) => {
-    const stars = [];
-    const full = Math.floor(average);
-    const hasHalf = average - full >= 0.5 && full < 5;
-
-    for (let i = 1; i <= 5; i++) {
-      if (i <= full) {
-        stars.push(
-          <Icon
-            key={i}
-            icon="material-symbols:star"
-            className="testimonials-modern__star testimonials-modern__star--filled"
-          />,
-        );
-        continue;
-      }
-
-      if (hasHalf && i === full + 1) {
-        stars.push(
-          <Icon
-            key={i}
-            icon="material-symbols:star-half"
-            className="testimonials-modern__star testimonials-modern__star--filled"
-          />,
-        );
-        continue;
-      }
-
-      stars.push(
-        <Icon
-          key={i}
-          icon="material-symbols:star-outline"
-          className="testimonials-modern__star testimonials-modern__star--empty"
-        />,
-      );
-    }
-
-    return stars;
-  };
 
   return (
     <section className="reviews2-area">
@@ -245,28 +207,19 @@ const Testimonials = ({ initialTestimonialsResponse, settingResponse }) => {
                 with lasting real estate value.
               </p>
 
-              {overall.count > 0 && (
+              {overall.rating > 0 && (
                 <div
                   className="testimonials-modern__overall"
-                  aria-label={`Overall rating ${overall.average.toFixed(
-                    1,
-                  )} out of 5 based on ${overall.count} reviews`}
+                  aria-label={`Rating ${overall.rating.toFixed(1)} out of 5`}
                 >
                   <div className="testimonials-modern__overall-score">
                     <span className="testimonials-modern__overall-value">
-                      {overall.average.toFixed(1)}
-                    </span>
-                    <span className="testimonials-modern__overall-outof">
-                      /5
+                      {overall.rating.toFixed(1)}
                     </span>
                   </div>
 
                   <div className="testimonials-modern__overall-stars">
-                    {renderOverallStars(overall.average)}
-                  </div>
-
-                  <div className="testimonials-modern__overall-count">
-                    {overall.count} {overall.count === 1 ? "review" : "reviews"}
+                    {renderStars(overall.rating)}
                   </div>
                 </div>
               )}
