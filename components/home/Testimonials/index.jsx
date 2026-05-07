@@ -131,8 +131,14 @@ const Testimonials = ({ initialTestimonialsResponse, settingResponse }) => {
         settingResponse?.review?.fields?.review,
     );
 
+    const settingsCount = Number(
+      settingResponse?.data?.[0]?.setting_testimonial_review_count ??
+        settingResponse?.review?.fields?.review_count,
+    );
+
     return {
       rating: Number.isFinite(settingsRating) ? settingsRating : 0,
+      count: Number.isFinite(settingsCount) ? settingsCount : 0,
     };
   }, [settingResponse]);
   const shouldLoop = testimonials?.length > 2;
@@ -177,7 +183,6 @@ const Testimonials = ({ initialTestimonialsResponse, settingResponse }) => {
     return stars;
   };
 
-
   return (
     <section className="reviews2-area">
       <Container>
@@ -220,6 +225,9 @@ const Testimonials = ({ initialTestimonialsResponse, settingResponse }) => {
 
                   <div className="testimonials-modern__overall-stars">
                     {renderStars(overall.rating)}
+                  </div>
+                  <div className="testimonials-modern__overall-count">
+                    {overall.count} {overall.count === 1 ? "review" : "reviews"}
                   </div>
                 </div>
               )}
