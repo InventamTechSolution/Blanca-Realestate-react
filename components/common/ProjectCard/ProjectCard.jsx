@@ -274,7 +274,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               View Details
             </ThemeBtn>
             <ThemeBtn onClick={handleEnquiry} className="view-details-btn">
-              Enquireies
+              Inquiries
             </ThemeBtn>
           </div>
         </div>
