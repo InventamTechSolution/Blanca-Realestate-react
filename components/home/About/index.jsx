@@ -1,3 +1,4 @@
+import Image from "next/image";
 import "./About.css";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -78,6 +79,7 @@ const About = ({ initialOtherFieldResponse }) => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
+                // style={{ position: 'relative', width: '100%', aspectRatio: '1/1' }}
               >
                 {isVideoMedia ? (
                   <video
@@ -87,11 +89,19 @@ const About = ({ initialOtherFieldResponse }) => {
                     loop
                     playsInline
                     aria-label="About us banner video"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
                   />
                 ) : (
-                  <img
+                  <Image
                     src={aboutContent?.media}
                     alt={aboutContent?.title || "About us banner image"}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 )}
               </Motion.div>

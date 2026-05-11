@@ -1,9 +1,10 @@
-import React from "react";
+import Image from "next/image";
 import ThemeBtn from "../Button/ThemeBtn";
 import HeroReraQrSection from "../HeroReraQrSection/HeroReraQrSection";
 import "./MainHeroBanner.css";
 import { useRouter } from "next/navigation";
 import { useContactModal } from "../../../context/ContactModalContext";
+import { useEffect, useRef, useState } from "react";
 
 const MainHeroBanner = ({
   videoSrc,
@@ -20,9 +21,41 @@ const MainHeroBanner = ({
   projectIsSoldout,
   reraRegistrationNumber,
   reraQrSrc,
+  priority = false,
 }) => {
   const router = useRouter();
   const { openContactModal } = useContactModal();
+  const videoRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isInView) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isInView]);
 
   const formatExternalLink = (url) => {
     if (!url) return "";
@@ -79,11 +112,12 @@ const MainHeroBanner = ({
           style={{ position: "relative", overflow: "hidden" }}
         >
           <video
-            autoPlay
+            ref={videoRef}
             muted
             loop
             playsInline
             poster={poster || null}
+            preload={priority ? "auto" : "none"}
             style={{
               position: "absolute",
               top: 0,
@@ -94,12 +128,16 @@ const MainHeroBanner = ({
               zIndex: 0,
             }}
           >
-            <source src={videoSrc || null} type="video/mp4" />
+            {isInView || priority ? (
+              <source src={videoSrc || null} type="video/mp4" />
+            ) : null}
             {poster && (
-              <img
-                src={poster || null}
+              <Image
+                src={poster}
                 alt={title}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                fill
+                style={{ objectFit: "cover" }}
+                priority={priority}
               />
             )}
           </video>

@@ -9,6 +9,7 @@ import "./Header.css";
 import ChannelPartnerModal from "../../common/ChannelPartnerModal/ChannelPartnerModal";
 import { useOtherField } from "../../../hooks/useOtherField";
 import { useCategories } from "../../../hooks/useCategories";
+import Image from "next/image";
 const logo = "/images/logos/blanca-logo.png";
 
 const Header = () => {
@@ -413,11 +414,14 @@ const Header = () => {
               <div className="logo-outer header-logo-center">
                 <div className="logo-header">
                   <Link href="/" onClick={closeMenus}>
-                    <img
+                    <Image
                       className="header-logo-image"
                       src={logo}
                       alt="Logo"
-                      title="Logo"
+                      width={240}
+                      height={80}
+                      priority
+                      style={{ height: "auto" }}
                     />
                   </Link>
                 </div>
@@ -454,7 +458,14 @@ const Header = () => {
                   <div className="navbar-header py-10">
                     <div className="mobile-logo">
                       <Link href="/" onClick={closeMenus}>
-                        <img src={logo} alt="Logo" title="Logo" />
+                        <Image
+                          src={logo}
+                          alt="Logo"
+                          width={160}
+                          height={50}
+                          priority
+                          style={{ height: "auto" }}
+                        />
                       </Link>
                     </div>
 

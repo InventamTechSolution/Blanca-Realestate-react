@@ -11,6 +11,7 @@ import { useContactUs } from "../../../hooks/useContactUs";
 import { usePathname } from "next/navigation";
 import "./Footer.css";
 
+import Image from "next/image";
 const logo = "/images/logos/blanca-logo.png";
 
 const Footer = () => {
@@ -406,11 +407,13 @@ const Footer = () => {
           <div className="footer-logo">
             <Link href="/">
               <div className="footer-logo-shine-wrapper">
-                <img
+                <Image
                   className="footer-logo-image"
                   src={logo}
                   alt="Logo"
-                  title="Logo"
+                  width={150}
+                  height={50}
+                  style={{ height: 'auto' }}
                 />
               </div>
             </Link>

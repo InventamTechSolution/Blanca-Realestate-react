@@ -10,7 +10,9 @@ const Hero = dynamic(() => import("../../components/home/Hero"));
 const About = dynamic(() => import("../../components/home/About"));
 const Properties = dynamic(() => import("../../components/home/Properties"));
 const WhyChooseUs = dynamic(() => import("../../components/home/WhyChooseUs"));
-const Testimonials = dynamic(() => import("../../components/home/Testimonials"));
+const Testimonials = dynamic(
+  () => import("../../components/home/Testimonials"),
+);
 
 const Home = ({
   projectsResponse,
@@ -25,7 +27,7 @@ const Home = ({
     <div className="home-page">
       <main>
         {projects?.length > 0 ? (
-          projects?.map((project) => (
+          projects?.map((project, index) => (
             <MainHeroBanner
               key={project?.project_project_id}
               videoSrc={project?.project_banner_image}
@@ -43,6 +45,7 @@ const Home = ({
               projectIsSoldout={project?.project_is_soldout}
               reraRegistrationNumber={project?.project_rera_number}
               reraQrSrc={project?.project_qr_code}
+              priority={index === 0}
             />
           ))
         ) : (

@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Image from "next/image";
 import { motion as Montion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import StatBadge from "../../common/StatBadge";
@@ -119,6 +120,38 @@ const HeroSection = ({ messages = [], settingResponse }) => {
     };
   }, [statsData, yearsOfExpertise]);
 
+  const videoRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isInView) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isInView]);
+
   return (
     <section className="about-area-2 black-120-bg">
       <div
@@ -126,10 +159,11 @@ const HeroSection = ({ messages = [], settingResponse }) => {
         style={{ position: "relative", overflow: "hidden" }}
       >
         <video
-          autoPlay
+          ref={videoRef}
           muted
           loop
           playsInline
+          preload="auto"
           style={{
             position: "absolute",
             top: 0,
@@ -141,23 +175,7 @@ const HeroSection = ({ messages = [], settingResponse }) => {
           }}
         >
           <source src={video} type="video/mp4" />
-          Fallback image if video doesn't load
         </video>
-
-        {/* Fallback Image */}
-        {/* <img
-                    src={FallbackImage}
-                    alt="Hero background"
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        zIndex: 0,
-                    }}
-                /> */}
 
         {/* Overlay */}
         <div

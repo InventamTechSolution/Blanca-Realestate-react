@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 import { Icon } from "@iconify/react";
 import ThemeBtn from "../Button/ThemeBtn";
 import { useContactModal } from "../../../context/ContactModalContext";
@@ -96,7 +96,13 @@ const ProjectCard = ({ project, layout = "grid" }) => {
       <>
         <div className="project-card-horizontal">
           <div className="horiz-img-wrapper">
-            <img src={project.image || null} alt={project.title} />
+            <Image
+              src={project.image || null}
+              alt={project.title}
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
           </div>
           <div className="horiz-content">
             <h5>{project.title}</h5>
@@ -182,8 +188,14 @@ const ProjectCard = ({ project, layout = "grid" }) => {
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
       >
-        <div className="project-img-wrapper">
-          <img src={project.image || null} alt={project.title} />
+        <div className="project-img-wrapper" style={{ position: 'relative', width: '100%', aspectRatio: '16/9' }}>
+          <Image
+            src={project.image || null}
+            alt={project.title}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
           <div
             className={`project-status-badge status-${project.status?.toLowerCase().replace(/\s+/g, "-")}`}
           >

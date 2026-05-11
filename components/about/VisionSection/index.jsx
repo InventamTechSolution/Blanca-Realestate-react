@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Col } from "react-bootstrap";
 import { motion as Motion } from "framer-motion";
 const visionImg1 = "/images/intro/vision-image-1.png";
@@ -58,11 +59,11 @@ const VisionSection = () => {
               viewport={{ once: true }}
             >
               <div className="collage-item collage-item-1">
-                <img src={visionImg2} alt="Vision Image 1" />
+                <Image src={visionImg2} alt="Vision Image 1" width={400} height={300} style={{ objectFit: 'cover' }} />
               </div>
 
               <div className="collage-item collage-item-2">
-                <img src={visionImg1} alt="Vision Image 2" />
+                <Image src={visionImg1} alt="Vision Image 2" width={400} height={300} style={{ objectFit: 'cover' }} />
               </div>
             </Motion.div>
           </Col>
