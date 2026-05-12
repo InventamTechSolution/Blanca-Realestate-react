@@ -1,6 +1,7 @@
 import Blog from "@/screens/Blog";
 import { HOME_PAGE_URL } from "@/utils/constant";
 import { getGlobalSeo } from "@/utils/getGlobalSeo";
+import { getBlogs } from "@/services/blogService";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -43,7 +44,13 @@ export async function generateMetadata() {
   };
 }
 
-export default function Page() {
-  return <Blog />;
+export default async function Page() {
+  const initialData = await getBlogs({
+    offset: 1,
+    limit: 6,
+  });
+
+  return <Blog initialData={initialData} />;
 }
+
 

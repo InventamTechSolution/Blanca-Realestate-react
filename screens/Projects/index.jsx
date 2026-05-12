@@ -17,7 +17,7 @@ import {
 import { useCategories } from "../../hooks/useCategories";
 // import SEO from '../../components/common/Seo/Seo';
 
-const Projects = () => {
+const Projects = ({ initialProjects, initialLocations, initialCategories }) => {
   const defaultMapUrl =
     "https://www.google.com/maps?q=Navi%20Mumbai%2C%20Maharashtra&output=embed";
   const router = useRouter();
@@ -48,16 +48,28 @@ const Projects = () => {
   //   return matchesType && matchesStatus;
   // });
 
-  const { data: locationData } = useProjectLocations();
-  const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
-
-  const { data, isLoading, isError, error } = useProjectsWithFilter({
-    page: 1,
-    limit: 10,
-    category: filter || "all",
-    status: status,
-    location: area,
+  const { data: locationData } = useProjectLocations({
+    initialData: initialLocations,
   });
+  const { data: categoryResponse } = useCategories(
+    { limit: 10, page: 1 },
+    {
+      initialData: initialCategories,
+    },
+  );
+
+  const { data, isLoading, isError, error } = useProjectsWithFilter(
+    {
+      page: 1,
+      limit: 10,
+      category: filter || "all",
+      status: status,
+      location: area,
+    },
+    {
+      initialData: initialProjects,
+    },
+  );
 
   if (isError) {
     const status = error?.response?.status;
@@ -160,9 +172,9 @@ const Projects = () => {
 
     return [
       { label: "All Projects", value: "all" },
-      ...(isMounted && categoryOptions.length ? categoryOptions : fallback),
+      ...(categoryOptions.length ? categoryOptions : fallback),
     ];
-  }, [categoryResponse, isMounted]);
+  }, [categoryResponse]);
   // ... rest of the file
 
   const statusOptions = [
@@ -179,14 +191,12 @@ const Projects = () => {
   const areaOptions = React.useMemo(
     () => [
       { label: "All Areas", value: "all" },
-      ...(isMounted
-        ? locationList.map((loc) => ({
-            label: String(loc),
-            value: String(loc),
-          }))
-        : []),
+      ...locationList.map((loc) => ({
+        label: String(loc),
+        value: String(loc),
+      })),
     ],
-    [locationList, isMounted],
+    [locationList],
   );
 
   // Handle click outside to close dropdowns
@@ -398,7 +408,7 @@ const Projects = () => {
 
         <div className="projects-list-area">
           <Container>
-            {isMounted && !hasProjects && (
+            {!hasProjects && (
               <div className="text-center py-5">
                 <h3 className="text-white">
                   No projects found matching your criteria.
@@ -406,7 +416,7 @@ const Projects = () => {
               </div>
             )}
 
-            {isMounted && hasProjects && view === "grid" && (
+            {hasProjects && view === "grid" && (
               <div className="projects-grid">
                 {filteredProjects?.map((project) => (
                   <ProjectCard
@@ -418,7 +428,7 @@ const Projects = () => {
               </div>
             )}
 
-            {isMounted && hasProjects && view === "map" && (
+            {hasProjects && view === "map" && (
               <div className="map-view-container">
                 <div className="map-side-list">
                   {filteredProjects?.map((project) => (

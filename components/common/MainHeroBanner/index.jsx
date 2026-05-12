@@ -118,6 +118,7 @@ const MainHeroBanner = ({
             playsInline
             poster={poster || null}
             preload={priority ? "auto" : "none"}
+            aria-hidden="true"
             style={{
               position: "absolute",
               top: 0,
@@ -132,12 +133,17 @@ const MainHeroBanner = ({
               <source src={videoSrc || null} type="video/mp4" />
             ) : null}
             {poster && (
-              <Image
+              <img
                 src={poster}
-                alt={title}
-                fill
-                style={{ objectFit: "cover" }}
-                priority={priority}
+                alt={title || "Blanca Real Estate"}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
               />
             )}
           </video>

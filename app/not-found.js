@@ -3,6 +3,7 @@ import "@/assets/styles/not-found.css";
 
 export const metadata = {
   title: "404 — Page Not Found",
+  description: "The page you are looking for could not be found. Explore Blanca Real Estate for premium residential and commercial projects.",
 };
 
 export default function NotFound() {

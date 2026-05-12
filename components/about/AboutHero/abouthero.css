@@ -419,7 +419,7 @@
     height: 100%;
 }
 
-.vertical-text-slider h1 {
+.vertical-text-slider .slider-item {
     display: flex;
     align-items: center;
     justify-content: center;

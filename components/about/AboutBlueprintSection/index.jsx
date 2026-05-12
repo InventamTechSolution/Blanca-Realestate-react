@@ -17,13 +17,19 @@ const AboutBlueprintSection = () => {
                     muted
                     loop
                     playsInline
+                    poster="/images/blueprint-fallback.jpg"
+                    preload="none"
+                    aria-hidden="true"
                     className="vision-banner-video"
                 >
                     <source
                         src={bluePrintVideo}
                         type="video/mp4"
                     />
-                    Your browser does not support the video tag.
+                    <img
+                        src="/images/blueprint-fallback.jpg"
+                        alt="Blanca Real Estate - Our Vision"
+                    />
                 </video>
 
                 <div className="vision-banner-overlay"></div>

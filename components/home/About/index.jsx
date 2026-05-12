@@ -88,13 +88,22 @@ const About = ({ initialOtherFieldResponse }) => {
                     muted
                     loop
                     playsInline
+                    poster={aboutContent?.media}
+                    preload="none"
+                    aria-hidden="true"
                     aria-label="About us banner video"
                     style={{
                       width: "100%",
                       height: "100%",
                       objectFit: "cover",
                     }}
-                  />
+                  >
+                    <source src={aboutContent?.media} type="video/mp4" />
+                    <img
+                      src={aboutContent?.media}
+                      alt={aboutContent?.title || "About us"}
+                    />
+                  </video>
                 ) : (
                   <Image
                     src={aboutContent?.media}

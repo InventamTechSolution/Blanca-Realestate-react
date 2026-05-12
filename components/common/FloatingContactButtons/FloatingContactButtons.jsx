@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { useSetting } from '../../../hooks/useSetting';
 import { useContactModal } from '../../../context/ContactModalContext';
+import { CONTACT } from '../../../config/contact';
 import './FloatingContactButtons.css';
 
 const FloatingContactButtons = () => {
@@ -17,7 +18,7 @@ const FloatingContactButtons = () => {
         return candidate || null;
     }, [settingResponse]);
 
-    const phone = settingRecord?.setting_contact_number?.[0]?.number || "+91 7021913284"
+    const phone = settingRecord?.setting_contact_number?.[0]?.number || CONTACT.phone_office
 
     const normalizedDigits = String(phone).replace(/[^\d]/g, "");
     const normalizedTel = String(phone).trim().replace(/[^\d+]/g, "");

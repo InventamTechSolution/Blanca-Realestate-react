@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 import "./Footer.css";
 
 import Image from "next/image";
+import { CONTACT } from "../../../config/contact";
 const logo = "/images/logos/blanca-logo.png";
 
 const Footer = () => {
@@ -51,10 +52,10 @@ const Footer = () => {
   }, []);
 
   const websiteUrl =
-    settingRecord?.setting_website || "https://www.blanca.co.in";
-  const websiteLabel = settingRecord?.setting_website || "www.blanca.co.in";
+    settingRecord?.setting_website || CONTACT.website_url;
+  const websiteLabel = settingRecord?.setting_website || CONTACT.website_label;
 
-  const email = settingRecord?.setting_email || "reachus.blanca@gmail.com";
+  const email = settingRecord?.setting_email || CONTACT.email;
 
   const contactNumbers = React.useMemo(() => {
     const raw = settingRecord?.setting_contact_number;
@@ -77,12 +78,12 @@ const Footer = () => {
   }, [settingRecord?.setting_contact_number]);
 
   const primaryContact = contactNumbers[0] || null;
-  const phone = primaryContact?.number || "+91 7021913284";
+  const phone = primaryContact?.number || CONTACT.phone_office;
   const phoneTitle = primaryContact?.title || "Call Us";
 
   const address =
     settingRecord?.setting_address ||
-    "Greenland CHS 16 Plot 20 Sector 40 Nerul Seawood Navi Mumbai, 400706.";
+    CONTACT.address;
 
   const social = React.useMemo(() => {
     const list = settingRecord?.setting_social_media || [];

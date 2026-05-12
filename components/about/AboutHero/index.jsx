@@ -7,6 +7,7 @@ import Image from "next/image";
 import { motion as Montion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import StatBadge from "../../common/StatBadge";
+import StatCounter from "../../common/StatCounter/StatCounter";
 import "./abouthero.css";
 
 
@@ -84,36 +85,6 @@ const HeroSection = ({ messages = [], settingResponse }) => {
   }, [isLoopReset]);
 
   useEffect(() => {
-    // ## Counter Logic using GSAP ScrollTrigger
-    const counters = document.querySelectorAll(".badge-year, .stat-number");
-
-    counters.forEach((counter) => {
-      const countTo = parseInt(counter.getAttribute("data-count"), 10);
-
-      gsap.fromTo(
-        counter,
-        { textContent: 0 },
-        {
-          textContent: countTo,
-          duration: 2,
-          ease: "power1.out",
-          snap: { textContent: 1 },
-          scrollTrigger: {
-            trigger: counter,
-            start: "top 90%",
-            once: true,
-            onUpdate: () => {
-              // Ensuring integer display during animation
-              counter.textContent = Math.floor(counter.textContent);
-            },
-          },
-          onComplete: () => {
-            counter.textContent = countTo;
-          },
-        },
-      );
-    });
-
     // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
@@ -163,7 +134,9 @@ const HeroSection = ({ messages = [], settingResponse }) => {
           muted
           loop
           playsInline
-          preload="auto"
+          poster="/images/about-banner-fallback.jpg"
+          preload="none"
+          aria-hidden="true"
           style={{
             position: "absolute",
             top: 0,
@@ -175,6 +148,10 @@ const HeroSection = ({ messages = [], settingResponse }) => {
           }}
         >
           <source src={video} type="video/mp4" />
+          <img
+            src="/images/about-banner-fallback.jpg"
+            alt="Blanca Real Estate - About us"
+          />
         </video>
 
         {/* Overlay */}
@@ -199,8 +176,8 @@ const HeroSection = ({ messages = [], settingResponse }) => {
           transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
         >
           <div className="badge-content">
-            <span className="badge-year" data-count={yearsOfExpertise}>
-              0
+            <span className="badge-year">
+              <StatCounter end={yearsOfExpertise} />
             </span>
 
             <svg
@@ -260,13 +237,13 @@ const HeroSection = ({ messages = [], settingResponse }) => {
                   {/* Hidden grid to calculate max height based on wrapped text */}
                   <div style={{ display: "grid", visibility: "hidden", pointerEvents: "none" }}>
                     {sliderMessages.map((text, index) => (
-                      <h1
+                      <div
                         key={`hidden-${index}`}
-                        className="hero-main-title bs-font-colgent-regular about-hero-title"
+                        className="slider-item hero-main-title bs-font-colgent-regular about-hero-title"
                         style={{ gridArea: "1 / 1", whiteSpace: "normal", margin: 0, padding: 0 }}
                       >
                         {text}
-                      </h1>
+                      </div>
                     ))}
                   </div>
 
@@ -279,14 +256,19 @@ const HeroSection = ({ messages = [], settingResponse }) => {
                         : "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
                     }}
                   >
-                    {sliderMessages.map((text, index) => (
-                      <h1
-                        key={index}
-                        className="text-white hero-main-title bs-font-colgent-regular about-hero-title"
-                      >
-                        {text}
-                      </h1>
-                    ))}
+                    {sliderMessages.map((text, index) => {
+                      const isActive = index === activeSlide;
+                      const Tag = isActive ? "h1" : "div";
+                      return (
+                        <Tag
+                          key={index}
+                          className="text-white slider-item hero-main-title bs-font-colgent-regular about-hero-title"
+                          aria-hidden={!isActive}
+                        >
+                          {text}
+                        </Tag>
+                      );
+                    })}
                   </div>
                 </div>
               </Montion.div>

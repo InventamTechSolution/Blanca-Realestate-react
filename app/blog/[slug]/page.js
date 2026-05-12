@@ -1,20 +1,31 @@
 import BlogDetails from "@/screens/Blog/BlogDetails";
 import { HOME_PAGE_URL } from "@/utils/constant";
 import { getGlobalSeo } from "@/utils/getGlobalSeo";
+import { getBlogBySlug, getBlogs } from "@/services/blogService";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
-
   const { slug } = await params;
   const BASE_URL = HOME_PAGE_URL;
   const { title, description, LOGO_URL } = await getGlobalSeo();
 
+  // Optionally fetch blog data to improve metadata
+  let blogTitle = slug;
+  try {
+    const blogResponse = await getBlogBySlug(slug);
+    if (blogResponse?.data?.blog_title) {
+      blogTitle = blogResponse.data.blog_title;
+    }
+  } catch (error) {
+    console.error("Error fetching blog for metadata:", error);
+  }
+
   return {
     metadataBase: new URL(BASE_URL),
 
-    title: `${slug ? `${slug} | ` : ""}Blog | ${title}`,
+    title: `${blogTitle} | Blog | ${title}`,
     description,
 
     alternates: {
@@ -24,7 +35,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       type: "article",
       url: `${BASE_URL}/blog/${slug}`,
-      title: `${slug ? `${slug} | ` : ""}Blog | ${title}`,
+      title: `${blogTitle} | Blog | ${title}`,
       description,
       images: [
         {
@@ -38,7 +49,7 @@ export async function generateMetadata({ params }) {
 
     twitter: {
       card: "summary_large_image",
-      title: `${slug ? `${slug} | ` : ""}Blog | ${title}`,
+      title: `${blogTitle} | Blog | ${title}`,
       description,
       images: [LOGO_URL],
     },
@@ -47,6 +58,19 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const { slug } = await params;
-  return <BlogDetails slug={slug} />;
+
+  const [blogData, relatedBlogs] = await Promise.all([
+    getBlogBySlug(slug),
+    getBlogs({ limit: 6 }),
+  ]);
+
+  return (
+    <BlogDetails
+      slug={slug}
+      initialBlogData={blogData}
+      initialRelatedData={relatedBlogs}
+    />
+  );
 }
+
 

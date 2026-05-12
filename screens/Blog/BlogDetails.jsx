@@ -17,19 +17,31 @@ import "./BlogDetails.css";
 
 const BLOG_BG = "/images/background/career-bg.jpg";
 
-export default function BlogDetails({ slug }) {
+export default function BlogDetails({
+  slug,
+  initialBlogData,
+  initialRelatedData,
+}) {
   const router = useRouter();
 
-  const { data: blogResponse, isLoading: isBlogLoading } = useBlogBySlug(slug);
+  const { data: blogResponse, isLoading: isBlogLoading } = useBlogBySlug(slug, {
+    initialData: initialBlogData,
+  });
   const blog = blogResponse?.data;
 
-  const { data: relatedResponse, isLoading: isRelatedLoading } = useBlogs({
-    limit: 6,
-    // is_active: true,
-  });
-  const related = (relatedResponse?.data || []).filter(
-    (item) => item.blog_slug !== slug,
+  const { data: relatedResponse, isLoading: isRelatedLoading } = useBlogs(
+    {
+      limit: 6,
+      // is_active: true,
+    },
+    {
+      initialData: initialRelatedData,
+    }
   );
+  const related = (relatedResponse?.data || []).filter(
+    (item) => item.blog_slug !== slug
+  );
+
 
   const isLoading = isBlogLoading || isRelatedLoading;
 

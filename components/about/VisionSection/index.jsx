@@ -46,7 +46,7 @@ const VisionSection = () => {
                 excellence in every square foot.
               </p>
 
-              <h1 className="vision-outline-text">vision</h1>
+              <div className="vision-outline-text" aria-hidden="true">vision</div>
             </Motion.div>
           </Col>
 

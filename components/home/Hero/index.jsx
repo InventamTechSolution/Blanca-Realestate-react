@@ -3,10 +3,9 @@ import React, { useEffect } from "react";
 import "./Hero.css";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import StatBadge from "../../common/StatBadge";
+import StatCounter from "../../common/StatCounter/StatCounter";
 import { useSetting } from "../../../hooks/useSetting";
 // import MainHeroBanner from "../../common/MainHeroBanner";
-
-
 
 // Video paths
 export const bannerVideo1 = "/videos/blanca-long-video.mp4";
@@ -36,42 +35,14 @@ const Hero = ({ initialSettingResponse }) => {
       gsap.registerPlugin(ScrollTrigger);
 
       ctx = gsap.context(() => {
-        // ## Counter Logic using GSAP ScrollTrigger
-        const counters = document.querySelectorAll(".badge-year, .stat-number");
-
-        counters.forEach((counter) => {
-          const countTo = parseInt(counter.getAttribute("data-count"), 10);
-
-          gsap.fromTo(
-            counter,
-            { textContent: 0 },
-            {
-              textContent: countTo,
-              duration: 2,
-              ease: "power1.out",
-              snap: { textContent: 1 },
-              scrollTrigger: {
-                trigger: counter,
-                start: "top 90%",
-                once: true,
-                onUpdate: (self) => {
-                  // Ensuring integer display during animation
-                  counter.textContent = Math.floor(counter.textContent);
-                },
-              },
-              onComplete: () => {
-                counter.textContent = countTo;
-              },
-            },
-          );
-        });
-
         // ## Before and After Slider Logic
         const handleSliderInput = (e, imgContainer) => {
           imgContainer.style.setProperty("--position", `${e.target.value}%`);
         };
 
-        const pro02Images = document.querySelectorAll("[class*='pro-02-images-']");
+        const pro02Images = document.querySelectorAll(
+          "[class*='pro-02-images-']",
+        );
         pro02Images.forEach((imgContainer) => {
           const match = imgContainer.className.match(/pro-02-images-(\d+)/);
           if (match) {
@@ -107,6 +78,9 @@ const Hero = ({ initialSettingResponse }) => {
             muted
             loop
             playsInline
+            poster="/images/home-hero-fallback.jpg"
+            preload="none"
+            aria-hidden="true"
             style={{
               position: "absolute",
               top: 0,
@@ -118,6 +92,10 @@ const Hero = ({ initialSettingResponse }) => {
             }}
           >
             <source src={employeeVideo} type="video/mp4" />
+            <img
+              src="/images/home-hero-fallback.jpg"
+              alt="Blanca Real Estate - Expertise"
+            />
           </video>
 
           <div
@@ -135,8 +113,8 @@ const Hero = ({ initialSettingResponse }) => {
 
           <div className="hero-expert-badge">
             <div className="badge-content">
-              <span className="badge-year" data-count={yearsOfExpertise}>
-                0
+              <span className="badge-year">
+                <StatCounter end={yearsOfExpertise} />
               </span>
               <svg
                 className="badge-text-ring"
@@ -157,7 +135,11 @@ const Hero = ({ initialSettingResponse }) => {
                   fontWeight="500"
                   letterSpacing="1"
                 >
-                  <textPath href="#circlePath" textLength="232" lengthAdjust="spacing">
+                  <textPath
+                    href="#circlePath"
+                    textLength="232"
+                    lengthAdjust="spacing"
+                  >
                     {`\u00A0•\u00A0 SINCE ${FOUNDING_YEAR} \u00A0•\u00A0 YEARS OF EXPERTISE \u00A0`}
                   </textPath>
                 </text>

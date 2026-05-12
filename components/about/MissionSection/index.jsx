@@ -63,7 +63,7 @@ const MissionSection = () => {
                 unlock a lifetime of endless possibilities.
               </p>
 
-              <h1 className="mission-outline-text">mission</h1>
+              <div className="mission-outline-text" aria-hidden="true">mission</div>
             </Montion.div>
           </Col>
         </div>

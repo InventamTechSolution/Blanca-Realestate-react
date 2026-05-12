@@ -256,7 +256,7 @@ const JourneySection = ({ journeyResponse }) => {
     router.push(`/project/${project.slug}?is_home=true`);
   };
 
-  const renderJourneyItems = (keyPrefix) => {
+  const renderJourneyItems = (keyPrefix, isClone = false) => {
     let cumulativeProjectCount = 0;
     return journeyData.map((item, index) => {
       const currentOffset = cumulativeProjectCount;
@@ -270,7 +270,12 @@ const JourneySection = ({ journeyResponse }) => {
         ? `${ribbonStatus} ${item.year}`
         : item.year;
       return (
-        <div className="journey-item" key={`${keyPrefix}-${index}`}>
+        <div
+          className="journey-item"
+          key={`${keyPrefix}-${index}`}
+          aria-hidden={isClone ? "true" : undefined}
+          data-clone={isClone ? "true" : undefined}
+        >
           {item.category && (
             <div
               className="category-marker"
@@ -324,6 +329,7 @@ const JourneySection = ({ journeyResponse }) => {
                 onClick={(e) => handleProjectClick(e, project)}
                 className={cardClass}
                 onMouseDown={(e) => e.stopPropagation()}
+                tabIndex={isClone ? -1 : undefined}
               >
                 {cardInner}
               </Link>
@@ -422,21 +428,29 @@ const JourneySection = ({ journeyResponse }) => {
           <div className="journey-loop-wrapper">
             {isInfiniteEnabled ? (
               <>
-                <div className="journey-loop-segment" aria-hidden="true">
-                  {renderJourneyItems("a")}
+                <div
+                  className="journey-loop-segment"
+                  aria-hidden="true"
+                  data-clone="true"
+                >
+                  {renderJourneyItems("a", true)}
                 </div>
 
                 <div className="journey-loop-segment" ref={segmentRef}>
-                  {renderJourneyItems("b")}
+                  {renderJourneyItems("b", false)}
                 </div>
 
-                <div className="journey-loop-segment" aria-hidden="true">
-                  {renderJourneyItems("c")}
+                <div
+                  className="journey-loop-segment"
+                  aria-hidden="true"
+                  data-clone="true"
+                >
+                  {renderJourneyItems("c", true)}
                 </div>
               </>
             ) : (
               <div className="journey-loop-segment" ref={segmentRef}>
-                {renderJourneyItems("single")}
+                {renderJourneyItems("single", false)}
               </div>
             )}
           </div>

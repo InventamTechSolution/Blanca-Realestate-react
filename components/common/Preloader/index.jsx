@@ -13,7 +13,11 @@ const Preloader = ({ isLoading }) => {
       transition={{ duration: 4, ease: "easeInOut" }}
     >
       <div className="preloader-inner">
-        <img src="/images/logos/favicon.png" alt="Horse Loader" className="horse-loader" />
+        <img
+          src="/images/logos/favicon.png"
+          alt="Horse Loader"
+          className="horse-loader"
+        />
       </div>
     </Montion.div>
   );

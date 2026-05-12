@@ -13,13 +13,19 @@ const BLOG_BG = "/images/background/career-bg.jpg";
 
 const PER_PAGE = 6;
 
-export default function Blog() {
+export default function Blog({ initialData }) {
   const [page, setPage] = React.useState(1);
 
-  const { data, isLoading } = useBlogs({
-    offset: page,
-    limit: PER_PAGE,
-  });
+  const { data, isLoading } = useBlogs(
+    {
+      offset: page,
+      limit: PER_PAGE,
+    },
+    {
+      initialData: page === 1 ? initialData : undefined,
+    }
+  );
+
 
   const apiBlogs = data?.data || [];
   const totalRecords = data?.totalCount || 0;

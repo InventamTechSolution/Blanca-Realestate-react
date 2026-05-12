@@ -1,6 +1,11 @@
 import Projects from "@/screens/Projects";
 import { HOME_PAGE_URL } from "@/utils/constant";
 import { getGlobalSeo } from "@/utils/getGlobalSeo";
+import {
+  getProjectsWithFilter,
+  getProjectLocations,
+} from "@/services/projectService";
+import { getCategories } from "@/services/categoryService";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -44,8 +49,27 @@ export async function generateMetadata() {
   };
 }
 
-export default function Page() {
+export default async function Page({ searchParams }) {
+  const { filter = "all", status = "all", area = "all" } = await searchParams;
+
+  const [initialProjects, initialLocations, initialCategories] =
+    await Promise.all([
+      getProjectsWithFilter({
+        page: 1,
+        limit: 10,
+        category: filter,
+        status: status,
+        location: area,
+      }),
+      getProjectLocations(),
+      getCategories({ limit: 10, page: 1 }),
+    ]);
+
   return (
-    <Projects />
+    <Projects
+      initialProjects={initialProjects}
+      initialLocations={initialLocations}
+      initialCategories={initialCategories}
+    />
   );
 }

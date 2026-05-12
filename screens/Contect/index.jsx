@@ -26,6 +26,7 @@ import "../../components/common/contact-country-select.css";
 import "./contect.css";
 import { contactCountrySelectStyles } from "../../components/common/contactCountrySelectConfig";
 import { useCountrySelectMenuPortal } from "../../components/common/useCountrySelectMenuPortal";
+import { CONTACT } from "../../config/contact";
 // import SEO from '../../components/common/Seo/Seo';
 
 const contactBg = "/images/background/contect-us.png";
@@ -42,13 +43,12 @@ const defaultValues = {
   privacyPolicy: false,
 };
 
-const FALLBACK_CONTACT_EMAIL = "reachus.blanca@gmail.com";
+const FALLBACK_CONTACT_EMAIL = CONTACT.email;
 const FALLBACK_CONTACT_NUMBERS = [
-  { number: "+91 70219 13284", title: "Head Office Feedback and Complaints" },
-  { number: "+91 77700 559535", title: "( Blanca Sales )" },
+  { number: CONTACT.phone_office, title: "Head Office Feedback and Complaints" },
+  { number: CONTACT.phone_sales, title: "( Blanca Sales )" },
 ];
-const FALLBACK_CONTACT_ADDRESS =
-  "Greenland CHS 16 Plot 20 Sector 40 Nerul Seawood, Navi Mumbai, 400706.";
+const FALLBACK_CONTACT_ADDRESS = CONTACT.address;
 
 const Contact = ({ settingResponse }) => {
   const [isLoading, setIsLoading] = useState(true);

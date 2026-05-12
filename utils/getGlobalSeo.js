@@ -14,27 +14,28 @@ export async function getGlobalSeo() {
     ? WEBSITE_MAIN_LOGO
     : `${BASE_API_URL}/uploads/images/blanca-logo.png`;
 
-    
+  let version = Date.now();
+
+  try {
     const res = await fetch(
       `${BASE_API_URL}setting?offset=0&limit=1&t=${Date.now()}`,
       {
         cache: "no-store",
       }
     );
-    
-    
-    const settingResponse = await res.json();
 
-    
-    const settingRecord =
-    settingResponse?.data?.[0] || settingResponse?.data || null;
-    
-    title = settingRecord?.setting_meta_title || title;
-    description =
-    settingRecord?.setting_meta_description || description;
-    
-    const version =
-    settingRecord?. setting_updated_at || Date.now();
+    if (res.ok) {
+      const settingResponse = await res.json();
+      const settingRecord =
+        settingResponse?.data?.[0] || settingResponse?.data || null;
+
+      title = settingRecord?.setting_meta_title || title;
+      description = settingRecord?.setting_meta_description || description;
+      version = settingRecord?.setting_updated_at || version;
+    }
+  } catch (error) {
+    console.error("Error fetching global SEO settings:", error);
+  }
 
   return {
     title,
