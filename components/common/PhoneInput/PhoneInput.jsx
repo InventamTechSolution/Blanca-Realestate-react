@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
+import Image from "next/image";
 import { Form } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import Field from "../Field/Field";
@@ -81,11 +82,15 @@ const PhoneInput = ({
                 className={`phone-input-wrapper glass-input-wrapper ${showDropdown ? "z-index-high overflow-visible" : ""}`}
             >
                 <div className="country-code" onClick={() => setShowDropdown(!showDropdown)}>
-                    <img
-                        src={selectedCountry.flag}
-                        alt={`${selectedCountry.name} Flag`}
-                        className="selected-flag"
-                    />
+                    <div style={{ position: "relative", width: "24px", height: "18px", display: "inline-block" }}>
+                        <Image
+                            src={selectedCountry.flag}
+                            alt={`${selectedCountry.name} Flag`}
+                            fill
+                            style={{ objectFit: "contain" }}
+                            unoptimized
+                        />
+                    </div>
                     <Icon icon="lucide:chevron-down" className="country-chevron" />
 
                     <ul className={`country-dropdown ${showDropdown ? "show" : ""}`}>
@@ -97,7 +102,10 @@ const PhoneInput = ({
                                     handleCountrySelect(country);
                                 }}
                             >
-                                <img src={country.flag} alt={country.name} /> {country.name}
+                                <div style={{ position: "relative", width: "20px", height: "15px", display: "inline-block", marginRight: "8px" }}>
+                                    <Image src={country.flag} alt={country.name} fill style={{ objectFit: "contain" }} unoptimized />
+                                </div>
+                                {country.name}
                             </li>
                         ))}
                     </ul>

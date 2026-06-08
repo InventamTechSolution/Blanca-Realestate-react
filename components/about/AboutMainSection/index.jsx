@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -129,12 +130,14 @@ const AboutSection = () => {
                 className="h-100"
               >
                 <div className="about-image-wrapper h-100">
-                  <img
-                    src={aboutdetailImg1}
-                    alt="About Blanca"
-                    className="img-cover w-100 h-100"
-                    style={{ objectFit: "cover", minHeight: "300px" }}
-                  />
+                  <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "300px" }}>
+                    <Image
+                      src={aboutdetailImg1}
+                      alt="About Blanca"
+                      fill
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
                 </div>
               </Montion.div>
             </Col>
@@ -147,12 +150,14 @@ const AboutSection = () => {
                 className="h-100"
               >
                 <div className="about-image-wrapper h-100">
-                  <img
-                    src={aboutdetailImg2}
-                    alt="About Blanca"
-                    className="img-cover w-100 h-100"
-                    style={{ objectFit: "cover", minHeight: "200px", maxHeight: "400px" }}
-                  />
+                  <div style={{ position: "relative", width: "100%", height: "100%", minHeight: "200px", maxHeight: "400px" }}>
+                    <Image
+                      src={aboutdetailImg2}
+                      alt="About Blanca"
+                      fill
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
                 </div>
               </Montion.div>
             </Col>

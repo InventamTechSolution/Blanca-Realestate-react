@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -195,10 +196,14 @@ export default function BlogDetails({
                           href={`/blog/${item.blog_slug}`}
                           className="related-card-media"
                         >
-                          <img
-                            src={item.blog_card_image}
-                            alt={item.blog_title}
-                          />
+                          <div style={{ position: "relative", width: "100%", height: "250px" }}>
+                            <Image
+                              src={item.blog_card_image}
+                              alt={item.blog_title}
+                              fill
+                              style={{ objectFit: "cover" }}
+                            />
+                          </div>
                         </Link>
 
                         <div className="related-card-body">

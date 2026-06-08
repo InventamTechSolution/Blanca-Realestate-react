@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Container, Row, Col } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import SmallHeroBanner from "../../components/common/Small-hero-banner";
@@ -47,13 +48,17 @@ export default function Blog({ initialData }) {
                     const ImageCol = (
                       <Col lg={7} md={7} className="blog-card-media">
                         <div className="blog-card-media-inner">
-                          <img
-                            src={
-                              post.blog_card_image ||
-                              "/images/background/project-listing-bg.png"
-                            }
-                            alt={post.blog_title}
-                          />
+                          <div style={{ position: "relative", width: "100%", height: "300px" }}>
+                            <Image
+                              src={
+                                post.blog_card_image ||
+                                "/images/background/project-listing-bg.png"
+                              }
+                              alt={post.blog_title}
+                              fill
+                              style={{ objectFit: "cover" }}
+                            />
+                          </div>
                           {/* <div className="blog-card-vs">VS</div> */}
                         </div>
                       </Col>

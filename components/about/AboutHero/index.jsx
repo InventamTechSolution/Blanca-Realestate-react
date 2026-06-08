@@ -8,6 +8,7 @@ import { motion as Montion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import StatBadge from "../../common/StatBadge";
 import StatCounter from "../../common/StatCounter/StatCounter";
+import LazyVideo from "../../common/LazyVideo/LazyVideo";
 import "./abouthero.css";
 
 
@@ -129,13 +130,10 @@ const HeroSection = ({ messages = [], settingResponse }) => {
         className="about-2-item justify-content-center"
         style={{ position: "relative", overflow: "hidden" }}
       >
-        <video
+        <LazyVideo
           ref={videoRef}
-          muted
-          loop
-          playsInline
+          src={video}
           poster="/images/about-banner-fallback.jpg"
-          preload="none"
           aria-hidden="true"
           style={{
             position: "absolute",
@@ -146,13 +144,7 @@ const HeroSection = ({ messages = [], settingResponse }) => {
             objectFit: "cover",
             zIndex: 0,
           }}
-        >
-          <source src={video} type="video/mp4" />
-          <img
-            src="/images/about-banner-fallback.jpg"
-            alt="Blanca Real Estate - About us"
-          />
-        </video>
+        />
 
         {/* Overlay */}
         <div

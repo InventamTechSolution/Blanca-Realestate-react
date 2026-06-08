@@ -101,6 +101,8 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${montserrat.variable} ${playfairDisplay.variable} ${colgentRegular.variable} ${smothing.variable} ${marjorieRegular.variable} ${marjorieItalic.variable}`}
     >
       <head>
+        <link rel="preconnect" href="https://be.blanca.co.in" />
+        <link rel="dns-prefetch" href="https://be.blanca.co.in" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

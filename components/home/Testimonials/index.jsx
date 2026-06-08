@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion as Motion } from "framer-motion";
@@ -101,13 +102,15 @@ const Avatar = ({ src, name }) => {
   }
 
   return (
-    <img
-      src={src}
-      alt={name}
-      onError={() => setFailed(true)}
-      loading="lazy"
-      decoding="async"
-    />
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <Image
+        src={src}
+        alt={name}
+        fill
+        style={{ objectFit: "cover", borderRadius: "50%" }}
+        onError={() => setFailed(true)}
+      />
+    </div>
   );
 };
 

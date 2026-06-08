@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./Properties.css";
 import { Col, Row } from "react-bootstrap";
+import Image from "next/image";
 // import { projectsData } from "../../../data/projectsData";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import { useRouter } from "next/navigation";
@@ -146,10 +147,14 @@ const Properties = ({ initialProjectsResponse }) => {
                       }}
                       viewport={{ once: true }}
                     >
-                      <img
-                        src={project?.project_card_image?.trim?.() || undefined}
-                        alt={project?.project_name}
-                      />
+                      <div style={{ position: "relative", width: "100%", height: "250px" }}>
+                        <Image
+                          src={project?.project_card_image?.trim?.() || "/images/background/project-listing-bg.png"}
+                          alt={project?.project_name}
+                          fill
+                          style={{ objectFit: "cover" }}
+                        />
+                      </div>
                       <div className="project-card__content">
                         <p className="project-name-home-listing">{project?.project_name}</p>
                         <div className="project-card__meta">

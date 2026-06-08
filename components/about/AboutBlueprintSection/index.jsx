@@ -1,7 +1,9 @@
 import React from "react";
+import Image from "next/image";
 import { Icon } from "@iconify/react";
 import "./AboutBlueprintSection.css";
 import { Container } from "react-bootstrap";
+import LazyVideo from "../../common/LazyVideo/LazyVideo";
 const bluePrintVideo = "/videos/working-about-3.mp4";
 const favicon = "/images/logos/favicon.png";
 
@@ -12,35 +14,24 @@ const AboutBlueprintSection = () => {
             id="about-page-blueprint"
         >
             <div className="about-vision-banner">
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
+                <LazyVideo
+                    src={bluePrintVideo}
                     poster="/images/blueprint-fallback.jpg"
-                    preload="none"
                     aria-hidden="true"
                     className="vision-banner-video"
-                >
-                    <source
-                        src={bluePrintVideo}
-                        type="video/mp4"
-                    />
-                    <img
-                        src="/images/blueprint-fallback.jpg"
-                        alt="Blanca Real Estate - Our Vision"
-                    />
-                </video>
+                />
 
                 <div className="vision-banner-overlay"></div>
 
                 <div className="vision-banner-content">
                     <div className="banner-logo-branding">
                         <div className="banner-logo-shine-wrapper">
-                            <img
+                            <Image
                                 src={favicon}
                                 alt="Blanca Logo"
                                 className="banner-logo-icon"
+                                width={80}
+                                height={80}
                             />
                         </div>
                         <h2 className="banner-title bs-font-Smothing">

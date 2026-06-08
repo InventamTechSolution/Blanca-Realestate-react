@@ -4,6 +4,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import { motion as Motion } from "framer-motion";
+import LazyVideo from "../../common/LazyVideo/LazyVideo";
 import { useOtherField } from "../../../hooks/useOtherField";
 
 const About = ({ initialOtherFieldResponse }) => {
@@ -82,14 +83,9 @@ const About = ({ initialOtherFieldResponse }) => {
                 // style={{ position: 'relative', width: '100%', aspectRatio: '1/1' }}
               >
                 {isVideoMedia ? (
-                  <video
+                  <LazyVideo
                     src={aboutContent?.media}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
                     poster={aboutContent?.media}
-                    preload="none"
                     aria-hidden="true"
                     aria-label="About us banner video"
                     style={{
@@ -97,13 +93,7 @@ const About = ({ initialOtherFieldResponse }) => {
                       height: "100%",
                       objectFit: "cover",
                     }}
-                  >
-                    <source src={aboutContent?.media} type="video/mp4" />
-                    <img
-                      src={aboutContent?.media}
-                      alt={aboutContent?.title || "About us"}
-                    />
-                  </video>
+                  />
                 ) : (
                   <Image
                     src={aboutContent?.media}

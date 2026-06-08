@@ -40,7 +40,7 @@ export default async function Page({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const page = Number(resolvedSearchParams?.page) || 1;
 
-  const [categoryData, careersData] = await Promise.all([
+  const results = await Promise.allSettled([
     getCareerCategories({
       offset: 0,
       limit: 10,
@@ -52,6 +52,14 @@ export default async function Page({ searchParams }) {
       is_parent: false,
     }),
   ]);
+
+  const getValue = (idx, fallback) => {
+    const res = results[idx];
+    return res?.status === "fulfilled" ? res.value : fallback;
+  };
+
+  const categoryData = getValue(0, { data: [] });
+  const careersData = getValue(1, { data: [] });
 
   return (
     <Careers
