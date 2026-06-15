@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 import "./ChannelPartnerModal.css";
@@ -46,7 +47,7 @@ const ChannelPartnerModal = ({ isOpen, onClose }) => {
             <div className="cp-modal-left-overlay"></div>
             <div className="cp-modal-left-inner">
               <div className="cp-logo-wrapper">
-                <img src={logo} alt="Blanca Logo" className="cp-modal-logo" />
+                <Image src={logo} alt="Blanca Logo" className="cp-modal-logo" width={100} height={50} />
               </div>
               <h2 className="cp-modal-title">
                 BECOME A CHANNEL PARTNER <br />

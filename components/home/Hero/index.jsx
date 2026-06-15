@@ -4,6 +4,7 @@ import "./Hero.css";
 import ThemeBtn from "../../common/Button/ThemeBtn";
 import StatBadge from "../../common/StatBadge";
 import StatCounter from "../../common/StatCounter/StatCounter";
+import LazyVideo from "../../common/LazyVideo/LazyVideo";
 import { useSetting } from "../../../hooks/useSetting";
 // import MainHeroBanner from "../../common/MainHeroBanner";
 
@@ -73,13 +74,9 @@ const Hero = ({ initialSettingResponse }) => {
           className="hero-2-item justify-content-center"
           style={{ position: "relative", overflow: "hidden" }}
         >
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
+          <LazyVideo
+            src={employeeVideo}
             poster="/images/home-hero-fallback.jpg"
-            preload="none"
             aria-hidden="true"
             style={{
               position: "absolute",
@@ -90,13 +87,7 @@ const Hero = ({ initialSettingResponse }) => {
               objectFit: "cover",
               zIndex: 0,
             }}
-          >
-            <source src={employeeVideo} type="video/mp4" />
-            <img
-              src="/images/home-hero-fallback.jpg"
-              alt="Blanca Real Estate - Expertise"
-            />
-          </video>
+          />
 
           <div
             className="video-overlay"

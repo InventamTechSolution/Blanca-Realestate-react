@@ -5,6 +5,7 @@ import "./MainHeroBanner.css";
 import { useRouter } from "next/navigation";
 import { useContactModal } from "../../../context/ContactModalContext";
 import { useEffect, useRef, useState } from "react";
+import LazyVideo from "../LazyVideo/LazyVideo";
 
 const MainHeroBanner = ({
   videoSrc,
@@ -111,42 +112,44 @@ const MainHeroBanner = ({
           className="hero-2-item justify-content-center"
           style={{ position: "relative", overflow: "hidden" }}
         >
-          <video
-            ref={videoRef}
-            muted
-            loop
-            playsInline
-            poster={poster || null}
-            preload={priority ? "auto" : "none"}
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              zIndex: 0,
-            }}
-          >
-            {isInView || priority ? (
-              <source src={videoSrc || null} type="video/mp4" />
-            ) : null}
-            {poster && (
-              <img
-                src={poster}
-                alt={title || "Blanca Real Estate"}
+          {videoSrc ? (
+            <LazyVideo
+              ref={videoRef}
+              src={videoSrc}
+              poster={poster || undefined}
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                zIndex: 0,
+              }}
+            />
+          ) : (
+            poster && (
+              <div
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
                   width: "100%",
                   height: "100%",
-                  objectFit: "cover",
+                  zIndex: 0,
                 }}
-              />
-            )}
-          </video>
+              >
+                <Image
+                  src={poster}
+                  alt={title || "Blanca Real Estate"}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  priority={priority}
+                />
+              </div>
+            )
+          )}
 
           <div
             className="video-overlay"

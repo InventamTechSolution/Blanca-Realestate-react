@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 import { useContactModal } from "../../../context/ContactModalContext";
@@ -296,11 +297,15 @@ const JourneySection = ({ journeyResponse }) => {
             const cardInner = (
               <>
                 {imgSrc && (
-                  <img
-                    src={imgSrc}
-                    alt={project.title || "Project image"}
-                    className="project-image"
-                  />
+                  <div style={{ position: "relative", width: "100%", height: "200px" }}>
+                    <Image
+                      src={imgSrc}
+                      alt={project.title || "Project image"}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      className="project-image"
+                    />
+                  </div>
                 )}
                 <h3 className="project-title">{project.title}</h3>
                 <div className="project-meta">

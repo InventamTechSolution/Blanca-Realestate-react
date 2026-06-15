@@ -59,10 +59,18 @@ export async function generateMetadata({ params }) {
 export default async function Page({ params }) {
   const { slug } = await params;
 
-  const [blogData, relatedBlogs] = await Promise.all([
+  const results = await Promise.allSettled([
     getBlogBySlug(slug),
     getBlogs({ limit: 6 }),
   ]);
+
+  const getValue = (idx, fallback) => {
+    const res = results[idx];
+    return res?.status === "fulfilled" ? res.value : fallback;
+  };
+
+  const blogData = getValue(0, null);
+  const relatedBlogs = getValue(1, { data: [] });
 
   return (
     <BlogDetails

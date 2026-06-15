@@ -46,9 +46,12 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  
-   const settingResponse = await getSetting();
-  
+  let settingResponse = null;
+  try {
+    settingResponse = await getSetting();
+  } catch (error) {
+    // offline fallback
+  }
 
   return <Contact settingResponse={settingResponse} />;
 }

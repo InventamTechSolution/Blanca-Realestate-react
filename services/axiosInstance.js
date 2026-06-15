@@ -3,6 +3,7 @@ import { BASE_API_URL } from "../utils/constant";
 
 export const axiosInstance = axios.create({
   baseURL: BASE_API_URL,
+  timeout: 5000,
   headers: {
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "true",

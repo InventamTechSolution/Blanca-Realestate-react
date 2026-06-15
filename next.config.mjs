@@ -5,6 +5,7 @@ const nextConfig = {
     allowedDevOrigins: ['192.168.2.74'],
     compress: true,
     images: {
+      minimumCacheTTL: 86400,
       formats: ['image/avif', 'image/webp'],
       remotePatterns: [
         {
@@ -17,6 +18,37 @@ const nextConfig = {
     reactStrictMode: true,
     compiler: {
       removeConsole: process.env.NODE_ENV === 'production',
+    },
+    async headers() {
+      return [
+        {
+          source: '/_next/static/(.*)',
+          headers: [
+            {
+              key: 'Cache-Control',
+              value: 'public, max-age=31536000, immutable',
+            },
+          ],
+        },
+        {
+          source: '/images/(.*)',
+          headers: [
+            {
+              key: 'Cache-Control',
+              value: 'public, max-age=86400, stale-while-revalidate=604800',
+            },
+          ],
+        },
+        {
+          source: '/videos/(.*)',
+          headers: [
+            {
+              key: 'Cache-Control',
+              value: 'public, max-age=604800',
+            },
+          ],
+        },
+      ];
     },
 };
 

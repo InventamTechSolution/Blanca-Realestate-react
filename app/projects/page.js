@@ -52,18 +52,26 @@ export async function generateMetadata() {
 export default async function Page({ searchParams }) {
   const { filter = "all", status = "all", area = "all" } = await searchParams;
 
-  const [initialProjects, initialLocations, initialCategories] =
-    await Promise.all([
-      getProjectsWithFilter({
-        page: 1,
-        limit: 10,
-        category: filter,
-        status: status,
-        location: area,
-      }),
-      getProjectLocations(),
-      getCategories({ limit: 10, page: 1 }),
-    ]);
+  const results = await Promise.allSettled([
+    getProjectsWithFilter({
+      page: 1,
+      limit: 10,
+      category: filter,
+      status: status,
+      location: area,
+    }),
+    getProjectLocations(),
+    getCategories({ limit: 10, page: 1 }),
+  ]);
+
+  const getValue = (idx, fallback) => {
+    const res = results[idx];
+    return res?.status === "fulfilled" ? res.value : fallback;
+  };
+
+  const initialProjects = getValue(0, { data: [] });
+  const initialLocations = getValue(1, []);
+  const initialCategories = getValue(2, { data: [] });
 
   return (
     <Projects

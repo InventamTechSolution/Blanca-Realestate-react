@@ -48,11 +48,20 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const aboutPageResponse = await getOtherField();
-  const [settingResponse, journeyResponse] = await Promise.all([
+  const results = await Promise.allSettled([
+    getOtherField(),
     getSetting(),
     getProjectByYearWithCategory(),
   ]);
+
+  const getValue = (idx, fallback) => {
+    const res = results[idx];
+    return res?.status === "fulfilled" ? res.value : fallback;
+  };
+
+  const aboutPageResponse = getValue(0, null);
+  const settingResponse = getValue(1, null);
+  const journeyResponse = getValue(2, { data: [] });
 
   return (
     <About

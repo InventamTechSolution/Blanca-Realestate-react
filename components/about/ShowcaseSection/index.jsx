@@ -198,7 +198,9 @@ const ShowcaseSection = ({ slides = [] }) => {
                 </span>
               </div>
 
-              <img src={slide.image} alt={slide.title} />
+              <div style={{ position: "relative", width: "100%", height: "300px" }}>
+                <Image src={slide.image} alt={slide.title} fill style={{ objectFit: "cover" }} />
+              </div>
               {/* Navigation Arrows */}
               <div className="navigation-arrows">
                 <button
