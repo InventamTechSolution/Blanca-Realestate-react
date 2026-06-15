@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import "./AboutBlueprintSection.css";
 import { Container } from "react-bootstrap";
 import LazyVideo from "../../common/LazyVideo/LazyVideo";
-const bluePrintVideo = "/videos/working-about-3.mp4";
+const bluePrintVideo = "/videos/working-about-3.webm";
 const favicon = "/images/logos/favicon.png";
 
 const AboutBlueprintSection = () => {

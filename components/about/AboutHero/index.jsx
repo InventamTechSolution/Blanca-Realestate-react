@@ -15,7 +15,7 @@ import "./abouthero.css";
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-const video = "/videos/about-banner-video.mp4";
+const video = "/videos/about-banner-video.webm";
 const FOUNDING_YEAR = 1981;
 // import FallbackImage from "../../../assets/images/background/slider-1.png";
 

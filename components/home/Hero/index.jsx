@@ -9,10 +9,10 @@ import { useSetting } from "../../../hooks/useSetting";
 // import MainHeroBanner from "../../common/MainHeroBanner";
 
 // Video paths
-export const bannerVideo1 = "/videos/blanca-long-video.mp4";
-export const blancaTowerVideo = "/videos/blanca-tower-video.mp4";
-export const videoProject2 = "/videos/Video-Project-2.mp4";
-export const employeeVideo = "/videos/employee-video.mp4";
+export const bannerVideo1 = "/videos/blanca-long-video.webm";
+export const blancaTowerVideo = "/videos/blanca-tower-video.webm";
+export const videoProject2 = "/videos/Video-Project-2.webm";
+export const employeeVideo = "/videos/employee-video.webm";
 
 const FOUNDING_YEAR = 1981;
 

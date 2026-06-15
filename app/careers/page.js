@@ -3,8 +3,19 @@ import { getCareerCategories } from "@/services/careerService";
 import { HOME_PAGE_URL } from "@/utils/constant";
 import { getGlobalSeo } from "@/utils/getGlobalSeo";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+import { unstable_cache } from "next/cache";
+
+const getCachedCareerCategories = (offset, limit, isParent) =>
+  unstable_cache(
+    async () =>
+      getCareerCategories({
+        offset,
+        limit,
+        is_parent: isParent,
+      }),
+    [`career-categories-${offset}-${limit}-${isParent}`],
+    { revalidate: 600, tags: ["careers"] }
+  )();
 
 const CAREERS_PAGE_SIZE = 4;
 
@@ -41,16 +52,8 @@ export default async function Page({ searchParams }) {
   const page = Number(resolvedSearchParams?.page) || 1;
 
   const results = await Promise.allSettled([
-    getCareerCategories({
-      offset: 0,
-      limit: 10,
-      is_parent: true,
-    }),
-    getCareerCategories({
-      offset: page,
-      limit: CAREERS_PAGE_SIZE,
-      is_parent: false,
-    }),
+    getCachedCareerCategories(0, 10, true),
+    getCachedCareerCategories(page, CAREERS_PAGE_SIZE, false),
   ]);
 
   const getValue = (idx, fallback) => {

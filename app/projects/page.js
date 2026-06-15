@@ -7,8 +7,33 @@ import {
 } from "@/services/projectService";
 import { getCategories } from "@/services/categoryService";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+import { unstable_cache } from "next/cache";
+
+const getCachedProjects = (filter, status, area) =>
+  unstable_cache(
+    async () =>
+      getProjectsWithFilter({
+        page: 1,
+        limit: 10,
+        category: filter,
+        status: status,
+        location: area,
+      }),
+    [`projects-list-${filter}-${status}-${area}`],
+    { revalidate: 600, tags: ["projects"] }
+  )();
+
+const getCachedLocations = unstable_cache(
+  async () => getProjectLocations(),
+  ["project-locations-cache"],
+  { revalidate: 600, tags: ["locations"] }
+);
+
+const getCachedCategories = unstable_cache(
+  async () => getCategories({ limit: 10, page: 1 }),
+  ["project-categories-cache"],
+  { revalidate: 600, tags: ["categories"] }
+);
 
 export async function generateMetadata() {
   const BASE_URL = HOME_PAGE_URL;
@@ -53,15 +78,9 @@ export default async function Page({ searchParams }) {
   const { filter = "all", status = "all", area = "all" } = await searchParams;
 
   const results = await Promise.allSettled([
-    getProjectsWithFilter({
-      page: 1,
-      limit: 10,
-      category: filter,
-      status: status,
-      location: area,
-    }),
-    getProjectLocations(),
-    getCategories({ limit: 10, page: 1 }),
+    getCachedProjects(filter, status, area),
+    getCachedLocations(),
+    getCachedCategories(),
   ]);
 
   const getValue = (idx, fallback) => {
