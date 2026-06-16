@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { motion as Montion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import StatBadge from "../../common/StatBadge";

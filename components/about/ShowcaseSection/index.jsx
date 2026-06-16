@@ -7,8 +7,6 @@ import {
   useState,
   useCallback,
 } from "react";
-// import { Container } from "react-bootstrap";
-import NextImage from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./ShowcaseSection.css";
@@ -199,9 +197,13 @@ const ShowcaseSection = ({ slides = [] }) => {
                 </span>
               </div>
 
-              <div style={{ position: "relative", width: "100%", height: "300px" }}>
-                <NextImage src={slide.image} alt={slide.title} fill style={{ objectFit: "cover" }} />
-              </div>
+              <img
+                src={slide.image}
+                alt={slide.title}
+                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                loading="lazy"
+                decoding="async"
+              />
               {/* Navigation Arrows */}
               <div className="navigation-arrows">
                 <button

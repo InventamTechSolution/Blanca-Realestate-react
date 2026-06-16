@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { Icon } from "@iconify/react";
 import "./AboutBlueprintSection.css";
 import { Container } from "react-bootstrap";
@@ -26,7 +25,7 @@ const AboutBlueprintSection = () => {
                 <div className="vision-banner-content">
                     <div className="banner-logo-branding">
                         <div className="banner-logo-shine-wrapper">
-                            <Image
+                            <img
                                 src={favicon}
                                 alt="Blanca Logo"
                                 className="banner-logo-icon"
