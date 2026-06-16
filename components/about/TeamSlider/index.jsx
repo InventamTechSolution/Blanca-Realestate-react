@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { Icon } from "@iconify/react";
 import "./TeamSlider.css";
 
@@ -121,27 +120,25 @@ const TeamSlider = ({ items }) => {
 
                     {/* Left Preview */}
                     <div className="team-side-preview preview-left">
-                        <div style={{ position: "relative", width: "100%", height: "200px" }}>
-                            <Image
-                                src={getImagePath(data[prevIndex]?.image)}
-                                alt="Previous Member"
-                                fill
-                                style={{ objectFit: "cover" }}
-                            />
-                        </div>
+                        <img
+                            src={getImagePath(data[prevIndex]?.image)}
+                            alt="Previous Member"
+                            style={{ objectFit: "cover", objectPosition: "top", width: "100%", height: "100%" }}
+                            loading="lazy"
+                            decoding="async"
+                        />
                     </div>
 
                     {/* Active Card */}
                     <div className={`team-active-card ${getAnimationClass()}`}>
                         <div className="team-member-img-wrap">
-                            <div style={{ position: "relative", width: "100%", height: "300px" }}>
-                                <Image
-                                    src={getImagePath(data[currentIndex]?.image)}
-                                    alt={data[currentIndex]?.name}
-                                    fill
-                                    style={{ objectFit: "cover" }}
-                                />
-                            </div>
+                            <img
+                                src={getImagePath(data[currentIndex]?.image)}
+                                alt={data[currentIndex]?.name}
+                                style={{ objectFit: "cover", objectPosition: "top", width: "100%", height: "100%" }}
+                                loading="lazy"
+                                decoding="async"
+                            />
                         </div>
 
                         <div className="team-member-content">
@@ -177,14 +174,13 @@ const TeamSlider = ({ items }) => {
 
                     {/* Right Preview */}
                     <div className="team-side-preview preview-right">
-                        <div style={{ position: "relative", width: "100%", height: "200px" }}>
-                            <Image
-                                src={getImagePath(data[nextIndex]?.image)}
-                                alt="Next Member"
-                                fill
-                                style={{ objectFit: "cover" }}
-                            />
-                        </div>
+                        <img
+                            src={getImagePath(data[nextIndex]?.image)}
+                            alt="Next Member"
+                            style={{ objectFit: "cover", objectPosition: "top", width: "100%", height: "100%" }}
+                            loading="lazy"
+                            decoding="async"
+                        />
                     </div>
 
                 </div>

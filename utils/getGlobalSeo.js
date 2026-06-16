@@ -16,13 +16,19 @@ export async function getGlobalSeo() {
 
   let version = Date.now();
 
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), 1500); // 1.5s timeout
+
   try {
     const res = await fetch(
-      `${BASE_API_URL}setting?offset=0&limit=1&t=${Date.now()}`,
+      `${BASE_API_URL}setting?offset=0&limit=1`,
       {
-        cache: "no-store",
+        next: { revalidate: 3600 }, // Cache SEO settings for 1 hour
+        signal: controller.signal,
       }
     );
+
+    clearTimeout(id);
 
     if (res.ok) {
       const settingResponse = await res.json();
@@ -34,6 +40,7 @@ export async function getGlobalSeo() {
       version = settingRecord?.setting_updated_at || version;
     }
   } catch (error) {
+    clearTimeout(id);
     console.error("Error fetching global SEO settings:", error);
   }
 

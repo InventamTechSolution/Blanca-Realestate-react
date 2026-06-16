@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { motion as Montion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import StatBadge from "../../common/StatBadge";
@@ -15,7 +14,7 @@ import "./abouthero.css";
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-const video = "/videos/about-banner-video.mp4";
+const video = "/videos/about-banner-video.webm";
 const FOUNDING_YEAR = 1981;
 // import FallbackImage from "../../../assets/images/background/slider-1.png";
 

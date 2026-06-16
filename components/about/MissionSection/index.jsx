@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Col } from "react-bootstrap";
 import { motion as Montion } from "framer-motion";
 const missionImg1 = "/images/intro/mission-image-1.png";
@@ -22,11 +21,11 @@ const MissionSection = () => {
               viewport={{ once: true }}
             >
               <div className="collage-item mission-collage-item-1">
-                <Image src={missionImg2} alt="Vision Image 1" width={400} height={300} style={{ objectFit: 'cover' }} />
+                <img src={missionImg2} alt="Vision Image 1" width={400} height={300} style={{ objectFit: 'cover' }} />
               </div>
 
               <div className="collage-item mission-collage-item-2">
-                <Image src={missionImg1} alt="Vision Image 2" width={400} height={300} style={{ objectFit: 'cover' }} />
+                <img src={missionImg1} alt="Vision Image 2" width={400} height={300} style={{ objectFit: 'cover' }} />
               </div>
             </Montion.div>
           </Col>

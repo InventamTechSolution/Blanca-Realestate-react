@@ -3,8 +3,7 @@ import { HOME_PAGE_URL } from "@/utils/constant";
 import { getGlobalSeo } from "@/utils/getGlobalSeo";
 import { getBlogBySlug, getBlogs } from "@/services/blogService";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 600;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

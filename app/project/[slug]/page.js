@@ -9,8 +9,7 @@ import {
 } from "@/utils/constant";
 import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 600;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
