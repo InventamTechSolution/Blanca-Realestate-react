@@ -15,7 +15,7 @@ const AboutBlueprintSection = () => {
             <div className="about-vision-banner">
                 <LazyVideo
                     src={bluePrintVideo}
-                    poster="/images/blueprint-fallback.jpg"
+                    poster="/images/intro/architect-preparing-image.png"
                     aria-hidden="true"
                     className="vision-banner-video"
                 />

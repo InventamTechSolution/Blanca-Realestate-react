@@ -1,7 +1,7 @@
 /*-------Hero-area-2--------*/
 .hero-area-2 {
-    height: 100vh;
-    min-height: 100vh;
+    height: 100svh;
+    min-height: 100svh;
 }
 
 .hero-area-2 .hero-2-slider,
@@ -13,8 +13,8 @@
 .hero-2-item {
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
-    min-height: 100vh;
+    height: 100svh;
+    min-height: 100svh;
     padding-top: 0;
     padding-bottom: 0;
     display: flex;
@@ -93,7 +93,7 @@
     width: 100%;
     padding-top: 64px;
     padding-bottom: 64px;
-    height: 100vh;
+    height: 100svh;
 } */
 
 .hero-area-2 .buttons {
@@ -390,7 +390,7 @@
 
     .hero-2-item {
         padding-top: 0;
-        height: 100vh;
+        height: 100svh;
     }
 }
 

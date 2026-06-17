@@ -101,7 +101,10 @@ const ProjectCard = ({ project, layout = "grid" }) => {
               alt={project.title}
               fill
               style={{ objectFit: 'cover' }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 33vw"
+              quality={70}
+              placeholder="blur"
+              blurDataURL="/images/placeholder.webp"
             />
           </div>
           <div className="horiz-content">
@@ -194,7 +197,10 @@ const ProjectCard = ({ project, layout = "grid" }) => {
             alt={project.title}
             fill
             style={{ objectFit: 'cover' }}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 33vw"
+            quality={70}
+            placeholder="blur"
+            blurDataURL="/images/placeholder.webp"
           />
           <div
             className={`project-status-badge status-${project.status?.toLowerCase().replace(/\s+/g, "-")}`}

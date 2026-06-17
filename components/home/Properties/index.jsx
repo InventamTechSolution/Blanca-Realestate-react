@@ -16,6 +16,7 @@ import React from "react";
 
 const Properties = ({ initialProjectsResponse }) => {
   const router = useRouter();
+  const [showAll, setShowAll] = React.useState(false);
   const queryParams = { page: 1, limit: 50, is_active: true };
   const { data } = useProjects(queryParams, {
     enabled: !initialProjectsResponse,
@@ -24,6 +25,7 @@ const Properties = ({ initialProjectsResponse }) => {
   });
 
   const projects = data?.data || [];
+  const displayedProjects = showAll ? projects : projects.slice(0, 3);
 
   const { openContactModal } = useContactModal();
 
@@ -103,7 +105,7 @@ const Properties = ({ initialProjectsResponse }) => {
               modules={[Pagination, Autoplay]}
               spaceBetween={12}
               slidesPerView={2}
-              loop={projects?.length > 1}
+              loop={displayedProjects?.length > 1}
               watchOverflow={true}
               speed={1000}
               pagination={{ clickable: true }}
@@ -132,7 +134,7 @@ const Properties = ({ initialProjectsResponse }) => {
               }}
               className="property-swiper"
             >
-              {projects?.map((project) => (
+              {displayedProjects?.map((project) => (
                 <SwiperSlide key={project?.project_slug}>
                   <div className="project-card-wrapper">
                     <Motion.div
@@ -149,10 +151,11 @@ const Properties = ({ initialProjectsResponse }) => {
                     >
                       <div style={{ position: "relative", width: "100%", height: "250px" }}>
                         <Image
-                          src={project?.project_card_image?.trim?.() || "/images/background/project-listing-bg.png"}
+                          src={project?.project_card_image?.trim?.() || "/images/background/project-listing-bg.webp"}
                           alt={project?.project_name}
                           fill
                           style={{ objectFit: "cover" }}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>
                       <div className="project-card__content">
@@ -209,6 +212,13 @@ const Properties = ({ initialProjectsResponse }) => {
                 </SwiperSlide>
               ))}
             </Swiper>
+            {projects.length > 3 && (
+              <div className="view-more-projects-btn-wrap" style={{ marginTop: "24px", display: "flex", justifyContent: "center" }}>
+                <ThemeBtn className="bs-font-montserrat" onClick={() => setShowAll(!showAll)}>
+                  {showAll ? "Show Less" : "View More Projects"}
+                </ThemeBtn>
+              </div>
+            )}
           </Col>
         </Row>
       </section>

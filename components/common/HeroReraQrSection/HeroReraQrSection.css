@@ -45,10 +45,12 @@
     margin-bottom: 0;
 }
 
-@media only screen and (max-width: 320px), (max-height: 600px) {
+@media only screen and (max-width: 320px),
+(max-height: 600px) {
     .hero-rera-mobile-wrap {
         margin-top: 10px;
     }
+
     .hero-rera-mobile-wrap .hero-rera-card.hero-glass-card {
         margin-bottom: 10px;
     }
@@ -121,6 +123,9 @@
 }
 
 .hero-rera-desktop-wrap .hero-rera-qr-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px;
 }
 
@@ -190,7 +195,7 @@
 
 /* Tighter CTA spacing when RERA sits between copy and button (mobile) */
 @media only screen and (max-width: 991px) {
-    .hero-rera-mobile-wrap + .buttons.mt-96 {
+    .hero-rera-mobile-wrap+.buttons.mt-96 {
         margin-top: 1.25rem !important;
     }
 }
@@ -225,6 +230,7 @@
     .hero-rera-mobile-wrap .hero-rera-card.hero-glass-card {
         margin-bottom: 12px;
     }
+
     .hero-rera-mobile-wrap .hero-rera-qr {
         width: 70px;
         height: 70px;

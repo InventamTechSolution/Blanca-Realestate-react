@@ -41,7 +41,11 @@ export async function getGlobalSeo() {
     }
   } catch (error) {
     clearTimeout(id);
-    console.error("Error fetching global SEO settings:", error);
+    if (error.name === "AbortError") {
+      console.warn("Global SEO settings fetch timed out, using default SEO values.");
+    } else {
+      console.error("Error fetching global SEO settings:", error.message || error);
+    }
   }
 
   return {

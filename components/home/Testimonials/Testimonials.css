@@ -1,6 +1,6 @@
 .reviews2-area {
     position: relative;
-    background-image: url(/images/background/review2.png);
+    background-image: url(/images/background/review2.webp);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -430,4 +430,18 @@
     .testimonials-modern__role {
         max-width: 200px;
     }
+}
+
+.avatar-initial {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    user-select: none;
 }

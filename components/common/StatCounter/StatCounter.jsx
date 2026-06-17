@@ -34,16 +34,16 @@ function StatCounter({ end, duration = 2.5, suffix = "" }) {
   }
 
   return (
-    <span ref={ref}>
+    <span ref={ref} data-count={endValue} suppressHydrationWarning>
       {started ? (
-        <CountUp 
-          end={endValue} 
-          duration={duration} 
+        <CountUp
+          end={endValue}
+          duration={duration}
           separator=","
           suffix={suffix}
         />
       ) : (
-        `0${suffix}`
+        `${end}${suffix}`
       )}
     </span>
   );

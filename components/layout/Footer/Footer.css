@@ -1,11 +1,10 @@
 .modern-footer {
     position: relative;
-    min-height: 100vh;
-    /* background-image: url('../images/background/footer-bg.jpg'); */
+    /* min-height removed: caused CLS 1.0 on mobile — footer height changed after API data loaded */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed; /* disabled on mobile via media query below */
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -64,7 +63,7 @@
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0; /* static — no longer animated */
     width: 60%;
     height: 100%;
     background: linear-gradient(105deg,
@@ -73,14 +72,26 @@
             rgba(255, 255, 255, 0.55) 50%,
             rgba(255, 255, 255, 0.15) 60%,
             transparent 80%);
-    transform: skewX(-15deg);
-    animation: logoShine 3s ease-in-out infinite;
+    /* Start off-screen left via transform (GPU-composited, no layout cost) */
+    transform: translateX(-167%) skewX(-15deg);
+    /* Disabled on mobile — purely decorative, avoids Non-composited animation CLS flag */
+    animation: none;
+    will-change: auto;
     pointer-events: none;
+}
+
+/* Only enable the shine on desktop where GPU compositing is reliable */
+@media screen and (min-width: 1024px) {
+    .footer-logo-shine-wrapper::after {
+        animation: logoShine 3s ease-in-out infinite;
+        will-change: transform, opacity;
+    }
 }
 
 @keyframes logoShine {
     0% {
-        left: -100%;
+        /* equivalent to left: -100% on a 60%-wide element */
+        transform: translateX(-167%) skewX(-15deg);
         opacity: 0;
     }
 
@@ -89,7 +100,8 @@
     }
 
     50% {
-        left: 160%;
+        /* equivalent to left: 160% on a 60%-wide element */
+        transform: translateX(267%) skewX(-15deg);
         opacity: 1;
     }
 
@@ -98,7 +110,7 @@
     }
 
     100% {
-        left: 160%;
+        transform: translateX(267%) skewX(-15deg);
         opacity: 0;
     }
 }
@@ -155,13 +167,7 @@
     z-index: 3;
     padding: 0 46px;
     width: 100%;
-    /* max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px; */
-    /* display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
-    min-height: calc(100vh - 160px);
+    /* min-height removed: matched .modern-footer issue — caused large height reservation that shifted on API load */
 
     @media screen and (min-width:1600px) {
         display: flex;
@@ -340,7 +346,7 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     white-space: nowrap;
     position: relative;
     overflow: hidden;
@@ -376,17 +382,27 @@
     gap: 40px;
     flex-wrap: wrap;
     align-items: flex-start;
-    animation: fadeInUp 0.8s ease-out 0.4s both;
+    /* animation removed: opacity:0 start caused CLS */
 }
 
-/* .footer-section {
-  flex: 1;
-  min-width: 250px;
-} */
+.footer-grid {
+    display: grid !important;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+}
 
-.footer-links-group {
-    display: flex;
-    gap: 48px;
+@media screen and (max-width: 991px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
 }
 
 .footer-links-column {
@@ -430,28 +446,7 @@
 
 .footer-links li {
     margin-bottom: 16px;
-    opacity: 0;
-    animation: slideInLeft 0.5s ease-out forwards;
-}
-
-.footer-links li:nth-child(1) {
-    animation-delay: 0.7s;
-}
-
-.footer-links li:nth-child(2) {
-    animation-delay: 0.8s;
-}
-
-.footer-links li:nth-child(3) {
-    animation-delay: 0.9s;
-}
-
-.footer-links li:nth-child(4) {
-    animation-delay: 1s;
-}
-
-.footer-links li:nth-child(5) {
-    animation-delay: 1.1s;
+    /* opacity:0 animation removed — causes CLS as content renders invisible then shifts into view */
 }
 
 @keyframes slideInLeft {
@@ -469,11 +464,10 @@
 .footer-links a {
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
-    /* text-align: center; */
     font-size: 15px;
-    transition: all 0.3s ease;
+    /* Specific properties only — transition:all would include non-composited layout props */
+    transition: color 0.3s ease, padding-left 0.3s ease;
     display: block;
-    /* padding: 8px 120px; */
 }
 
 .footer-links a.is-active {
@@ -535,20 +529,7 @@
 
 .footer-contact li {
     margin-bottom: 16px;
-    opacity: 0;
-    animation: slideInLeft 0.5s ease-out forwards;
-}
-
-.footer-contact li:nth-child(1) {
-    animation-delay: 0.7s;
-}
-
-.footer-contact li:nth-child(2) {
-    animation-delay: 0.8s;
-}
-
-.footer-contact li:nth-child(3) {
-    animation-delay: 0.9s;
+    /* opacity:0 animation removed — causes CLS as content renders invisible then shifts into view */
 }
 
 .contact-item {
@@ -597,6 +578,8 @@
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
+    /* Reserve space for up to 2 rows of icons to prevent CLS when API data loads */
+    min-height: 46px;
 }
 
 .footer-social-center {
@@ -667,7 +650,7 @@
     color: var(--lg-text);
     text-decoration: none;
     font-size: 24px;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -751,7 +734,7 @@
     color: rgba(255, 255, 255, 0.6);
     letter-spacing: 25px;
     font-family: 'Arial', sans-serif;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: color 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
     pointer-events: auto;
     cursor: pointer;
     text-transform: uppercase;
@@ -772,7 +755,7 @@
     padding-top: 0px;
     /* border-top: 1px solid rgba(255, 255, 255, 0.15); */
     margin-top: 0px;
-    animation: fadeInUp 0.8s ease-out 1.2s both;
+    /* animation removed: opacity:0 start caused CLS */
     position: relative;
     z-index: 3;
 
@@ -868,6 +851,8 @@
 
     .modern-footer {
         padding: 50px 0 25px;
+        /* fixed background not supported on mobile — disable to prevent CLS/repaint */
+        background-attachment: scroll;
     }
 
     .brand-logo {

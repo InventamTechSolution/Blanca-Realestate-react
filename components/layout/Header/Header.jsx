@@ -10,7 +10,7 @@ import ChannelPartnerModal from "../../common/ChannelPartnerModal/ChannelPartner
 import { useOtherField } from "../../../hooks/useOtherField";
 import { useCategories } from "../../../hooks/useCategories";
 import Image from "next/image";
-const logo = "/images/logos/blanca-logo.png";
+const logo = "/images/logos/blanca-logo.webp";
 
 const Header = () => {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -89,6 +89,50 @@ const Header = () => {
 
     return mapped?.length ? mapped : fallback;
   }, [categoryResponse]);
+
+  const menuItems = React.useMemo(() => [
+    {
+      label: "About Us",
+      href: "/about",
+      menuKey: "about",
+      mobileMenuKey: "mobile-about",
+      submenu: [
+        { label: "Legacy", href: "/about" },
+        { label: "Value", href: "/about#showcase-section" },
+        { label: "Our Vision", href: "/about#about-vision-section-four" },
+        { label: "Our Mission", href: "/about#about-mission-section-four" },
+        { label: "Why Choose Us", href: "/#why-choose-us" },
+        { label: "Journey of Innovations", href: "/about#journey" },
+        { label: "Leadership", href: "/about#leadership" },
+        { label: "Blog", href: "/blog" },
+      ]
+    },
+    {
+      label: "Communities",
+      href: "/projects",
+      menuKey: "communities",
+      mobileMenuKey: "mobile-communities",
+      submenu: [
+        { label: "New Launches", href: "/projects?status=new-launches" },
+        { label: "Coming Soon", href: "/projects?status=coming-soon" },
+        { label: "Ongoing Projects", href: "/projects?status=on-going" },
+        { label: "Sold Out", href: "/projects?status=sold-out" },
+      ]
+    },
+    {
+      label: "Properties",
+      href: "/projects",
+      menuKey: "properties",
+      mobileMenuKey: "mobile-properties",
+      submenu: propertyCategories?.map((category) => ({
+        label: category?.name,
+        href: `/projects?filter=${encodeURIComponent(category?.slug)}`,
+      })) || [],
+    },
+    { label: "Contact Us", href: "/contact" },
+    { label: "Career", href: "/careers" }
+  ], [propertyCategories]);
+
   const toggleSubmenu = (menu) => {
     setActiveSubmenu(activeSubmenu === menu ? null : menu);
   };
@@ -274,139 +318,30 @@ const Header = () => {
               {/* Left Navigation */}
               <div className="header-desktop-nav header-nav-left">
                 <ul className="header-links">
-                  <li
-                    className={`header-link has-submenu ${isCurrent("/about")} ${activeSubmenu === "about" ? "is-open" : ""}`}
-                  >
-                    <Link
-                      href="/about"
-                      onClick={(e) => handleNavClick(e, "/about", "about")}
+                  {menuItems.slice(0, 3).map((item) => (
+                    <li
+                      key={item.label}
+                      className={`header-link has-submenu ${isCurrent(item.href)} ${activeSubmenu === item.menuKey ? "is-open" : ""}`}
                     >
-                      About Us
-                    </Link>
-                    <ul className="header-submenu">
-                      <li>
-                        <Link href="/about" onClick={closeMenus}>
-                          Legacy
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/about#showcase-section"
-                          onClick={closeMenus}
-                        >
-                          Value
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/about#about-vision-section-four"
-                          onClick={closeMenus}
-                        >
-                          Our Vision
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/about#about-mission-section-four"
-                          onClick={closeMenus}
-                        >
-                          Our Mission
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/#why-choose-us" onClick={closeMenus}>
-                          Why Choose Us
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/about#journey" onClick={closeMenus}>
-                          Journey of Innovations
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/about#leadership" onClick={closeMenus}>
-                          Leadership
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/blog" onClick={closeMenus}>
-                          Blog
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li
-                    className={`header-link has-submenu ${isCurrent("/", "/projects")} ${activeSubmenu === "communities" ? "is-open" : ""}`}
-                  >
-                    <a
-                      href="/projects"
-                      onClick={(e) =>
-                        handleNavClick(e, "/projects", "communities")
-                      }
-                    >
-                      Communities
-                    </a>
-                    <ul className="header-submenu">
-                      <li>
-                        <Link
-                          href="/projects?status=new-launches"
-                          onClick={closeMenus}
-                        >
-                          New Launches
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/projects?status=coming-soon"
-                          onClick={closeMenus}
-                        >
-                          Coming Soon
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/projects?status=on-going"
-                          onClick={closeMenus}
-                        >
-                          Ongoing Projects
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/projects?status=sold-out"
-                          onClick={closeMenus}
-                        >
-                          Sold Out
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li
-                    className={`header-link has-submenu ${isCurrent("/projects")} ${activeSubmenu === "properties" ? "is-open" : ""}`}
-                  >
-                    <Link
-                      href="/projects"
-                      onClick={(e) =>
-                        handleNavClick(e, "/projects", "properties")
-                      }
-                    >
-                      Properties
-                    </Link>
-                    <ul className="header-submenu">
-                      {propertyCategories?.map((category, index) => (
-                        <li key={`${category?.slug}-${index}`}>
-                          <Link
-                            href={`/projects?filter=${encodeURIComponent(category?.slug)}`}
-                            onClick={closeMenus}
-                          >
-                            {category?.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
+                      <Link
+                        href={item.href}
+                        onClick={(e) => handleNavClick(e, item.href, item.menuKey)}
+                      >
+                        {item.label}
+                      </Link>
+                      {item.submenu && (
+                        <ul className="header-submenu">
+                          {item.submenu.map((sub, i) => (
+                            <li key={i}>
+                              <Link href={sub.href} onClick={closeMenus}>
+                                {sub.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -417,11 +352,11 @@ const Header = () => {
                     <Image
                       className="header-logo-image"
                       src={logo}
-                      alt="Logo"
-                      width={240}
-                      height={80}
+                      alt="Blanca Real Estate"
+                      width={260}
+                      height={95}
                       priority
-                      style={{ height: "auto" }}
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </Link>
                 </div>
@@ -430,16 +365,13 @@ const Header = () => {
               {/* Right Navigation */}
               <div className="header-desktop-nav header-nav-right">
                 <ul className="header-links">
-                  <li className={`header-link ${isCurrent("/contact")}`}>
-                    <Link href="/contact" onClick={closeMenus}>
-                      Contact Us
-                    </Link>
-                  </li>
-                  <li className="header-link">
-                    <Link href="/careers" onClick={closeMenus}>
-                      Career
-                    </Link>
-                  </li>
+                  {menuItems.slice(3).map((item) => (
+                    <li key={item.label} className={`header-link ${isCurrent(item.href)}`}>
+                      <Link href={item.href} onClick={closeMenus}>
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
                   <li className="header-link">
                     <button
                       type="button"
@@ -460,11 +392,11 @@ const Header = () => {
                       <Link href="/" onClick={closeMenus}>
                         <Image
                           src={logo}
-                          alt="Logo"
+                          alt="Blanca Real Estate"
                           width={160}
                           height={50}
                           priority
-                          style={{ height: "auto" }}
+                          style={{ width: "auto", height: "auto" }}
                         />
                       </Link>
                     </div>
@@ -485,198 +417,60 @@ const Header = () => {
                     className={`navbar-collapse collapse clearfix ${mobileMenuOpen ? "show" : ""}`}
                   >
                     <ul className="navigation clearfix">
-                      <li
-                        className={`dropdown ${isCurrent("/about")} ${activeSubmenu === "mobile-about" ? "open" : ""}`}
-                      >
-                        <Link
-                          href="/about"
-                          onClick={(e) => {
-                            if (window.innerWidth <= 991) {
-                              e.preventDefault();
-                              toggleSubmenu("mobile-about");
-                            } else {
-                              closeMenus();
-                            }
-                          }}
-                        >
-                          About Us
-                        </Link>
-                        <ul
-                          style={{
-                            display:
-                              activeSubmenu === "mobile-about"
-                                ? "block"
-                                : "none",
-                          }}
-                        >
-                          <li>
-                            <Link href="/about" onClick={closeMenus}>
-                              Legacy
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/about#showcase-section"
-                              onClick={closeMenus}
+                      {menuItems.map((item) => {
+                        if (item.submenu) {
+                          return (
+                            <li
+                              key={item.label}
+                              className={`dropdown ${isCurrent(item.href)} ${activeSubmenu === item.mobileMenuKey ? "open" : ""}`}
                             >
-                              Value
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/about#about-vision-section-four"
-                              onClick={closeMenus}
-                            >
-                              Our Vision
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/about#about-mission-section-four"
-                              onClick={closeMenus}
-                            >
-                              Our Mission
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/#why-choose-us" onClick={closeMenus}>
-                              Why Choose Us
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/about#journey" onClick={closeMenus}>
-                              Journey of Innovations
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/about#leadership" onClick={closeMenus}>
-                              Leadership
-                            </Link>
-                          </li>
-                          <li>
-                            <Link href="/blog" onClick={closeMenus}>
-                              Blog
-                            </Link>
-                          </li>
-                        </ul>
-                        <div
-                          className="dropdown-btn"
-                          onClick={() => toggleSubmenu("mobile-about")}
-                        >
-                          <Icon icon="lucide:chevron-down" />
-                        </div>
-                      </li>
-
-                      <li
-                        className={`dropdown ${isCurrent("/", "#our-story")} ${activeSubmenu === "mobile-communities" ? "open" : ""}`}
-                      >
-                        <a
-                          href="/projects"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleSubmenu("mobile-communities");
-                          }}
-                        >
-                          Communities
-                        </a>
-                        <ul
-                          style={{
-                            display:
-                              activeSubmenu === "mobile-communities"
-                                ? "block"
-                                : "none",
-                          }}
-                        >
-                          <li>
-                            <Link
-                              href="/projects?status=new-launches"
-                              onClick={closeMenus}
-                            >
-                              New Launches
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/projects?status=coming-soon"
-                              onClick={closeMenus}
-                            >
-                              Coming Soon
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/projects?status=on-going"
-                              onClick={closeMenus}
-                            >
-                              Ongoing Projects
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/projects?status=sold-out"
-                              onClick={closeMenus}
-                            >
-                              Sold Out
-                            </Link>
-                          </li>
-                        </ul>
-                        <div
-                          className="dropdown-btn"
-                          onClick={() => toggleSubmenu("mobile-communities")}
-                        >
-                          <Icon icon="lucide:chevron-down" />
-                        </div>
-                      </li>
-
-                      <li
-                        className={`dropdown ${isCurrent("/projects")} ${activeSubmenu === "mobile-properties" ? "open" : ""}`}
-                      >
-                        <Link
-                          href="/projects"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            toggleSubmenu("mobile-properties");
-                          }}
-                        >
-                          Properties
-                        </Link>
-                        <ul
-                          style={{
-                            display:
-                              activeSubmenu === "mobile-properties"
-                                ? "block"
-                                : "none",
-                          }}
-                        >
-                          {propertyCategories?.map((category, index) => (
-                            <li key={`${category?.slug}-${index}`}>
                               <Link
-                                href={`/projects?filter=${encodeURIComponent(category?.slug)}`}
-                                onClick={closeMenus}
+                                href={item.href}
+                                onClick={(e) => {
+                                  if (window.innerWidth <= 991) {
+                                    e.preventDefault();
+                                    toggleSubmenu(item.mobileMenuKey);
+                                  } else {
+                                    closeMenus();
+                                  }
+                                }}
                               >
-                                {category?.name}
+                                {item.label}
                               </Link>
+                              <ul
+                                style={{
+                                  display:
+                                    activeSubmenu === item.mobileMenuKey
+                                      ? "block"
+                                      : "none",
+                                }}
+                              >
+                                {item.submenu.map((sub, i) => (
+                                  <li key={i}>
+                                    <Link href={sub.href} onClick={closeMenus}>
+                                      {sub.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                              <div
+                                className="dropdown-btn"
+                                onClick={() => toggleSubmenu(item.mobileMenuKey)}
+                              >
+                                <Icon icon="lucide:chevron-down" />
+                              </div>
                             </li>
-                          ))}
-                        </ul>
-                        <div
-                          className="dropdown-btn"
-                          onClick={() => toggleSubmenu("mobile-properties")}
-                        >
-                          <Icon icon="lucide:chevron-down" />
-                        </div>
-                      </li>
+                          );
+                        }
 
-                      <li className={isCurrent("/contact")}>
-                        <Link href="/contact" onClick={closeMenus}>
-                          Contact Us
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/careers" onClick={closeMenus}>
-                          Career
-                        </Link>
-                      </li>
+                        return (
+                          <li key={item.label} className={isCurrent(item.href)}>
+                            <Link href={item.href} onClick={closeMenus}>
+                              {item.label}
+                            </Link>
+                          </li>
+                        );
+                      })}
                       <li>
                         <button
                           type="button"

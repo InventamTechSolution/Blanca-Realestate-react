@@ -15,6 +15,7 @@ import {
   useProjectsWithFilter,
 } from "../../hooks/useProjects";
 import { useCategories } from "../../hooks/useCategories";
+import { keepPreviousData } from "@tanstack/react-query";
 // import SEO from '../../components/common/Seo/Seo';
 
 const Projects = ({ initialProjects, initialLocations, initialCategories }) => {
@@ -26,7 +27,7 @@ const Projects = ({ initialProjects, initialLocations, initialCategories }) => {
   const statusParam = searchParams.get("status") || "all";
   const areaParam = searchParams.get("area") || "all";
 
-  const projectBg = "/images/background/project-listing-bg.png"; // Fixed path for public asset
+  const projectBg = "/images/background/project-listing-bg.webp"; // Fixed path for public asset
   const dropdownRef = useRef(null);
   const [status, setStatus] = useState(statusParam);
   const [area, setArea] = useState(areaParam);
@@ -68,6 +69,7 @@ const Projects = ({ initialProjects, initialLocations, initialCategories }) => {
     },
     {
       initialData: initialProjects,
+      placeholderData: keepPreviousData,
     },
   );
 
