@@ -28,6 +28,7 @@ const MainHeroBanner = ({
   const { openContactModal } = useContactModal();
   const videoRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,7 +52,7 @@ const MainHeroBanner = ({
   useEffect(() => {
     if (videoRef.current) {
       if (isInView) {
-        videoRef.current.play().catch(() => {});
+        videoRef.current.play().catch(() => { });
       } else {
         videoRef.current.pause();
       }
@@ -112,12 +113,36 @@ const MainHeroBanner = ({
           className="hero-2-item justify-content-center"
           style={{ position: "relative", overflow: "hidden" }}
         >
-          {videoSrc ? (
+          {/* Render optimized Next.js Image for immediate, compressed loading (LCP improvement) */}
+          {poster && (
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: 0,
+              }}
+            >
+              <Image
+                src={poster}
+                alt={title || "Blanca Real Estate"}
+                fill
+                style={{ objectFit: "cover" }}
+                priority={priority}
+                sizes="100vw"
+              />
+            </div>
+          )}
+
+          {/* LazyVideo renders on top of the image and fades in when playing starts */}
+          {videoSrc && (
             <LazyVideo
               ref={videoRef}
               src={videoSrc}
-              poster={poster || undefined}
               aria-hidden="true"
+              onPlay={() => setIsVideoPlaying(true)}
               style={{
                 position: "absolute",
                 top: 0,
@@ -125,30 +150,11 @@ const MainHeroBanner = ({
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                zIndex: 0,
+                zIndex: 1,
+                opacity: isVideoPlaying ? 1 : 0,
+                transition: "opacity 0.6s ease-in-out",
               }}
             />
-          ) : (
-            poster && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  zIndex: 0,
-                }}
-              >
-                <Image
-                  src={poster}
-                  alt={title || "Blanca Real Estate"}
-                  fill
-                  style={{ objectFit: "cover" }}
-                  priority={priority}
-                />
-              </div>
-            )
           )}
 
           <div

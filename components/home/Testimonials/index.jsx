@@ -79,21 +79,11 @@ const Avatar = ({ src, name }) => {
   if (!src || failed) {
     return (
       <div
+        className="avatar-initial"
         aria-label={name}
         role="img"
         style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: "50%",
           backgroundColor: getAvatarColor(name),
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#fff",
-          fontSize: "24px",
-          fontWeight: 600,
-          textTransform: "uppercase",
-          userSelect: "none",
         }}
       >
         {getInitial(name)}
@@ -102,15 +92,17 @@ const Avatar = ({ src, name }) => {
   }
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%" }}>
-      <Image
-        src={src}
-        alt={name}
-        fill
-        style={{ objectFit: "cover", borderRadius: "50%" }}
-        onError={() => setFailed(true)}
-      />
-    </div>
+    <Image
+      src={src}
+      alt={`${name} client avatar`}
+      width={56}
+      height={56}
+      style={{ borderRadius: "50%", objectFit: "cover" }}
+      onError={() => setFailed(true)}
+      loading="lazy"
+      decoding="async"
+      quality={60}
+    />
   );
 };
 

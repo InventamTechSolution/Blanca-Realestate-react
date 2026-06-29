@@ -52,11 +52,12 @@ export default function Blog({ initialData }) {
                             <Image
                               src={
                                 post.blog_card_image ||
-                                "/images/background/project-listing-bg.png"
+                                "/images/background/project-listing-bg.webp"
                               }
                               alt={post.blog_title}
                               fill
                               style={{ objectFit: "cover" }}
+                              sizes="(max-width: 768px) 100vw, 60vw"
                             />
                           </div>
                           {/* <div className="blog-card-vs">VS</div> */}

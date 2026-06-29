@@ -13,16 +13,28 @@ import "./Footer.css";
 
 import Image from "next/image";
 import { CONTACT } from "../../../config/contact";
-const logo = "/images/logos/blanca-logo.png";
+const logo = "/images/logos/blanca-logo.webp";
 
-const Footer = () => {
+const Footer = ({ initialSettingResponse, initialCategoryResponse }) => {
   const footerRef = React.useRef(null);
   const pathname = usePathname();
   const [hash, setHash] = React.useState("");
   const [showThankYou, setShowThankYou] = React.useState(false);
   const [subscribeEmail, setSubscribeEmail] = React.useState("");
-  const { data: settingResponse } = useSetting({ show_on_home_page: true });
-  const { data: categoryResponse } = useCategories({ limit: 10, page: 1 });
+  const { data: settingResponse } = useSetting(
+    { show_on_home_page: true },
+    {
+      initialData: initialSettingResponse ?? undefined,
+      staleTime: 60_000,
+    }
+  );
+  const { data: categoryResponse } = useCategories(
+    { limit: 10, page: 1 },
+    {
+      initialData: initialCategoryResponse ?? undefined,
+      staleTime: 60_000,
+    }
+  );
   const { mutate: sendContact, isPending: isSubmittingSubscription } =
     useContactUs();
 
@@ -139,6 +151,8 @@ const Footer = () => {
     let $;
 
     const setup = async () => {
+      if (typeof window !== "undefined" && window.innerWidth <= 991) return;
+
       $ = (await import("jquery")).default;
       await import("jquery.ripples");
       if (cancelled || !footerRef.current) return;
@@ -223,7 +237,7 @@ const Footer = () => {
       <div className="footer-container">
         {/* Footer Main Content */}
         <div className="footer-content">
-          <div className="footer-main">
+          <div className="footer-main footer-grid">
             {/* Intro Section */}
             <div className="footer-section footer-intro">
               <h2 className="footer-heading bs-font-playfair-display">
@@ -259,118 +273,116 @@ const Footer = () => {
             </div>
 
             {/* Footer Links */}
-            <div className="footer-section footer-links-group">
-              <div className="footer-links-column">
-                <p className="footer-title">
+            <div className="footer-links-column">
+              <p className="footer-title">
+                <Link
+                  href="/about"
+                  className="footer-title-link"
+                  onClick={() => setActiveHash("")}
+                >
+                  About Us
+                </Link>
+              </p>
+              <ul className="footer-links">
+                <li>
                   <Link
-                    href="/about"
-                    className="footer-title-link"
-                    onClick={() => setActiveHash("")}
+                    href="/about#showcase-section"
+                    className={
+                      pathname === "/about" && hash === "#showcase-section"
+                        ? "is-active"
+                        : ""
+                    }
+                    onClick={() => setActiveHash("#showcase-section")}
                   >
-                    About Us
+                    Value
                   </Link>
-                </p>
-                <ul className="footer-links">
-                  <li>
-                    <Link
-                      href="/about#showcase-section"
-                      className={
-                        pathname === "/about" && hash === "#showcase-section"
-                          ? "is-active"
-                          : undefined
-                      }
-                      onClick={() => setActiveHash("#showcase-section")}
-                    >
-                      Value
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/about#about-vision-section-four"
-                      className={
-                        pathname === "/about" &&
-                          hash === "#about-vision-section-four"
-                          ? "is-active"
-                          : undefined
-                      }
-                      onClick={() =>
-                        setActiveHash("#about-vision-section-four")
-                      }
-                    >
-                      Our Vision
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/about#about-mission-section-four"
-                      className={
-                        pathname === "/about" &&
-                          hash === "#about-mission-section-four"
-                          ? "is-active"
-                          : undefined
-                      }
-                      onClick={() =>
-                        setActiveHash("#about-mission-section-four")
-                      }
-                    >
-                      Our Mission
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/about#journey"
-                      className={
-                        pathname === "/about" && hash === "#journey"
-                          ? "is-active"
-                          : undefined
-                      }
-                      onClick={() => setActiveHash("#journey")}
-                    >
-                      Journey of Innovation
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/contact">Contact Us</Link>
-                  </li>
-                </ul>
-              </div>
+                </li>
+                <li>
+                  <Link
+                    href="/about#about-vision-section-four"
+                    className={
+                      pathname === "/about" &&
+                        hash === "#about-vision-section-four"
+                        ? "is-active"
+                        : ""
+                    }
+                    onClick={() =>
+                      setActiveHash("#about-vision-section-four")
+                    }
+                  >
+                    Our Vision
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/about#about-mission-section-four"
+                    className={
+                      pathname === "/about" &&
+                        hash === "#about-mission-section-four"
+                        ? "is-active"
+                        : ""
+                    }
+                    onClick={() =>
+                      setActiveHash("#about-mission-section-four")
+                    }
+                  >
+                    Our Mission
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/about#journey"
+                    className={
+                      pathname === "/about" && hash === "#journey"
+                        ? "is-active"
+                        : ""
+                    }
+                    onClick={() => setActiveHash("#journey")}
+                  >
+                    Journey of Innovation
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact">Contact Us</Link>
+                </li>
+              </ul>
+            </div>
 
-              <div className="footer-links-column">
-                <p className="footer-title">Communities</p>
-                <ul className="footer-links">
-                  <li>
-                    <Link href="/projects?status=new-launches">
-                      New Launches
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/projects?status=coming-soon">Coming Soon</Link>
-                  </li>
-                  <li>
-                    <Link href="/projects?status=on-going">
-                      Ongoing Projects
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/projects?status=sold-out">Sold Out</Link>
-                  </li>
-                </ul>
-              </div>
+            <div className="footer-links-column">
+              <p className="footer-title">Communities</p>
+              <ul className="footer-links">
+                <li>
+                  <Link href="/projects?status=new-launches">
+                    New Launches
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/projects?status=coming-soon">Coming Soon</Link>
+                </li>
+                <li>
+                  <Link href="/projects?status=on-going">
+                    Ongoing Projects
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/projects?status=sold-out">Sold Out</Link>
+                </li>
+              </ul>
+            </div>
 
-              <div className="footer-links-column">
-                <p className="footer-title">Properties</p>
-                <ul className="footer-links">
-                  {propertyCategories?.map((category) => (
-                    <li key={category?.slug}>
-                      <Link
-                        href={`/projects?filter=${encodeURIComponent(category?.slug)}`}
-                      >
-                        {category?.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="footer-links-column">
+              <p className="footer-title">Properties</p>
+              <ul className="footer-links">
+                {propertyCategories?.map((category) => (
+                  <li key={category?.slug}>
+                    <Link
+                      href={`/projects?filter=${encodeURIComponent(category?.slug)}`}
+                    >
+                      {category?.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -414,7 +426,7 @@ const Footer = () => {
                   alt="Logo"
                   width={150}
                   height={50}
-                  style={{ height: 'auto' }}
+                  style={{ width: 'auto', height: 'auto' }}
                 />
               </div>
             </Link>

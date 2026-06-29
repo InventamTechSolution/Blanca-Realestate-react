@@ -116,7 +116,7 @@ const HeroSection = ({ messages = [], settingResponse }) => {
   useEffect(() => {
     if (videoRef.current) {
       if (isInView) {
-        videoRef.current.play().catch(() => {});
+        videoRef.current.play().catch(() => { });
       } else {
         videoRef.current.pause();
       }
@@ -132,7 +132,7 @@ const HeroSection = ({ messages = [], settingResponse }) => {
         <LazyVideo
           ref={videoRef}
           src={video}
-          poster="/images/about-banner-fallback.jpg"
+          poster="/images/background/about-top-bg.jpg"
           aria-hidden="true"
           style={{
             position: "absolute",
@@ -249,15 +249,16 @@ const HeroSection = ({ messages = [], settingResponse }) => {
                   >
                     {sliderMessages.map((text, index) => {
                       const isActive = index === activeSlide;
-                      const Tag = isActive ? "h1" : "div";
                       return (
-                        <Tag
+                        <div
                           key={index}
+                          role={isActive ? "heading" : "none"}
+                          aria-level={isActive ? "1" : undefined}
                           className="text-white slider-item hero-main-title bs-font-colgent-regular about-hero-title"
                           aria-hidden={!isActive}
                         >
                           {text}
-                        </Tag>
+                        </div>
                       );
                     })}
                   </div>
