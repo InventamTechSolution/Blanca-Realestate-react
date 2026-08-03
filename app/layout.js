@@ -10,8 +10,6 @@ import {
   playfairDisplay,
   colgentRegular,
   smothing,
-  marjorieRegular,
-  marjorieItalic,
 } from "./fonts";
 import { DEFAULT_META_TITLE, DEFAULT_META_DESCRIPTION } from "@/utils/constant";
 import { CONTACT } from "@/config/contact";
@@ -111,7 +109,7 @@ export default async function RootLayout({ children }) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${montserrat.variable} ${playfairDisplay.variable} ${colgentRegular.variable} ${smothing.variable} ${marjorieRegular.variable} ${marjorieItalic.variable}`}
+      className={`${inter.variable} ${montserrat.variable} ${playfairDisplay.variable} ${colgentRegular.variable} ${smothing.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://be.blanca.co.in" />

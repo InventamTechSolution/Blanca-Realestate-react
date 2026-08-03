@@ -16,6 +16,7 @@ export const montserrat = Montserrat({
 export const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   display: "swap",
+  style: ["normal", "italic"],
   variable: "--font-playfair",
 });
 
@@ -31,14 +32,3 @@ export const smothing = localFont({
   display: "swap",
 });
 
-export const marjorieRegular = localFont({
-  src: "../assets/fonts/Marjorie-Regular.ttf",
-  variable: "--font-marjorie-regular",
-  display: "swap",
-});
-
-export const marjorieItalic = localFont({
-  src: "../assets/fonts/Marjorie-Italic.ttf",
-  variable: "--font-marjorie-italic",
-  display: "swap",
-});

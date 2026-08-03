@@ -4,8 +4,6 @@
     --bs-font-montserrat: var(--font-montserrat), sans-serif;
     --bs-font-inter: var(--font-inter), sans-serif;
     --bs-font-Smothing: var(--font-smothing), serif;
-    --bs-font-Marjorie-regular: var(--font-marjorie-regular), serif;
-    --bs-font-Marjorie-italic: var(--font-marjorie-italic), serif;
 }
 
 /* Utility classes for fonts */
@@ -33,12 +31,9 @@
     font-family: var(--bs-font-Beauty-Story);
 }
 
-.bs-font-Marjorie-regular {
-    font-family: var(--bs-font-Marjorie-regular);
-}
-
-.bs-font-Marjorie-italic {
-    font-family: var(--bs-font-Marjorie-italic);
+.bs-font-playfair-italic {
+    font-family: var(--bs-font-playfair-display);
+    font-style: italic;
 }
 
 .heading,

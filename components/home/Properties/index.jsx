@@ -79,7 +79,7 @@ const Properties = ({ initialProjectsResponse }) => {
                 Designed for modern living, seamless connectivity, future
                 growth, and long-term returns, each development features
                 thoughtfully planned spaces{" "}
-                <span className="bs-font-Marjorie-italic">
+                <span className="bs-font-playfair-italic">
                   that deliver comfort, accessibility, and a lasting pride of
                   ownership.
                 </span>
