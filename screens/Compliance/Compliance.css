@@ -1,0 +1,300 @@
+.compliance-listing {
+  background: rgba(19, 20, 18, 0.95);
+  padding: 80px 0 100px;
+  position: relative;
+}
+
+.compliance-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+
+.compliance-intro-text {
+  max-width: 640px;
+  margin: 0;
+  color: var(--black-30);
+  font-family: var(--bs-font-inter);
+  line-height: 1.8;
+}
+
+.compliance-filter {
+  min-width: 300px;
+}
+
+.compliance-filter .custom-dropdown-field {
+  margin-bottom: 0;
+}
+
+/* Project group */
+
+.compliance-project {
+  margin-bottom: 72px;
+  /* Keep the heading clear of the sticky header when linked via #slug */
+  scroll-margin-top: 140px;
+}
+
+.compliance-project:last-of-type {
+  margin-bottom: 0;
+}
+
+.compliance-project-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--lg-highlight);
+}
+
+.compliance-project-title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.32;
+  letter-spacing: 1px;
+  color: var(--heading-color);
+}
+
+.compliance-project-count {
+  flex-shrink: 0;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--black-40);
+}
+
+.compliance-project-description {
+  margin: 0 0 20px;
+  color: var(--black-30);
+  line-height: 1.8;
+}
+
+/* Document rows */
+
+.compliance-document-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.compliance-document-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 3px solid transparent;
+  border-radius: 6px;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.compliance-document-row:hover,
+.compliance-document-row:focus-within {
+  background: rgba(74, 118, 201, 0.06);
+  border-color: rgba(74, 118, 201, 0.25);
+  border-left-color: var(--primary-color);
+}
+
+.compliance-document-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.compliance-document-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  color: var(--primary-color);
+}
+
+.compliance-document-text {
+  min-width: 0;
+}
+
+.compliance-document-title {
+  margin: 0;
+  font-family: var(--bs-font-inter);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  color: var(--black-10);
+  overflow-wrap: anywhere;
+}
+
+.compliance-document-description {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--black-40);
+}
+
+.compliance-document-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-shrink: 0;
+}
+
+.compliance-view-link,
+.compliance-download-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: color 0.25s ease;
+}
+
+.compliance-view-link {
+  gap: 6px;
+  color: var(--black-40);
+}
+
+.compliance-view-link:visited {
+  color: var(--black-40);
+}
+
+.compliance-view-link:hover {
+  color: var(--heading-color);
+}
+
+.compliance-download-link {
+  gap: 10px;
+  color: var(--black-20);
+}
+
+.compliance-download-link:visited {
+  color: var(--black-20);
+}
+
+.compliance-download-line {
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+  transition:
+    width 0.25s ease,
+    background 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.compliance-download-type {
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+.compliance-download-link svg {
+  width: 18px;
+  height: 18px;
+  transition: color 0.25s ease;
+}
+
+.compliance-download-link:hover {
+  color: var(--heading-color);
+}
+
+.compliance-download-link:hover .compliance-download-line {
+  width: 36px;
+  opacity: 1;
+  background: var(--primary-color);
+}
+
+.compliance-download-link:hover svg {
+  color: var(--primary-color);
+}
+
+.compliance-view-link:focus-visible,
+.compliance-download-link:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+}
+
+/* Empty / error state */
+
+.compliance-empty {
+  padding: 60px 20px;
+  text-align: center;
+  border: 1px dashed var(--lg-highlight);
+  border-radius: 8px;
+  color: var(--black-30);
+}
+
+.compliance-empty-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+  color: var(--black-50);
+}
+
+.compliance-empty p {
+  margin: 0;
+}
+
+/* Tablet / iPad: reduce large vertical padding */
+@media screen and (min-width: 768px) and (max-width: 1366px) {
+  .compliance-listing {
+    padding: 70px 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .compliance-intro {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .compliance-filter {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .compliance-listing {
+    padding: 50px 0 60px;
+  }
+
+  .compliance-intro {
+    margin-bottom: 40px;
+  }
+
+  .compliance-project {
+    margin-bottom: 52px;
+  }
+
+  .compliance-project-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .compliance-project-title {
+    font-size: 22px;
+  }
+
+  .compliance-document-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .compliance-document-actions {
+    justify-content: space-between;
+    padding-left: 38px;
+  }
+}

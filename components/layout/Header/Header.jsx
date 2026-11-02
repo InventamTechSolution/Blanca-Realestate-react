@@ -105,6 +105,7 @@ const Header = () => {
         { label: "Journey of Innovations", href: "/about#journey" },
         { label: "Leadership", href: "/about#leadership" },
         { label: "Blog", href: "/blog" },
+        { label: "Compliance", href: "/compliance" },
       ]
     },
     {

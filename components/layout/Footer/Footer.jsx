@@ -343,6 +343,9 @@ const Footer = ({ initialSettingResponse, initialCategoryResponse }) => {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/compliance">Compliance</Link>
+                </li>
+                <li>
                   <Link href="/contact">Contact Us</Link>
                 </li>
               </ul>
