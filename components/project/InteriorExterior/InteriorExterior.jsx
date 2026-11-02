@@ -84,37 +84,6 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                   <Icon icon="lucide:arrow-right" />
                 </Button>
               </div>
-
-              {/* Thumbnail Slider */}
-              <div className="gallery-thumb-slider-wrap">
-                <div className="gallery-thumb-slider d-flex gap-2">
-                  {interiorImages.map((img, index) => (
-                    <div
-                      key={index}
-                      className={`thumb-slide ${
-                        interiorIndex === index ? "active" : ""
-                      }`}
-                      onClick={() => setInteriorIndex(index)}
-                      style={{
-                        order:
-                          (index - interiorIndex + interiorImages.length) %
-                          interiorImages.length,
-                        position: "relative",
-                        width: "80px",
-                        height: "60px",
-                      }}
-                    >
-                      <Image
-                        src={img}
-                        alt={`Thumb ${index + 1}`}
-                        fill
-                        style={{ objectFit: "cover" }}
-                        sizes="80px"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
             </motion.div>
           </Col>
 
@@ -188,37 +157,6 @@ const InteriorExterior = ({ interiorImages, exteriorImages }) => {
                 >
                   <Icon icon="lucide:arrow-right" />
                 </Button>
-              </div>
-
-              {/* Thumbnail Slider */}
-              <div className="gallery-thumb-slider-wrap">
-                <div className="gallery-thumb-slider d-flex gap-2">
-                  {exteriorImages.map((img, index) => (
-                    <div
-                      key={index}
-                      className={`thumb-slide ${
-                        exteriorIndex === index ? "active" : ""
-                      }`}
-                      onClick={() => setExteriorIndex(index)}
-                      style={{
-                        order:
-                          (index - exteriorIndex + exteriorImages.length) %
-                          exteriorImages.length,
-                        position: "relative",
-                        width: "80px",
-                        height: "60px",
-                      }}
-                    >
-                      <Image
-                        src={img}
-                        alt={`Thumb ${index + 1}`}
-                        fill
-                        style={{ objectFit: "cover" }}
-                        sizes="80px"
-                      />
-                    </div>
-                  ))}
-                </div>
               </div>
             </motion.div>
           </Col>

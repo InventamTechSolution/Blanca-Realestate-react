@@ -8,6 +8,7 @@ import ThankYouModal from "../../common/ThankYouModal/ThankYouModal";
 import { useSetting } from "../../../hooks/useSetting";
 import { useCategories } from "../../../hooks/useCategories";
 import { useContactUs } from "../../../hooks/useContactUs";
+import { useOtherFieldModel } from "../../../hooks/useOtherField";
 import { usePathname } from "next/navigation";
 import "./Footer.css";
 
@@ -15,7 +16,20 @@ import Image from "next/image";
 import { CONTACT } from "../../../config/contact";
 const logo = "/images/logos/blanca-logo.webp";
 
-const Footer = ({ initialSettingResponse, initialCategoryResponse }) => {
+const DEFAULT_COPYRIGHT = "© 2025 Blanca Real Estate. All rights reserved.";
+
+// Copyright line from Admin → Settings, shown exactly as entered.
+const getCopyrightText = (footerContent) => {
+  const rows = footerContent?.data;
+  const saved = Array.isArray(rows) ? rows[0]?.fields?.copyright : "";
+  return String(saved || "").trim() || DEFAULT_COPYRIGHT;
+};
+
+const Footer = ({
+  initialSettingResponse,
+  initialCategoryResponse,
+  initialFooterContent,
+}) => {
   const footerRef = React.useRef(null);
   const pathname = usePathname();
   const [hash, setHash] = React.useState("");
@@ -28,6 +42,10 @@ const Footer = ({ initialSettingResponse, initialCategoryResponse }) => {
       staleTime: 60_000,
     }
   );
+  const { data: footerContent } = useOtherFieldModel("Footer", {
+    initialData: initialFooterContent ?? undefined,
+    staleTime: 60_000,
+  });
   const { data: categoryResponse } = useCategories(
     { limit: 10, page: 1 },
     {
@@ -471,7 +489,7 @@ const Footer = ({ initialSettingResponse, initialCategoryResponse }) => {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <p className="copyright">
-              © 2025 Blanca Real Estate. All rights reserved.
+              {getCopyrightText(footerContent)}
             </p>
 
             {/* Social Links */}

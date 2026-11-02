@@ -199,7 +199,7 @@ const ProjectDetails = ({ project }) => {
                           className="download-btn"
                           onClick={() =>
                             openAssetOrContact({
-                              type: "Fact Sheet",
+                              type: "Floor Plan",
                               url: factSheetUrl,
                             })
                           }
@@ -209,7 +209,7 @@ const ProjectDetails = ({ project }) => {
                           </div>
                           <div className="btn-text">
                             <span className="btn-title bs-font-montserrat">
-                              FACT SHEET
+                              FLOOR PLAN
                             </span>
                             <span className="btn-subtitle">
                               DOWNLOAD{" "}

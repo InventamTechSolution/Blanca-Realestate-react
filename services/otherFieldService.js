@@ -5,3 +5,11 @@ export const getOtherField = async () => {
   return data;
 };
 
+// A single content group, e.g. "Footer".
+export const getOtherFieldByModel = async (model) => {
+  const { data } = await axiosInstance.get(
+    `/other-field/${encodeURIComponent(model)}`,
+  );
+  return data;
+};
+

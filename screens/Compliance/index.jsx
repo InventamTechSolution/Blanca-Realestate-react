@@ -16,6 +16,29 @@ const ALL_PROJECTS = "all";
 const documentCountLabel = (count) =>
   `${count} ${count === 1 ? "Document" : "Documents"}`;
 
+const formatFileSize = (bytes) => {
+  if (!Number.isFinite(bytes) || bytes <= 0) return "";
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+};
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const IST_OFFSET_SECONDS = 5.5 * 60 * 60;
+
+// Formatted in India time with fixed month names, so the server render and the
+// browser always produce the same text (no locale or timezone differences).
+const formatDate = (unixSeconds) => {
+  if (!unixSeconds) return "";
+  const date = new Date((unixSeconds + IST_OFFSET_SECONDS) * 1000);
+  return `${date.getUTCDate()} ${MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
+};
+
+const latestUpdate = (documents) =>
+  documents.reduce(
+    (latest, doc) => Math.max(latest, Number(doc.file_updated_at) || 0),
+    0,
+  );
+
 export default function Compliance({ initialData }) {
   const [selectedProject, setSelectedProject] = React.useState(ALL_PROJECTS);
 
@@ -55,8 +78,8 @@ export default function Compliance({ initialData }) {
             <div className="compliance-intro">
               <p className="compliance-intro-text">
                 Statutory approvals, environmental clearances and periodic
-                compliance reports for our projects. Select a project to view
-                or download its documents.
+                compliance reports for our projects. View any document online
+                or download a copy.
               </p>
               {projects.length > 1 && (
                 <div className="compliance-filter">
@@ -73,6 +96,7 @@ export default function Compliance({ initialData }) {
 
             {visibleProjects.map((project) => {
               const documents = project.documents || [];
+              const updatedOn = formatDate(latestUpdate(documents));
               return (
                 <section
                   key={project.compliance_project_compliance_project_id}
@@ -89,6 +113,7 @@ export default function Compliance({ initialData }) {
                     </h2>
                     <span className="compliance-project-count">
                       {documentCountLabel(documents.length)}
+                      {updatedOn && ` · Updated ${updatedOn}`}
                     </span>
                   </header>
 
@@ -101,6 +126,12 @@ export default function Compliance({ initialData }) {
                   <ul className="compliance-document-list">
                     {documents.map((doc) => {
                       const fileType = (doc.file_type || "file").toUpperCase();
+                      const meta = [
+                        fileType,
+                        formatFileSize(Number(doc.file_size)),
+                        doc.file_updated_at &&
+                          `Updated ${formatDate(Number(doc.file_updated_at))}`,
+                      ].filter(Boolean);
                       return (
                         <li
                           key={doc.compliance_document_id}
@@ -114,8 +145,17 @@ export default function Compliance({ initialData }) {
                             />
                             <div className="compliance-document-text">
                               <h3 className="compliance-document-title">
-                                {doc.title}
+                                <a
+                                  href={doc.file}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {doc.title}
+                                </a>
                               </h3>
+                              <p className="compliance-document-meta">
+                                {meta.join(" · ")}
+                              </p>
                               {doc.description && (
                                 <p className="compliance-document-description">
                                   {doc.description}

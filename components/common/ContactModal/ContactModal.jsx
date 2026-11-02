@@ -64,17 +64,17 @@ const ContactModal = () => {
           };
     }
 
-    if (normalizedType.includes("fact")) {
+    if (normalizedType.includes("floor")) {
       return hasDownload
         ? {
-            title: "Fact Sheet Download",
+            title: "Floor Plan Download",
             message:
-              "Thank you for contacting us. Your fact sheet download will begin shortly, and our representative will reach out to you soon.",
+              "Thank you for contacting us. Your floor plan download will begin shortly, and our representative will reach out to you soon.",
           }
         : {
-            title: "Fact Sheet Request Received",
+            title: "Floor Plan Request Received",
             message:
-              "Thank you for contacting us. Our representative will reach out to you shortly and share the fact sheet with you.",
+              "Thank you for contacting us. Our representative will reach out to you shortly and share the floor plan with you.",
           };
     }
 

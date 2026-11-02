@@ -15,6 +15,7 @@ import { DEFAULT_META_TITLE, DEFAULT_META_DESCRIPTION } from "@/utils/constant";
 import { CONTACT } from "@/config/contact";
 import { getSetting } from "@/services/settingService";
 import { getCategories } from "@/services/categoryService";
+import { getOtherFieldByModel } from "@/services/otherFieldService";
 
 export const revalidate = 3600;
 
@@ -56,14 +57,20 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   // Pre-fetch footer data at SSR time so Footer renders with real data on first paint.
   // This eliminates the client-side refetch that caused CLS 1.0 on mobile.
-  const [settingResult, categoryResult] = await Promise.allSettled([
-    getSetting({ show_on_home_page: true }),
-    getCategories({ limit: 10, page: 1 }),
-  ]);
+  const [settingResult, categoryResult, footerContentResult] =
+    await Promise.allSettled([
+      getSetting({ show_on_home_page: true }),
+      getCategories({ limit: 10, page: 1 }),
+      getOtherFieldByModel("Footer"),
+    ]);
   const initialSettingResponse =
     settingResult.status === "fulfilled" ? settingResult.value : null;
   const initialCategoryResponse =
     categoryResult.status === "fulfilled" ? categoryResult.value : null;
+  const initialFooterContent =
+    footerContentResult.status === "fulfilled"
+      ? footerContentResult.value
+      : null;
 
   const jsonLd = [
     {
@@ -128,6 +135,7 @@ export default async function RootLayout({ children }) {
             <Footer
               initialSettingResponse={initialSettingResponse}
               initialCategoryResponse={initialCategoryResponse}
+              initialFooterContent={initialFooterContent}
             />
           </AppShell>
         </Providers>

@@ -151,7 +151,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                   className="download-link fact-sheet"
                   onClick={(e) =>
                     openAssetOrContact(e, {
-                      type: "Fact Sheet",
+                      type: "Floor Plan",
                       url: factSheetUrl,
                     })
                   }
@@ -161,7 +161,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                     <Icon icon="solar:bill-list-outline" />
                   </div>
                   <div className="download-text">
-                    <span className="title">FACT SHEET</span>
+                    <span className="title">FLOOR PLAN</span>
                     <span className="action">
                       DOWNLOAD{" "}
                       <Icon
@@ -264,7 +264,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                 className="download-link fact-sheet"
                 onClick={(e) =>
                   openAssetOrContact(e, {
-                    type: "Fact Sheet",
+                    type: "Floor Plan",
                     url: factSheetUrl,
                   })
                 }
@@ -274,7 +274,7 @@ const ProjectCard = ({ project, layout = "grid" }) => {
                   <Icon icon="solar:bill-list-outline" />
                 </div>
                 <div className="download-text">
-                  <span className="title">FACT SHEET</span>
+                  <span className="title">FLOOR PLAN</span>
                   <span className="action">
                     DOWNLOAD{" "}
                     <Icon

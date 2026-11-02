@@ -132,6 +132,32 @@
   overflow-wrap: anywhere;
 }
 
+.compliance-document-title a,
+.compliance-document-title a:visited {
+  color: inherit;
+}
+
+.compliance-document-title a:hover {
+  color: var(--heading-color);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--primary-color);
+}
+
+.compliance-document-title a:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.compliance-document-meta {
+  margin: 4px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.6px;
+  color: var(--black-50);
+}
+
 .compliance-document-description {
   margin: 4px 0 0;
   font-size: 14px;
@@ -293,8 +319,23 @@
     padding: 16px;
   }
 
+  /* Keep both actions on the left, clear of the floating contact buttons
+     that sit on the right edge of the screen. */
   .compliance-document-actions {
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
     padding-left: 38px;
+  }
+
+  .compliance-download-line {
+    display: none;
+  }
+}
+
+/* Touch screens (phones and tablets): finger-sized tap targets */
+@media (pointer: coarse) {
+  .compliance-view-link,
+  .compliance-download-link {
+    min-height: 44px;
   }
 }
